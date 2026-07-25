@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS-CHILLER-SPA-04 — Cold Plunge Pool Chiller CPC-01</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root{
+  --aqua:#17D4E8;--aqua-l:#67E8F9;
+  --gold:#D4AF37;--gold-l:#f0d878;
+  --navy:#040c18;--navy2:#0d2040;--navy3:#081830;
+  --teal:#17C3D4;--red:#C0392B;--amber:#EF9F27;
+  --green:#27AE60;--blue:#2471A3;
+  --text:#dff4ff;--text2:rgba(223,244,255,0.65);
+  --cold:#4FC3F7;--cold-l:#B3E5FC;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--navy);color:var(--text);display:flex;flex-direction:column;min-height:100vh;}
+.bg-wrap{position:fixed;inset:0;z-index:-1;}
+.bg-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 50%,rgba(79,195,247,0.12) 0%,transparent 50%),radial-gradient(ellipse at 85% 20%,rgba(23,212,232,0.09) 0%,transparent 50%),linear-gradient(180deg,#020a14 0%,#051828 100%);}
+.bg-wrap::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(79,195,247,0.04) 80px),repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(79,195,247,0.04) 80px);}
+/* HEADER */
+header{position:fixed;top:0;width:100%;z-index:1000;background:rgba(3,10,20,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(79,195,247,0.28);padding:8px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 24px rgba(0,0,0,0.60);}
+.hdr-left{display:flex;align-items:center;gap:16px;}
+.hdr-title h1{font-family:'Arial Narrow',Arial,sans-serif;font-size:17px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-shadow:0 0 16px rgba(212,175,55,0.45);}
+.hdr-title .sub{font-size:10px;color:rgba(79,195,247,0.55);letter-spacing:1.5px;text-transform:uppercase;margin-top:1px;}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.doc-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:rgba(79,195,247,0.08);border:1px solid rgba(79,195,247,0.28);color:rgba(79,195,247,0.80);letter-spacing:1px;}
+.btn-nav{display:flex;align-items:center;gap:7px;padding:6px 13px;border-radius:5px;border:1px solid rgba(212,175,55,0.45);background:rgba(212,175,55,0.10);color:var(--gold);font-size:12px;font-weight:600;text-decoration:none;transition:all 0.25s;}
+.btn-nav:hover{background:rgba(212,175,55,0.22);border-color:var(--gold);color:var(--gold-l);}
+.btn-download{display:flex;align-items:center;gap:7px;padding:6px 13px;border-radius:5px;border:1px solid rgba(79,195,247,0.35);background:rgba(79,195,247,0.08);color:var(--cold);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.25s;}
+.btn-download:hover{background:rgba(79,195,247,0.20);border-color:var(--cold);}
+/* LAYOUT */
+.layout{display:flex;padding-top:60px;}
+/* SIDEBAR */
+.sidebar{width:240px;min-width:240px;position:fixed;top:60px;left:0;bottom:0;background:rgba(3,10,22,0.92);border-right:1px solid rgba(79,195,247,0.15);overflow-y:auto;padding:16px 0;z-index:100;}
+.sidebar::-webkit-scrollbar{width:4px;}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(79,195,247,0.25);border-radius:2px;}
+.sidebar-title{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(79,195,247,0.45);padding:0 16px 10px;border-bottom:1px solid rgba(79,195,247,0.10);margin-bottom:8px;}
+.nav-item{display:block;padding:7px 16px;font-size:11px;color:rgba(223,244,255,0.55);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;}
+.nav-item:hover,.nav-item.active{color:var(--cold-l);border-left-color:var(--cold);background:rgba(79,195,247,0.06);}
+.nav-item .nav-num{color:var(--cold);font-weight:700;margin-right:6px;}
+.nav-section{padding:8px 16px 4px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(79,195,247,0.30);}
+/* MAIN */
+main{margin-left:240px;flex:1;padding:24px 32px 60px;max-width:calc(100% - 240px);}
+/* COVER */
+.cover{position:relative;overflow:hidden;border:1px solid rgba(79,195,247,0.35);border-radius:16px;padding:40px 48px;margin-bottom:32px;box-shadow:0 24px 56px rgba(0,0,0,0.75);}
+.cover::before{content:'';position:absolute;inset:0;background-image:url('MS-Cold Plunge Chiller.jpg');background-size:cover;background-position:center;z-index:0;}
+.cover::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(4,12,28,0.38) 0%,rgba(2,8,18,0.42) 100%);z-index:1;}
+.cover>*{position:relative;z-index:2;}
+.cover-project{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cold);margin-bottom:4px;}
+.cover-location{font-size:12px;color:var(--text2);margin-bottom:28px;}
+.cover-ms-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(212,175,55,0.60);margin-bottom:8px;}
+.cover-title{font-family:'Arial Narrow',Arial,sans-serif;font-size:32px;font-weight:700;line-height:1.2;color:var(--gold);letter-spacing:2px;text-transform:uppercase;text-shadow:0 0 24px rgba(212,175,55,0.35);margin-bottom:16px;}
+.unit-badge{padding:10px 18px;border-radius:8px;font-size:13px;font-weight:700;background:rgba(79,195,247,0.10);border:1px solid rgba(79,195,247,0.32);color:var(--cold-l);margin-bottom:16px;}
+.cover-divider{height:3px;background:linear-gradient(90deg,var(--cold),var(--gold),transparent);border-radius:2px;margin-bottom:24px;}
+.cover-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;}
+.cover-meta-item{display:flex;flex-direction:column;gap:2px;}
+.cover-meta-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);}
+.cover-meta-value{font-size:13px;font-weight:600;color:var(--text);}
+/* TEMP-BADGE (cold highlight) */
+.cold-badge{display:inline-block;background:rgba(79,195,247,0.12);border:1px solid rgba(79,195,247,0.30);border-radius:4px;color:var(--cold-l);font-weight:700;padding:1px 8px;font-size:12px;}
+/* SECTION HEADERS */
+.sec-h1{background:linear-gradient(90deg,#1A3550,#0a2438);border-left:4px solid var(--cold);padding:12px 20px;margin:32px 0 16px;border-radius:0 8px 8px 0;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;}
+.sec-h2{font-size:13px;font-weight:700;color:var(--cold);margin:24px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(212,175,55,0.35);}
+.sec-h3{font-size:12px;font-weight:700;color:var(--gold-l);margin:18px 0 8px;}
+/* TABLES */
+.tbl-wrap{overflow-x:auto;margin:12px 0 20px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th{background:#1A3550;color:#fff;padding:9px 12px;text-align:left;font-weight:700;font-size:11px;letter-spacing:0.5px;}
+td{padding:8px 12px;border-bottom:1px solid rgba(79,195,247,0.10);color:var(--text);line-height:1.45;}
+tr:nth-child(even) td{background:rgba(10,30,54,0.50);}
+tr:nth-child(odd) td{background:rgba(4,15,30,0.40);}
+tr:hover td{background:rgba(79,195,247,0.07);}
+td.key{font-weight:700;color:var(--cold-l);white-space:nowrap;width:38%;}
+td.tag{font-weight:700;color:var(--gold);font-size:11px;letter-spacing:0.5px;}
+td.num{text-align:center;color:var(--cold);font-weight:700;width:36px;}
+td.chk{text-align:center;font-size:18px;color:rgba(223,244,255,0.4);width:70px;}
+td.rec{color:rgba(212,175,55,0.65);font-style:italic;}
+td.crit-val{color:var(--red);font-weight:700;}
+/* STEP/BULLET LISTS */
+.bul-list{list-style:none;margin:8px 0 12px;padding:0;}
+.bul-list li{padding:4px 0 4px 20px;position:relative;font-size:12.5px;line-height:1.5;}
+.bul-list li::before{content:'●';position:absolute;left:0;color:var(--cold);font-size:8px;top:8px;}
+.step-list{list-style:none;margin:8px 0 12px;padding:0;counter-reset:steps;}
+.step-list li{counter-increment:steps;padding:5px 0 5px 34px;position:relative;font-size:12.5px;line-height:1.5;border-bottom:1px solid rgba(79,195,247,0.06);}
+.step-list li::before{content:counter(steps)'.';position:absolute;left:0;top:5px;color:var(--teal);font-weight:700;font-size:12px;width:28px;text-align:right;}
+/* NOTES */
+.note{padding:10px 16px;margin:12px 0;border-radius:0 6px 6px 0;font-size:12px;line-height:1.5;}
+.note-note{border-left:4px solid var(--teal);background:rgba(23,195,212,0.08);}
+.note-warn{border-left:4px solid var(--red);background:rgba(192,57,43,0.10);}
+.note-caut{border-left:4px solid var(--amber);background:rgba(239,159,39,0.08);}
+.note .tag{font-weight:700;font-size:11px;letter-spacing:1px;margin-right:6px;}
+.note-note .tag{color:var(--teal);}
+.note-warn .tag{color:#e74c3c;}
+.note-caut .tag{color:var(--amber);}
+p.body{font-size:12.5px;line-height:1.6;color:var(--text);margin:8px 0 14px;}
+section{scroll-margin-top:72px;}
+/* FOOTER */
+footer{position:fixed;bottom:0;width:100%;background:rgba(3,10,20,0.94);border-top:1px solid rgba(212,175,55,0.28);color:rgba(212,175,55,0.65);padding:8px 24px;font-size:11px;display:flex;align-items:center;justify-content:space-between;z-index:999;}
+.btn-up{width:30px;height:30px;border-radius:50%;background:rgba(212,175,55,0.10);border:1px solid rgba(212,175,55,0.38);color:var(--gold);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all 0.3s;font-size:12px;}
+.btn-up:hover{background:rgba(212,175,55,0.24);border-color:var(--gold);}
+@media print{.bg-wrap,header,.sidebar,footer,.btn-nav,.btn-download{display:none!important;}main{margin-left:0!important;padding:16px!important;max-width:100%!important;}body{background:#fff;color:#000;}.cover{background:#f5f5f5;border-radius:0;}.cover-title{color:#1A3550;}.sec-h1{background:#1A3550;color:#fff;}.sec-h2{color:#1A3550;}td,p.body,.bul-list li,.step-list li{color:#000;}}
+@media(max-width:900px){.sidebar{display:none;}main{margin-left:0;max-width:100%;padding:16px;}.cover-meta{grid-template-columns:1fr;}}
+</style>
+</head>
+<body id="top">
+<div class="bg-wrap"></div>
+
+<header>
+  <div class="hdr-left">
+    <a href="Method Statements Dashboard.html" class="btn-nav"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+    <div class="hdr-title">
+      <h1><i class="fa-solid fa-snowflake" style="margin-right:8px;color:#4FC3F7;"></i>SPA &amp; Pool Facility Method Statements</h1>
+      <span class="sub">CEO Villa — Al Murjan, Jeddah — IHCC</span>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <span class="doc-badge">MS-CHILLER-SPA-04 | Rev.00</span>
+    <button class="btn-download" onclick="downloadPDF()"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+    <a href="../../EVA-CORE.html" class="btn-nav"><i class="fa-solid fa-house"></i> Home</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-title">Document Sections</div>
+    <a class="nav-item" href="#cover"><span class="nav-num">◆</span>Cover</a>
+    <a class="nav-item" href="#projinfo"><span class="nav-num">◆</span>Project Information</a>
+    <div class="nav-section">Main Sections</div>
+    <a class="nav-item" href="#sec1"><span class="nav-num">1.</span>Purpose &amp; Scope</a>
+    <a class="nav-item" href="#sec2"><span class="nav-num">2.</span>Codes &amp; Standards</a>
+    <a class="nav-item" href="#sec3"><span class="nav-num">3.</span>Responsibilities</a>
+    <a class="nav-item" href="#sec4"><span class="nav-num">4.</span>Materials &amp; Equipment</a>
+    <a class="nav-item" href="#sec5"><span class="nav-num">5.</span>Health, Safety &amp; Environment</a>
+    <a class="nav-item" href="#sec6"><span class="nav-num">6.</span>Installation Procedure</a>
+    <a class="nav-item" href="#sec7"><span class="nav-num">7.</span>QC Inspection Checklist</a>
+    <a class="nav-item" href="#sec8"><span class="nav-num">8.</span>Testing &amp; Commissioning</a>
+    <a class="nav-item" href="#sec9"><span class="nav-num">9.</span>Documentation &amp; Handover</a>
+    <a class="nav-item" href="#signatures"><span class="nav-num">✎</span>Signatures</a>
+    <div style="margin-top:20px;padding:12px 16px;border-top:1px solid rgba(79,195,247,0.12);">
+      <div style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(79,195,247,0.40);margin-bottom:10px;">Unit Covered</div>
+      <div style="font-size:10px;color:var(--cold);font-weight:700;">CPC-01</div>
+      <div style="font-size:9px;color:rgba(223,244,255,0.45);margin-bottom:6px;">Model: CZCHCPI103T</div>
+      <div style="font-size:9px;color:rgba(223,244,255,0.45);margin-bottom:6px;">S/N: 8D00240407003C10</div>
+      <div style="font-size:9px;color:rgba(223,244,255,0.45);margin-bottom:6px;">Cooling: 14.1–58 kW (inverter)</div>
+      <div style="font-size:9px;color:rgba(223,244,255,0.45);margin-bottom:6px;">27A FLA | 380V/3N/60Hz</div>
+      <div style="font-size:9px;color:rgba(79,195,247,0.70);font-weight:600;">Cold Plunge Pool</div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- COVER -->
+    <section id="cover">
+      <div class="cover">
+        <div class="cover-project">CEO VILLA &nbsp;|&nbsp; SPA &amp; POOL FACILITY</div>
+        <div class="cover-location">IHCC &nbsp;·&nbsp; Al Murjan, Jeddah, Kingdom of Saudi Arabia &nbsp;·&nbsp; Project Code: 10144</div>
+        <div class="cover-ms-label">Method Statement</div>
+        <div class="cover-title">Installation, Piping<br>Connections &amp;<br>Commissioning of<br>Cold Plunge Pool Chiller</div>
+        <div class="unit-badge"><i class="fa-solid fa-snowflake" style="margin-right:10px;color:#4FC3F7;"></i>CPC-01 &nbsp;·&nbsp; Full Inverter Heat Pump &nbsp;·&nbsp; CZCHCPI103T &nbsp;·&nbsp; 58 kW Cooling &nbsp;·&nbsp; Cold Plunge Pool</div>
+        <div class="cover-divider"></div>
+        <div class="cover-meta">
+          <div class="cover-meta-item"><span class="cover-meta-label">Document Reference</span><span class="cover-meta-value" style="color:var(--cold);">MS-CHILLER-SPA-04</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Revision</span><span class="cover-meta-value">Rev. 00</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Prepared By</span><span class="cover-meta-value">Adil Magdy – Mechanical Engineer, Aseeb Contracting Co.</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Submitted To</span><span class="cover-meta-value">Saqib Manzoor – Senior Mechanical Engineer, IHCC</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Refrigerant</span><span class="cover-meta-value" style="color:var(--amber);">R410A — Factory Pre-Charged (Sealed Circuit)</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Unit Weight</span><span class="cover-meta-value" style="color:var(--red);">420 kg — Crane or Forklift Required</span></div>
+        </div>
+        <div class="note note-caut" style="margin-top:24px;"><span class="tag">CAUTION:</span>The R410A refrigerant circuit is factory pre-charged and sealed. No refrigerant brazing, charging, or recovery is expected as part of normal installation. All refrigerant work, if required, must be performed only by a licensed refrigerant technician holding a valid refrigerant handling certificate.</div>
+      </div>
+    </section>
+
+    <!-- PROJECT INFO -->
+    <section id="projinfo">
+      <div class="sec-h1">PROJECT &amp; DOCUMENT INFORMATION</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Project Name</td><td>CEO Villa (Private Residence)</td></tr>
+        <tr><td class="key">Location</td><td>Al Murjan, Jeddah, Kingdom of Saudi Arabia</td></tr>
+        <tr><td class="key">Client</td><td>Engr. Sultan Batterjee</td></tr>
+        <tr><td class="key">Consultant</td><td>3C Engineering &amp; Architectural Consultant</td></tr>
+        <tr><td class="key">Main Contractor</td><td>IHCC – Integrated Home Construction Company</td></tr>
+        <tr><td class="key">Sub-Contractor</td><td>Aseeb Contracting Company</td></tr>
+        <tr><td class="key">Work Order No.</td><td>WO # 34982</td></tr>
+        <tr><td class="key">Document No.</td><td style="color:var(--cold);font-weight:700;">MS-CHILLER-SPA-04</td></tr>
+        <tr><td class="key">Revision</td><td>00 – Initial Issue</td></tr>
+                <tr><td class="key">Approved Shop Drawing</td><td>SB-ASB-SD-ME-008-R1</td></tr>
+        <tr><td class="key">Status</td><td><span style="color:var(--green);font-weight:700;">Submitted for Review &amp; Approval</span></td></tr>
+      </tbody></table></div>
+    </section>
+
+    <!-- SECTION 1 -->
+    <section id="sec1">
+      <div class="sec-h1">1. &nbsp;PURPOSE &amp; SCOPE</div>
+      <div class="sec-h2">1.1 &nbsp;Purpose</div>
+      <p class="body">This Method Statement establishes the approved procedure for the mechanical installation, water piping connections, electrical connections, and full commissioning of the Cold Plunge Pool Chiller (Tag: CPC-01) within the SPA &amp; Pool Facility of the CEO Villa Project. The document ensures compliance with the manufacturer's installation requirements, the approved shop drawing SB-ASB-SD-ME-008-R1, international mechanical standards, and the project quality and safety plan.</p>
+
+      <div class="sec-h2">1.2 &nbsp;Equipment Summary</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Equipment Tag</td><td style="color:var(--cold);font-weight:700;">CPC-01</td></tr>
+        <tr><td class="key">Description</td><td>Cold Plunge Pool Full Inverter Heat Pump (used in Cooling Mode only)</td></tr>
+        <tr><td class="key">Model</td><td style="color:var(--cold-l);font-weight:700;">CZCHCPI103T</td></tr>
+        <tr><td class="key">Serial Number / Barcode</td><td>8D00240407003C10</td></tr>
+        <tr><td class="key">Service</td><td>Cooling of Cold Plunge Pool water to target temperature (10–15°C)</td></tr>
+        <tr><td class="key">Cooling Capacity</td><td>58 ~ 14.1 kW (variable inverter output)</td></tr>
+        <tr><td class="key">Refrigerant</td><td>R410A (factory pre-charged, sealed circuit)</td></tr>
+        <tr><td class="key">Unit Dimensions (L × W × H)</td><td>1250 × 1080 × 1870 mm</td></tr>
+        <tr><td class="key">Unit Weight</td><td class="crit-val">420 kg — certified crane or forklift required</td></tr>
+        <tr><td class="key">Location</td><td>Per Approved Drawing SB-ASB-SD-ME-008-R1</td></tr>
+      </tbody></table></div>
+
+      <div class="sec-h2">1.3 &nbsp;Scope of Work</div>
+      <ul class="bul-list">
+        <li>Receiving, inspection, and handling of the CPC-01 chiller unit</li>
+        <li>Foundation / housekeeping pad verification and unit positioning using crane or forklift</li>
+        <li>Water piping connections: DN63 inlet (from cold plunge pool return) and DN63 outlet (to cold plunge pool supply)</li>
+        <li>Installation of isolation valves, flexible connections, inline strainer, flow switch, pressure gauges, and thermometers</li>
+        <li>Electrical supply connection: 380V / 3N / 60 Hz, 27A rated current</li>
+        <li>Control wiring and BMS interface (if applicable)</li>
+        <li>First start-up, system air purging, temperature setpoint configuration</li>
+        <li>Performance testing and commissioning data recording</li>
+        <li>Handover documentation and O&amp;M manual submission</li>
+      </ul>
+      <div class="note note-caut"><span class="tag">CAUTION:</span>The refrigerant circuit (R410A) is factory pre-charged and sealed. No refrigerant brazing, charging, or recovery is expected as part of normal installation. All refrigerant work, if required, must be performed only by a licensed refrigerant technician holding a valid refrigerant handling certificate.</div>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section id="sec2">
+      <div class="sec-h1">2. &nbsp;APPLICABLE CODES, STANDARDS &amp; REFERENCES</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Reference / Standard</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="key">Manufacturer Manual</td><td>CZCHCPI103T Full Inverter Swimming Pool Heat Pump – Installation &amp; Operation Manual</td></tr>
+          <tr><td class="key">ASHRAE 15 (2022)</td><td>Safety Standard for Refrigeration Systems – R410A handling, pressure relief, and ventilation</td></tr>
+          <tr><td class="key">ANSI/AHRI 550/590</td><td>Performance Rating of Water Chilling Packages Using Vapor Compression Refrigeration</td></tr>
+          <tr><td class="key">ASHRAE 90.1</td><td>Energy Standard for Buildings – Minimum EER requirements</td></tr>
+          <tr><td class="key">NFPA 70 (NEC)</td><td>National Electrical Code – Wiring, breakers, earthing for motor-driven equipment</td></tr>
+          <tr><td class="key">IEC 60335-2-40</td><td>Safety of Household and Similar Appliances – Heat Pumps, Air Conditioners</td></tr>
+          <tr><td class="key">SASO IEC 60335-2-40</td><td>Saudi Standards – Pool Heat Pumps (equivalent IEC standard)</td></tr>
+          <tr><td class="key">SB-ASB-SD-ME-008-R1</td><td>Approved Mechanical Shop Drawing – Cold Plunge Pool Chiller Layout &amp; Piping</td></tr>
+          <tr><td class="key">Project Mechanical Spec.</td><td>CEO Villa Project – Section Mechanical, SPA &amp; Pool Systems</td></tr>
+          <tr><td class="key">CE / RoHS</td><td>CPC-01 Unit Certifications (confirmed on nameplate)</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section id="sec3">
+      <div class="sec-h1">3. &nbsp;RESPONSIBILITIES</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Role</th><th>Responsibility</th></tr></thead>
+        <tbody>
+          <tr><td class="key">Sr. Mechanical Engineer – IHCC<br><span style="font-size:11px;color:var(--cold);">(Saqib Manzoor)</span></td><td>Review and approve this method statement. Witness first start-up and performance test. Issue WIR for consultant inspection. Raise NCR for any non-conformance.</td></tr>
+          <tr><td class="key">Mechanical Engineer – Aseeb<br><span style="font-size:11px;color:var(--cold);">(Adil Magdy)</span></td><td>Prepare and submit MS for review. Supervise all installation and commissioning works. Ensure compliance with manufacturer manual and approved drawings.</td></tr>
+          <tr><td class="key">Licensed Refrigerant Technician</td><td>Only person authorized to inspect the refrigerant circuit, check pressures, and perform any refrigerant recovery or recharging. Must hold valid certification.</td></tr>
+          <tr><td class="key">Licensed Electrician</td><td>Only person authorized to terminate the 380V/3N/60Hz power supply to CPC-01. Must hold valid electrical license. Responsible for earthing and insulation testing.</td></tr>
+          <tr><td class="key">QA / QC Engineer</td><td>Pre-installation material inspection, pressure test witnessing, commissioning data recording. Sign all QC checklists.</td></tr>
+          <tr><td class="key">HSE Officer</td><td>Conduct toolbox talk for heavy lifting (420 kg unit). Ensure LOTO procedures during electrical connection. Ensure refrigerant gas safety protocol is in place.</td></tr>
+          <tr><td class="key">Crane / Forklift Operator</td><td>Certified operator only. Responsible for safe rigging and placement of the 420 kg chiller unit using manufacturer-designated lifting points only.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section id="sec4">
+      <div class="sec-h1">4. &nbsp;MATERIALS &amp; EQUIPMENT</div>
+
+      <div class="sec-h2">4.1 &nbsp;CPC-01 Chiller Unit – Full Technical Specifications</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Equipment Tag</td><td style="color:var(--cold);font-weight:700;">CPC-01</td></tr>
+        <tr><td class="key">Equipment Type</td><td>Full Inverter Swimming Pool Heat Pump – Cooling Mode Operation</td></tr>
+        <tr><td class="key">Model Number</td><td style="color:var(--cold-l);font-weight:700;">CZCHCPI103T</td></tr>
+        <tr><td class="key">Serial No. / Barcode</td><td>8D00240407003C10</td></tr>
+        <tr><td class="key">Cooling Capacity</td><td style="font-weight:700;color:var(--cold-l);">58 ~ 14.1 kW (variable, inverter-controlled)</td></tr>
+        <tr><td class="key">Heating Capacity (not used for cold plunge)</td><td>103 ~ 24.8 kW</td></tr>
+        <tr><td class="key">EER (Energy Efficiency Ratio)</td><td>6.68 ~ 3.65</td></tr>
+        <tr><td class="key">Rated Electrical Power Input</td><td>15.0 kW</td></tr>
+        <tr><td class="key">Rated Current (FLA)</td><td>27.0 A</td></tr>
+        <tr><td class="key">Electrical Supply</td><td>380V / 3N / 60Hz (3-phase + neutral)</td></tr>
+        <tr><td class="key">Electrical Protection Class</td><td>Class I / IPX4</td></tr>
+        <tr><td class="key">Refrigerant</td><td style="color:var(--amber);">R410A (factory pre-charged, sealed circuit)</td></tr>
+        <tr><td class="key">Compressor Max Operating Pressure</td><td>4.4 / 2.5 MPa (high / low side)</td></tr>
+        <tr><td class="key">Water Side Max Pressure</td><td>0.55 MPa (5.5 bar)</td></tr>
+        <tr><td class="key">Water Side Pressure Loss</td><td>40 kPa at design flow</td></tr>
+        <tr><td class="key">Design Circulating Water Flow</td><td style="font-weight:700;color:var(--cold-l);">30 m³/h</td></tr>
+        <tr><td class="key">Water Connection Size</td><td>DN63 (inlet and outlet)</td></tr>
+        <tr><td class="key">Unit Noise Level</td><td>62 dB(A) at 1 metre</td></tr>
+        <tr><td class="key">Operating Ambient Temperature</td><td>–15°C to +52°C</td></tr>
+        <tr><td class="key">Cooling Test Condition</td><td>Air 35°C / Water Inlet 27°C</td></tr>
+        <tr><td class="key">Unit Dimensions (L × W × H)</td><td>1250 × 1080 × 1870 mm</td></tr>
+        <tr><td class="key">Unit Weight (empty)</td><td class="crit-val">420 kg — crane or forklift minimum 1-tonne SWL required</td></tr>
+        <tr><td class="key">Certifications</td><td>CE, RoHS</td></tr>
+      </tbody></table></div>
+
+      <div class="sec-h2">4.2 &nbsp;Associated Cold Plunge Circulation Pumps (Reference — covered under MS-PUMP-SPA-01)</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Tag</th><th>Model</th><th>Manufacturer</th><th>Power</th><th>Flow / Head</th></tr></thead>
+        <tbody>
+          <tr><td class="tag">FP-CPC-01</td><td>WhisperFlo P-WFL-801 2HP</td><td>Pentair International LLC</td><td>1.5 kW / 230V 1PH</td><td>Design flow 30 m³/h / 27 m max head</td></tr>
+          <tr><td class="tag">FP-CPC-02</td><td>WhisperFlo P-WFL-801 2HP</td><td>Pentair International LLC</td><td>1.5 kW / 230V 1PH</td><td>Standby / parallel duty</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">4.3 &nbsp;Water Piping, Valves &amp; Accessories</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Item</th><th>Material / Type</th><th>Size</th><th>Purpose / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td>Isolation Ball Valve – Chiller Water Inlet</td><td>CPVC PN16 True-Union</td><td>DN63</td><td>Shut-off for chiller isolation during maintenance</td></tr>
+          <tr><td>Isolation Ball Valve – Chiller Water Outlet</td><td>CPVC PN16 True-Union</td><td>DN63</td><td>Shut-off for chiller isolation during maintenance</td></tr>
+          <tr><td>Inline Y-Strainer (60–80 mesh)</td><td>CPVC / SS316 basket</td><td>DN63</td><td>Protect heat exchanger from debris; install before chiller inlet</td></tr>
+          <tr><td>Flexible Rubber Connectors</td><td>EPDM rubber, braided wire</td><td>DN63</td><td>Both inlet and outlet; absorb vibration from compressor</td></tr>
+          <tr><td>Pressure Gauge – Inlet Line</td><td>Glycerine-filled, 0–10 bar</td><td>1/4" BSP</td><td>Monitor water inlet pressure to chiller</td></tr>
+          <tr><td>Pressure Gauge – Outlet Line</td><td>Glycerine-filled, 0–10 bar</td><td>1/4" BSP</td><td>Monitor water outlet pressure from chiller</td></tr>
+          <tr><td>Thermometer + Pocket – Inlet</td><td>0–60°C bi-metal dial</td><td>1/2" BSP</td><td>Measure water temperature entering chiller heat exchanger</td></tr>
+          <tr><td>Thermometer + Pocket – Outlet</td><td>0–60°C bi-metal dial</td><td>1/2" BSP</td><td>Measure chilled water temperature leaving chiller</td></tr>
+          <tr><td>Flow Switch (or Differential Pressure Switch)</td><td>Paddle type, SS wetted parts</td><td>DN63</td><td>Interlock: chiller will NOT start if water flow is below minimum</td></tr>
+          <tr><td>Air Vent / Auto Air Release Valve</td><td>Float type, CPVC</td><td>1/2"</td><td>Install at highest point of water circuit to purge trapped air</td></tr>
+          <tr><td>Manual Drain Valve</td><td>CPVC ball valve</td><td>DN25</td><td>At lowest point of chiller water connections for draining</td></tr>
+          <tr><td>PVC Pipe – Water Supply &amp; Return Lines</td><td>ASTM D1785 SCH40 uPVC</td><td>DN63</td><td>Per approved drawing SB-ASB-SD-ME-008-R1</td></tr>
+          <tr><td>Pipe Support Brackets / Hangers</td><td>Galvanized steel</td><td>DN63 rated</td><td>At maximum 1.5 m spacing for DN63 uPVC pipe</td></tr>
+          <tr><td>Pipe Insulation (Return Line)</td><td>Elastomeric foam (e.g., Armaflex Class O)</td><td>19 mm wall</td><td>Chilled water return line to prevent condensation drip</td></tr>
+          <tr><td>Expansion Vessel (if required)</td><td>Potable water rated, pre-charged</td><td>Per design</td><td>Absorb thermal expansion in chilled water circuit</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">4.4 &nbsp;Electrical Materials</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Item</th><th>Rating / Spec</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;">Power Cable – 3-Phase Supply</td><td>4C × 6 mm² Cu/XLPE/SWA/PVC</td><td>380V/3N/60Hz supply from main DB to CPC-01; cable size to suit 27A load + derating</td></tr>
+          <tr><td style="font-weight:700;">Circuit Breaker (MCB) in DB</td><td>40A, 4-pole (3P+N)</td><td>Sized to 1.5× FLA (27A × 1.5 = 40.5A); use 40A or 50A per NEC art. 440</td></tr>
+          <tr><td style="font-weight:700;">Earth (Ground) Cable</td><td>6 mm² green/yellow insulated Cu</td><td>From unit earth terminal to main earth bar</td></tr>
+          <tr><td style="font-weight:700;">Residual Current Device (RCD)</td><td>30mA sensitivity, 4-pole</td><td>Mandatory protection for pool-area electrical equipment</td></tr>
+          <tr><td style="font-weight:700;">Control / BMS Signal Cable</td><td>2C × 1.5 mm² shielded</td><td>From chiller controller to BMS panel (if BMS integration required)</td></tr>
+          <tr><td style="font-weight:700;">Conduit (power cable)</td><td>25 mm dia. galvanized rigid conduit</td><td>Where cable is exposed or below 2.5 m height</td></tr>
+          <tr><td style="font-weight:700;">Cable Tray</td><td>GI cable tray 100 mm wide</td><td>For cable routing from DB to CPC-01 location</td></tr>
+          <tr><td style="font-weight:700;">Terminal Lugs &amp; Cable Markers</td><td>Copper lugs, heat-shrink markers</td><td>Label L1, L2, L3, N, E at both termination ends</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">4.5 &nbsp;Tools &amp; Equipment</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Tool / Equipment</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Crane or Forklift (min. 1-tonne SWL capacity)</td><td>Lifting and positioning the 420 kg CPC-01 unit</td></tr>
+          <tr><td>Certified lifting slings (rated for 600 kg min.)</td><td>Rigging the chiller for crane / forklift – use manufacturer's lifting points only</td></tr>
+          <tr><td>Spirit level (1.0 m)</td><td>Verify unit is level after positioning on pad</td></tr>
+          <tr><td>Torque wrench (20–100 Nm range)</td><td>Tighten anchor bolts and pipe flange connections</td></tr>
+          <tr><td>Pipe cutter / pipe saw</td><td>Cut DN63 uPVC piping cleanly without cracking</td></tr>
+          <tr><td>PVC solvent cement applicator</td><td>For uPVC pipe joint bonding</td></tr>
+          <tr><td>Digital multimeter (CAT III rated)</td><td>Verify electrical supply voltage and check phase sequence</td></tr>
+          <tr><td>Clamp ammeter (0–100A AC)</td><td>Measure actual running current of CPC-01 at full load</td></tr>
+          <tr><td>Calibrated thermometer (Type K or digital)</td><td>Measure water inlet and outlet temperatures for performance verification</td></tr>
+          <tr><td>Refrigerant manifold gauge set (R410A rated)</td><td>Licensed refrigerant technician only – check suction/discharge pressures</td></tr>
+          <tr><td>Vacuum pump (if refrigerant work required)</td><td>Licensed refrigerant technician only – evacuation if system was opened</td></tr>
+          <tr><td>Flow meter / ultrasonic clamp-on flow meter</td><td>Verify 30 m³/h design flow through chiller heat exchanger</td></tr>
+          <tr><td>Decibel meter</td><td>Verify unit noise level does not exceed 62 dB(A) at 1 m</td></tr>
+          <tr><td>Camera / mobile phone</td><td>Document all installation stages for QC record</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section id="sec5">
+      <div class="sec-h1">5. &nbsp;HEALTH, SAFETY &amp; ENVIRONMENT</div>
+
+      <div class="sec-h2">5.1 &nbsp;Critical Safety Hazards</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:18%;">Hazard</th><th style="width:42%;">Risk</th><th>Control Measure</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;color:var(--red);">Heavy Lift – 420 kg Unit</td>
+            <td>Crush injury, dropped load, structural damage</td>
+            <td>Certified crane or forklift only. Lift plan required. Clear exclusion zone. Rigger to direct lift. Use manufacturer lifting points only.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--red);">Electrical – 380V 3-Phase</td>
+            <td>Electrocution, arc flash</td>
+            <td>LOTO before working on wiring. Licensed electrician only. Test voltage before touching terminals.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--red);">Refrigerant R410A</td>
+            <td>Asphyxiation in confined space (displaces oxygen); frostbite from liquid refrigerant release; high pressure (4.4 MPa)</td>
+            <td>Do NOT cut refrigerant pipes. Never expose refrigerant to open flame. On release: evacuate, ventilate, call licensed technician. Manifold gauges required to check pressures.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--amber);">Working at Height</td>
+            <td>Falls during installation if unit is elevated</td>
+            <td>Use certified scaffolding or MEWP. Safety harness if working above 2 m.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--amber);">Noise Hazard</td>
+            <td>62 dB(A) continuous – hearing damage over extended exposure</td>
+            <td>Wear ear protection during commissioning and testing. Limit prolonged exposure near running unit.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--amber);">Hot Surfaces</td>
+            <td>Burns from condenser coil after operation</td>
+            <td>Do not touch the condenser coil or refrigerant pipes when unit is running. Allow 30 min cool-down before inspection.</td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">5.2 &nbsp;PPE Requirements</div>
+      <p class="body">All personnel: safety helmet, safety shoes (steel toe), hi-visibility vest, safety gloves, safety glasses. During electrical work: insulated gloves (IEC 60903 class 00 minimum) and face shield. During refrigerant inspection: safety goggles (chemical splash protection). During unit running / commissioning: ear protection (NRR 25+ or equivalent).</p>
+
+      <div class="sec-h2">5.3 &nbsp;LOTO – Lock-Out Tag-Out</div>
+      <p class="body">Before making any electrical connections to CPC-01: (1) Switch OFF the dedicated MCB in the distribution board. (2) Apply a personal lock and "DANGER – DO NOT ENERGIZE" tag. (3) Test supply terminals with a calibrated meter to confirm zero voltage. (4) Only then proceed with wiring. No other person may remove a lock that belongs to another worker.</p>
+
+      <div class="sec-h2">5.4 &nbsp;Environmental – R410A Refrigerant</div>
+      <p class="body">R410A has a Global Warming Potential (GWP) of 2088. Do not vent refrigerant to atmosphere — this is a regulatory violation. If the refrigerant circuit is found to be leaking, isolate the unit and call a licensed refrigerant technician immediately for recovery using certified equipment. Dispose of old refrigerant through an approved reclaim facility.</p>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section id="sec6">
+      <div class="sec-h1">6. &nbsp;INSTALLATION PROCEDURE</div>
+
+      <div class="sec-h2">6.1 &nbsp;Pre-Installation Activities</div>
+      <div class="sec-h3">6.1.1 &nbsp;Document &amp; Drawing Review</div>
+      <ol class="step-list">
+        <li>Obtain and study the approved shop drawing SB-ASB-SD-ME-008-R1 showing the CPC-01 location, water piping routing, electrical routing, and clearance requirements.</li>
+        <li>Review the CZCHCPI103T manufacturer installation manual in full. Pay specific attention to: minimum clearances, water connection requirements, electrical specifications, and first start-up procedure.</li>
+        <li>Confirm electrical supply specifications with the MEP electrical engineer: verify 380V/3N/60Hz supply is available at the designated DB, with a dedicated 40A 4-pole MCB allocated for CPC-01.</li>
+      </ol>
+
+      <div class="sec-h3">6.1.2 &nbsp;Material Inspection</div>
+      <ol class="step-list">
+        <li>Upon delivery of CPC-01, inspect the unit for shipping damage before signing the delivery note. Check: outer casing for dents or cracks, condenser coil fins for physical damage, refrigerant service ports for cap integrity, and water connections for damage.</li>
+        <li>Verify the unit nameplate: Model = CZCHCPI103T, Serial = 8D00240407003C10. Confirm it matches the Asset Register.</li>
+        <li>Check that the manufacturer's installation manual, wiring diagram, and warranty card are included in the delivery package. These documents must be preserved for the O&amp;M manual.</li>
+        <li>Submit Material Inspection Request (MIR) for CPC-01 and obtain consultant approval before installation.</li>
+      </ol>
+
+      <div class="sec-h2">6.2 &nbsp;Foundation &amp; Unit Positioning</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>The CPC-01 unit weighs 420 kg. A certified crane or forklift with minimum 1-tonne SWL (Safe Working Load) is required. A qualified rigger must direct the lift. All personnel must remain outside the exclusion zone during the lift.</div>
+      <ol class="step-list">
+        <li>Confirm the concrete housekeeping pad or structural steel frame at the CPC-01 installation location is complete, cured (minimum 7 days for concrete), and structurally rated for 420 kg plus dynamic loading. Verify level: tolerance ± 5 mm across the pad.</li>
+        <li>Confirm minimum clearances are available per manufacturer manual at the selected location. Typical minimum clearances: Air inlet side 1500 mm, Air discharge (top) 2000 mm free height, all other sides minimum 600 mm for maintenance access.</li>
+        <li>Install anti-vibration mounting pads (rubber isolators or spring mounts) at each unit leg position. Verify pads are rated for the unit weight.</li>
+        <li>Attach certified lifting slings to the manufacturer-designated lifting lugs ONLY. Do NOT lift from refrigerant pipes, water connections, or the condenser fan frame.</li>
+        <li>Crane or forklift the unit into position. Set the unit down slowly onto the anti-vibration mounts.</li>
+        <li>Check level in both directions with a spirit level. Adjust levelling feet or pads as needed. Maximum allowable deviation: 5 mm across the entire base frame.</li>
+        <li>Anchor the unit base frame to the pad using M12 stainless steel anchor bolts. Torque to 60 Nm. Do not overtighten – this would compress the anti-vibration mounts excessively.</li>
+        <li>Photograph the final positioned unit showing tag number (CPC-01), location, and all clearances. Submit photo for QC record.</li>
+      </ol>
+
+      <div class="sec-h2">6.3 &nbsp;Water Piping Connections</div>
+      <div class="note note-caut"><span class="tag">CAUTION:</span>The water-side maximum pressure for CPC-01 is 0.55 MPa (5.5 bar). All piping, valves, and fittings on the chiller water circuit must be rated for at least 10 bar working pressure to provide a 2:1 safety factor. Pressure test at 1.5 × max working pressure = 0.825 MPa (8.25 bar) before connecting to the chiller.</div>
+
+      <div class="sec-h3">6.3.1 &nbsp;Strainer &amp; Flexible Connector Installation</div>
+      <ol class="step-list">
+        <li>Install a DN63 inline Y-strainer (60–80 mesh stainless steel basket) on the chiller INLET water line, upstream of the chiller water inlet. The strainer protects the titanium or stainless steel heat exchanger from debris and scale. Ensure the strainer blow-down valve is accessible for cleaning.</li>
+        <li>Install DN63 flexible rubber connectors (EPDM, wire-braided) directly at both the chiller water INLET and OUTLET connections. These absorb compressor and fan vibration and prevent it from transmitting into the piping system. Flexible connectors must be installed before any rigid piping.</li>
+      </ol>
+
+      <div class="sec-h3">6.3.2 &nbsp;Water Inlet &amp; Outlet Piping</div>
+      <ol class="step-list">
+        <li>Connect the cold plunge pool RETURN water line (water coming back from pool, warmer) to the chiller water INLET connection (DN63) per drawing. Install true-union isolation ball valve before the flexible connector on the inlet side.</li>
+        <li>Connect the chiller water OUTLET connection (DN63) to the cold plunge pool SUPPLY line (chilled water going to pool). Install true-union isolation ball valve after the flexible connector on the outlet side.</li>
+        <li>All uPVC piping connections to be made using ASTM D1785 SCH40 uPVC pipe with solvent-cement joints. Allow minimum 24 hours curing at room temperature before pressure testing.</li>
+      </ol>
+
+      <div class="sec-h3">6.3.3 &nbsp;Instrumentation</div>
+      <ol class="step-list">
+        <li>Install a glycerine-filled pressure gauge (0–10 bar) on the water inlet line, downstream of the inlet isolation valve and upstream of the strainer. Thread: 1/4" BSP with gate valve root valve.</li>
+        <li>Install a glycerine-filled pressure gauge (0–10 bar) on the water outlet line, upstream of the outlet isolation valve. This allows the pressure differential across the chiller to be monitored.</li>
+        <li>Install a bi-metal dial thermometer (0–60°C) with thermometer pocket at the water inlet to the chiller – the "return temperature" indicating pool water temperature entering the chiller.</li>
+        <li>Install a bi-metal dial thermometer (0–60°C) with thermometer pocket at the water outlet from the chiller – the "supply temperature" indicating chilled water leaving the chiller. The difference between inlet and outlet temperature confirms the chiller is working.</li>
+      </ol>
+
+      <div class="sec-h3">6.3.4 &nbsp;Flow Switch &amp; Interlock</div>
+      <ol class="step-list">
+        <li>Install a paddle-type flow switch on the chiller water inlet line (after strainer) with stainless steel paddle and EPDM seal. Connect the flow switch to the chiller control panel. This is a critical safety interlock: if water flow drops below minimum (e.g., pump failure), the chiller compressor must shut down automatically to prevent heat exchanger freeze-up or dry running.</li>
+        <li>Verify flow switch operation by briefly closing the inlet isolation valve during test (Section 8). The chiller must trip and display a low-flow fault.</li>
+      </ol>
+
+      <div class="sec-h3">6.3.5 &nbsp;Air Venting &amp; Drain</div>
+      <ol class="step-list">
+        <li>Install an automatic air vent (float type) at the highest point of the chiller water circuit. Trapped air causes cavitation, reduced flow, and incorrect temperature readings.</li>
+        <li>Install a DN25 drain ball valve at the lowest point of the chiller connections for draining the unit during maintenance or winterization.</li>
+      </ol>
+
+      <div class="sec-h3">6.3.6 &nbsp;Pipe Insulation</div>
+      <ol class="step-list">
+        <li>Insulate all chilled water piping (outlet from chiller) with minimum 19 mm wall elastomeric foam insulation (e.g., Armaflex Class O or equivalent). This prevents condensation dripping onto floors and reduces cooling losses. All joints and fittings must be fully insulated with no gaps. Secure insulation with adhesive and aluminium tape at all seams.</li>
+      </ol>
+
+      <div class="sec-h2">6.4 &nbsp;Electrical Connections</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>ALL ELECTRICAL WORK MUST BE PERFORMED BY A LICENSED ELECTRICIAN ONLY. Apply LOTO before starting. Rated supply: 380V / 3N / 60Hz. Never connect single-phase supply to this 3-phase unit.</div>
+      <ol class="step-list">
+        <li>Run the 4C × 6 mm² (minimum) power cable in galvanized conduit or on cable tray from the dedicated 4-pole MCB (40A) in the distribution board to the CPC-01 electrical connection panel.</li>
+        <li>At the distribution board: terminate L1, L2, L3, and N to the 40A 4-pole MCB. Install a 30mA RCD (GFCI) upstream of the MCB for personnel protection. Label the MCB clearly: "CPC-01 – Cold Plunge Chiller".</li>
+        <li>At the CPC-01 electrical panel: open the panel cover (unit must be de-energized). Terminate L1, L2, L3, N per the manufacturer's wiring diagram. Terminate the earth cable to the dedicated earth terminal in the panel.</li>
+        <li>Before energizing, perform insulation resistance test: min. 1 MΩ between each phase and earth using a 500V Megger. Record all readings.</li>
+        <li>Check phase sequence with a phase sequence indicator (phase rotation meter). CPC-01 requires correct phase rotation for the compressor. Incorrect phase sequence will damage the compressor.</li>
+        <li>Connect control wiring: the flow switch (Section 6.3.4) connects to the chiller's low-flow protection terminals per wiring diagram. Connect any BMS digital output signal cable if BMS integration is specified.</li>
+        <li>Energize the MCB (pump off, chiller off). Measure supply voltage at the CPC-01 terminals: L1-L2, L2-L3, L1-L3 should each read 380V ± 10% (342–418V). If voltage is outside this range, do not start the unit.</li>
+      </ol>
+
+      <div class="sec-h2">6.5 &nbsp;Pre-Start-Up Checks</div>
+      <ol class="step-list">
+        <li>Confirm all water connections are complete and visually inspected. The 24-hour PVC curing period is complete.</li>
+        <li>Confirm pressure test has been completed and passed (see Section 8.1).</li>
+        <li>Open the water inlet and outlet isolation valves. Fill the cold plunge pool and chiller water circuit with clean water.</li>
+        <li>Slowly open the air vent valve to purge trapped air from the circuit. Leave air vent open until a continuous stream of water (no air bubbles) comes from the vent. Close the air vent.</li>
+        <li>Start the cold plunge circulation pump (FP-CPC-01). Confirm water is circulating through the chiller.</li>
+        <li>Verify the strainer basket is clean and free of debris. Check that the strainer differential pressure is within acceptable range.</li>
+        <li>Verify the flow switch is receiving sufficient flow: the switch indicator light (if any) should show "FLOW OK" condition.</li>
+        <li>Check electrical supply voltage one final time at CPC-01 terminals. Verify phase sequence. Confirm all covers are in place.</li>
+        <li>Check the area around CPC-01 is clear of all personnel except commissioning engineers. Erect a commissioning-in-progress barrier.</li>
+      </ol>
+
+      <div class="sec-h2">6.6 &nbsp;First Start-Up &amp; Commissioning</div>
+      <div class="note note-caut"><span class="tag">CAUTION:</span>Only IHCC Sr. Mechanical Engineer and the licensed commissioning engineer may be present during first start-up. No other trades should be working near CPC-01 during commissioning.</div>
+
+      <div class="sec-h3">Step 1 – Initial Power-On</div>
+      <ol class="step-list">
+        <li>Energize the CPC-01 power supply (MCB ON). The unit display / controller should illuminate and run its self-check routine.</li>
+        <li>Do NOT start the compressor yet. Navigate the controller menu and set: (a) Operating Mode = COOLING, (b) Target Water Temperature setpoint = 12°C (or as directed by client/consultant), (c) Verify no fault codes are displayed.</li>
+      </ol>
+
+      <div class="sec-h3">Step 2 – Starting in Cooling Mode</div>
+      <ol class="step-list">
+        <li>With circulation pump FP-CPC-01 running and water flow confirmed, start the CPC-01 chiller unit in COOLING mode from the controller.</li>
+        <li>Observe the unit: the compressor should start within 3 minutes (full inverter units have a brief soft-start delay). The condenser fan(s) should also start. A low hum from the compressor and fan airflow from the top of the unit is normal.</li>
+        <li>Monitor the controller display: verify no error codes appear during the first 10 minutes of operation.</li>
+      </ol>
+
+      <div class="sec-h3">Step 3 – Performance Monitoring</div>
+      <ol class="step-list">
+        <li>After 15 minutes of operation, measure and record: water inlet temperature (°C), water outlet temperature (°C), supply voltage (all 3 phases), and running current (all 3 phases with clamp ammeter).</li>
+        <li>Verify that the outlet water temperature is lower than the inlet water temperature. The Delta-T will be small initially as the pool water mass is large – this is normal. Over the next few hours, the pool water temperature will gradually reduce toward the setpoint.</li>
+        <li>Running current should be less than or equal to the nameplate FLA of 27.0A on each phase. Record actual readings.</li>
+        <li>The licensed refrigerant technician checks refrigerant suction and discharge pressures with R410A manifold gauges (suction typically 7–10 bar, discharge 20–25 bar at design conditions). If pressures are abnormal, stop unit and investigate.</li>
+        <li>Measure unit noise level at 1 metre from the unit body with a decibel meter. Must not exceed 62 dB(A).</li>
+        <li>Check for excessive vibration on the unit body, water pipes, and structure. Vibration isolation mounts should prevent transmission.</li>
+      </ol>
+
+      <div class="sec-h3">Step 4 – Temperature Setpoint Verification</div>
+      <ol class="step-list">
+        <li>Allow the unit to run for a minimum of 4 hours. Record the cold plunge pool water temperature at start, at 1 hour, 2 hours, and 4 hours to confirm the pool is cooling toward the setpoint.</li>
+        <li>Confirm the chiller cycles correctly: it should modulate its inverter output as the pool temperature approaches the setpoint, not simply switch on/off.</li>
+        <li>Once the cold plunge pool water reaches the target temperature (e.g., 12°C), verify the unit enters its maintenance/holding mode and maintains the temperature.</li>
+      </ol>
+
+      <div class="sec-h3">Step 5 – Safety Interlock Tests</div>
+      <ol class="step-list">
+        <li>Test flow switch interlock: with unit running, briefly close the inlet isolation valve. The chiller must shut down and display a low-flow alarm within 30 seconds. Re-open valve – unit should restart automatically or require manual reset per controller settings.</li>
+        <li>Test high-pressure cutout: consult manufacturer manual for test procedure. Do NOT manipulate the refrigerant circuit to test this unless specifically instructed.</li>
+        <li>Verify that when CPC-01 is running and the pool circulation pump FP-CPC-01 trips, the chiller also shuts down (BMS or flow switch interlock).</li>
+      </ol>
+    </section>
+
+    <!-- SECTION 7 -->
+    <section id="sec7">
+      <div class="sec-h1">7. &nbsp;QUALITY CONTROL CHECKLIST</div>
+
+      <div class="sec-h2">7.1 &nbsp;Pre-Installation Checks</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Check Item</th><th style="text-align:center;width:60px;">✓</th><th style="width:120px;">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>CPC-01 nameplate verified: Model CZCHCPI103T, S/N 8D00240407003C10 matches Asset Register</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">2</td><td>MIR approved by consultant for CPC-01 and all associated materials</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>No shipping damage found on unit (casing, condenser coil fins, refrigerant service ports)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">4</td><td>Manufacturer installation manual and wiring diagram included in delivery package</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">5</td><td>Concrete pad cured and level (tolerance ± 5 mm). Structural capacity confirmed for 420 kg</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">6</td><td>Minimum clearances confirmed: Air inlet 1500 mm, discharge top 2000 mm free, other sides 600 mm</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">7</td><td>Crane / forklift lift plan prepared and reviewed by HSE Officer</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">8</td><td>Certified rigger assigned and briefed on exclusion zone and manufacturer lifting points</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">7.2 &nbsp;Mechanical Installation Checks</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Check Item</th><th style="text-align:center;width:60px;">✓</th><th style="width:120px;">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Anti-vibration mounting pads installed at all unit legs</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">2</td><td>Unit lifted using manufacturer lifting lugs only (NOT refrigerant pipes or fan frame)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>Unit level confirmed in both directions (max 5 mm deviation)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">4</td><td>Unit anchor bolts installed and torqued to 60 Nm (M12 SS anchors)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">5</td><td>DN63 Y-strainer installed on water inlet, basket clean, blow-down valve accessible</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">6</td><td>DN63 flexible rubber connectors installed at both chiller water connections (inlet and outlet)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">7</td><td>Inlet isolation ball valve (true-union, DN63) installed and operates smoothly</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">8</td><td>Outlet isolation ball valve (true-union, DN63) installed and operates smoothly</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">9</td><td>Pressure gauge (0–10 bar) installed on inlet line with root valve</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">10</td><td>Pressure gauge (0–10 bar) installed on outlet line with root valve</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">11</td><td>Thermometer with pocket installed at chiller water inlet (return temperature)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">12</td><td>Thermometer with pocket installed at chiller water outlet (supply temperature)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">13</td><td>Flow switch installed on inlet line, wired to chiller low-flow protection input</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">14</td><td>Auto air vent installed at highest point of water circuit</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">15</td><td>Drain valve (DN25) installed at lowest point for maintenance drainage</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">16</td><td>All chilled water outlet piping insulated with minimum 19mm Armaflex (no gaps)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">17</td><td>All insulation joints sealed with adhesive and aluminium tape</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">18</td><td>24-hour PVC solvent cement curing completed before pressure test</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">7.3 &nbsp;Electrical Checks</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Check Item</th><th style="text-align:center;width:60px;">✓</th><th style="width:120px;">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>LOTO applied at DB before any electrical work commenced</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">2</td><td>4-pole 40A MCB installed in DB, dedicated to CPC-01, labeled "CPC-01 – Cold Plunge Chiller"</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>30mA RCD installed upstream of CPC-01 MCB</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">4</td><td>Cable routing in conduit or cable tray from DB to CPC-01 panel</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">5</td><td>Cable size minimum 4C × 6 mm² Cu/XLPE for 380V 3-phase supply</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">6</td><td>L1, L2, L3, N, E all labeled at both ends (DB and CPC-01 terminals)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">7</td><td>Insulation resistance test: min. 1 MΩ each phase to earth (record readings)</td><td class="chk">☐</td><td class="rec">_____ MΩ</td></tr>
+          <tr><td class="num">8</td><td>Phase sequence verified as correct for CPC-01 compressor</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">9</td><td>Supply voltage measured at CPC-01 terminals: 380V ± 10% (L-L)</td><td class="chk">☐</td><td class="rec">_____ V</td></tr>
+          <tr><td class="num">10</td><td>Earth terminal connected and continuity verified to main earth bar</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">7.4 &nbsp;Commissioning Checks</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Check Item</th><th style="text-align:center;width:60px;">✓</th><th style="width:120px;">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Water circuit filled, air purged (continuous flow from auto air vent, no bubbles)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">2</td><td>Circulation pump FP-CPC-01 running and flow confirmed before starting CPC-01</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>CPC-01 started in COOLING mode. No fault codes during first 10 minutes</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">4</td><td>Outlet water temperature confirmed lower than inlet temperature after 15 min</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">5</td><td>Running current recorded on all 3 phases: L1=___ A, L2=___ A, L3=___ A (max 27A each)</td><td class="chk">☐</td><td class="rec">_____ A</td></tr>
+          <tr><td class="num">6</td><td>Supply voltage recorded: L1-L2=___ V, L2-L3=___ V, L1-L3=___ V</td><td class="chk">☐</td><td class="rec">_____ V</td></tr>
+          <tr><td class="num">7</td><td>Refrigerant pressures checked by licensed technician (record suction/discharge pressure)</td><td class="chk">☐</td><td class="rec">Record</td></tr>
+          <tr><td class="num">8</td><td>Pool water temperature reached target setpoint within expected time</td><td class="chk">☐</td><td class="rec">_____ °C</td></tr>
+          <tr><td class="num">9</td><td>Flow switch interlock tested: chiller tripped on low flow within 30 seconds</td><td class="chk">☐</td><td class="rec">_____ sec</td></tr>
+          <tr><td class="num">10</td><td>Unit noise level measured at 1m: ___ dB(A) (max 62 dB(A))</td><td class="chk">☐</td><td class="rec">_____ dB</td></tr>
+          <tr><td class="num">11</td><td>No excessive vibration observed on unit, pipes, or structure</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">12</td><td>Commissioning data sheet completed and signed by IHCC Sr. Mechanical Engineer</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 8 -->
+    <section id="sec8">
+      <div class="sec-h1">8. &nbsp;TESTING &amp; COMMISSIONING RECORDS</div>
+
+      <div class="sec-h2">8.1 &nbsp;Water-Side Pressure Test</div>
+      <p class="body">Before connecting water piping to the CPC-01 unit, test the piping circuit (with isolation valves closed to the chiller):</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>Test / Activity</th><th>Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Fill water piping circuit and pressurize to 1.5 × maximum working pressure: 0.825 MPa (8.25 bar). Test duration: minimum 30 minutes.</td><td>Pressure drop &lt; 0.02 MPa over 30 minutes. Zero visible leaks at any joint, valve, gauge connection, or strainer.</td><td class="rec"></td></tr>
+          <tr><td class="num">2</td><td>Inspect all solvent-cement joints, threaded connections, and valve bodies under pressure.</td><td>No seepage. Any moisture on any joint = test failure. Repair and re-test.</td><td class="rec"></td></tr>
+          <tr><td class="num">3</td><td>Connect the chiller to the tested piping. Conduct final low-pressure leak check at operating pressure (0.55 MPa / 5.5 bar).</td><td>No leaks at chiller water connections or flexible connectors.</td><td class="rec"></td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">8.2 &nbsp;Electrical Pre-Start Tests</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>Test / Activity</th><th>Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Insulation resistance test: each phase to earth and phase to phase at 500V DC (Megger).</td><td>Minimum 1 MΩ in all readings. If below 1 MΩ, investigate cable damage and re-test.</td><td class="rec">L1-E: ___MΩ<br>L2-E: ___MΩ<br>L3-E: ___MΩ</td></tr>
+          <tr><td class="num">2</td><td>Phase sequence verification at CPC-01 terminals with phase rotation meter.</td><td>Correct phase rotation confirmed per manufacturer manual requirement.</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>Voltage measurement at CPC-01 panel terminals (power ON, chiller not started).</td><td>L1-L2, L2-L3, L1-L3 all within 380V ± 10% (342–418V). L-N approximately 220V.</td><td class="rec">L1-L2: ___V<br>L2-L3: ___V<br>L1-L3: ___V</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">8.3 &nbsp;Functional Performance Test</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>Test / Activity</th><th>Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Start CPC-01 in COOLING mode with pool water at ambient temperature. Record start-up current and time to stable operation.</td><td>Unit starts without fault codes. Start-up current within manufacturer specification.</td><td class="rec"></td></tr>
+          <tr><td class="num">2</td><td>After 30 minutes of operation, record: Inlet water temp (°C), Outlet water temp (°C), Running current L1/L2/L3 (A), Supply voltage L-L (V).</td><td>Outlet temp &lt; Inlet temp confirms cooling. Running current ≤ 27A per phase. Voltage within tolerance.</td><td class="rec">In: ___°C<br>Out: ___°C<br>L1: ___A, L2: ___A, L3: ___A</td></tr>
+          <tr><td class="num">3</td><td>Record refrigerant suction pressure and discharge pressure (licensed technician with R410A manifold gauges).</td><td>Suction and discharge pressures within manufacturer's normal operating range for ambient conditions.</td><td class="rec">Suction: ___ bar<br>Discharge: ___ bar</td></tr>
+          <tr><td class="num">4</td><td>Run unit for minimum 4 hours. Record pool water temperature at 0h, 1h, 2h, 4h.</td><td>Pool water temperature measurably reducing toward target setpoint.</td><td class="rec">0h: ___°C<br>1h: ___°C<br>2h: ___°C<br>4h: ___°C</td></tr>
+          <tr><td class="num">5</td><td>Measure noise level at 1 m from unit on all four sides.</td><td>Maximum measured noise level ≤ 62 dB(A).</td><td class="rec">_____ dB(A)</td></tr>
+          <tr><td class="num">6</td><td>Test flow switch interlock by closing inlet isolation valve for 20 seconds.</td><td>CPC-01 trips within 30 seconds and displays low-flow fault.</td><td class="rec">Trip time: ___s</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 9 -->
+    <section id="sec9">
+      <div class="sec-h1">9. &nbsp;DOCUMENTATION &amp; HANDOVER</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Document</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Approved Method Statement MS-CHILLER-SPA-04 (this document)</td><td>–</td></tr>
+          <tr><td class="num">2</td><td>Material Inspection Report (MIR) – CPC-01, all valves, and accessories</td><td>Signed IHCC &amp; Consultant</td></tr>
+          <tr><td class="num">3</td><td>QC Checklists Section 7 (Pre-Installation, Mechanical, Electrical, Commissioning)</td><td>Signed by Site Engineer &amp; QA/QC</td></tr>
+          <tr><td class="num">4</td><td>Lift Plan – CPC-01 (420 kg heavy lift)</td><td>Signed by HSE Officer &amp; Rigger</td></tr>
+          <tr><td class="num">5</td><td>Water-Side Hydrostatic Pressure Test Report</td><td>Signed by IHCC Sr. Mechanical Engineer</td></tr>
+          <tr><td class="num">6</td><td>Electrical Insulation Resistance Test Report</td><td>Signed by Licensed Electrician</td></tr>
+          <tr><td class="num">7</td><td>Phase Sequence Test Report</td><td>Signed by Licensed Electrician</td></tr>
+          <tr><td class="num">8</td><td>Commissioning Performance Data Sheet (inlet/outlet temps, currents, voltages, pressures)</td><td>Signed by IHCC Sr. Mechanical Engineer</td></tr>
+          <tr><td class="num">9</td><td>Refrigerant Pressure Check Report (by licensed refrigerant technician)</td><td style="color:var(--amber);">Include technician's license number</td></tr>
+          <tr><td class="num">10</td><td>Work Inspection Request (WIR) – Consultant Approval</td><td>Submit before backfill or concealment of piping</td></tr>
+          <tr><td class="num">11</td><td>As-Built Drawing (if any deviation from SB-ASB-SD-ME-008-R1)</td><td>Approved by IHCC</td></tr>
+          <tr><td class="num">12</td><td>Manufacturer O&amp;M Manual – CZCHCPI103T</td><td>Submit in handover package</td></tr>
+          <tr><td class="num">13</td><td>Manufacturer Warranty Document for CPC-01</td><td style="color:var(--red);">Warranty void if installed incorrectly</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SIGNATURES -->
+    <section id="signatures">
+      <div class="sec-h1">DOCUMENT APPROVAL &amp; SIGNATURES</div>
+      <p class="body">By signing below, each party confirms they have reviewed and approved this Method Statement. No work on CPC-01 is to commence until written approval is received from IHCC Senior Mechanical Engineer.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Role</th><th>Name</th><th>Signature</th><th>Date</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;">Prepared By (Aseeb Contracting Co.)</td><td>Adil Magdy – Mechanical Engineer</td><td style="height:50px;vertical-align:bottom;">&nbsp;</td><td style="height:50px;vertical-align:bottom;">&nbsp;</td></tr>
+          <tr><td style="font-weight:700;">Reviewed By (IHCC)</td><td>Saqib Manzoor – Sr. Mechanical Engineer</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td style="font-weight:700;">Approved By (IHCC – Management)</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td style="font-weight:700;">Consultant Approval (3C Engineering)</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note note-note" style="margin-top:20px;"><span class="tag">NOTE:</span>This document is prepared by Aseeb Contracting Company and submitted to IHCC and 3C Engineering for review and approval prior to commencement of any Cold Plunge Chiller installation works.</div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <span>CEO Villa — SPA &amp; Pool Facility &nbsp;|&nbsp; MS-CHILLER-SPA-04 &nbsp;|&nbsp; Rev. 00 &nbsp;|&nbsp; IHCC / Aseeb Contracting Co.</span>
+  <a href="#top" class="btn-up"><i class="fa-solid fa-arrow-up"></i></a>
+</footer>
+
+<script>
+const sections=document.querySelectorAll('section[id]');
+const navItems=document.querySelectorAll('.nav-item');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navItems.forEach(n=>n.classList.remove('active'));
+      const a=document.querySelector('.nav-item[href="#'+e.target.id+'"]');
+      if(a)a.classList.add('active');
+    }
+  });
+},{rootMargin:'-60px 0px -60% 0px'});
+sections.forEach(s=>observer.observe(s));
+
+function downloadPDF() {
+  const fn = (location.pathname.split('/').pop() || 'method-statement.html').replace('.html', '.pdf');
+  const css = [
+    'main{background:#fff!important;margin:0!important;margin-top:0!important;padding:20px 24px!important;max-width:100%!important;width:100%!important}',
+    'main *{background-color:transparent!important;color:#1a1a1a!important;box-shadow:none!important;text-shadow:none!important;border-color:#ccc!important}',
+    'main .cover{background:#eef2f7!important;border:2px solid #1a3a5c!important;border-radius:8px!important}',
+    'main .cover::before,main .cover::after{display:none!important}',
+    'main .cover-title{color:#1a3a5c!important;font-size:22px!important}',
+    'main .cover-project{color:#2471a3!important}',
+    'main .cover-ms-label{color:#2471a3!important}',
+    'main .cover-divider{background:#1a3a5c!important;height:2px!important}',
+    'main .cover-meta-label{color:#555!important}',
+    'main .cover-meta-value{color:#111!important}',
+    'main .sec-h1{background:#1a3a5c!important;color:#fff!important;border-radius:4px!important}',
+    'main .sec-h1 *{color:#fff!important}',
+    'main .sec-h2{color:#1a3a5c!important;background:transparent!important;border-left:4px solid #1a3a5c!important}',
+    'main .sec-h3{color:#2471a3!important;background:transparent!important}',
+    'main table{border-collapse:collapse!important}',
+    'main th{background:#1a3a5c!important;color:#fff!important;border:1px solid #999!important}',
+    'main th *{color:#fff!important}',
+    'main td{background:#fff!important;border:1px solid #bbb!important;color:#111!important}',
+    'main tr:nth-child(even) td{background:#f5f7fa!important}',
+    'main .note-warn{border-left:4px solid #c0392b!important;background:#fff8f8!important}',
+    'main .note-warn *{color:#7b241c!important}',
+    'main .note-warn .tag{color:#c0392b!important}',
+    'main .note-note{border-left:4px solid #2471a3!important;background:#f0f8ff!important}',
+    'main .note-note *{color:#1a3a5c!important}',
+    'main .note-caut{border-left:4px solid #d4870a!important;background:#fffaf0!important}',
+    'main .note-caut *{color:#7d5000!important}',
+    'main .bul-list li{background:#f5f7fa!important;border:1px solid #ddd!important}',
+    'main .bul-list li::before{background:#1a3a5c!important}',
+    'main .step-list li{background:#f5f7fa!important;border:1px solid #ddd!important}',
+    'main .step-list li::before{background:#1a3a5c!important;color:#fff!important}',
+    'main p.body,main .body{color:#111!important}',
+  ].join('');
+  const mainEl  = document.querySelector('main');
+  const sidebar = document.querySelector('.sidebar');
+  const hdr     = document.querySelector('header');
+  const ftr     = document.querySelector('footer');
+  const origMainStyle = mainEl.getAttribute('style') || '';
+  const origSidebar   = sidebar ? sidebar.style.display : '';
+  const origHdr       = hdr     ? hdr.style.display     : '';
+  const origFtr       = ftr     ? ftr.style.display     : '';
+  if (sidebar) sidebar.style.display = 'none';
+  if (hdr)     hdr.style.display     = 'none';
+  if (ftr)     ftr.style.display     = 'none';
+  mainEl.setAttribute('style','position:fixed;left:0;top:0;margin:0;padding:20px 24px;width:794px;max-width:794px;background:#fff;display:block;box-sizing:border-box;z-index:99999;');
+  void mainEl.getBoundingClientRect();
+  const style = document.createElement('style');
+  style.id = '__pdf_override__';
+  style.textContent = css;
+  document.head.appendChild(style);
+  setTimeout(() => {
+    html2pdf().set({
+      margin: [10, 10, 10, 10],
+      filename: fn,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, backgroundColor: '#ffffff', windowWidth: 794, logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(mainEl).save().then(() => {
+      mainEl.removeAttribute('style');
+      if (sidebar) sidebar.style.display = origSidebar;
+      if (hdr)     hdr.style.display     = origHdr;
+      if (ftr)     ftr.style.display     = origFtr;
+      const s = document.getElementById('__pdf_override__');
+      if (s) s.remove();
+    });
+  }, 200);
+}
+</script>
+</body>
+</html>

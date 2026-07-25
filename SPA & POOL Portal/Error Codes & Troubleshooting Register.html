@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Codes &amp; Troubleshooting Register | SSB Villa O&amp;M Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --gold: #D4AF37; --gold-light: #f0d060; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: #0d1829;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+        }
+
+        /* ── HEADER ── */
+        header {
+            background: rgba(5, 10, 20, 0.95);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.45);
+            padding: 0 24px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        .header-left  { flex: 1; display: flex; align-items: center; }
+        .header-center { flex: 2; text-align: center; line-height: 1.35; }
+        .header-center .line1 {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(212, 175, 55, 0.65);
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            display: block;
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+        }
+        .header-center .line2 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: block;
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+        }
+        .header-right { flex: 1; display: flex; justify-content: flex-end; align-items: center; }
+
+        .btn-back, .btn-home {
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        .btn-back:hover, .btn-home:hover { background: rgba(212, 175, 55, 0.28); }
+
+        /* ── MAIN ── */
+        main {
+            margin-top: 72px;
+            margin-bottom: 60px;
+            padding: 30px 32px;
+            max-width: 1300px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            flex: 1;
+        }
+
+        /* ── STATS + SEARCH BAR ── */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 6px;
+        }
+        .stats {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+        .stat i { color: var(--gold); font-size: 16px; }
+        .stat-text { font-size: 13px; color: rgba(212, 175, 55, 0.75); font-family: 'Aptos Display', 'Segoe UI', sans-serif; }
+        .stat-text strong { color: var(--gold); font-size: 15px; }
+        .stat-sep { color: rgba(212, 175, 55, 0.25); font-size: 18px; }
+
+        .search-wrap { position: relative; }
+        .search-wrap i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(212, 175, 55, 0.45);
+            font-size: 13px;
+            pointer-events: none;
+        }
+        #searchInput {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 4px;
+            padding: 8px 14px 8px 36px;
+            color: #e8ddb5;
+            font-size: 13px;
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+            outline: none;
+            width: 250px;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        #searchInput:focus { border-color: rgba(212, 175, 55, 0.7); background: rgba(255, 255, 255, 0.09); }
+        #searchInput::placeholder { color: rgba(212, 175, 55, 0.38); }
+
+        /* ── CATEGORY SECTION ── */
+        .category { margin-bottom: 34px; }
+        .category.all-hidden { display: none; }
+
+        .cat-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+        .cat-line { height: 1px; flex: 1; background: linear-gradient(to right, transparent, rgba(212,175,55,0.35), transparent); }
+        .cat-pill {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 20px;
+            padding: 5px 16px 5px 10px;
+            white-space: nowrap;
+        }
+        .cat-pill i { font-size: 14px; color: var(--gold); }
+        .cat-pill span {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+        }
+
+        /* ── CARD GRID ── */
+        .cat-grid {
+            display: grid;
+            gap: 16px;
+            margin: 0 auto;
+        }
+        .g4 { grid-template-columns: repeat(4, 1fr); }
+
+        /* ── DOC CARD ── */
+        .doc-card {
+            background: rgba(255, 255, 255, 0.055);
+            border: 1px solid rgba(212, 175, 55, 0.28);
+            border-bottom: 3px solid rgba(212, 175, 55, 0.55);
+            border-radius: 8px;
+            padding: 26px 18px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            text-decoration: none;
+            min-height: 180px;
+            cursor: pointer;
+            transition: all 0.28s ease;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        .doc-card:hover {
+            background: rgba(212, 175, 55, 0.09);
+            border-color: rgba(212, 175, 55, 0.7);
+            border-bottom-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 32px rgba(212, 175, 55, 0.16);
+        }
+        .doc-card.hidden { display: none; }
+
+        .card-top { display: flex; flex-direction: column; align-items: center; }
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 13px;
+            transition: background 0.28s;
+        }
+        .doc-card:hover .card-icon { background: rgba(212, 175, 55, 0.24); }
+        .card-icon i { font-size: 20px; color: var(--gold); }
+
+        .card-title {
+            font-size: 12.5px;
+            color: #cec4a4;
+            line-height: 1.48;
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+            padding: 0 6px;
+        }
+        .doc-card:hover .card-title { color: #f0e6c0; }
+
+        .card-btn {
+            margin-top: 14px;
+            background: rgba(212, 175, 55, 0.14);
+            border: 1px solid rgba(212, 175, 55, 0.38);
+            color: var(--gold);
+            font-size: 11px;
+            padding: 6px 20px;
+            border-radius: 3px;
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            transition: background 0.28s;
+        }
+        .doc-card:hover .card-btn { background: rgba(212, 175, 55, 0.32); }
+
+        /* ── NO RESULTS ── */
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(212, 175, 55, 0.45);
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+        }
+        .no-results i { font-size: 42px; margin-bottom: 14px; display: block; }
+        .no-results p { font-size: 14px; }
+
+        /* ── FOOTER ── */
+        footer {
+            background: rgba(5, 10, 20, 0.95);
+            border-top: 2px solid rgba(212, 175, 55, 0.45);
+            padding: 14px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 13px;
+            color: rgba(212, 175, 55, 0.75);
+            z-index: 1000;
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+        }
+        .btn-up {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .btn-up:hover { background: rgba(212, 175, 55, 0.35); }
+    </style>
+</head>
+<body id="top">
+
+<header>
+    <div class="header-left">
+        <a href="../EVA-CORE.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+    <div class="header-center">
+        <span class="line1">SPA &amp; POOL FACILITY</span>
+        <span class="line2">ERROR CODES &amp; TROUBLESHOOTING REGISTER</span>
+    </div>
+    <div class="header-right">
+        <a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a>
+    </div>
+</header>
+
+<main>
+
+    <!-- Stats & Search -->
+    <div class="top-bar">
+        <div class="stats">
+            <div class="stat">
+                <i class="fas fa-file-excel"></i>
+                <span class="stat-text"><strong>17</strong> Documents</span>
+            </div>
+            <span class="stat-sep">|</span>
+            <div class="stat">
+                <i class="fas fa-layer-group"></i>
+                <span class="stat-text"><strong>5</strong> Categories</span>
+            </div>
+        </div>
+        <div class="search-wrap">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search documents...">
+        </div>
+    </div>
+
+    <!-- ── CATEGORY 1: VALVES & SAND FILTERS ── -->
+    <div class="category" id="cat-valves-filters">
+        <div class="cat-header">
+            <div class="cat-line"></div>
+            <div class="cat-pill"><i class="fas fa-sliders-h"></i><span>Valves &amp; Sand Filters</span></div>
+            <div class="cat-line"></div>
+        </div>
+        <div class="cat-grid g4">
+            <a href="6-Way Valve Side Mounting Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-sliders-h"></i></div>
+                    <div class="card-title">6-Way Valve Side Mounting Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+            <a href="6-Way Valve Top Mounted Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-sliders-h"></i></div>
+                    <div class="card-title">6-Way Valve Top Mounted Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+            <a href="T-40 Taglus Sand Filter Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-filter"></i></div>
+                    <div class="card-title">T-40 Taglus Sand Filter Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+            <a href="TR-140 Triton Sand Filter Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-filter"></i></div>
+                    <div class="card-title">TR-140 Triton Sand Filter Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ── CATEGORY 2: COLD PLUNGE CHILLER & PUMPS ── -->
+    <div class="category" id="cat-chiller">
+        <div class="cat-header">
+            <div class="cat-line"></div>
+            <div class="cat-pill"><i class="fas fa-snowflake"></i><span>Cold Plunge Chiller &amp; Pumps</span></div>
+            <div class="cat-line"></div>
+        </div>
+        <div class="cat-grid g4">
+            <a href="Cold Plunge Chiller Status Table.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-snowflake"></i></div>
+                    <div class="card-title">Cold Plunge Chiller Status Table</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+            <a href="Cold Plunge Chiller System Parameters.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-snowflake"></i></div>
+                    <div class="card-title">Cold Plunge Chiller System Parameters</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+            <a href="Cold Plunge Chiller Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-snowflake"></i></div>
+                    <div class="card-title">Cold Plunge Chiller Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+            <a href="Filtration &amp; Circulation Pumps Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-tint"></i></div>
+                    <div class="card-title">Filtration &amp; Circulation Pumps Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ── CATEGORY 3: PUMPS, WATER HEATERS & UV ── -->
+    <div class="category" id="cat-heaters">
+        <div class="cat-header">
+            <div class="cat-line"></div>
+            <div class="cat-pill"><i class="fas fa-fire"></i><span>Pumps, Water Heaters &amp; UV Lamp</span></div>
+            <div class="cat-line"></div>
+        </div>
+        <div class="cat-grid g4">
+            <a href="Submersible Pumps Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-tint"></i></div>
+                    <div class="card-title">Submersible Pumps Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+            <a href="Indoor Pool Water Heater 18KW Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-fire"></i></div>
+                    <div class="card-title">Indoor Pool Water Heater 18KW Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+            <a href="Outdoor Pool Water Heater 45KW Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-fire"></i></div>
+                    <div class="card-title">Outdoor Pool Water Heater 45KW Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+            <a href="HR UVC Lamp Double Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-sun"></i></div>
+                    <div class="card-title">HR UVC Lamp Double Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ── CATEGORY 4: CHEMICAL, WATER QUALITY & BLOWER ── -->
+    <div class="category" id="cat-chemical">
+        <div class="cat-header">
+            <div class="cat-line"></div>
+            <div class="cat-pill"><i class="fas fa-flask"></i><span>Chemical, Water Quality &amp; Blower</span></div>
+            <div class="cat-line"></div>
+        </div>
+        <div class="cat-grid g4">
+            <a href="Chemical Feeders Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-flask"></i></div>
+                    <div class="card-title">Chemical Feeders Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+            <a href="PH Controller Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-flask"></i></div>
+                    <div class="card-title">PH Controller Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+            <a href="Sharky RO Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-water"></i></div>
+                    <div class="card-title">Sharky RO Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+            <a href="Silencer Blower Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-wind"></i></div>
+                    <div class="card-title">Silencer Blower Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ── CATEGORY 5: STEAM ── -->
+    <div class="category" id="cat-steam">
+        <div class="cat-header">
+            <div class="cat-line"></div>
+            <div class="cat-pill"><i class="fas fa-cloud"></i><span>Steam</span></div>
+            <div class="cat-line"></div>
+        </div>
+        <div class="cat-grid g4">
+            <a href="Steam Generator K3 Error Codes &amp; Troubleshooting.html" class="doc-card">
+                <div class="card-top">
+                    <div class="card-icon"><i class="fas fa-cloud"></i></div>
+                    <div class="card-title">Steam Generator K3 Error Codes &amp; Troubleshooting</div>
+                </div>
+                <div class="card-btn">Open &nbsp;<i class="fas fa-external-link-alt" style="font-size:10px;"></i></div>
+            </a>
+        </div>
+    </div>
+
+    <!-- No Results -->
+    <div class="no-results" id="noResults">
+        <i class="fas fa-search"></i>
+        <p>No documents found matching your search.</p>
+    </div>
+
+</main>
+
+<footer>
+    <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+    <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+</footer>
+
+<script>
+    var searchInput = document.getElementById('searchInput');
+    var noResults   = document.getElementById('noResults');
+
+    searchInput.addEventListener('input', function () {
+        var term = this.value.toLowerCase().trim();
+        var anyVisible = false;
+
+        document.querySelectorAll('.doc-card').forEach(function (card) {
+            var title = card.querySelector('.card-title').textContent.toLowerCase();
+            if (term === '' || title.includes(term)) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+
+        document.querySelectorAll('.category').forEach(function (cat) {
+            var visible = cat.querySelectorAll('.doc-card:not(.hidden)').length;
+            if (visible === 0) {
+                cat.classList.add('all-hidden');
+            } else {
+                cat.classList.remove('all-hidden');
+                anyVisible = true;
+            }
+        });
+
+        noResults.style.display = (!anyVisible && term !== '') ? 'block' : 'none';
+    });
+</script>
+
+</body>
+</html>

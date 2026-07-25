@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outdoor Pool – O&M Manual | CEO Villa SPA & Pool Facility</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#062A35;color:#FFFFFF;min-height:100vh;line-height:1.6}
+
+  /* ── Header ── */
+  .top-bar{background:#041E26;padding:.5rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(200,169,58,.35);position:sticky;top:0;z-index:9999;gap:1rem}
+  .top-bar-left{font-size:12px;color:#5A9BAA;letter-spacing:.04em}
+  .top-bar-right{font-size:11px;color:#5A9BAA}
+  .top-bar-right span{color:#C9A93A}
+  .btn-nav{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border:1px solid rgba(201,169,58,.55);border-radius:10px;background:rgba(201,169,58,.07);color:#C9A93A;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:.2s ease;flex-shrink:0}
+  .btn-nav:hover{background:rgba(201,169,58,.18);border-color:#e5c85a;box-shadow:0 0 10px rgba(201,169,58,.3)}
+
+  .hero{padding:2.5rem 2rem 2rem;border-bottom:3px solid #C9A93A;position:relative;overflow:hidden;min-height:220px}
+  .hero-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(1.2)}
+  .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(4,18,24,.70);z-index:1}
+  .hero-content{position:relative;z-index:2}
+  .chapter-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(23,195,212,.12);border:1px solid rgba(23,195,212,.3);border-radius:20px;padding:4px 12px;font-size:11px;color:#17C3D4;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem}
+  .hero-title{font-size:36px;font-weight:700;color:#FFFFFF;line-height:1.15;margin-bottom:.3rem;letter-spacing:-.01em}
+  .hero-sub{font-size:14px;color:#8EC9D4;margin-bottom:1.25rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem}
+  .hero-meta-item{font-size:12px;color:#5A9BAA}
+  .hero-meta-item strong{color:#C9A93A;font-weight:500}
+
+  /* ── Main layout ── */
+  .container{max-width:1100px;margin:0 auto;padding:2rem}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .grid-6{display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem}
+
+  /* ── Stat cards ── */
+  .stat-card{background:#0D3D4A;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem 1.1rem;position:relative;overflow:hidden}
+  .stat-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:#17C3D4}
+  .stat-card.gold::before{background:#C9A93A}
+  .stat-label{font-size:10px;color:#5A9BAA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+  .stat-value{font-size:24px;font-weight:700;color:#FFFFFF;line-height:1;margin-bottom:.2rem}
+  .stat-unit{font-size:11px;color:#8EC9D4}
+
+  /* ── Section headers ── */
+  .section{margin-bottom:1.75rem}
+  .sec-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(255,255,255,.08)}
+  .sec-num{width:28px;height:28px;border-radius:50%;background:#17C3D4;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#041E26;flex-shrink:0}
+  .sec-title{font-size:16px;font-weight:600;color:#FFFFFF;letter-spacing:.01em}
+
+  /* ── Cards ── */
+  .card{background:#0D3D4A;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.1rem 1.25rem}
+  .card-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#17C3D4;margin-bottom:.75rem;font-weight:600}
+  .info-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px}
+  .info-row:last-child{border-bottom:none}
+  .info-row .k{color:#8EC9D4}
+  .info-row .v{color:#FFFFFF;font-weight:500;text-align:right;max-width:55%}
+
+  /* ── Body text ── */
+  .body-text{font-size:13px;color:#8EC9D4;line-height:1.7;margin-bottom:.9rem}
+  .body-text:last-child{margin-bottom:0}
+
+  /* ── Equipment table ── */
+  .table-wrap{overflow-x:auto;border-radius:10px;border:1px solid rgba(255,255,255,.08)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead tr{background:#041E26}
+  th{padding:.75rem 1rem;text-align:left;font-size:11px;font-weight:600;color:#17C3D4;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap}
+  td{padding:.7rem 1rem;border-top:1px solid rgba(255,255,255,.05);color:#FFFFFF;vertical-align:top}
+  tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  tr:hover td{background:rgba(23,195,212,.04)}
+  .tag{font-family:'Courier New',monospace;font-size:12px;color:#17C3D4;font-weight:700;white-space:nowrap}
+  .brand{color:#8EC9D4}
+  .cap{color:#C9A93A;font-size:12px}
+
+  /* ── Bullet list ── */
+  .bullet-list{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+  .bullet-list li{font-size:13px;color:#8EC9D4;padding-left:1.2rem;position:relative;line-height:1.55}
+  .bullet-list li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:#17C3D4}
+  .bullet-list li strong{color:#FFFFFF;font-weight:500}
+
+  /* ── Process flow ── */
+  .flow{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin:.75rem 0}
+  .flow-step{background:#0D3D4A;border:1px solid rgba(23,195,212,.25);border-radius:6px;padding:.4rem .8rem;font-size:12px;color:#FFFFFF;white-space:nowrap}
+  .flow-arrow{color:#C9A93A;font-size:16px;font-weight:700}
+
+  /* ── Warning / note box ── */
+  .note{background:rgba(201,169,58,.08);border-left:3px solid #C9A93A;border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:12px;color:#D4B560;margin-top:.75rem;line-height:1.55}
+  .alert{background:rgba(23,195,212,.07);border-left:3px solid #17C3D4;border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:12px;color:#8EC9D4;margin-top:.75rem;line-height:1.55}
+
+  /* ── Footer ── */
+  .footer{background:#041E26;border-top:1px solid rgba(201,169,58,.2);padding:1.25rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+  .footer-left{font-size:12px;color:#5A9BAA}
+  .footer-right{font-size:11px;color:#5A9BAA;text-align:right}
+  .footer-right span{color:#C9A93A}
+
+  /* ── Tag badge ── */
+  .badge{display:inline-block;background:rgba(23,195,212,.15);border:1px solid rgba(23,195,212,.3);border-radius:4px;padding:1px 7px;font-size:10px;color:#17C3D4;margin-left:4px;vertical-align:middle;letter-spacing:.04em}
+  .badge.gold{background:rgba(201,169,58,.15);border-color:rgba(201,169,58,.3);color:#C9A93A}
+
+  @media(max-width:720px){
+    .grid-2,.grid-3,.grid-6{grid-template-columns:1fr 1fr}
+    .hero-title{font-size:26px}
+    .container{padding:1.25rem}
+  }
+  @media(max-width:480px){
+    .grid-6{grid-template-columns:repeat(3,1fr)}
+    .grid-2,.grid-3{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <a class="btn-nav" href="javascript:history.back()">← Back</a>
+    <div class="top-bar-left">CEO VILLA &nbsp;·&nbsp; SPA &amp; POOL FACILITY &nbsp;·&nbsp; O&amp;M MANUAL</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <div class="top-bar-right">Project Code: <span>10144</span> &nbsp;|&nbsp; IHCC – Jeddah, Saudi Arabia</div>
+    <a class="btn-nav" href="../../EVA-CORE.html">⌂ Home</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <video class="hero-video" id="heroVid" autoplay muted loop playsinline>
+    <source src="outdoor Pool Video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="chapter-pill">&#9670; Chapter 1 &nbsp;·&nbsp; Facility Introduction</div>
+    <div class="hero-title">Outdoor Swimming Pool</div>
+    <div class="hero-sub">Ground Floor · Outdoor Pool Area · CEO Villa SPA &amp; Pool Facility</div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">Document ref: <strong>IHCC-CEO-SPA-OM-INT-001</strong></div>
+      <div class="hero-meta-item">Drawing: <strong>SB-ASB-SD-ME-013-R1</strong></div>
+      <div class="hero-meta-item">Revision: <strong>R0 – For Review</strong></div>
+      <div class="hero-meta-item">Contractor: <strong>IHCC</strong></div>
+    </div>
+  </div>
+</div>
+<script>
+  var v = document.getElementById('heroVid');
+  v.addEventListener('loadedmetadata', function(){ v.playbackRate = 0.9; });
+  v.playbackRate = 0.9;
+</script>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+  <!-- STAT CARDS -->
+  <div class="grid-6" style="margin-bottom:1.75rem">
+    <div class="stat-card gold">
+      <div class="stat-label">Total volume</div>
+      <div class="stat-value">73</div>
+      <div class="stat-unit">m³</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pool width</div>
+      <div class="stat-value">5.0</div>
+      <div class="stat-unit">m (uniform)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Depth range</div>
+      <div class="stat-value">1.20</div>
+      <div class="stat-unit">– 1.97 m</div>
+    </div>
+    <div class="stat-card gold">
+      <div class="stat-label">Heater capacity</div>
+      <div class="stat-value">45</div>
+      <div class="stat-unit">kW (Elecro)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Filter flow</div>
+      <div class="stat-value">32</div>
+      <div class="stat-unit">m³/h (TR140)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">UV lamps</div>
+      <div class="stat-value">2×55</div>
+      <div class="stat-unit">W UV-C</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: OVERVIEW -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">1</div><div class="sec-title">Facility Overview</div></div>
+    <div class="body-text">The Outdoor Swimming Pool is the primary aquatic centerpiece of the CEO Villa SPA &amp; Pool Facility, located at the ground floor level of the villa complex besides the east wall. The pool is a custom-designed freeform swimming pool with a total water volume of 73 m³ and a uniform pool width of 5.0 metres throughout its length. The design incorporates a progressive depth profile that transitions from a children's shallow zone to a full adult swimming depth.</div>
+    <div class="body-text">All pool mechanical equipment — including filtration, heating, UV disinfection, and chemical water treatment — is housed in the dedicated SPA &amp; Pool Pump Room in the basement. The pump room serves as the technical heart of the entire facility.</div>
+  </div>
+
+  <!-- SECTION 2: POOL GEOMETRY & DEPTH PROFILE -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">2</div><div class="sec-title">Physical Description – Pool Geometry &amp; Depth Profile</div></div>
+    <div class="body-text">The pool floor is designed with three distinct depth zones. The pool maintains a constant width of 5.0 metres across all zones. The depth transitions from 1.20 m in the children's shallow end to 1.97 m in the main swimming zone, connected by an 81° incline slope.</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Zone</th><th>Length (m)</th><th>Depth (m)</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Shallow / Children's Zone</td><td>2.50</td><td>1.20</td><td>Designated children's &amp; paddling area</td></tr>
+          <tr><td>2</td><td>Transition Slope</td><td>Variable</td><td>1.20 → 1.97</td><td>81° incline from shallow to deep zone</td></tr>
+          <tr><td>3</td><td>Main Swimming Zone</td><td>2.40</td><td>1.97</td><td>Full-depth adult swimming area</td></tr>
+          <tr><td>—</td><td><strong>Pool Width (uniform)</strong></td><td><strong>5.00</strong></td><td>—</td><td>Constant throughout all zones</td></tr>
+          <tr><td>—</td><td><strong>Total Water Volume</strong></td><td><strong>73 m³</strong></td><td>—</td><td>Design pool volume</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 3: POOL FEATURES & HYDRAULIC FITTINGS -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">3</div><div class="sec-title">Pool Features &amp; Hydraulic Fittings</div></div>
+    <div class="body-text">The following hydraulic fittings and accessories are installed within the outdoor pool structure:</div>
+    <ul class="bullet-list">
+      <li><strong>Perimeter overflow gutter drainage system</strong> (AKUA4CE, 2" × 4", 1.5") — continuous perimeter overflow collection and return to filtration system</li>
+      <li><strong>Stainless steel AISI 316 wall inlet nozzles</strong> (ATECPOOL Model 0592858-4) — distribute filtered and treated water back into the pool</li>
+      <li><strong>Stainless steel AISI 316 suction inlets</strong> (ATECPOOL Model 0592860-1) — draw pool water to the filtration and treatment plant</li>
+      <li><strong>Main drain</strong> — 300 × 300 mm stainless steel grating at the pool floor for controlled complete pool drainage</li>
+      <li><strong>Jet nozzle system</strong> — connected to dedicated WhisperFlo P-WFL-751 jet pump for hydrotherapy-style water movement effects</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 4: WATER TREATMENT & MECHANICAL SYSTEM -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">4</div><div class="sec-title">Water Treatment &amp; Mechanical System</div></div>
+    <div class="body-text"><strong style="color:#FFFFFF">4.1 System Philosophy</strong><br>The outdoor pool operates a fully automated, multi-stage water treatment system combining sand filtration, UV-C disinfection, pH and ORP chemical control, and electric inline heating. The dual-pump (duty/standby) configuration ensures continuous pool operation without filtration interruption during pump maintenance.</div>
+
+    <div class="flow" style="margin:1rem 0">
+      <div class="flow-step">Suction / Main Drain</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Pumps FP-ODP-01/02 (D/S)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Sand Filter SF-01-ODP</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">UV-C HRP-110</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Heater SFSD-45-380</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Chemical Dosing</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Pool Return Inlets</div>
+    </div>
+
+    <div class="grid-2" style="margin-top:.75rem">
+      <div class="card">
+        <div class="card-title">4.2 Filtration System – SF-01-ODP</div>
+        <div class="info-row"><span class="k">Brand / Model</span><span class="v">Pentair Triton II TR140</span></div>
+        <div class="info-row"><span class="k">Design flow rate</span><span class="v">32 m³/h (141 GPM)</span></div>
+        <div class="info-row"><span class="k">Multiport valve</span><span class="v">Praher Plastics V6 6-Way</span></div>
+        <div class="info-row"><span class="k">Valve modes</span><span class="v">Filter / Backwash / Rinse / Waste / Recirc / Closed</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">4.3 UV Disinfection – UV-C 01</div>
+        <div class="info-row"><span class="k">Brand / Model</span><span class="v">Elecro H.R. UV-C PRO HRP-110</span></div>
+        <div class="info-row"><span class="k">UV-C lamps</span><span class="v">2 × 55 W UV-C</span></div>
+        <div class="info-row"><span class="k">Water temp range</span><span class="v">1°C – 45°C</span></div>
+        <div class="info-row"><span class="k">Purpose</span><span class="v">Eliminates Cryptosporidium, Giardia &amp; chlorine-resistant pathogens</span></div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:1rem">
+      <div class="card">
+        <div class="card-title">4.3 pH / ORP Control – PHC-01</div>
+        <div class="info-row"><span class="k">Brand / Model</span><span class="v">Hayward Industries HCC2000</span></div>
+        <div class="info-row"><span class="k">pH sensor output</span><span class="v">60 mV</span></div>
+        <div class="info-row"><span class="k">ORP output</span><span class="v">800 mV</span></div>
+        <div class="info-row"><span class="k">Controller output</span><span class="v">4 A</span></div>
+        <div class="info-row"><span class="k">pH setpoint</span><span class="v">7.2 – 7.6</span></div>
+        <div class="info-row"><span class="k">ORP setpoint</span><span class="v">≥ 650 mV</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">4.4 Heating – EWH-01-ODP</div>
+        <div class="info-row"><span class="k">Brand / Model</span><span class="v">Elecro Engineering SFSD-45-380</span></div>
+        <div class="info-row"><span class="k">Rated capacity</span><span class="v">45 kW</span></div>
+        <div class="info-row"><span class="k">Supply voltage</span><span class="v">380V, 3-Phase</span></div>
+        <div class="info-row"><span class="k">FLA</span><span class="v">69 A</span></div>
+        <div class="info-row"><span class="k">Design flow range</span><span class="v">8,000 – 15,000 L/hr</span></div>
+        <div class="info-row"><span class="k">Design water temp</span><span class="v">28°C – 32°C</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: FEATURE WALL -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">5</div><div class="sec-title">Feature Wall</div></div>
+    <div class="body-text">A prominent architectural water feature wall is located immediately adjacent to the outdoor pool at the ground floor level. The feature wall measures 4.7 metres in width by 3.0 metres in height and forms the primary visual focal point of the pool terrace.</div>
+    <ul class="bullet-list">
+      <li><strong>Custom-fabricated SS 316L overflow waterfall gutter</strong> — 4,700 mm long × 150 mm wide × 170/210 mm height — delivering a continuous full-width sheet waterfall effect across the face of the wall</li>
+      <li><strong>Dedicated Pentair WhisperFlo P-WFL-801 recirculation pump</strong> (Tag: NP-ODP-01) drawing from the collection sump and supplying the waterfall gutter head continuously</li>
+      <li><strong>RGBWW LED wall washer luminaires</strong> illuminating the feature wall surface with full-colour ambience effects</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 6: LIGHTING SYSTEM -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">6</div><div class="sec-title">Lighting System</div></div>
+    <div class="body-text">The outdoor pool and feature wall are equipped with a fully programmable RGBWW LED lighting scheme designed to provide luxury ambience lighting with complete colour customization:</div>
+    <ul class="bullet-list">
+      <li><strong>Underwater RGBWW LED pool lights</strong> — embedded in pool walls below the waterline, producing vivid coloured underwater illumination with multi-colour programmable scenes</li>
+      <li><strong>LED strip lighting</strong> — installed around the full perimeter of the pool deck, providing edge definition and surface reflection effects</li>
+      <li><strong>RGBWW LED wall washer lights</strong> — dedicated fixtures projecting full-colour wash lighting across the 4.7 m feature wall</li>
+      <li><strong>Wireless remote control system</strong> — operates up to 20 metres range; provides full control of all pool and feature wall lighting including colour selection, colour-change programmes, dimming levels, and manual on/off switching</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 7: DESIGN OPERATING PARAMETERS -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">7</div><div class="sec-title">Design Operating Parameters</div></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Parameter</th><th>Design Value / Setting</th></tr></thead>
+        <tbody>
+          <tr><td>Water Temperature (Heated)</td><td class="cap">28 – 32 °C</td></tr>
+          <tr><td>pH Set Point</td><td class="cap">7.2 – 7.6</td></tr>
+          <tr><td>Free Chlorine Residual</td><td class="cap">1.0 – 3.0 ppm</td></tr>
+          <tr><td>ORP Set Point</td><td class="cap">≥ 650 mV</td></tr>
+          <tr><td>Total Alkalinity</td><td class="cap">80 – 120 ppm</td></tr>
+          <tr><td>Filtration Flow Rate</td><td class="cap">32 m³/h (Pentair Triton II TR140)</td></tr>
+          <tr><td>Heater Capacity</td><td class="cap">45 kW (Elecro SFSD-45-380)</td></tr>
+          <tr><td>UV Disinfection</td><td class="cap">2 × 55 W UV-C (Elecro HRP-110)</td></tr>
+          <tr><td>Circulation Pump Configuration</td><td class="cap">2 × Pentair WhisperFlo P-WFL-901 – Duty / Standby</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 8: EQUIPMENT SCHEDULE -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">8</div><div class="sec-title">Mechanical Equipment Schedule</div></div>
+    <div class="body-text">All mechanical equipment listed below is located in the Basement SPA &amp; Pool Pump Room unless otherwise stated.</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Tag No.</th><th>Equipment Name</th><th>Manufacturer</th><th>Model</th><th>Capacity / Remarks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="tag">SF-01-ODP</span></td><td>Outdoor Pool Sand Filter</td><td class="brand">Pentair</td><td>Triton II TR140</td><td class="cap">Capacity: 141 GPM / 32 m³/h</td></tr>
+          <tr><td><span class="tag">SFV-ODP-01</span></td><td>Sand Filter 6-Way Backwash Valve</td><td class="brand">Praher Plastics</td><td>V6 Multiport Valve</td><td class="cap">Modes: Filter / Backwash / Rinse / Waste / Recirc / Closed</td></tr>
+          <tr><td><span class="tag">FP-ODP-01</span></td><td>Filtration Pump-01 (Duty)</td><td class="brand">Pentair Intl.</td><td>WhisperFlo P-WFL-901</td><td class="cap">Max Head: 27 m | FLA: 10.7 A</td></tr>
+          <tr><td><span class="tag">FP-ODP-02</span></td><td>Filtration Pump-02 (Standby)</td><td class="brand">Pentair Intl.</td><td>WhisperFlo P-WFL-901</td><td class="cap">Max Head: 27 m | FLA: 10.7 A</td></tr>
+          <tr><td><span class="tag">NP-ODP-01</span></td><td>Feature Wall Waterfall Pump</td><td class="brand">Pentair Intl.</td><td>WhisperFlo P-WFL-801</td><td class="cap">Max Head: 27 m | FLA: 9.7 A</td></tr>
+          <tr><td><span class="tag">WFP-ODP-01</span></td><td>Pool Jet Nozzle Pump</td><td class="brand">Pentair Intl.</td><td>WhisperFlo P-WFL-751</td><td class="cap">Max Head: 26 m | FLA: 8.6 A</td></tr>
+          <tr><td><span class="tag">EWH-01-ODP</span></td><td>Pool Water Heater</td><td class="brand">Elecro Engineering</td><td>SFSD-45-380</td><td class="cap">45 kW | Flow: 8,000–15,000 L/hr | FLA: 69 A</td></tr>
+          <tr><td><span class="tag">UV-C 01</span></td><td>UV Disinfection System</td><td class="brand">Elecro Engineering</td><td>H.R. UV-C PRO HRP-110</td><td class="cap">2 × 55 W UV-C | Water temp: 1°C – 45°C</td></tr>
+          <tr><td><span class="tag">PHC-01</span></td><td>pH / ORP Chemical Controller</td><td class="brand">Hayward Industries</td><td>HCC2000</td><td class="cap">pH sensor: 60 mV | ORP: 800 mV | Output: 4 A</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-left">
+    CEO Villa – SPA &amp; Pool Facility &nbsp;|&nbsp; Chapter 1: Outdoor Pool &nbsp;|&nbsp; Operations &amp; Maintenance Manual
+  </div>
+  <div class="footer-right">
+    Document ref: <span>IHCC-CEO-SPA-OM-INT-001</span> &nbsp;|&nbsp; Rev: <span>R0 – For Review</span> &nbsp;|&nbsp; IHCC – Jeddah, KSA
+  </div>
+</div>
+
+
+
+
+<style>
+  .btn-top{position:fixed;bottom:22px;right:22px;z-index:9999;width:38px;height:38px;border-radius:50%;border:1px solid rgba(201,169,58,.65);background:rgba(4,30,38,.90);color:#C9A93A;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;text-decoration:none;backdrop-filter:blur(6px);box-shadow:0 0 8px rgba(201,169,58,.22);transition:.22s ease;}
+  .btn-top:hover{background:rgba(201,169,58,.15);border-color:#e5c85a;box-shadow:0 0 16px rgba(201,169,58,.55);transform:translateY(-3px);}
+</style>
+<a class="btn-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</a>
+</body>
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <meta name="theme-color" content="#FFC107">
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mechanical HVAC Demonstration & Training</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    min-height: 100vh;
+    font-family: "Aptos", "Segoe UI", Arial, sans-serif;
+    color: #eaf6ff;
+    background:
+      linear-gradient(rgba(7, 25, 48, 0.92), rgba(2, 13, 28, 0.96)),
+      repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,0.035) 0,
+        rgba(255,255,255,0.035) 1px,
+        transparent 1px,
+        transparent 64px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,0.03) 0,
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 64px
+      );
+    padding: 28px 6%;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 34px;
+  }
+
+  .nav-btn {
+    text-decoration: none;
+    color: #eaf6ff;
+    background: rgba(96, 180, 255, 0.14);
+    border: 1px solid rgba(145, 210, 255, 0.35);
+    padding: 13px 25px;
+    border-radius: 17px;
+    font-size: 16px;
+    transition: 0.25s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-btn:hover {
+    background: rgba(96, 180, 255, 0.26);
+    transform: translateY(-2px);
+  }
+
+  .hero-section {
+    display: grid;
+    grid-template-columns: 2.1fr 1fr;
+    gap: 28px;
+    margin-bottom: 36px;
+  }
+
+  .hero-card,
+  .info-card,
+  .module-card,
+  .bottom-strip {
+    background: linear-gradient(
+      145deg,
+      rgba(24, 78, 122, 0.72),
+      rgba(7, 32, 63, 0.82)
+    );
+    border: 1px solid rgba(128, 203, 255, 0.28);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(18px);
+  }
+
+  .hero-card {
+    min-height: 350px;
+    padding: 38px;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-card::after {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    right: -70px;
+    top: -70px;
+    border-radius: 50%;
+    border: 36px solid rgba(92, 180, 255, 0.12);
+  }
+
+  .label {
+    display: inline-block;
+    color: #8fd6ff;
+    border: 1px solid rgba(143, 214, 255, 0.48);
+    background: rgba(68, 158, 226, 0.18);
+    padding: 10px 22px;
+    border-radius: 24px;
+    font-size: 14px;
+    letter-spacing: 1.3px;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+
+  .hero-card h1 {
+    font-size: 54px;
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+
+  .hero-card p {
+    max-width: 880px;
+    color: #b9d4e7;
+    font-size: 19px;
+    line-height: 1.65;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 11px;
+    margin-top: 28px;
+  }
+
+  .chip {
+    padding: 11px 20px;
+    border-radius: 13px;
+    color: #dff4ff;
+    background: rgba(4, 22, 43, 0.45);
+    border: 1px solid rgba(135, 204, 255, 0.28);
+    font-size: 14px;
+  }
+
+  .info-card {
+    border-radius: 30px;
+    padding: 32px;
+  }
+
+  .info-card h2 {
+    font-size: 25px;
+    font-weight: 400;
+    margin-bottom: 24px;
+  }
+
+  .info-box {
+    background: rgba(3, 20, 38, 0.52);
+    border: 1px solid rgba(128, 203, 255, 0.18);
+    padding: 18px;
+    border-radius: 16px;
+    margin-bottom: 13px;
+  }
+
+  .info-box span {
+    display: block;
+    color: #8db8cf;
+    font-size: 12px;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    margin-bottom: 9px;
+  }
+
+  .info-box strong {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+  }
+
+  .section-head h2 {
+    font-size: 34px;
+    font-weight: 300;
+  }
+
+  .section-head p {
+    color: #98b8ca;
+    font-size: 16px;
+    margin-top: 7px;
+  }
+
+  .stage-text {
+    color: #9abed4;
+    font-size: 15px;
+  }
+
+  .module-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
+  }
+
+  .module-card {
+    min-height: 310px;
+    border-radius: 24px;
+    padding: 20px;
+    position: relative;
+    transition: 0.25s ease;
+  }
+
+  .module-card:hover {
+    transform: translateY(-6px);
+    background: linear-gradient(
+      145deg,
+      rgba(34, 102, 154, 0.8),
+      rgba(6, 35, 68, 0.88)
+    );
+  }
+
+  .icon-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+  }
+
+  .icon {
+    width: 55px;
+    height: 55px;
+    display: grid;
+    place-items: center;
+    font-size: 28px;
+    border-radius: 17px;
+    background: rgba(71, 166, 235, 0.2);
+    border: 1px solid rgba(143, 214, 255, 0.35);
+  }
+
+  .number {
+    color: #8fd6ff;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .module-card h3 {
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 400;
+    margin-bottom: 15px;
+  }
+
+  .module-card p {
+    color: #b2ccdc;
+    font-size: 14px;
+    line-height: 1.55;
+    min-height: 96px;
+  }
+
+  .card-footer {
+    border-top: 1px solid rgba(143, 214, 255, 0.16);
+    margin-top: 18px;
+    padding-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    color: #9fe0ff;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .bottom-strip {
+    margin-top: 24px;
+    border-radius: 24px;
+    padding: 20px 26px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    color: #bfd9e9;
+    font-size: 15px;
+  }
+
+  .bottom-strip strong {
+    color: #8fd6ff;
+    font-weight: 600;
+  }
+
+  @media (max-width: 1200px) {
+    .module-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .hero-section {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    body {
+      padding: 22px;
+    }
+
+    .hero-card h1 {
+      font-size: 38px;
+    }
+
+    .module-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bottom-strip {
+      grid-template-columns: 1fr;
+    }
+
+    .section-head {
+      display: block;
+    }
+
+    .stage-text {
+      margin-top: 10px;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+  <div class="top-bar">
+    <a href="javascript:void(0)" onclick="evaReturnToEva()" class="nav-btn">← Back</a>
+    <a href="javascript:void(0)" onclick="evaGoHome()" class="nav-btn">Home ⌂</a>
+  </div>
+
+  <div class="hero-section">
+
+    <div class="hero-card">
+      <div class="label">• HANDING OVER TRAINING</div>
+
+      <h1>Demonstration & Training</h1>
+
+      <p>
+        Project handover training page for CEO Villa Mechanical HVAC systems.
+        This page is prepared to support FM orientation, system demonstration,
+        operation briefing, testing status review, and final handing-over record.
+      </p>
+
+      <div class="chips">
+        <div class="chip">Split AC</div>
+        <div class="chip">Package Units</div>
+        <div class="chip">VRF</div>
+        <div class="chip">FAHU</div>
+        <div class="chip">HMU</div>
+        <div class="chip">Exhaust Fans</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <h2>Project Information</h2>
+
+      <div class="info-box">
+        <span>Project</span>
+        <strong>CEO Villa</strong>
+      </div>
+
+      <div class="info-box">
+        <span>Project Code</span>
+        <strong>10144</strong>
+      </div>
+
+      <div class="info-box">
+        <span>Document</span>
+        <strong>Handing Over</strong>
+      </div>
+
+      <div class="info-box">
+        <span>Discipline</span>
+        <strong>Mechanical / HVAC</strong>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-head">
+    <div>
+      <h2>Training Modules</h2>
+      <p>Select each HVAC system demonstration item for operation and maintenance briefing.</p>
+    </div>
+    <div class="stage-text">FM Orientation | Final Handover Stage</div>
+  </div>
+
+  <div class="module-grid">
+
+    <div class="module-card">
+      <div class="icon-row">
+        <div class="icon">❄️</div>
+        <div class="number">01</div>
+      </div>
+      <h3>Split AC<br>Demonstration</h3>
+      <p>
+        Indoor and outdoor unit operation, controller settings, cooling mode,
+        filter cleaning, condensate drainage, and basic fault indication.
+      </p>
+      <div class="card-footer">
+        <span>System Demo</span>
+        <span>Ready</span>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="icon-row">
+        <div class="icon">🏢</div>
+        <div class="number">02</div>
+      </div>
+      <h3>Package Units<br>Demonstration</h3>
+      <p>
+        Rooftop package unit operation, thermostat control, supply and return air,
+        filter access, maintenance points, and emergency shutdown procedure.
+      </p>
+      <div class="card-footer">
+        <span>Equipment Demo</span>
+        <span>Ready</span>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="icon-row">
+        <div class="icon">🔁</div>
+        <div class="number">03</div>
+      </div>
+      <h3>VRF<br>Demonstration</h3>
+      <p>
+        VRF indoor and outdoor unit operation, controller use, zone control,
+        refrigerant system overview, alarms, and normal operating sequence.
+      </p>
+      <div class="card-footer">
+        <span>System Demo</span>
+        <span>Ready</span>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="icon-row">
+        <div class="icon">🌬️</div>
+        <div class="number">04</div>
+      </div>
+      <h3>FAHU<br>Demonstration</h3>
+      <p>
+        Fresh air handling unit operation, filter inspection, airflow path,
+        control sequence, access panels, and preventive maintenance checks.
+      </p>
+      <div class="card-footer">
+        <span>Operation</span>
+        <span>Ready</span>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="icon-row">
+        <div class="icon">🍳</div>
+        <div class="number">05</div>
+      </div>
+      <h3>HMU<br>Demonstration</h3>
+      <p>
+        Hood make-up air unit operation, kitchen exhaust interlock, VFD control,
+        start/stop sequence, safety checks, and maintenance access.
+      </p>
+      <div class="card-footer">
+        <span>Kitchen HVAC</span>
+        <span>Ready</span>
+      </div>
+    </div>
+
+    <div class="module-card">
+      <div class="icon-row">
+        <div class="icon">🌀</div>
+        <div class="number">06</div>
+      </div>
+      <h3>Exhaust Fans<br>Demonstration</h3>
+      <p>
+        Exhaust fan operation, local and control panel status, airflow direction,
+        isolation procedure, vibration check, and fault response.
+      </p>
+      <div class="card-footer">
+        <span>Ventilation</span>
+        <span>Ready</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="bottom-strip">
+    <div><strong>Purpose:</strong> FM training and HVAC operation briefing</div>
+    <div><strong>Stage:</strong> Final handing over</div>
+    <div><strong>Record:</strong> Demonstration attendance and comments to be attached separately</div>
+  </div>
+
+  <script>
+    function evaReturnToEva() {
+      var target = sessionStorage.getItem('eva_local_return') || 'EVA-HVAC.html#pg4';
+      if (target.indexOf('pg4') >= 0) sessionStorage.setItem('eva_pg4_expand', '1');
+      window.location.href = target;
+    }
+    function evaGoHome() {
+      window.location.href = 'EVA-CORE.html#pg3';
+    }
+  </script>
+</body>
+</html>

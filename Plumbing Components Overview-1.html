@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <meta name="theme-color" content="#FFC107">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEO Villa — Plumbing Components Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-deep:    #040a08;
+  --bg-surface: #071210;
+  --bg-panel:   #0c1a14;
+  --bg-card:    #0f2018;
+  --border:     rgba(42, 191, 143, 0.22);
+  --border-hi:  rgba(42, 191, 143, 0.45);
+  --accent:     #2abf8f;
+  --accent-hi:  #3dd4a4;
+  --accent-dim: #1a8060;
+  --gold:       #c9a84c;
+  --text:       #e8f5ef;
+  --muted:      #7a9e8e;
+  --pending:    #e8a838;
+  --warn:       #f0a050;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Exo 2', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── ambient background ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(42,191,143,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 100%, rgba(26,128,96,0.08) 0%, transparent 55%),
+    linear-gradient(180deg, #040a08 0%, #061410 50%, #040a08 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── fixed nav (back / home) ── */
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgba(4, 10, 8, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-btn {
+  background: rgba(42, 191, 143, 0.06);
+  border: 1px solid var(--border-hi);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 8px 11px;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: all 0.2s;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.nav-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent-hi);
+  background: rgba(42, 191, 143, 0.14);
+  box-shadow: 0 0 16px rgba(42, 191, 143, 0.2);
+}
+
+.nav-btn svg {
+  width: 21px;
+  height: 21px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+.nav-btn .nav-lbl { display: none; }
+
+@media (min-width: 480px) {
+  .nav-btn .nav-lbl { display: inline; }
+}
+
+/* ── layout shell ── */
+.shell {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 20px 60px;
+}
+
+/* ── top bar ── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  background: rgba(4, 10, 8, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent-dim), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(42,191,143,0.3);
+}
+
+.topbar-icon svg { width: 18px; height: 18px; stroke: #001a0e; fill: none; stroke-width: 2; }
+
+.topbar-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.topbar-proj {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text);
+}
+
+.topbar-meta {
+  text-align: right;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* ── hero header ── */
+.hero {
+  padding: 48px 0 36px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: var(--accent);
+  text-transform: uppercase;
+  background: rgba(42,191,143,0.08);
+  border: 1px solid var(--border-hi);
+  border-radius: 4px;
+  padding: 5px 12px;
+  margin-bottom: 18px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.hero h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(42,191,143,0.2);
+  margin-bottom: 10px;
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 28px;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.meta-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 16px;
+  min-width: 160px;
+}
+
+.meta-chip .lbl {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.meta-chip .val {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent-hi);
+}
+
+/* ── section blocks ── */
+.section {
+  margin-bottom: 40px;
+}
+
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sec-num {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  background: rgba(42,191,143,0.1);
+  border: 1px solid var(--border-hi);
+  border-radius: 4px;
+  padding: 4px 10px;
+  flex-shrink: 0;
+}
+
+.sec-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.sec-source {
+  margin-left: auto;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-align: right;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+.intro-text {
+  font-size: 13.5px;
+  color: rgba(232,245,239,0.72);
+  line-height: 1.75;
+  margin-bottom: 20px;
+  padding: 16px 18px;
+  background: var(--bg-card);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+}
+
+/* ── summary table ── */
+.tbl-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+
+thead tr {
+  background: linear-gradient(90deg, rgba(26,128,96,0.35), rgba(42,191,143,0.15));
+}
+
+thead th {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-hi);
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-hi);
+  white-space: nowrap;
+}
+
+tbody tr {
+  border-bottom: 1px solid rgba(42,191,143,0.1);
+  transition: background 0.15s;
+}
+
+tbody tr:hover { background: rgba(42,191,143,0.05); }
+tbody tr:last-child { border-bottom: none; }
+
+tbody td {
+  padding: 11px 14px;
+  vertical-align: top;
+  color: rgba(232,245,239,0.85);
+}
+
+tbody td:first-child {
+  font-weight: 600;
+  color: var(--text);
+  min-width: 200px;
+}
+
+.tag {
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  background: rgba(42,191,143,0.12);
+  border: 1px solid var(--border-hi);
+  color: var(--accent);
+  border-radius: 3px;
+  padding: 2px 7px;
+  margin-right: 4px;
+}
+
+.pending {
+  color: var(--pending);
+  font-style: italic;
+  font-size: 12px;
+}
+
+.warn-note {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: rgba(240,160,80,0.08);
+  border: 1px solid rgba(240,160,80,0.3);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 12.5px;
+  color: rgba(240,200,150,0.9);
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+.warn-note::before {
+  content: '⚠';
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+/* ── detail cards ── */
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.detail-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.detail-card:hover {
+  border-color: var(--border-hi);
+  box-shadow: 0 4px 24px rgba(42,191,143,0.1);
+}
+
+.dc-head {
+  background: rgba(42,191,143,0.08);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dc-tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  background: rgba(42,191,143,0.12);
+  border: 1px solid var(--border-hi);
+  border-radius: 3px;
+  padding: 2px 8px;
+}
+
+.dc-service {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+.dc-body { padding: 0; }
+
+.kv-row {
+  display: flex;
+  border-bottom: 1px solid rgba(42,191,143,0.08);
+  font-size: 12px;
+}
+
+.kv-row:last-child { border-bottom: none; }
+
+.kv-key {
+  width: 42%;
+  flex-shrink: 0;
+  padding: 8px 12px;
+  color: var(--muted);
+  font-size: 11px;
+  background: rgba(0,0,0,0.15);
+  border-right: 1px solid rgba(42,191,143,0.08);
+}
+
+.kv-val {
+  flex: 1;
+  padding: 8px 12px;
+  color: rgba(232,245,239,0.9);
+  font-weight: 500;
+}
+
+/* ── sub-section label ── */
+.sub-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 20px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sub-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── component breakdown table ── */
+.comp-tbl thead th { background: rgba(42,191,143,0.12); }
+.comp-tbl tbody td:first-child { font-weight: 500; color: var(--accent-hi); }
+
+/* ── identical-spec banner ── */
+.ident-banner {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  background: rgba(42,191,143,0.06);
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  padding: 8px 14px;
+  margin-bottom: 14px;
+}
+
+/* ── footer ── */
+.doc-footer {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+}
+
+.doc-footer strong { color: var(--accent); }
+
+/* ── nav toc ── */
+.toc {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 36px;
+}
+
+.toc-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 6px;
+}
+
+.toc a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: rgba(232,245,239,0.7);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.15s;
+  border: 1px solid transparent;
+}
+
+.toc a:hover {
+  color: var(--accent-hi);
+  background: rgba(42, 191, 143, 0.08);
+  border-color: var(--border);
+}
+
+.toc a span {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ── updated styles for system links inside toc ── */
+.toc a {
+  font-weight: 500;
+  color: rgba(232, 245, 239, 0.95);
+  border: 1px solid rgba(201, 168, 76, 0.6);
+}
+
+.toc a:hover {
+  border-color: var(--gold);
+}
+
+/* ── print ── */
+@media print {
+  body::before { display: none; }
+  .nav-bar { display: none; }
+  .shell { padding-top: 0; }
+  .topbar { position: static; }
+  .detail-card { break-inside: avoid; }
+  body { background: #fff; color: #111; }
+}
+
+@media (max-width: 600px) {
+  .sec-source { display: none; }
+  .hero-meta { flex-direction: column; }
+  .kv-key { width: 45%; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar" aria-label="Page navigation">
+  <button class="nav-btn" onclick="goBack()" aria-label="Back">
+    <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+    <span class="nav-lbl">Back</span>
+  </button>
+  <button class="nav-btn" onclick="goHome()" aria-label="Home">
+    <span class="nav-lbl">Home</span>
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+  </button>
+</nav>
+
+<div class="shell">
+
+  <div class="topbar">
+    <div class="topbar-brand">
+      <div class="topbar-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+      </div>
+      <div>
+        <div class="topbar-label">EVA-APP · CEO Villa 10144</div>
+        <div class="topbar-proj">IHCC — Jeddah</div>
+      </div>
+    </div>
+    <div class="topbar-meta">
+      <div>PLUMBING COMPONENTS</div>
+      <div>06 JUN 2026</div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-eyebrow">Mechanical Systems</div>
+    <h1>Plumbing Components<br>Overview</h1>
+    <p class="hero-sub">Water Supply, Drainage &amp; Auxiliary Systems</p>
+    <div class="hero-meta">
+      <div class="meta-chip">
+        <span class="lbl">Prepared For</span>
+        <span class="val">Saqib Manzoor Dar</span>
+      </div>
+      <div class="meta-chip">
+        <span class="lbl">Role</span>
+        <span class="val">Senior Mechanical Engineer</span>
+      </div>
+      <div class="meta-chip">
+        <span class="lbl">Document Date</span>
+        <span class="val">06 June 2026</span>
+      </div>
+      <div class="meta-chip">
+        <span class="lbl">Equipment Categories</span>
+        <span class="val">11 Tracked Items</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <div class="toc-title">Contents</div>
+    <div class="toc-grid">
+      <a href="#summary"><span>00</span> Component Summary</a>
+      <a href="#wsbp"><span>01</span> Water Supply Booster Pumps</a>
+      <a href="#hwcp"><span>02</span> Hot Water Circulation Pumps</a>
+      <a href="#irrp"><span>03</span> Irrigation Pumps</a>
+      <a href="#wsp"><span>04</span> Water Softener Plant</a>
+      <a href="#ewh"><span>05</span> Electric Water Heaters</a>
+      <a href="#sdlp123"><span>06</span> Drainage Pumps Pits 01–03</a>
+      <a href="#sdlp56"><span>07</span> Rain Water Pumps Pits 05–06</a>
+      <a href="#csc"><span>08</span> Cold Shower Chiller</a>
+    </div>
+  </nav>
+
+  <section class="section" id="summary">
+    <div class="sec-head">
+      <span class="sec-num">00</span>
+      <h2 class="sec-title">Component Summary</h2>
+    </div>
+    <p class="intro-text">
+      The table below summarizes all eleven (11) plumbing equipment categories tracked under the CEO Villa Equipment Schedule, drawing exclusively on the Selected and Specified Schedule records verified inside the EVA-APP portal. Items without confirmed manufacturer, quantity, or standard data are marked <strong style="color:var(--pending)">PENDING</strong> rather than estimated.
+    </p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>System / Component Category</th>
+            <th>Manufacturer / Brand</th>
+            <th>Qty</th>
+            <th>Key Standard</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag">WSBP</span> Water Supply Booster Pumps</td>
+            <td>Lowara — Booster Set GHV20/Z, Pump Model 10SV03N0226T</td>
+            <td>2 Nos. (1 Duty + 1 Standby)</td>
+            <td>Degree of Protection IP55</td>
+          </tr>
+          <tr>
+            <td><span class="tag">HWCP</span> Hot Water Circulation Pumps (HWCP / HWRP)</td>
+            <td>Lowara GSD20, Pump Model 3SV05N0116T</td>
+            <td>2 Nos. (1 Duty + 1 Standby)</td>
+            <td>Degree of Protection IP55</td>
+          </tr>
+          <tr>
+            <td><span class="tag">IRR-P</span> Irrigation Pumps</td>
+            <td class="pending">PENDING — not yet specified in source records</td>
+            <td class="pending">PENDING</td>
+            <td class="pending">PENDING</td>
+          </tr>
+          <tr>
+            <td><span class="tag">WSP</span> Water Softener Plant</td>
+            <td>Aqua Purification / LUMINOR — 4-component package (Sediment Filter, Carbon Filter, Softener AMS16271, UV Steriliser LR6-553)</td>
+            <td>Sediment 2 Nos. + Carbon 1 No. + Softener 1 Set + UV 1 Set</td>
+            <td>ASME Pressure Vessel Standards; Certification noted in-app as "EUROVENT Certified" — reported as found, flagged as unusual for a water-treatment package</td>
+          </tr>
+          <tr>
+            <td><span class="tag">EWH</span> Electric Water Heaters</td>
+            <td>A.O. Smith, Model ECT-80X</td>
+            <td>2 Nos.</td>
+            <td>UL Listed / ASME Certified</td>
+          </tr>
+          <tr>
+            <td><span class="tag">SDLP-1</span> Submersible Drainage Pump — Pit 01</td>
+            <td>HOMA, Pump Model GRP-41/3/C <em style="color:var(--muted);font-size:11px">(per confirmed correction — "Lowara" label in app to be fixed)</em></td>
+            <td>2 Nos. (1 Lead + 1 Lag)</td>
+            <td>Degree of Protection IP68</td>
+          </tr>
+          <tr>
+            <td><span class="tag">SDLP-2</span> Submersible Drainage Pump — Pit 02</td>
+            <td>HOMA, Pump Model GRP-41/3/C (per confirmed correction)</td>
+            <td>2 Nos. (1 Lead + 1 Lag)</td>
+            <td>Degree of Protection IP68</td>
+          </tr>
+          <tr>
+            <td><span class="tag">SDLP-3</span> Submersible Drainage Pump — Pit 03</td>
+            <td>HOMA, Pump Model GRP-41/3/C (per confirmed correction)</td>
+            <td>2 Nos. (1 Lead + 1 Lag)</td>
+            <td>Degree of Protection IP68</td>
+          </tr>
+          <tr>
+            <td><span class="tag">SDLP-5</span> Submersible Drainage Pump — Pit 05 / Rain Water</td>
+            <td>Grundfos, Model SEG.40.15.2.60G</td>
+            <td>2 Nos. (1 Duty + 1 Standby)</td>
+            <td>Enclosure Class IP68 (IEC 34-5); Flange Standard DIN</td>
+          </tr>
+          <tr>
+            <td><span class="tag">SDLP-6</span> Submersible Drainage Pump — Pit 06 / Rain Water</td>
+            <td>Grundfos, Model SEG.40.15.2.60G</td>
+            <td>2 Nos. (1 Duty + 1 Standby)</td>
+            <td>Enclosure Class IP68 (IEC 34-5); Flange Standard DIN</td>
+          </tr>
+          <tr>
+            <td><span class="tag">CSC</span> Cold Shower Chiller</td>
+            <td>AL-KAWTHER (AMJAD) system — Compressor: Copeland Thailand ZR61KCE-TF7 (Scroll, Solder Type)</td>
+            <td>1 System (1 Compressor + 2 Condensers)</td>
+            <td class="pending">PENDING — no formal certification/standard documented in source records</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="wsbp">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">Water Supply Booster Pumps (WSBP)</h2>
+      <span class="sec-source">Source: pg_pss_swbp (Selected Schedule) — MEP Service Corridor</span>
+    </div>
+    <div class="sub-label">1.1 Selected Schedule</div>
+    <div class="detail-grid">
+      <div class="detail-card" style="grid-column: 1 / -1;">
+        <div class="dc-head">
+          <span class="dc-tag">SWBP</span>
+          <span class="dc-service">Water Supply Booster Pumps — MEP Service Corridor</span>
+        </div>
+        <div class="dc-body">
+          <div class="kv-row"><span class="kv-key">Tag</span><span class="kv-val">SWBP</span></div>
+          <div class="kv-row"><span class="kv-key">Service</span><span class="kv-val">Water Supply Booster Pumps</span></div>
+          <div class="kv-row"><span class="kv-key">Location</span><span class="kv-val">MEP Service Corridor</span></div>
+          <div class="kv-row"><span class="kv-key">Quantity</span><span class="kv-val">2 No.'s (1 Duty + 1 Standby)</span></div>
+          <div class="kv-row"><span class="kv-key">Booster Set Model</span><span class="kv-val">GHV20/Z/10SV03N0226T/400/60/A316/C</span></div>
+          <div class="kv-row"><span class="kv-key">Pump Model</span><span class="kv-val">10SV03N0226T</span></div>
+          <div class="kv-row"><span class="kv-key">Pump Type</span><span class="kv-val">Single Head Pump</span></div>
+          <div class="kv-row"><span class="kv-key">Stages</span><span class="kv-val">3</span></div>
+          <div class="kv-row"><span class="kv-key">Rated Flow</span><span class="kv-val">40 GPM</span></div>
+          <div class="kv-row"><span class="kv-key">Rated Head</span><span class="kv-val">4.5 BAR</span></div>
+          <div class="kv-row"><span class="kv-key">Speed</span><span class="kv-val">3500 rpm</span></div>
+          <div class="kv-row"><span class="kv-key">Power Supply</span><span class="kv-val">400V / 3PH / 60Hz</span></div>
+          <div class="kv-row"><span class="kv-key">Motor Manufacturer</span><span class="kv-val">Lowara</span></div>
+          <div class="kv-row"><span class="kv-key">Degree of Protection</span><span class="kv-val">IP55</span></div>
+          <div class="kv-row"><span class="kv-key">Insulation Class</span><span class="kv-val">155 (F)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="hwcp">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">Hot Water Circulation Pumps (HWCP / HWRP)</h2>
+      <span class="sec-source">Source: pg_pss_hwrp (Selected Schedule)</span>
+    </div>
+    <div class="sub-label">2.1 Selected Schedule</div>
+    <div class="detail-card">
+      <div class="dc-head">
+        <span class="dc-tag">HWRP</span>
+        <span class="dc-service">Hot Water Circulation Pumps</span>
+      </div>
+      <div class="dc-body">
+        <div class="kv-row"><span class="kv-key">Tag</span><span class="kv-val">HWRP</span></div>
+        <div class="kv-row"><span class="kv-key">Manufacturer / Series</span><span class="kv-val">Lowara GSD20</span></div>
+        <div class="kv-row"><span class="kv-key">Pump Model</span><span class="kv-val">3SV05N0116T</span></div>
+        <div class="kv-row"><span class="kv-key">Quantity</span><span class="kv-val">2 No.'s (1 Duty + 1 Standby)</span></div>
+        <div class="kv-row"><span class="kv-key">Degree of Protection</span><span class="kv-val">IP55 (per shared Lowara series rating documented in-app)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="irrp">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">Irrigation Pumps (IRR-P)</h2>
+      <span class="sec-source">Source: pg_plumb_equip_sched — row status: PENDING / PENDING</span>
+    </div>
+    <div class="detail-card">
+      <div class="dc-head">
+        <span class="dc-tag">IRR-P</span>
+        <span class="dc-service">Irrigation Pumps — Awaiting Specification</span>
+      </div>
+      <div class="dc-body">
+        <div class="kv-row"><span class="kv-key">Tag</span><span class="kv-val">IRR-P</span></div>
+        <div class="kv-row"><span class="kv-key">Specified Schedule</span><span class="kv-val pending">PENDING — no data in source records</span></div>
+        <div class="kv-row"><span class="kv-key">Selected Schedule</span><span class="kv-val pending">PENDING — no data in source records</span></div>
+        <div class="kv-row"><span class="kv-key">Manufacturer / Model / Qty / Standards</span><span class="kv-val pending">PENDING — not documented anywhere in the EVA-APP plumbing equipment records at the time of this report</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="wsp">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">Water Softener Plant (WSP)</h2>
+      <span class="sec-source">Source: pg_pss_wsp &amp; pg_pps_wsp — Aqua Purification / LUMINOR 4-Component Package</span>
+    </div>
+    <div class="sub-label">4.1 Selected Schedule — Component Breakdown</div>
+    <div class="tbl-wrap comp-tbl" style="margin-bottom:20px">
+      <table>
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Model</th>
+            <th>Quantity</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sediment Filter</td>
+            <td>5V40-316</td>
+            <td>2 Nos.</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Carbon Filter</td>
+            <td>5V40-316</td>
+            <td>1 No.</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Softener</td>
+            <td>AMS16271</td>
+            <td>1 Set</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>UV Sterilizer</td>
+            <td>LR6-553</td>
+            <td>1 Set</td>
+            <td>Brand: LUMINOR</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sub-label">4.2 Standards &amp; Certification (as documented in-app)</div>
+    <div class="detail-card">
+      <div class="dc-body">
+        <div class="kv-row"><span class="kv-key">Design Standards</span><span class="kv-val">ASME Pressure Vessel Standards</span></div>
+        <div class="kv-row"><span class="kv-key">Certification</span><span class="kv-val">EUROVENT Certified — reproduced as printed in-app</span></div>
+      </div>
+    </div>
+    <div class="warn-note">
+      Flagged for Saqib's verification: EUROVENT certification is conventionally associated with HVAC/air-handling equipment, not water-treatment packages.
+    </div>
+  </section>
+
+  <section class="section" id="ewh">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title">Electric Water Heaters (EWH)</h2>
+    </div>
+    <div class="sub-label">5.1 Selected Schedule</div>
+    <div class="detail-card">
+      <div class="dc-head">
+        <span class="dc-tag">EWH</span>
+        <span class="dc-service">Electric Water Heaters</span>
+      </div>
+      <div class="dc-body">
+        <div class="kv-row"><span class="kv-key">Tag</span><span class="kv-val">EWH</span></div>
+        <div class="kv-row"><span class="kv-key">Manufacturer</span><span class="kv-val">A.O. Smith</span></div>
+        <div class="kv-row"><span class="kv-key">Model Number</span><span class="kv-val">ECT-80X</span></div>
+        <div class="kv-row"><span class="kv-key">Quantity</span><span class="kv-val">2 Nos.</span></div>
+        <div class="kv-row"><span class="kv-key">Certification (Specified Schedule)</span><span class="kv-val">UL Listed / ASME Certified</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sdlp123">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2 class="sec-title">Submersible Drainage Pumps — Pits 01, 02 &amp; 03</h2>
+      <span class="sec-source">Source: pg_pss_sdlp1 / sdlp2 / sdlp3 — Sewerage, Basement Parking Area</span>
+    </div>
+    <div class="ident-banner">SDLP-1 / SDLP-2 / SDLP-3 — Identical specification for all three units</div>
+    <div class="sub-label">6.1 Selected Schedule</div>
+    <div class="detail-card" style="margin-bottom:20px">
+      <div class="dc-head">
+        <span class="dc-tag">SDLP-1/2/3</span>
+        <span class="dc-service">Duplex Submersible Pumps (Sewerage)</span>
+      </div>
+      <div class="dc-body">
+        <div class="kv-row"><span class="kv-key">Service</span><span class="kv-val">Duplex Submersible Pumps (Sewerage)</span></div>
+        <div class="kv-row"><span class="kv-key">Quantity (each pit)</span><span class="kv-val">2 No.'s (1 Lead + 1 Lag)</span></div>
+        <div class="kv-row"><span class="kv-key">Pump Model / Code</span><span class="kv-val">GRP-41/3/C</span></div>
+        <div class="kv-row"><span class="kv-key">Pump Type</span><span class="kv-val">Single Head Pump</span></div>
+        <div class="kv-row"><span class="kv-key">Motor Design</span><span class="kv-val">Submersible Motor</span></div>
+        <div class="kv-row"><span class="kv-key">Impeller</span><span class="kv-val">Vane Impeller with Cutter System</span></div>
+        <div class="kv-row"><span class="kv-key">Rated Flow</span><span class="kv-val">50 GPM</span></div>
+        <div class="kv-row"><span class="kv-key">Rated Head</span><span class="kv-val">2.5 BAR</span></div>
+        <div class="kv-row"><span class="kv-key">Motor Rated Power (P2)</span><span class="kv-val">4.1 hp</span></div>
+        <div class="kv-row"><span class="kv-key">Rated Speed</span><span class="kv-val">3450 rpm</span></div>
+        <div class="kv-row"><span class="kv-key">Overall Efficiency</span><span class="kv-val">83%</span></div>
+        <div class="kv-row"><span class="kv-key">Rated Voltage</span><span class="kv-val">400V</span></div>
+        <div class="kv-row"><span class="kv-key">Frequency</span><span class="kv-val">60 Hz</span></div>
+        <div class="kv-row"><span class="kv-key">Rated Current</span><span class="kv-val">6 A</span></div>
+        <div class="kv-row"><span class="kv-key">Degree of Protection</span><span class="kv-val">IP68</span></div>
+        <div class="kv-row"><span class="kv-key">Fluid</span><span class="kv-val">Water, Clean</span></div>
+        <div class="kv-row"><span class="kv-key">Weight</span><span class="kv-val">97.002 lb</span></div>
+      </div>
+    </div>
+    <div class="sub-label">6.2 Specified Schedule — Approved Brands (pg_pps_sdlp1)</div>
+    <div class="detail-card">
+      <div class="dc-body">
+        <div class="kv-row"><span class="kv-key">Schedule Reference</span><span class="kv-val">SL# 4</span></div>
+        <div class="kv-row"><span class="kv-key">Full Name</span><span class="kv-val">Submersible Drainage Pump — Pit 01</span></div>
+        <div class="kv-row"><span class="kv-key">Equipment Type</span><span class="kv-val">Duplex Type Submersible Sump Pump</span></div>
+        <div class="kv-row"><span class="kv-key">Operation Mode</span><span class="kv-val">One Lead + One Lag</span></div>
+        <div class="kv-row"><span class="kv-key">Approved Brands (Specified)</span><span class="kv-val">Wilo / Xylem / Peerless</span></div>
+      </div>
+    </div>
+    <div class="warn-note" style="margin-top:14px">
+      Confirmed correction: Selected schedule manufacturer is HOMA (GRP-41/3/C). The "Lowara" label in the EVA-APP portal is to be fixed.
+    </div>
+  </section>
+
+  <section class="section" id="sdlp56">
+    <div class="sec-head">
+      <span class="sec-num">07</span>
+      <h2 class="sec-title">Submersible Drainage Pumps — Rain Water, Pits 05 &amp; 06</h2>
+      <span class="sec-source">Source: pg_pss_sdlp5 / pg_pss_sdlp6 — Rain Water drainage system</span>
+    </div>
+    <div class="ident-banner">SDLP-5 / SDLP-6 — Identical specification for both pits</div>
+    <div class="sub-label">7.1 Selected Schedule</div>
+    <div class="detail-card">
+      <div class="dc-head">
+        <span class="dc-tag">SDLP-5/6</span>
+        <span class="dc-service">Rain Water Drainage</span>
+      </div>
+      <div class="dc-body">
+        <div class="kv-row"><span class="kv-key">Service</span><span class="kv-val">Rain Water</span></div>
+        <div class="kv-row"><span class="kv-key">Manufacturer / Model</span><span class="kv-val">Grundfos SEG.40.15.2.60G</span></div>
+        <div class="kv-row"><span class="kv-key">Quantity (each pit)</span><span class="kv-val">2 Units (1 Duty + 1 Standby)</span></div>
+        <div class="kv-row"><span class="kv-key">Enclosure Class</span><span class="kv-val">IP68 (IEC 34-5)</span></div>
+        <div class="kv-row"><span class="kv-key">Flange Standard</span><span class="kv-val">DIN</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="csc">
+    <div class="sec-head">
+      <span class="sec-num">08</span>
+      <h2 class="sec-title">Cold Shower Chiller (CSC)</h2>
+      <span class="sec-source">Source: pg_pss_csc — AL-KAWTHER (AMJAD) 5 TON AIR-COOLED ROOF LEVEL</span>
+    </div>
+    <div class="sub-label">8.1 System Performance</div>
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="dc-head"><span class="dc-tag">CSC</span><span class="dc-service">System Performance</span></div>
+        <div class="dc-body">
+          <div class="kv-row"><span class="kv-key">Nominal Cooling Capacity</span><span class="kv-val">15,000 KCAL/HR / 5 TON</span></div>
+          <div class="kv-row"><span class="kv-key">Power Supply</span><span class="kv-val">380V / 3PH / 60Hz</span></div>
+          <div class="kv-row"><span class="kv-key">Max Power Input</span><span class="kv-val">8 kW</span></div>
+          <div class="kv-row"><span class="kv-key">Tank Storage</span><span class="kv-val">1,000 LTR</span></div>
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="dc-head"><span class="dc-tag">COMP</span><span class="dc-service">Compressor</span></div>
+        <div class="dc-body">
+          <div class="kv-row"><span class="kv-key">Brand &amp; Type</span><span class="kv-val">Copeland Thailand — ZR61KCE-TF7 (Solder Type Scroll)</span></div>
+          <div class="kv-row"><span class="kv-key">Refrigerant</span><span class="kv-val">R-407C (R-22)</span></div>
+          <div class="kv-row"><span class="kv-key">Horsepower</span><span class="kv-val">5 HP</span></div>
+          <div class="kv-row"><span class="kv-key">Quantity</span><span class="kv-val">1 Pcs</span></div>
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="dc-head"><span class="dc-tag">COND</span><span class="dc-service">Air-Cooled Condenser</span></div>
+        <div class="dc-body">
+          <div class="kv-row"><span class="kv-key">Quantity</span><span class="kv-val">2 Pcs</span></div>
+        </div>
+      </div>
+      <div class="detail-card">
+        <div class="dc-head"><span class="dc-tag">STR</span><span class="dc-service">Structure</span></div>
+        <div class="dc-body">
+          <div class="kv-row"><span class="kv-key">Overall Dimensions</span><span class="kv-val">200 × 120 × 200 CM</span></div>
+          <div class="kv-row"><span class="kv-key">Outer Body</span><span class="kv-val">Stainless Steel 430 BA Finish</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="doc-footer">
+    <div><strong>CEO VILLA PROJECT (10144)</strong> · IHCC JEDDAH</div>
+    <div>PLUMBING COMPONENTS OVERVIEW · 06 JUN 2026</div>
+    <div>DATA SOURCE: EVA-APP PORTAL · SELECTED &amp; SPECIFIED SCHEDULES</div>
+  </footer>
+
+</div>
+
+<script>
+function evaReturnToEva() {
+  window.location.href = sessionStorage.getItem('eva_local_return') || 'EVA-PLUMBING.html#pg_plumb_contents';
+}
+function goBack() {
+  evaReturnToEva();
+}
+function goHome() {
+  window.location.href = 'EVA-CORE.html#pg3';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS-HEATER-SPA-03 — Installation of Pool Electric Heaters</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root {
+  --aqua:   #17D4E8; --aqua-l:  #67E8F9;
+  --gold:   #D4AF37; --gold-l:  #f0d878;
+  --navy:   #040c18; --navy2:   #0d2040; --navy3:  #081830;
+  --teal:   #17C3D4; --green:   #27AE60; --red:    #C0392B;
+  --amber:  #EF9F27; --blue:    #2471A3;
+  --text:   #dff4ff; --text2:   rgba(223,244,255,0.65);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--navy);color:var(--text);display:flex;flex-direction:column;min-height:100vh;}
+.bg-wrap{position:fixed;inset:0;z-index:-1;}
+.bg-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 10% 40%,rgba(0,210,230,0.14) 0%,transparent 50%),radial-gradient(ellipse at 90% 20%,rgba(0,190,220,0.10) 0%,transparent 50%),linear-gradient(180deg,#020a14 0%,#051828 100%);}
+.bg-wrap::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(0,210,230,0.04) 80px),repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(0,210,230,0.04) 80px);}
+/* HEADER */
+header{position:fixed;top:0;width:100%;z-index:1000;background:rgba(3,10,20,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(23,212,232,0.28);padding:8px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 24px rgba(0,0,0,0.60);}
+.hdr-left{display:flex;align-items:center;gap:16px;}
+.hdr-title h1{font-family:'Arial Narrow',Arial,sans-serif;font-size:17px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-shadow:0 0 16px rgba(212,175,55,0.45);}
+.hdr-title .sub{font-size:10px;color:rgba(23,212,232,0.55);letter-spacing:1.5px;text-transform:uppercase;margin-top:1px;}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.doc-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:rgba(23,212,232,0.08);border:1px solid rgba(23,212,232,0.28);color:rgba(23,212,232,0.75);letter-spacing:1px;}
+.btn-nav{display:flex;align-items:center;gap:7px;padding:6px 13px;border-radius:5px;border:1px solid rgba(212,175,55,0.45);background:rgba(212,175,55,0.10);color:var(--gold);font-size:12px;font-weight:600;text-decoration:none;transition:all 0.25s;}
+.btn-nav:hover{background:rgba(212,175,55,0.22);border-color:var(--gold);color:var(--gold-l);}
+.btn-download{display:flex;align-items:center;gap:7px;padding:6px 13px;border-radius:5px;border:1px solid rgba(23,212,232,0.35);background:rgba(23,212,232,0.08);color:var(--aqua);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.25s;}
+.btn-download:hover{background:rgba(23,212,232,0.20);border-color:var(--aqua);}
+/* LAYOUT */
+.layout{display:flex;padding-top:60px;}
+/* SIDEBAR */
+.sidebar{width:240px;min-width:240px;position:fixed;top:60px;left:0;bottom:0;background:rgba(3,10,22,0.92);border-right:1px solid rgba(23,212,232,0.15);overflow-y:auto;padding:16px 0;z-index:100;}
+.sidebar::-webkit-scrollbar{width:4px;}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(23,212,232,0.25);border-radius:2px;}
+.sidebar-title{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(23,212,232,0.45);padding:0 16px 10px;border-bottom:1px solid rgba(23,212,232,0.10);margin-bottom:8px;}
+.nav-item{display:block;padding:7px 16px;font-size:11px;color:rgba(223,244,255,0.55);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;}
+.nav-item:hover,.nav-item.active{color:var(--aqua-l);border-left-color:var(--aqua);background:rgba(23,212,232,0.06);}
+.nav-item .nav-num{color:var(--aqua);font-weight:700;margin-right:6px;}
+.nav-section{padding:8px 16px 4px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(23,212,232,0.30);}
+/* MAIN */
+main{margin-left:240px;flex:1;padding:24px 32px 60px;max-width:calc(100% - 240px);}
+/* COVER */
+.cover{position:relative;overflow:hidden;border:1px solid rgba(23,212,232,0.35);border-radius:16px;padding:40px 48px;margin-bottom:32px;box-shadow:0 24px 56px rgba(0,0,0,0.75);}
+.cover::before{content:'';position:absolute;inset:0;background-image:url('Pool Water HEater.jpg');background-size:cover;background-position:center 25%;z-index:0;}
+.cover::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(4,12,28,0.38) 0%,rgba(2,8,18,0.42) 100%);z-index:1;}
+.cover>*{position:relative;z-index:2;}
+.cover-project{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--aqua);margin-bottom:4px;}
+.cover-location{font-size:12px;color:var(--text2);margin-bottom:28px;}
+.cover-ms-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(212,175,55,0.60);margin-bottom:8px;}
+.cover-title{font-family:'Arial Narrow',Arial,sans-serif;font-size:34px;font-weight:700;line-height:1.2;color:var(--gold);letter-spacing:2px;text-transform:uppercase;text-shadow:0 0 24px rgba(212,175,55,0.35);margin-bottom:18px;}
+.cover-units{display:flex;flex-direction:column;gap:6px;margin-bottom:24px;}
+.unit-badge{padding:7px 16px;border-radius:6px;font-size:12.5px;font-weight:700;}
+.unit-badge-a{background:rgba(23,212,232,0.10);border:1px solid rgba(23,212,232,0.30);color:var(--aqua-l);}
+.unit-badge-b{background:rgba(36,113,163,0.15);border:1px solid rgba(36,113,163,0.40);color:#7dc7f4;}
+.cover-divider{height:3px;background:linear-gradient(90deg,var(--gold),transparent);border-radius:2px;margin-bottom:24px;}
+.cover-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;}
+.cover-meta-item{display:flex;flex-direction:column;gap:2px;}
+.cover-meta-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);}
+.cover-meta-value{font-size:13px;font-weight:600;color:var(--text);}
+/* SECTION HEADERS */
+.sec-h1{background:linear-gradient(90deg,#1A5276,#0a2a4a);border-left:4px solid var(--aqua);padding:12px 20px;margin:32px 0 16px;border-radius:0 8px 8px 0;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;}
+.sec-h2{font-size:13px;font-weight:700;color:var(--aqua);margin:24px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(212,175,55,0.35);}
+.sec-h3{font-size:12px;font-weight:700;color:var(--gold-l);margin:18px 0 8px;}
+/* TABLES */
+.tbl-wrap{overflow-x:auto;margin:12px 0 20px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th{background:#1A5276;color:#fff;padding:9px 12px;text-align:left;font-weight:700;font-size:11px;letter-spacing:0.5px;}
+td{padding:8px 12px;border-bottom:1px solid rgba(23,212,232,0.10);color:var(--text);line-height:1.45;}
+tr:nth-child(even) td{background:rgba(13,32,64,0.50);}
+tr:nth-child(odd) td{background:rgba(8,24,48,0.40);}
+tr:hover td{background:rgba(23,212,232,0.07);}
+td.key{font-weight:700;color:var(--aqua-l);white-space:nowrap;width:38%;}
+td.tag{font-weight:700;color:var(--gold);font-size:11px;letter-spacing:0.5px;}
+td.num{text-align:center;color:var(--aqua);font-weight:700;width:36px;}
+td.chk{text-align:center;font-size:18px;color:rgba(223,244,255,0.4);width:70px;}
+td.rec{color:rgba(212,175,55,0.65);font-style:italic;}
+/* HAZARD TABLE */
+.haz-table th:first-child{width:140px;}
+.haz-table td:first-child{font-weight:700;color:var(--red);}
+/* LISTS */
+.bul-list{list-style:none;margin:8px 0 12px;padding:0;}
+.bul-list li{padding:4px 0 4px 20px;position:relative;font-size:12.5px;line-height:1.5;}
+.bul-list li::before{content:'●';position:absolute;left:0;color:var(--aqua);font-size:8px;top:8px;}
+.step-list{list-style:none;margin:8px 0 12px;padding:0;counter-reset:steps;}
+.step-list li{counter-increment:steps;padding:5px 0 5px 34px;position:relative;font-size:12.5px;line-height:1.5;border-bottom:1px solid rgba(23,212,232,0.06);}
+.step-list li::before{content:counter(steps)'.';position:absolute;left:0;top:5px;color:var(--teal);font-weight:700;font-size:12px;width:28px;text-align:right;}
+/* NOTES */
+.note{padding:10px 16px;margin:12px 0;border-radius:0 6px 6px 0;font-size:12px;line-height:1.5;}
+.note-note{border-left:4px solid var(--teal);background:rgba(23,195,212,0.08);}
+.note-warn{border-left:4px solid var(--red);background:rgba(192,57,43,0.10);}
+.note-caut{border-left:4px solid var(--amber);background:rgba(239,159,39,0.08);}
+.note .tag{font-weight:700;font-size:11px;letter-spacing:1px;margin-right:6px;}
+.note-note .tag{color:var(--teal);}.note-warn .tag{color:#e74c3c;}.note-caut .tag{color:var(--amber);}
+/* DELTA-T BOX */
+.delta-box{background:rgba(23,212,232,0.08);border:1px solid rgba(23,212,232,0.25);border-radius:6px;padding:10px 16px;margin:10px 0;font-size:12.5px;}
+.delta-box strong{color:var(--aqua);}
+p.body{font-size:12.5px;line-height:1.6;color:var(--text);margin:8px 0 14px;}
+section{scroll-margin-top:72px;}
+/* FOOTER */
+footer{position:fixed;bottom:0;width:100%;background:rgba(3,10,20,0.94);border-top:1px solid rgba(212,175,55,0.28);color:rgba(212,175,55,0.65);padding:8px 24px;font-size:11px;display:flex;align-items:center;justify-content:space-between;z-index:999;}
+.btn-up{width:30px;height:30px;border-radius:50%;background:rgba(212,175,55,0.10);border:1px solid rgba(212,175,55,0.38);color:var(--gold);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all 0.3s;font-size:12px;}
+.btn-up:hover{background:rgba(212,175,55,0.24);border-color:var(--gold);}
+@media print{.bg-wrap,header,.sidebar,footer,.btn-nav,.btn-download{display:none!important;}main{margin-left:0!important;padding:16px!important;max-width:100%!important;}body{background:#fff;color:#000;}.cover{background:#f5f5f5;border-radius:0;}.cover-title{color:#1A5276;}.sec-h1{background:#1A5276;color:#fff;}.sec-h2{color:#1A5276;}td,p.body,.bul-list li,.step-list li{color:#000;}}
+@media(max-width:900px){.sidebar{display:none;}main{margin-left:0;max-width:100%;padding:16px;}.cover-meta{grid-template-columns:1fr;}}
+</style>
+</head>
+<body id="top">
+<div class="bg-wrap"></div>
+
+<header>
+  <div class="hdr-left">
+    <a href="Method Statements Dashboard.html" class="btn-nav"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+    <div class="hdr-title">
+      <h1><i class="fa-solid fa-fire" style="margin-right:8px;"></i>SPA &amp; Pool Facility Method Statements</h1>
+      <span class="sub">CEO Villa — Al Murjan, Jeddah — IHCC</span>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <span class="doc-badge">MS-HEATER-SPA-03 | Rev.00</span>
+    <button class="btn-download" onclick="downloadPDF()"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+    <a href="../../EVA-CORE.html" class="btn-nav"><i class="fa-solid fa-house"></i> Home</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-title">Document Sections</div>
+    <a class="nav-item" href="#cover"><span class="nav-num">◆</span>Cover</a>
+    <a class="nav-item" href="#projinfo"><span class="nav-num">◆</span>Project Information</a>
+    <div class="nav-section">Main Sections</div>
+    <a class="nav-item" href="#sec1"><span class="nav-num">1.</span>Purpose &amp; Scope</a>
+    <a class="nav-item" href="#sec2"><span class="nav-num">2.</span>Codes &amp; Standards</a>
+    <a class="nav-item" href="#sec3"><span class="nav-num">3.</span>Responsibilities</a>
+    <a class="nav-item" href="#sec4"><span class="nav-num">4.</span>Materials &amp; Equipment</a>
+    <a class="nav-item" href="#sec5"><span class="nav-num">5.</span>Health, Safety &amp; Environment</a>
+    <a class="nav-item" href="#sec6"><span class="nav-num">6.</span>Installation Procedure</a>
+    <a class="nav-item" href="#sec7"><span class="nav-num">7.</span>QC Inspection Checklist</a>
+    <a class="nav-item" href="#sec8"><span class="nav-num">8.</span>Testing &amp; Commissioning</a>
+    <a class="nav-item" href="#sec9"><span class="nav-num">9.</span>Documentation &amp; Handover</a>
+    <a class="nav-item" href="#signatures"><span class="nav-num">✎</span>Signatures</a>
+    <div style="margin-top:20px;padding:12px 16px;border-top:1px solid rgba(23,212,232,0.12);">
+      <div style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(23,212,232,0.40);margin-bottom:10px;">Heaters Covered</div>
+      <div style="font-size:10px;color:rgba(23,212,232,0.75);font-weight:700;">EWH-ODP-01</div>
+      <div style="font-size:9px;color:rgba(223,244,255,0.45);margin-bottom:8px;">Elecro SFSD-45-380 · 45 kW<br>Outdoor Pool</div>
+      <div style="font-size:10px;color:#7dc7f4;font-weight:700;">EWH-INP-01</div>
+      <div style="font-size:9px;color:rgba(223,244,255,0.45);">Elecro E2-3-18-380 · 18 kW<br>Indoor Pool / Jacuzzi</div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- COVER -->
+    <section id="cover">
+      <div class="cover">
+        <div class="cover-project">CEO VILLA &nbsp;|&nbsp; SPA &amp; POOL FACILITY</div>
+        <div class="cover-location">IHCC &nbsp;·&nbsp; Al Murjan, Jeddah, Kingdom of Saudi Arabia &nbsp;·&nbsp; Project Code: 10144</div>
+        <div class="cover-ms-label">Method Statement</div>
+        <div class="cover-title">Installation, Piping &amp;<br>Electrical Connections<br>&amp; Commissioning of<br>Pool Electric Inline Heaters</div>
+        <div class="cover-units">
+          <div class="unit-badge unit-badge-a"><i class="fa-solid fa-bolt" style="margin-right:8px;"></i>EWH-ODP-01 &nbsp;·&nbsp; Elecro SFSD-45-380 &nbsp;·&nbsp; 45 kW &nbsp;·&nbsp; Outdoor Swimming Pool</div>
+          <div class="unit-badge unit-badge-b"><i class="fa-solid fa-bolt" style="margin-right:8px;"></i>EWH-INP-01 &nbsp;·&nbsp; Elecro E2-3-18-380 &nbsp;·&nbsp; 18 kW &nbsp;·&nbsp; Indoor Pool / Jacuzzi</div>
+        </div>
+        <div class="cover-divider"></div>
+        <div class="cover-meta">
+          <div class="cover-meta-item"><span class="cover-meta-label">Document Reference</span><span class="cover-meta-value" style="color:var(--aqua);">MS-HEATER-SPA-03</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Revision</span><span class="cover-meta-value">Rev. 00</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Prepared By</span><span class="cover-meta-value">Adil Magdy – Mechanical Engineer, Aseeb Contracting Co.</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Submitted To</span><span class="cover-meta-value">Saqib Manzoor – Senior Mechanical Engineer, IHCC</span></div>
+        </div>
+        <div class="note note-warn" style="margin-top:24px;"><span class="tag">CRITICAL WARNING:</span>Electric inline heaters must NEVER be energized without confirmed water flow. Running dry for even a few seconds will destroy the heating elements. The flow switch interlock is mandatory.</div>
+      </div>
+    </section>
+
+    <!-- PROJECT INFO -->
+    <section id="projinfo">
+      <div class="sec-h1">PROJECT &amp; DOCUMENT INFORMATION</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Project Name</td><td>CEO Villa (Private Residence)</td></tr>
+        <tr><td class="key">Location</td><td>Al Murjan, Jeddah, Kingdom of Saudi Arabia</td></tr>
+        <tr><td class="key">Client</td><td>Engr. Sultan Batterjee</td></tr>
+        <tr><td class="key">Consultant</td><td>3C Engineering &amp; Architectural Consultant</td></tr>
+        <tr><td class="key">Main Contractor</td><td>IHCC – Integrated Home Construction Company</td></tr>
+        <tr><td class="key">Sub-Contractor</td><td>Aseeb Contracting Company</td></tr>
+        <tr><td class="key">Work Order No.</td><td>WO # 34982</td></tr>
+        <tr><td class="key">Document No.</td><td style="color:var(--aqua);font-weight:700;">MS-HEATER-SPA-03</td></tr>
+        <tr><td class="key">Revision</td><td>00 – Initial Issue</td></tr>
+                <tr><td class="key">Approved Shop Drawing</td><td>SB-ASB-SD-ME-008-R1</td></tr>
+        <tr><td class="key">Status</td><td><span style="color:var(--green);font-weight:700;">Submitted for Review &amp; Approval</span></td></tr>
+      </tbody></table></div>
+    </section>
+
+    <!-- SECTION 1 -->
+    <section id="sec1">
+      <div class="sec-h1">1. &nbsp;PURPOSE &amp; SCOPE</div>
+      <div class="sec-h2">1.1 &nbsp;Purpose</div>
+      <p class="body">This Method Statement defines the approved procedure for the installation, water piping connections, electrical connections, and full commissioning of both electric inline pool heaters within the SPA &amp; Pool Facility of the CEO Villa Project. Both heaters are manufactured by Elecro Engineering Ltd (UK) and are 3-phase inline electric heaters designed for direct pool water heating.</p>
+
+      <div class="sec-h2">1.2 &nbsp;Equipment Summary</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Tag</th><th>Description</th><th>Model / Product Code</th><th>Serial No.</th><th>Power</th><th>Current</th><th>Service</th></tr></thead>
+        <tbody>
+          <tr><td class="tag">EWH-ODP-01</td><td>Outdoor Pool Heater</td><td style="color:var(--aqua);">SFSD-45-380</td><td>300876</td><td style="font-weight:700;">45 kW</td><td>69 A</td><td>Outdoor Swimming Pool Water Heating</td></tr>
+          <tr><td class="tag">EWH-INP-01</td><td>Indoor Pool / Jacuzzi Heater</td><td style="color:#7dc7f4;">E2-3-18-380</td><td>300822</td><td style="font-weight:700;">18 kW</td><td>28 A</td><td>Indoor Pool &amp; Jacuzzi Water Heating</td></tr>
+        </tbody>
+      </table></div>
+      <p class="body">Both heaters are identical in technology: stainless steel / titanium body inline electric heaters with built-in high-limit thermostat, installed in-line on the pool water return circuit after the sand filter and before the pool. The installation procedure is the same for both units; differences in electrical sizing are noted where applicable.</p>
+
+      <div class="sec-h2">1.3 &nbsp;Scope of Work</div>
+      <ul class="bul-list">
+        <li>Receiving, inspection, and MIR approval of both heater units</li>
+        <li>Installation of heater bodies on the pool water return pipework</li>
+        <li>Installation of flow switch upstream of each heater (safety interlock – prevents dry running)</li>
+        <li>Installation of isolation valves, unions, thermometers, pressure gauges, and non-return valves</li>
+        <li>3-phase electrical supply connection: 380V / 3N / 50–60 Hz for both units</li>
+        <li>Control wiring: high-limit thermostat loop and flow switch interlock to heater controller</li>
+        <li>Temperature setpoint configuration, system filling, air purging</li>
+        <li>Commissioning: flow rate verification, performance test, safety cutout tests</li>
+        <li>Handover documentation</li>
+      </ul>
+      <div class="note note-warn"><span class="tag">WARNING:</span>Electric inline heaters must NEVER be energized without confirmed water flow. Running dry for even a few seconds will destroy the heating elements. The flow switch interlock is not optional – it is a mandatory safety requirement.</div>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section id="sec2">
+      <div class="sec-h1">2. &nbsp;APPLICABLE CODES, STANDARDS &amp; REFERENCES</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Reference / Standard</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="key">Elecro SFSD-45-380 Manual</td><td>Manufacturer Installation &amp; Operation Manual – Outdoor Pool Heater (EWH-ODP-01)</td></tr>
+          <tr><td class="key">Elecro E2-3-18-380 Manual</td><td>Manufacturer Installation &amp; Operation Manual – Indoor Pool / Jacuzzi Heater (EWH-INP-01)</td></tr>
+          <tr><td class="key">elecro.co.uk</td><td>Elecro Engineering Ltd – Technical Data, Wiring Diagrams, Installation Guides</td></tr>
+          <tr><td class="key">NFPA 70 (NEC)</td><td>National Electrical Code – Wiring, overcurrent protection, earthing for pool equipment</td></tr>
+          <tr><td class="key">IEC 60364-7-702</td><td>Electrical Installations of Buildings – Swimming Pools and Other Basins</td></tr>
+          <tr><td class="key">ASHRAE 90.1</td><td>Energy Standard – Minimum efficiency for pool heating systems</td></tr>
+          <tr><td class="key">NSF/ANSI 50</td><td>Equipment for Swimming Pools – Material compatibility and safety</td></tr>
+          <tr><td class="key">BS EN 60335-2-35</td><td>Safety of electric water heaters (applicable standard referenced by CE mark)</td></tr>
+          <tr><td class="key">SB-ASB-SD-ME-008-R1</td><td>Approved Mechanical Shop Drawing – Pool Heater Layout &amp; Piping</td></tr>
+          <tr><td class="key">Project Mechanical Specifications</td><td>CEO Villa – Mechanical Specification Section: Pool &amp; SPA Heating</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section id="sec3">
+      <div class="sec-h1">3. &nbsp;RESPONSIBILITIES</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Role</th><th>Responsibility</th></tr></thead>
+        <tbody>
+          <tr><td class="key">Sr. Mechanical Engineer – IHCC<br><span style="font-size:11px;color:var(--aqua);">(Saqib Manzoor)</span></td><td>Approve this method statement. Witness heater installation, pressure test, and commissioning. Sign off commissioning data sheets. Issue WIR for consultant inspection.</td></tr>
+          <tr><td class="key">Mechanical Engineer – Aseeb<br><span style="font-size:11px;color:var(--aqua);">(Adil Magdy)</span></td><td>Prepare and submit MS. Supervise installation per approved drawings and manufacturer instructions. Maintain QC records.</td></tr>
+          <tr><td class="key">Licensed Electrician</td><td>Only person authorized to connect 380V 3-phase supply to both heater units. Responsible for MCB sizing, cable termination, earthing, insulation testing, and phase sequence check.</td></tr>
+          <tr><td class="key">QA / QC Engineer</td><td>Inspect materials on delivery. Witness pressure test. Complete and sign QC checklists. Record commissioning data.</td></tr>
+          <tr><td class="key">HSE Officer</td><td>Ensure LOTO during electrical connections. Toolbox talk on electrical safety and hot surface hazards. Enforce PPE compliance.</td></tr>
+          <tr><td class="key">Site Foreman</td><td>Supervise installation crew. Ensure correct pipe orientation (heater must not run dry). Control access during commissioning.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section id="sec4">
+      <div class="sec-h1">4. &nbsp;MATERIALS &amp; EQUIPMENT</div>
+
+      <div class="sec-h2">4.1 &nbsp;EWH-ODP-01 – Outdoor Pool Heater (45 kW) Technical Specifications</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Equipment Tag</td><td style="color:var(--aqua);font-weight:700;">EWH-ODP-01</td></tr>
+        <tr><td class="key">Manufacturer</td><td>Elecro Engineering Ltd (Made in England)</td></tr>
+        <tr><td class="key">Product Code / Model</td><td>SFSD-45-380</td></tr>
+        <tr><td class="key">Serial Number</td><td>300876</td></tr>
+        <tr><td class="key">Equipment Description</td><td>Inline Electric Swimming Pool Heater – SFSD Commercial Range</td></tr>
+        <tr><td class="key">Rated Power Output</td><td style="font-weight:700;color:var(--gold-l);">45 kW</td></tr>
+        <tr><td class="key">Voltage / Phase / Frequency</td><td>380V / 3-Phase / 50–60 Hz</td></tr>
+        <tr><td class="key">Rated Current (FLA)</td><td>69 A (at 380V, 3-phase)</td></tr>
+        <tr><td class="key">Required MCB Size</td><td>100 A, 4-pole (3P+N) – sized at 1.25 × FLA per NEC continuous load rule</td></tr>
+        <tr><td class="key">Min. Power Cable Size</td><td>35 mm² Cu / 4-core (L1, L2, L3, E) – verify with electrical engineer for route length</td></tr>
+        <tr><td class="key">Minimum Water Flow Rate</td><td style="color:var(--red);font-weight:700;">8,000 L/h (8 m³/h) – MUST NOT fall below this during operation</td></tr>
+        <tr><td class="key">Maximum Water Flow Rate</td><td>15,000 L/h (15 m³/h)</td></tr>
+        <tr><td class="key">Maximum Operating Pressure</td><td>4 bar (400,000 Pa)</td></tr>
+        <tr><td class="key">Ingress Protection</td><td>IP44</td></tr>
+        <tr><td class="key">Certifications</td><td>UKCA, CE, EAC, WEEE</td></tr>
+        <tr><td class="key">Location</td><td>Basement SPA &amp; Pool Pump Room – Outdoor Pool Return Line</td></tr>
+        <tr><td class="key">Installation Position</td><td>In-line on pool water return (after filter, before pool)</td></tr>
+      </tbody></table></div>
+
+      <div class="sec-h2">4.2 &nbsp;EWH-INP-01 – Indoor Pool / Jacuzzi Heater (18 kW) Technical Specifications</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Equipment Tag</td><td style="color:#7dc7f4;font-weight:700;">EWH-INP-01</td></tr>
+        <tr><td class="key">Manufacturer</td><td>Elecro Engineering Ltd (Made in England)</td></tr>
+        <tr><td class="key">Product Code / Model</td><td>E2-3-18-380</td></tr>
+        <tr><td class="key">Serial Number</td><td>300822</td></tr>
+        <tr><td class="key">Equipment Description</td><td>Inline Electric Pool &amp; Jacuzzi Heater – E2 Commercial Range</td></tr>
+        <tr><td class="key">Rated Power Output</td><td style="font-weight:700;color:var(--gold-l);">18 kW</td></tr>
+        <tr><td class="key">Voltage / Phase / Frequency</td><td>380V / 3-Phase / 50–60 Hz</td></tr>
+        <tr><td class="key">Rated Current (FLA)</td><td>28 A (at 380V, 3-phase)</td></tr>
+        <tr><td class="key">Required MCB Size</td><td>40 A, 4-pole (3P+N) – sized at 1.25 × FLA</td></tr>
+        <tr><td class="key">Min. Power Cable Size</td><td>10 mm² Cu / 4-core (L1, L2, L3, E)</td></tr>
+        <tr><td class="key">Maximum Operating Pressure</td><td>4 bar (400,000 Pa)</td></tr>
+        <tr><td class="key">Ingress Protection</td><td>IP44</td></tr>
+        <tr><td class="key">Certifications</td><td>CE, UKCA, EAC</td></tr>
+        <tr><td class="key">Location</td><td>Basement SPA &amp; Pool Pump Room – Indoor Pool / Jacuzzi Return Line</td></tr>
+        <tr><td class="key">Installation Position</td><td>In-line on pool water return (after filter, before pool)</td></tr>
+      </tbody></table></div>
+
+      <div class="sec-h2">4.3 &nbsp;Piping, Valves &amp; Accessories (per heater unit)</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Item</th><th>Type / Material</th><th>Size</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td>Isolation Ball Valve – Heater Inlet (upstream)</td><td>CPVC True-Union PN16</td><td>DN50 / 2"</td><td>Shut-off for heater isolation; install before heater body</td></tr>
+          <tr><td>Isolation Ball Valve – Heater Outlet (downstream)</td><td>CPVC True-Union PN16</td><td>DN50 / 2"</td><td>Install after heater body</td></tr>
+          <tr><td>Union Connections (heater body ends)</td><td>BSP Male/Female PVC</td><td>2" BSP (ODP-01) / 1.5" BSP (INP-01)</td><td>Most Elecro heaters use union connections for easy removal</td></tr>
+          <tr><td>Flow Switch (paddle type, SS wetted parts)</td><td>SS316 paddle, EPDM seal</td><td>DN50 / 2"</td><td>MANDATORY interlock – install upstream; wire to heater control</td></tr>
+          <tr><td>Bypass Valve Assembly</td><td>3 × ball valves + reducing tee</td><td>DN50 / 2"</td><td>For flow balancing and heater bypass during maintenance</td></tr>
+          <tr><td>Non-Return Valve (NRV / Check Valve)</td><td>CPVC or SS316</td><td>DN50 / 2"</td><td>Install on heater outlet – prevents backflow when heater off</td></tr>
+          <tr><td>Thermometer + Pocket – Heater Inlet</td><td>0–60°C bi-metal dial</td><td>1/2" BSP</td><td>Measure water temperature entering heater (return from pool)</td></tr>
+          <tr><td>Thermometer + Pocket – Heater Outlet</td><td>0–60°C bi-metal dial</td><td>1/2" BSP</td><td>Measure heated water leaving heater (going to pool)</td></tr>
+          <tr><td>Pressure Gauge + Root Valve – Heater Inlet</td><td>Glycerine-filled, 0–6 bar</td><td>1/4" BSP</td><td>Monitor inlet water pressure</td></tr>
+          <tr><td>Pressure Relief Valve (PRV)</td><td>Set at 4 bar (per heater max)</td><td>3/4" BSP</td><td style="color:var(--red);">Install on heater outlet; discharge to drain. Mandatory.</td></tr>
+          <tr><td>Pressure Gauge + Root Valve – Heater Outlet</td><td>Glycerine-filled, 0–6 bar</td><td>1/4" BSP</td><td>Differential pressure = flow resistance through heater</td></tr>
+          <tr><td>PVC Pipe</td><td>ASTM D1785 SCH40 uPVC</td><td>DN50 / 2"</td><td>Heater circuit pipework; solvent-cement joints</td></tr>
+          <tr><td>Pipe Hangers / Supports</td><td>Galvanized steel</td><td>DN50 rated</td><td>Max 1.0 m spacing for heater inlet/outlet pipework</td></tr>
+          <tr><td>Teflon Tape / Thread Sealant</td><td>PTFE tape + Loctite 577 or equiv.</td><td>–</td><td>For all NPT/BSP threaded connections on heater and accessories</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">4.4 &nbsp;Electrical Materials</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Item</th><th>EWH-ODP-01 (45 kW)</th><th>EWH-INP-01 (18 kW)</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;">Power Cable</td><td>4C × 35 mm² Cu/XLPE</td><td>4C × 10 mm² Cu/XLPE</td><td>Verify with electrical engineer for derating (route length, ambient, grouping)</td></tr>
+          <tr><td style="font-weight:700;">MCB / MCCB in DB</td><td>100A, 4-pole (3P+N)</td><td>40A, 4-pole (3P+N)</td><td>Labeled "EWH-ODP-01" and "EWH-INP-01" respectively</td></tr>
+          <tr><td style="font-weight:700;">RCD (GFCI) Protection</td><td>30mA, 4-pole RCD</td><td>30mA, 4-pole RCD</td><td>Mandatory for pool equipment per IEC 60364-7-702</td></tr>
+          <tr><td style="font-weight:700;">Earth / Ground Cable</td><td>16 mm² green/yellow</td><td>6 mm² green/yellow</td><td>From heater earth terminal to main earth bar at DB</td></tr>
+          <tr><td style="font-weight:700;">Conduit for Power Cable</td><td>40 mm GI conduit</td><td>25 mm GI conduit</td><td>Where cable is exposed or below 2.5 m height</td></tr>
+          <tr><td style="font-weight:700;">Control Cable (flow switch)</td><td>2C × 1.5 mm² stranded</td><td>2C × 1.5 mm² stranded</td><td>From flow switch to heater control terminal</td></tr>
+          <tr><td style="font-weight:700;">Cable Markers</td><td>Heat-shrink, L1/L2/L3/N/E</td><td>–</td><td>Label both ends at DB and heater terminals</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">4.5 &nbsp;Tools Required</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Tool</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Pipe wrench &amp; adjustable spanner</td><td>Tighten BSP union connections on heater body</td></tr>
+          <tr><td>PVC pipe cutter / hacksaw</td><td>Clean cuts on DN50 uPVC piping</td></tr>
+          <tr><td>PVC solvent cement &amp; applicator</td><td>Solvent-welding uPVC pipe joints in heater circuit</td></tr>
+          <tr><td>Spirit level</td><td>Verify heater is installed with elements fully horizontal (not tilted)</td></tr>
+          <tr><td>Calibrated thermometer (Type K)</td><td>Measure inlet and outlet water temps for performance test</td></tr>
+          <tr><td>Clamp ammeter (0–200A)</td><td>Measure actual running current (45 kW heater draws 69A)</td></tr>
+          <tr><td>Digital multimeter (CAT III, 600V)</td><td>Verify supply voltage at heater terminals before energizing</td></tr>
+          <tr><td>Insulation resistance tester (Megger)</td><td>IR test on power cables before energizing – min 1 MΩ</td></tr>
+          <tr><td>Phase rotation meter</td><td>Verify correct phase sequence – some heater models are phase-sensitive</td></tr>
+          <tr><td>Hydraulic pressure test pump</td><td>Hydrostatic test of water circuit before filling – 6 bar</td></tr>
+          <tr><td>Flow measurement device (bucket &amp; stopwatch or ultrasonic)</td><td>Verify minimum flow: 8,000 L/h for EWH-ODP-01</td></tr>
+          <tr><td>Camera / mobile phone</td><td>Document all installation stages for QC records</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section id="sec5">
+      <div class="sec-h1">5. &nbsp;HEALTH, SAFETY &amp; ENVIRONMENT</div>
+
+      <div class="sec-h2">5.1 &nbsp;Key Hazard Summary</div>
+      <div class="tbl-wrap"><table class="haz-table">
+        <thead><tr><th>Hazard</th><th>Risk</th><th>Control Measure</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>380V 3-Phase Electrical Supply</td>
+            <td>Electrocution, arc flash. EWH-ODP-01 draws 69A – very high current.</td>
+            <td>LOTO at DB before any electrical work. Licensed electrician only. Test voltage before touching terminals. Insulated gloves (CAT III).</td>
+          </tr>
+          <tr>
+            <td>Dry-Running the Heater</td>
+            <td>Element burnout and fire within seconds of energizing without water flow.</td>
+            <td>Absolute rule: NEVER energize without confirmed water flow. Install and test flow switch interlock before first power-on.</td>
+          </tr>
+          <tr>
+            <td>Hot Surfaces</td>
+            <td>Burns. Heater body and outlet pipe become very hot during operation (pool water exits at up to 40°C+; element surface is much hotter).</td>
+            <td>Do NOT touch heater body during or after operation without gloves. Allow 30 min cool-down. Post HOT SURFACE warning sign.</td>
+          </tr>
+          <tr>
+            <td>High-Pressure Water</td>
+            <td>Water jet injury and flooding if a connection fails under pressure.</td>
+            <td>Pressure test at 1.5× max (6 bar) before energizing. Verify all unions are fully tightened. Stand clear during initial pressurisation.</td>
+          </tr>
+          <tr>
+            <td>PVC Solvent Cement</td>
+            <td>Flammable, harmful vapours.</td>
+            <td>Ensure ventilation in pump room during PVC cementing. No open flames. Store cement away from heat. Chemical-resistant gloves.</td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">5.2 &nbsp;PPE &amp; General Safety</div>
+      <p class="body">All personnel: safety helmet, safety shoes, hi-visibility vest, safety gloves, safety glasses. Electrician: insulated gloves (CAT III) and face shield during electrical work. When PVC cementing: chemical-resistant gloves and safety goggles.</p>
+
+      <div class="sec-h2">5.3 &nbsp;LOTO Procedure</div>
+      <p class="body">Before connecting electrical supply to either heater: (1) Switch OFF the dedicated MCB at the DB. (2) Apply personal lock and "DANGER – DO NOT ENERGIZE" tag. (3) Test supply terminals with a calibrated meter to verify zero voltage. (4) Proceed with wiring. Remove LOTO only after all personnel have confirmed work is complete and all covers are reinstated.</p>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section id="sec6">
+      <div class="sec-h1">6. &nbsp;INSTALLATION PROCEDURE</div>
+      <p class="body">The installation procedure below applies to both EWH-ODP-01 (45 kW) and EWH-INP-01 (18 kW). Where the two units differ (electrical cable size, MCB rating, pipe size, flow rate), the differences are clearly noted.</p>
+
+      <div class="sec-h2">6.1 &nbsp;Pre-Installation Activities</div>
+      <div class="sec-h3">6.1.1 &nbsp;Material Inspection</div>
+      <ol class="step-list">
+        <li>Upon delivery, inspect both heater units for transit damage. Check: union connections for cracks, element terminals for damage or corrosion, heater body for dents, and controller housing for damage.</li>
+        <li>Verify nameplates: EWH-ODP-01 must show Model SFSD-45-380 / S/N 300876 / 45 kW. EWH-INP-01 must show Model E2-3-18-380 / S/N 300822 / 18 kW. Both should show 380V / 3-Phase.</li>
+        <li>Check that manufacturer installation manuals and wiring diagrams are included. These are essential for control wiring and commissioning.</li>
+        <li>Submit MIR (Material Inspection Request) for both heaters and all accessories. Obtain Consultant signature before installation.</li>
+      </ol>
+
+      <div class="sec-h3">6.1.2 &nbsp;Site Preparation</div>
+      <ol class="step-list">
+        <li>Confirm the heater installation locations per drawing SB-ASB-SD-ME-008-R1. Both heaters are located on the pool water return line, downstream of the sand filters and upstream of the pool return inlet.</li>
+        <li>Confirm pipe stubs or spool pieces at the installation location are at the correct elevations and pipe sizes.</li>
+        <li>Verify adequate clearance around each heater: minimum 600 mm on all sides, including access space to reach union connections and the electrical control panel.</li>
+        <li>Confirm 380V 3-phase supply is available at the correct DB for each heater (dedicated MCBs: 100A for EWH-ODP-01; 40A for EWH-INP-01).</li>
+        <li>Perform toolbox talk with the team covering: dry-run hazard, LOTO requirements, and hot surface risks.</li>
+      </ol>
+
+      <div class="sec-h2">6.2 &nbsp;Heater Body Installation</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>The Elecro inline heater elements must be fully submerged in water at all times during operation. If the heater is mounted in a vertical pipe run, ensure flow direction is UPWARD (water enters from bottom, exits from top) so elements are always covered. If horizontal, the element must be at the lowest point of the heater body. Refer to the manufacturer's manual for the correct orientation marking.</div>
+      <ol class="step-list">
+        <li>Position the heater body in the pipeline at the designated location. The heater inlet must be connected to the flow coming from the sand filter (filtered, pre-treated water). The outlet connects toward the pool.</li>
+        <li>If wall-mounting or pipe-bracket mounting is required, secure the heater body firmly using the mounting provisions on the heater body. Do not allow the heater weight to hang on the piping unions alone.</li>
+        <li>Wrap all BSP threaded connections with 3–4 layers of PTFE tape (in the direction of thread winding) before assembly. Apply thread sealant (Loctite 577 or equivalent) over the PTFE for additional security on the high-pressure side.</li>
+        <li>Install the heater union connections: connect the union halves to the inlet and outlet piping first, then engage the union nut onto the heater body. Hand-tighten, then use a strap wrench for final tightening – do not overtighten plastic unions (max 2 turns past hand-tight, or per manufacturer instruction).</li>
+        <li>Install isolation ball valve (true-union type) upstream (inlet side) of the heater. Install a second isolation ball valve downstream (outlet side) of the heater. These allow the heater to be isolated and removed for servicing without draining the system.</li>
+        <li>Install a Non-Return Valve (NRV) on the heater outlet side to prevent backflow through the heater when the circulation pump stops.</li>
+        <li>Install a pressure relief valve (PRV, set at 4 bar) on the heater outlet between the heater and the downstream isolation valve. The PRV discharge must be piped to the pump room floor drain – do not leave it discharging in the air.</li>
+      </ol>
+
+      <div class="sec-h2">6.3 &nbsp;Flow Switch Installation (Mandatory Safety Interlock)</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>The flow switch is NOT optional. If the heater energizes without water flow, the elements will overheat and fail within seconds. The flow switch is the only primary protection against this. If the flow switch fails open-circuit, the heater must not be capable of energizing.</div>
+      <ol class="step-list">
+        <li>Install the paddle-type flow switch on the heater INLET pipe, a minimum of 5 × pipe diameters upstream of the heater inlet union. This ensures the paddle has stable, non-turbulent flow for accurate sensing.</li>
+        <li>Orient the flow switch with the arrow on the body pointing in the direction of water flow (toward the heater). The electrical conduit connection point should be accessible.</li>
+        <li>Run the 2-core 1.5 mm² control cable from the flow switch to the heater's control panel. Connect as a normally-open (N/O) contact: flow present = contact closed = heater allowed to operate.</li>
+        <li>The wiring diagram in the heater manual will show the exact terminals for the flow switch interlock. Wire the flow switch in series with the heater enable circuit – NOT in parallel.</li>
+      </ol>
+
+      <div class="sec-h2">6.4 &nbsp;Instrumentation Installation</div>
+      <ol class="step-list">
+        <li>Install a thermometer with thermometer pocket on the heater INLET pipe (before the heater) to display the pool return water temperature entering the heater. Range: 0–60°C.</li>
+        <li>Install a thermometer with thermometer pocket on the heater OUTLET pipe (after the heater) to display the heated water temperature leaving the heater. Range: 0–60°C.</li>
+        <li>The temperature difference between outlet and inlet (Delta-T) is the primary commissioning performance indicator.</li>
+        <li>Install glycerine-filled pressure gauges (0–6 bar) with root valves at the inlet and outlet of each heater. The pressure differential between inlet and outlet gives an indication of the flow resistance through the heater.</li>
+      </ol>
+      <div class="delta-box"><strong>Delta-T Calculation (EWH-ODP-01):</strong> At 45 kW full load and minimum flow 8 m³/h → Delta-T = 45 / (8 × 1.16) ≈ <strong>4.8°C</strong>. If measured Delta-T is significantly higher, flow is below minimum. If much lower, the heater may not be at full power.</div>
+
+      <div class="sec-h2">6.5 &nbsp;Electrical Connections</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>LOTO must be applied and confirmed at the DB before any electrical work begins. Verify zero voltage at the heater terminals before proceeding. 380V 3-phase is lethal.</div>
+
+      <div class="sec-h3">6.5.1 &nbsp;EWH-ODP-01 (45 kW – 69A)</div>
+      <ol class="step-list">
+        <li>Run 4C × 35 mm² (minimum) Cu/XLPE cable in 40 mm GI conduit from the 100A 4-pole MCB (and 30mA RCD) in the main DB to the EWH-ODP-01 electrical panel. Label cable at both ends.</li>
+        <li>At the DB: terminate L1, L2, L3 to the 100A MCB. Terminate N to the neutral bar. Label MCB: "EWH-ODP-01 – 45kW Pool Heater". Install 30mA RCD upstream of MCB.</li>
+        <li>At EWH-ODP-01: open the electrical connection cover. Terminate L1, L2, L3, N to the corresponding terminals per the wiring diagram in the manufacturer manual. Terminate earth to the earth terminal (green/yellow, 16 mm²).</li>
+      </ol>
+
+      <div class="sec-h3">6.5.2 &nbsp;EWH-INP-01 (18 kW – 28A)</div>
+      <ol class="step-list">
+        <li>Run 4C × 10 mm² (minimum) Cu/XLPE cable in 25 mm GI conduit from the 40A 4-pole MCB (and 30mA RCD) to the EWH-INP-01 electrical panel.</li>
+        <li>At the DB: terminate L1, L2, L3 to the 40A MCB. Label: "EWH-INP-01 – 18kW Pool Heater". Install 30mA RCD upstream.</li>
+        <li>At EWH-INP-01: terminate L1, L2, L3, N per wiring diagram. Earth cable (6 mm², green/yellow) to earth terminal.</li>
+      </ol>
+
+      <div class="sec-h3">6.5.3 &nbsp;Both Units – Post-Wiring Checks</div>
+      <ol class="step-list">
+        <li>Before energizing either heater, perform insulation resistance test on each power cable at 500V DC (Megger): minimum 1 MΩ between each phase and earth. Record all six readings for both units (L1-E, L2-E, L3-E, L1-L2, L2-L3, L1-L3).</li>
+        <li>Check phase sequence at heater terminals with a phase rotation meter. Incorrect phase sequence will cause a 3-phase resistive heater to malfunction. Correct sequence must be confirmed before power-on.</li>
+        <li>Connect flow switch control cables to heater terminals per wiring diagram. Test continuity of the control circuit.</li>
+        <li>Verify that with the flow switch in the de-energized (no-flow) position, the heater control circuit is open. The heater must not be able to energize in this state.</li>
+      </ol>
+
+      <div class="sec-h2">6.6 &nbsp;System Filling, Air Purging &amp; Pre-Start Checks</div>
+      <ol class="step-list">
+        <li>Open inlet and outlet isolation valves on both heaters. Fill the pool and associated pipework with clean water.</li>
+        <li>Open any manual air vents at the heater inlet and outlet connections to bleed trapped air. Air pockets inside the heater body can cause local element overheating even with water flow.</li>
+        <li>Start the pool circulation pump. Confirm water is flowing through both heaters by checking that the outlet pipe is warm (heater not yet on) and the flow switches are in the "flow OK" position.</li>
+        <li>Verify the minimum flow rate is met for EWH-ODP-01: using a flow meter or timed bucket test, confirm flow is at least 8,000 L/h (8 m³/h). If flow is below minimum, investigate before energizing.</li>
+        <li>Record initial water temperature (both inlet and outlet should be at pool ambient – same reading = no heating yet). This is the baseline.</li>
+        <li>Confirm all piping joints are dry and there are no leaks under system water pressure before energizing.</li>
+      </ol>
+
+      <div class="sec-h2">6.7 &nbsp;First Start-Up &amp; Commissioning</div>
+      <div class="note note-caut"><span class="tag">CAUTION:</span>Never start a heater on a pool that has just been filled with cold water and has not been circulated for at least 10 minutes. Air must be fully purged before the heater is energized.</div>
+
+      <div class="sec-h3">EWH-ODP-01 – 45 kW Start-Up</div>
+      <ol class="step-list">
+        <li>With circulation pump running and flow confirmed (minimum 8,000 L/h), energize EWH-ODP-01 from the DB (MCB ON).</li>
+        <li>Set temperature setpoint on the heater controller to 28°C (or as specified by Consultant/Client). The heater should begin drawing full current.</li>
+        <li>After 10 minutes of operation, measure and record: inlet water temperature (°C), outlet water temperature (°C), running current on all 3 phases (A). Actual current should be close to but not exceeding 69A per phase.</li>
+        <li>Verify the outlet temperature is rising above the inlet temperature. Delta-T at 45 kW and 8 m³/h flow should be approximately 4–5°C at full load.</li>
+        <li>When pool water reaches the setpoint, observe that the heater cycles correctly: it should reduce power output or cut off to maintain the setpoint temperature.</li>
+      </ol>
+
+      <div class="sec-h3">EWH-INP-01 – 18 kW Start-Up</div>
+      <ol class="step-list">
+        <li>With indoor pool circulation pump running and flow confirmed, energize EWH-INP-01 (MCB ON).</li>
+        <li>Set temperature setpoint to 30°C (or as specified for indoor pool / jacuzzi by Consultant/Client).</li>
+        <li>After 10 minutes, measure and record: inlet temp (°C), outlet temp (°C), running current per phase (A – max 28A), supply voltage L-L (V).</li>
+      </ol>
+
+      <div class="sec-h3">Flow Switch Interlock Test – Both Units</div>
+      <ol class="step-list">
+        <li>With each heater running (one at a time), close the inlet isolation valve slowly. Within 15–30 seconds, the heater must cut out and display a low-flow or no-flow fault on the controller.</li>
+        <li>Re-open the isolation valve. Confirm water flow resumes. Reset the heater fault (if manual reset required per controller). Confirm heater restarts and operates normally.</li>
+        <li>Document the test: time from valve closure to heater trip, fault code displayed, time from valve re-open to heater restart.</li>
+      </ol>
+
+      <div class="sec-h3">High-Limit Thermostat Test</div>
+      <ol class="step-list">
+        <li>Verify that the built-in high-limit thermostat (typically set at 40–45°C for pool heaters) is present and wired into the heater control circuit. This is factory-set and should not be adjusted on site.</li>
+        <li>Record the high-limit setpoint value from the heater manual. This safety device protects against overheating if flow is reduced but not fully stopped.</li>
+        <li>Do NOT attempt to trigger the high-limit in the field – this would require running the heater at reduced flow, which risks element damage. Confirm factory setting by visual inspection of the thermostat dial and cross-check with the manual.</li>
+      </ol>
+    </section>
+
+    <!-- SECTION 7 -->
+    <section id="sec7">
+      <div class="sec-h1">7. &nbsp;QUALITY CONTROL CHECKLIST</div>
+      <p class="body">Complete for each heater unit separately. Tick in the appropriate heater column.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Check Item</th><th style="text-align:center;min-width:80px;">EWH-ODP-01<br>45 kW</th><th style="text-align:center;min-width:80px;">EWH-INP-01<br>18 kW</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>Nameplate verified against Asset Register (model, serial, kW, voltage)</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">2</td><td>MIR approved by consultant for both heaters</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">3</td><td>No damage to heater body, unions, or element terminals</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">4</td><td>Manufacturer installation manual and wiring diagram available on site</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">5</td><td>Heater installed in correct location per drawing SB-ASB-SD-ME-008-R1</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">6</td><td>Heater body mounted securely (not hanging on unions)</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">7</td><td>Flow direction correct – water enters inlet, exits outlet (arrows on heater body)</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">8</td><td>Element orientation correct – elements submerged when pipe is water-filled</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">9</td><td>Inlet isolation ball valve (true-union) installed and operates smoothly</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">10</td><td>Outlet isolation ball valve (true-union) installed and operates smoothly</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">11</td><td>Non-return valve (NRV) installed on outlet – correct flow direction</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">12</td><td>Pressure relief valve (4 bar) installed on outlet, discharge piped to drain</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">13</td><td>Flow switch installed minimum 5 × D upstream of heater inlet</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">14</td><td>Flow switch wired in series with heater enable circuit (normally-open contact)</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">15</td><td>Thermometer at heater inlet (0–60°C) installed with pocket</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">16</td><td>Thermometer at heater outlet (0–60°C) installed with pocket</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">17</td><td>Pressure gauge at inlet (0–6 bar) with root valve</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">18</td><td>Pressure gauge at outlet (0–6 bar) with root valve</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">19</td><td>24-hour PVC curing completed before pressure test</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">20</td><td>Pressure test passed at 6 bar for 30 minutes (no leaks, pressure drop &lt; 0.1 bar)</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">21</td><td>LOTO applied before electrical connections</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">22</td><td>Correct MCB installed (100A for ODP-01 / 40A for INP-01)</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">23</td><td>30mA RCD installed upstream of MCB</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">24</td><td>Cable size correct (35 mm² for ODP-01 / 10 mm² for INP-01)</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">25</td><td>L1/L2/L3/N/E labeled at both DB and heater terminals</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">26</td><td>Insulation resistance test passed (min. 1 MΩ each phase to earth at 500V)</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">27</td><td>Phase sequence verified as correct at heater terminals</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">28</td><td>System filled, air purged (no bubbles at vent)</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">29</td><td>Flow confirmed – EWH-ODP-01 min. 8,000 L/h; EWH-INP-01 flow confirmed</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">30</td><td>Heater started in HEATING mode – no fault codes during first 10 minutes</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">31</td><td>Outlet temperature higher than inlet temperature confirmed</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">32</td><td>Running current recorded – within rated FLA (69A / 28A)</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">33</td><td>Flow switch interlock tested – heater trips on low flow within 30 seconds</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">34</td><td>High-limit thermostat setting recorded from manufacturer manual</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+            <tr><td class="num">35</td><td>Commissioning data sheet signed and submitted to IHCC</td><td class="chk">☐</td><td class="chk">☐</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 8 -->
+    <section id="sec8">
+      <div class="sec-h1">8. &nbsp;TESTING &amp; COMMISSIONING RECORDS</div>
+
+      <div class="sec-h2">8.1 &nbsp;Hydrostatic Pressure Test</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>Test / Activity</th><th>Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Fill both heater water circuits with clean water (heaters isolated from pool using isolation valves). Pressurize each circuit to 6 bar (1.5 × 4 bar max). Hold for 30 minutes.</td><td>Pressure drop &lt; 0.1 bar over 30 minutes. Zero leaks at any connection, union, PRV, or gauge fitting.</td><td class="rec"></td></tr>
+          <tr><td class="num">2</td><td>Inspect all threaded connections (BSP unions, gauge fittings, thermometer pockets) under test pressure.</td><td>No seepage anywhere. Repair any leaks; re-test from start.</td><td class="rec"></td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">8.2 &nbsp;Electrical Pre-Start Tests</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>Test</th><th>Criterion</th><th>EWH-ODP-01 Result</th><th>EWH-INP-01 Result</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Insulation resistance – L1 to Earth (500V Megger)</td><td>Min. 1 MΩ</td><td class="rec">_____ MΩ</td><td class="rec">_____ MΩ</td></tr>
+          <tr><td class="num">2</td><td>Insulation resistance – L2 to Earth</td><td>Min. 1 MΩ</td><td class="rec">_____ MΩ</td><td class="rec">_____ MΩ</td></tr>
+          <tr><td class="num">3</td><td>Insulation resistance – L3 to Earth</td><td>Min. 1 MΩ</td><td class="rec">_____ MΩ</td><td class="rec">_____ MΩ</td></tr>
+          <tr><td class="num">4</td><td>Phase sequence check at heater terminals</td><td>Correct rotation</td><td class="rec">Pass / Fail</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">5</td><td>Supply voltage L1–L2 at heater terminals (MCB ON, heater OFF)</td><td>380V ± 10%</td><td class="rec">_____ V</td><td class="rec">_____ V</td></tr>
+          <tr><td class="num">6</td><td>Supply voltage L2–L3</td><td>380V ± 10%</td><td class="rec">_____ V</td><td class="rec">_____ V</td></tr>
+          <tr><td class="num">7</td><td>Supply voltage L1–L3</td><td>380V ± 10%</td><td class="rec">_____ V</td><td class="rec">_____ V</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">8.3 &nbsp;Performance Commissioning Test</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>Parameter Measured</th><th>EWH-ODP-01 (45 kW)</th><th>EWH-INP-01 (18 kW)</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Water Inlet Temperature (°C) – before heater</td><td class="rec">_____ °C</td><td class="rec">_____ °C</td></tr>
+          <tr><td class="num">2</td><td>Water Outlet Temperature (°C) – after heater at full load</td><td class="rec">_____ °C</td><td class="rec">_____ °C</td></tr>
+          <tr><td class="num">3</td><td>Temperature Rise Delta-T (Outlet − Inlet)</td><td>Expected: ~4–5°C at min. flow</td><td>Expected: ~2–3°C at design flow</td></tr>
+          <tr><td class="num">4</td><td>Water Flow Rate (L/h)</td><td>Min. 8,000 L/h (required)</td><td class="rec">_____ L/h</td></tr>
+          <tr><td class="num">5</td><td>Running Current – Phase L1 (A)</td><td>Max 69A &nbsp;→&nbsp; Measured: ___A</td><td>Max 28A &nbsp;→&nbsp; Measured: ___A</td></tr>
+          <tr><td class="num">6</td><td>Running Current – Phase L2 (A)</td><td class="rec">_____ A</td><td class="rec">_____ A</td></tr>
+          <tr><td class="num">7</td><td>Running Current – Phase L3 (A)</td><td class="rec">_____ A</td><td class="rec">_____ A</td></tr>
+          <tr><td class="num">8</td><td>Flow Switch Interlock – Trip time (seconds)</td><td>Less than 30 seconds &nbsp;→&nbsp; ___s</td><td>Less than 30 seconds &nbsp;→&nbsp; ___s</td></tr>
+          <tr><td class="num">9</td><td>Pool target temperature reached (°C)</td><td>28°C (or as specified)</td><td>30°C (or as specified)</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 9 -->
+    <section id="sec9">
+      <div class="sec-h1">9. &nbsp;DOCUMENTATION &amp; HANDOVER</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>Document</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Approved Method Statement MS-HEATER-SPA-03 (this document)</td><td>–</td></tr>
+          <tr><td class="num">2</td><td>MIR for EWH-ODP-01 (SFSD-45-380) and EWH-INP-01 (E2-3-18-380)</td><td>Signed IHCC &amp; Consultant</td></tr>
+          <tr><td class="num">3</td><td>QC Checklist Section 7 – EWH-ODP-01</td><td>Signed by Site Engineer &amp; QA/QC</td></tr>
+          <tr><td class="num">4</td><td>QC Checklist Section 7 – EWH-INP-01</td><td>Signed by Site Engineer &amp; QA/QC</td></tr>
+          <tr><td class="num">5</td><td>Hydrostatic Pressure Test Reports (one per heater unit)</td><td>Signed IHCC Sr. Mech. Engineer</td></tr>
+          <tr><td class="num">6</td><td>Electrical Insulation Resistance Test Report – EWH-ODP-01</td><td>Signed by Licensed Electrician</td></tr>
+          <tr><td class="num">7</td><td>Electrical Insulation Resistance Test Report – EWH-INP-01</td><td>Signed by Licensed Electrician</td></tr>
+          <tr><td class="num">8</td><td>Commissioning Performance Data Sheet (Section 8.3)</td><td>Signed by IHCC Sr. Mech. Engineer</td></tr>
+          <tr><td class="num">9</td><td>Work Inspection Request (WIR) – Consultant Approval</td><td>Submit before concealment of pipework</td></tr>
+          <tr><td class="num">10</td><td>As-Built Drawing (if any deviation from SB-ASB-SD-ME-008-R1)</td><td>Approved by IHCC</td></tr>
+          <tr><td class="num">11</td><td>Manufacturer O&amp;M Manual – SFSD-45-380 (EWH-ODP-01)</td><td>For handover package</td></tr>
+          <tr><td class="num">12</td><td>Manufacturer O&amp;M Manual – E2-3-18-380 (EWH-INP-01)</td><td>For handover package</td></tr>
+          <tr><td class="num">13</td><td>Manufacturer Warranty Documents for both heaters</td><td style="color:var(--amber);">Warranty void if installed incorrectly</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SIGNATURES -->
+    <section id="signatures">
+      <div class="sec-h1">DOCUMENT APPROVAL &amp; SIGNATURES</div>
+      <p class="body">By signing below, each party confirms they have reviewed this Method Statement. No heater installation or electrical connection may commence until written approval is received from IHCC Senior Mechanical Engineer.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Role</th><th>Name</th><th>Signature</th><th>Date</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;">Prepared By (Aseeb Contracting Co.)</td><td>Adil Magdy – Mechanical Engineer</td><td style="height:50px;vertical-align:bottom;">&nbsp;</td><td style="height:50px;vertical-align:bottom;">&nbsp;</td></tr>
+          <tr><td style="font-weight:700;">Reviewed By (IHCC)</td><td>Saqib Manzoor – Sr. Mechanical Engineer</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td style="font-weight:700;">Approved By (IHCC – Management)</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td style="font-weight:700;">Consultant Approval (3C Engineering)</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note note-note" style="margin-top:20px;"><span class="tag">NOTE:</span>Prepared by Aseeb Contracting Company. Submitted to IHCC and 3C Engineering for review and approval. Both EWH-ODP-01 and EWH-INP-01 installation works are covered under this single method statement.</div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <span>CEO Villa — SPA &amp; Pool Facility &nbsp;|&nbsp; MS-HEATER-SPA-03 &nbsp;|&nbsp; Rev. 00 &nbsp;|&nbsp; IHCC / Aseeb Contracting Co.</span>
+  <a href="#top" class="btn-up"><i class="fa-solid fa-arrow-up"></i></a>
+</footer>
+
+<script>
+const sections=document.querySelectorAll('section[id]');
+const navItems=document.querySelectorAll('.nav-item');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navItems.forEach(n=>n.classList.remove('active'));
+      const a=document.querySelector('.nav-item[href="#'+e.target.id+'"]');
+      if(a)a.classList.add('active');
+    }
+  });
+},{rootMargin:'-60px 0px -60% 0px'});
+sections.forEach(s=>observer.observe(s));
+
+function downloadPDF() {
+  const fn = (location.pathname.split('/').pop() || 'method-statement.html').replace('.html', '.pdf');
+  const css = [
+    'main{background:#fff!important;margin:0!important;margin-top:0!important;padding:20px 24px!important;max-width:100%!important;width:100%!important}',
+    'main *{background-color:transparent!important;color:#1a1a1a!important;box-shadow:none!important;text-shadow:none!important;border-color:#ccc!important}',
+    'main .cover{background:#eef2f7!important;border:2px solid #1a3a5c!important;border-radius:8px!important}',
+    'main .cover::before,main .cover::after{display:none!important}',
+    'main .cover-title{color:#1a3a5c!important;font-size:22px!important}',
+    'main .cover-project{color:#2471a3!important}',
+    'main .cover-ms-label{color:#2471a3!important}',
+    'main .cover-divider{background:#1a3a5c!important;height:2px!important}',
+    'main .cover-meta-label{color:#555!important}',
+    'main .cover-meta-value{color:#111!important}',
+    'main .sec-h1{background:#1a3a5c!important;color:#fff!important;border-radius:4px!important}',
+    'main .sec-h1 *{color:#fff!important}',
+    'main .sec-h2{color:#1a3a5c!important;background:transparent!important;border-left:4px solid #1a3a5c!important}',
+    'main .sec-h3{color:#2471a3!important;background:transparent!important}',
+    'main table{border-collapse:collapse!important}',
+    'main th{background:#1a3a5c!important;color:#fff!important;border:1px solid #999!important}',
+    'main th *{color:#fff!important}',
+    'main td{background:#fff!important;border:1px solid #bbb!important;color:#111!important}',
+    'main tr:nth-child(even) td{background:#f5f7fa!important}',
+    'main .note-warn{border-left:4px solid #c0392b!important;background:#fff8f8!important}',
+    'main .note-warn *{color:#7b241c!important}',
+    'main .note-warn .tag{color:#c0392b!important}',
+    'main .note-note{border-left:4px solid #2471a3!important;background:#f0f8ff!important}',
+    'main .note-note *{color:#1a3a5c!important}',
+    'main .note-caut{border-left:4px solid #d4870a!important;background:#fffaf0!important}',
+    'main .note-caut *{color:#7d5000!important}',
+    'main .bul-list li{background:#f5f7fa!important;border:1px solid #ddd!important}',
+    'main .bul-list li::before{background:#1a3a5c!important}',
+    'main .step-list li{background:#f5f7fa!important;border:1px solid #ddd!important}',
+    'main .step-list li::before{background:#1a3a5c!important;color:#fff!important}',
+    'main p.body,main .body{color:#111!important}',
+  ].join('');
+  const mainEl  = document.querySelector('main');
+  const sidebar = document.querySelector('.sidebar');
+  const hdr     = document.querySelector('header');
+  const ftr     = document.querySelector('footer');
+  const origMainStyle = mainEl.getAttribute('style') || '';
+  const origSidebar   = sidebar ? sidebar.style.display : '';
+  const origHdr       = hdr     ? hdr.style.display     : '';
+  const origFtr       = ftr     ? ftr.style.display     : '';
+  if (sidebar) sidebar.style.display = 'none';
+  if (hdr)     hdr.style.display     = 'none';
+  if (ftr)     ftr.style.display     = 'none';
+  mainEl.setAttribute('style','position:fixed;left:0;top:0;margin:0;padding:20px 24px;width:794px;max-width:794px;background:#fff;display:block;box-sizing:border-box;z-index:99999;');
+  void mainEl.getBoundingClientRect();
+  const style = document.createElement('style');
+  style.id = '__pdf_override__';
+  style.textContent = css;
+  document.head.appendChild(style);
+  setTimeout(() => {
+    html2pdf().set({
+      margin: [10, 10, 10, 10],
+      filename: fn,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, backgroundColor: '#ffffff', windowWidth: 794, logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(mainEl).save().then(() => {
+      mainEl.removeAttribute('style');
+      if (sidebar) sidebar.style.display = origSidebar;
+      if (hdr)     hdr.style.display     = origHdr;
+      if (ftr)     ftr.style.display     = origFtr;
+      const s = document.getElementById('__pdf_override__');
+      if (s) s.remove();
+    });
+  }, 200);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approval / Compliance — SPA & POOL O&M Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --blue:       #38bdf8;
+            --blue-light: #7dd3fc;
+            --blue-mid:   #0ea5e9;
+            --gold:       #D4AF37;
+            --gold-light: #f0d060;
+            --gold-dim:   rgba(212,175,55,0.60);
+            --dark:       #04101f;
+            --text:       #dff0fb;
+            --text-muted: rgba(224,242,254,0.55);
+            --amber:      #f59e0b;
+            --amber-dim:  rgba(245,158,11,0.18);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            background: var(--dark);
+            color: var(--text);
+            font-family: 'Aptos Display','Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content:'';
+            position:fixed; inset:0;
+            background:
+                radial-gradient(ellipse at 10% 15%, rgba(212,175,55,0.05) 0%, transparent 40%),
+                radial-gradient(ellipse at 90% 85%, rgba(14,165,233,0.07) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, #050f20 0%, #04101f 100%);
+            z-index:-1;
+        }
+
+        /* ── HEADER ── */
+        header {
+            background: rgba(3,9,20,0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(212,175,55,0.22);
+            padding: 10px 30px;
+            display: flex; align-items: center; justify-content: space-between;
+            position: fixed; top:0; width:100%;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.7);
+        }
+        .header-left { display:flex; align-items:center; gap:14px; }
+        header h1 {
+            font-size: 19px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 2.5px;
+            color: var(--gold-light);
+            text-shadow: 0 0 24px rgba(212,175,55,0.35);
+        }
+        .btn-nav {
+            background: rgba(56,189,248,0.08);
+            color: var(--blue);
+            border: 1px solid rgba(56,189,248,0.28);
+            padding: 7px 14px; border-radius: 5px;
+            cursor: pointer; display: flex; align-items:center; gap:7px;
+            text-decoration: none; font-size: 12.5px; font-weight: 500;
+            transition: all 0.3s; white-space:nowrap;
+        }
+        .btn-nav:hover {
+            background: rgba(56,189,248,0.17);
+            border-color: var(--blue);
+            box-shadow: 0 0 12px rgba(56,189,248,0.14);
+        }
+
+        /* ── MAIN ── */
+        main {
+            padding: 16px 30px 30px;
+            max-width: 1200px;
+            margin: 75px auto 0;
+        }
+
+        /* ── PAGE TITLE ── */
+        .page-title { text-align:center; margin-bottom:14px; }
+        .page-title .subtitle {
+            font-size:11px; color:rgba(56,189,248,0.45);
+            letter-spacing:3px; text-transform:uppercase; margin-bottom:9px;
+        }
+        .page-title h2 {
+            font-size:27px; font-weight:800;
+            color: var(--gold-light); letter-spacing:3px;
+            text-transform:uppercase;
+            text-shadow: 0 0 35px rgba(212,175,55,0.28);
+            margin-bottom:12px;
+        }
+        .title-divider { display:flex; align-items:center; justify-content:center; gap:12px; }
+        .title-divider .line-gold { display:block; height:1px; width:80px; background:linear-gradient(90deg,transparent,rgba(212,175,55,0.5)); }
+        .title-divider .line-blue { display:block; height:1px; width:80px; background:linear-gradient(90deg,rgba(56,189,248,0.5),transparent); }
+        .title-divider i { color:var(--gold-dim); font-size:12px; }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            display:flex; align-items:stretch;
+            background: rgba(4,16,38,0.70);
+            border: 1px solid rgba(56,189,248,0.12);
+            border-radius: 12px;
+            margin-bottom: 28px; overflow:hidden;
+        }
+        .stat-item {
+            flex:1; padding:16px 20px; text-align:center;
+            border-right: 1px solid rgba(56,189,248,0.09);
+        }
+        .stat-item:last-child { border-right:none; }
+        .stat-num { font-size:26px; font-weight:800; color:var(--gold-light); line-height:1; }
+        .stat-label { font-size:10px; color:rgba(56,189,248,0.48); letter-spacing:1.4px; text-transform:uppercase; margin-top:4px; }
+
+        /* ── ACCORDION ── */
+        .accordion { display:flex; flex-direction:column; gap:14px; }
+
+        .acc-item {
+            background: rgba(4,12,30,0.85);
+            border: 1px solid rgba(56,189,248,0.10);
+            border-left: 4px solid rgba(212,175,55,0.40);
+            border-radius: 12px;
+            overflow:hidden;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .acc-item:hover {
+            border-color: rgba(56,189,248,0.38);
+            border-left-color: var(--gold);
+            box-shadow: 0 4px 22px rgba(0,0,0,0.40), 0 0 0 1px rgba(212,175,55,0.12);
+        }
+        .acc-item.open {
+            border-color: rgba(56,189,248,0.22);
+            border-left-color: var(--gold);
+            box-shadow: 0 8px 36px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,175,55,0.08);
+        }
+
+        /* Header row */
+        .acc-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.25s;
+            flex-wrap: wrap;
+        }
+        .acc-header:hover { background: rgba(56,189,248,0.04); }
+
+        .acc-num {
+            width: 32px; height: 32px;
+            background: rgba(212,175,55,0.08);
+            border: 1px solid rgba(212,175,55,0.25);
+            border-radius: 50%;
+            display:flex; align-items:center; justify-content:center;
+            font-size:13px; font-weight:800; color:var(--gold-light);
+            flex-shrink:0;
+        }
+
+        .acc-main { flex:1; min-width:0; }
+        .acc-submittal-no {
+            font-size:15px; font-weight:800;
+            color: var(--gold-light); letter-spacing:0.5px;
+            margin-bottom:5px;
+        }
+        .acc-meta {
+            display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+            font-size:11.5px; color:var(--text-muted);
+        }
+        .acc-meta i { color:rgba(56,189,248,0.40); margin-right:3px; font-size:10px; }
+
+        .badge {
+            display:inline-flex; align-items:center; gap:4px;
+            font-size:10px; font-weight:700;
+            padding: 3px 10px; border-radius:20px;
+            letter-spacing:0.5px; white-space:nowrap;
+        }
+        .badge-blue {
+            color: var(--blue);
+            background: rgba(56,189,248,0.08);
+            border: 1px solid rgba(56,189,248,0.22);
+        }
+        .badge-amber {
+            color: var(--amber);
+            background: rgba(245,158,11,0.10);
+            border: 1px solid rgba(245,158,11,0.28);
+        }
+        .badge-count {
+            color: rgba(224,242,254,0.55);
+            background: rgba(56,189,248,0.05);
+            border: 1px solid rgba(56,189,248,0.12);
+        }
+
+        .acc-dates {
+            display:flex; flex-direction:column; align-items:flex-end; gap:4px;
+            flex-shrink:0;
+        }
+        .acc-date-row { font-size:11px; color:var(--text-muted); white-space:nowrap; }
+        .acc-date-row strong { color: rgba(212,175,55,0.70); font-size:11.5px; }
+
+        .acc-chevron {
+            font-size:16px; color:rgba(56,189,248,0.45);
+            flex-shrink:0; transition: transform 0.35s, color 0.3s;
+        }
+        .acc-item.open .acc-chevron {
+            transform: rotate(180deg);
+            color: var(--gold-dim);
+        }
+
+        /* Body */
+        .acc-body {
+            display:none;
+            border-top: 1px solid rgba(56,189,248,0.08);
+            padding: 0;
+        }
+        .acc-item.open .acc-body { display:block; }
+
+        /* Table */
+        .approval-table {
+            width:100%;
+            border-collapse: collapse;
+            font-size:12.5px;
+        }
+        .approval-table thead tr {
+            background: rgba(56,189,248,0.07);
+        }
+        .approval-table thead th {
+            padding: 11px 16px;
+            text-align: left;
+            font-size:10px;
+            font-weight:700;
+            color: rgba(56,189,248,0.60);
+            letter-spacing:1.3px;
+            text-transform:uppercase;
+            border-bottom: 1px solid rgba(56,189,248,0.10);
+        }
+        .approval-table thead th:first-child { width:48px; text-align:center; }
+        .approval-table thead th:last-child  { width:180px; }
+
+        .approval-table tbody tr {
+            border-bottom: 1px solid rgba(56,189,248,0.05);
+            transition: background 0.2s;
+        }
+        .approval-table tbody tr:last-child { border-bottom:none; }
+        .approval-table tbody tr:hover { background: rgba(56,189,248,0.04); }
+        .approval-table tbody tr:nth-child(even) { background: rgba(4,16,38,0.30); }
+        .approval-table tbody tr:nth-child(even):hover { background: rgba(56,189,248,0.06); }
+
+        .approval-table td {
+            padding: 10px 16px;
+            color: #ffffff;
+            vertical-align: middle;
+        }
+        .td-num {
+            text-align:center;
+            font-size:11px;
+            color: rgba(212,175,55,0.40);
+            font-weight:700;
+        }
+        .td-title {
+            color: #ffffff;
+            line-height: 1.45;
+        }
+        .td-make {
+            color: #ffffff;
+            font-size:12px;
+        }
+
+        /* Download button area */
+        .acc-footer {
+            display:flex; align-items:center; justify-content:flex-end;
+            padding: 16px 24px;
+            border-top: 1px solid rgba(212,175,55,0.08);
+            background: rgba(4,16,38,0.40);
+        }
+        .btn-download {
+            display:inline-flex; align-items:center; gap:8px;
+            background: rgba(212,175,55,0.10);
+            color: var(--gold-light);
+            border: 1px solid rgba(212,175,55,0.35);
+            padding: 9px 20px;
+            border-radius: 7px;
+            font-size: 13px; font-weight: 600;
+            cursor: pointer;
+            text-decoration:none;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .btn-download:hover {
+            background: rgba(212,175,55,0.22);
+            border-color: var(--gold);
+            box-shadow: 0 0 16px rgba(212,175,55,0.18);
+            color: var(--gold-light);
+        }
+        .btn-download i { font-size:14px; }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align:center; padding:28px;
+            border-top: 1px solid rgba(212,175,55,0.12);
+            color: rgba(224,242,254,0.22); font-size:11.5px; letter-spacing:0.5px;
+        }
+        .footer-gold { color:var(--gold-dim); }
+
+        .btn-up {
+            display:inline-flex; align-items:center; justify-content:center;
+            width:36px; height:36px;
+            background:rgba(56,189,248,0.07); border:1px solid rgba(56,189,248,0.20);
+            border-radius:50%; color:var(--blue); text-decoration:none; font-size:13px;
+            transition:all 0.3s; margin-left:10px;
+        }
+        .btn-up:hover { background:rgba(56,189,248,0.18); border-color:var(--blue); }
+
+        ::-webkit-scrollbar { width:6px; }
+        ::-webkit-scrollbar-track { background:rgba(56,189,248,0.03); }
+        ::-webkit-scrollbar-thumb { background:rgba(212,175,55,0.22); border-radius:3px; }
+
+        @media (max-width:768px) {
+            .acc-header { gap:10px; }
+            .acc-dates { display:none; }
+            .approval-table thead th:last-child,
+            .approval-table td:last-child { display:none; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <header>
+        <div class="header-left">
+            <a href="../EVA-CORE.html" class="btn-nav"><i class="fas fa-arrow-left"></i> Back</a>
+            <h1>Approval / Compliance</h1>
+        </div>
+        <a href="../EVA-CORE.html" class="btn-nav"><i class="fas fa-home"></i> Home</a>
+    </header>
+
+    <main>
+
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <p class="subtitle">SPA &amp; POOL Facilities — CEO Villa — IHCC — Jeddah</p>
+            <h2>Approval &amp; Compliance Register</h2>
+        </div>
+
+        <!-- STATS BAR -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-num">5</div>
+                <div class="stat-label">Submittals</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">137</div>
+                <div class="stat-label">Total Items</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" style="color:var(--amber);font-size:13px;padding-top:4px;">B ✓</div>
+                <div class="stat-label">MAS Status</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num" style="font-size:14px;padding-top:4px;">Feb–Dec</div>
+                <div class="stat-label">2025</div>
+            </div>
+            <div class="stat-item" style="flex:2;">
+                <div style="font-size:10.5px;color:rgba(224,242,254,0.38);line-height:1.7;">
+                    MEP Drawings &bull; Arch. Drawings &bull; Mechanical Equipment &bull; Pool Lights
+                </div>
+                <div class="stat-label" style="margin-top:4px;">Approval Categories</div>
+            </div>
+        </div>
+
+        <!-- ACCORDION -->
+        <div class="accordion">
+
+            <!-- ══════════════════════════════════════════
+                 SUBMITTAL 1 — MEP Drawings
+            ══════════════════════════════════════════ -->
+            <div class="acc-item" id="acc-1">
+                <div class="acc-header" onclick="toggleAcc('acc-1')">
+                    <div class="acc-num">1</div>
+                    <div class="acc-main">
+                        <div class="acc-submittal-no">IHCC-HO-T-250-818-2-R0</div>
+                        <div class="acc-meta">
+                            <span class="badge badge-blue"><i class="fas fa-drafting-compass"></i> MEP Drawings</span>
+                            <span class="badge badge-amber"><i class="fas fa-check-circle"></i> B — Approved with Comments</span>
+                            <span class="badge badge-count"><i class="fas fa-list"></i> 2 Items</span>
+                            <span><i class="fas fa-user-check"></i> Engineer Rehan</span>
+                        </div>
+                    </div>
+                    <div class="acc-dates">
+                        <div class="acc-date-row"><i class="fas fa-paper-plane" style="color:rgba(56,189,248,0.35);margin-right:5px;"></i>Submitted: <strong>18 Aug 2025</strong></div>
+                        <div class="acc-date-row"><i class="fas fa-stamp" style="color:rgba(212,175,55,0.45);margin-right:5px;"></i>Approved: <strong>04 Sep 2025</strong></div>
+                    </div>
+                    <i class="fas fa-chevron-down acc-chevron"></i>
+                </div>
+                <div class="acc-body">
+                    <table class="approval-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Drawing Title</th>
+                                <th>Drawing No.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="td-num">1</td>
+                                <td class="td-title">External &amp; Indoor and Cold Plunge Pump Room Plan</td>
+                                <td class="td-make">SB-ASB-SD-ME-008-R1</td>
+                            </tr>
+                            <tr>
+                                <td class="td-num">2</td>
+                                <td class="td-title">External &amp; Indoor and Cold Plunge Pump Room Sections</td>
+                                <td class="td-make">SB-ASB-SD-ME-009-R1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="acc-footer">
+                        <a href="#" class="btn-download" title="Download signed approval document">
+                            <i class="fas fa-file-pdf"></i> Download Signed Approval
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════
+                 SUBMITTAL 2 — Arch. Drawings
+            ══════════════════════════════════════════ -->
+            <div class="acc-item" id="acc-2">
+                <div class="acc-header" onclick="toggleAcc('acc-2')">
+                    <div class="acc-num">2</div>
+                    <div class="acc-main">
+                        <div class="acc-submittal-no">IHCC-HO-T-250-727-2-R5</div>
+                        <div class="acc-meta">
+                            <span class="badge badge-blue"><i class="fas fa-ruler-combined"></i> Arch. Drawings</span>
+                            <span class="badge badge-amber"><i class="fas fa-check-circle"></i> B — Approved with Comments</span>
+                            <span class="badge badge-count"><i class="fas fa-list"></i> 10 Items</span>
+                            <span><i class="fas fa-user-check"></i> Mr. Mandy</span>
+                        </div>
+                    </div>
+                    <div class="acc-dates">
+                        <div class="acc-date-row"><i class="fas fa-paper-plane" style="color:rgba(56,189,248,0.35);margin-right:5px;"></i>Submitted: <strong>12 Oct 2025</strong></div>
+                        <div class="acc-date-row"><i class="fas fa-stamp" style="color:rgba(212,175,55,0.45);margin-right:5px;"></i>Approved: <strong>15 Oct 2025</strong></div>
+                    </div>
+                    <i class="fas fa-chevron-down acc-chevron"></i>
+                </div>
+                <div class="acc-body">
+                    <table class="approval-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Drawing Title</th>
+                                <th>Drawing No.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="td-num">1</td>
+                                <td class="td-title">External Swimming Pool Dimensions Layout</td>
+                                <td class="td-make">SB-ASB-SD-ME-001-R2</td>
+                            </tr>
+                            <tr>
+                                <td class="td-num">2</td>
+                                <td class="td-title">External Swimming Pool Piping Over All</td>
+                                <td class="td-make">SB-ASB-SD-ME-002-R2</td>
+                            </tr>
+                            <tr>
+                                <td class="td-num">3</td>
+                                <td class="td-title">External Swimming Pool Piping Plan &amp; Section</td>
+                                <td class="td-make">SB-ASB-SD-ME-003-R2</td>
+                            </tr>
+                            <tr>
+                                <td class="td-num">4</td>
+                                <td class="td-title">External Swimming Pool Fitting Detail</td>
+                                <td class="td-make">SB-ASB-SD-ME-004-R0</td>
+                            </tr>
+                            <tr>
+                                <td class="td-num">5</td>
+                                <td class="td-title">Water Fall Feature Plan &amp; Section</td>
+                                <td class="td-make">SB-ASB-SD-ME-005-R2</td>
+                            </tr>
+                            <tr>
+                                <td class="td-num">6</td>
+                                <td class="td-title">Indoor Swimming Pool Piping Plan Over All</td>
+                                <td class="td-make">SB-ASB-SD-ME-006-R2</td>
+                            </tr>
+                            <tr>
+                                <td class="td-num">7</td>
+                                <td class="td-title">Indoor Swimming Pool Sections</td>
+                                <td class="td-make">SB-ASB-SD-ME-007-R2</td>
+                            </tr>
+                            <tr>
+                                <td class="td-num">8</td>
+                                <td class="td-title">External Swimming Pool Electrical Plan Layout</td>
+                                <td class="td-make">SB-ASB-SD-EL-001-R3</td>
+                            </tr>
+                            <tr>
+                                <td class="td-num">9</td>
+                                <td class="td-title">Indoor Swimming Pool Electrical Plan Layout</td>
+                                <td class="td-make">SB-ASB-SD-EL-002-R2</td>
+                            </tr>
+                            <tr>
+                                <td class="td-num">10</td>
+                                <td class="td-title">Swimming Pool LED Strip Light Details</td>
+                                <td class="td-make">SB-ASB-SD-EL-005A-R0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="acc-footer">
+                        <a href="#" class="btn-download" title="Download signed approval document">
+                            <i class="fas fa-file-pdf"></i> Download Signed Approval
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════
+                 SUBMITTAL 3 — Mechanical Equipment R1
+            ══════════════════════════════════════════ -->
+            <div class="acc-item" id="acc-3">
+                <div class="acc-header" onclick="toggleAcc('acc-3')">
+                    <div class="acc-num">3</div>
+                    <div class="acc-main">
+                        <div class="acc-submittal-no">IHCC-HO-T-250-226-1-R1</div>
+                        <div class="acc-meta">
+                            <span class="badge badge-blue"><i class="fas fa-cogs"></i> Mechanical Equipment</span>
+                            <span class="badge badge-amber"><i class="fas fa-check-circle"></i> B — Approved with Comments</span>
+                            <span class="badge badge-count"><i class="fas fa-list"></i> 50 Items</span>
+                            <span><i class="fas fa-user-check"></i> Engineer Rehan</span>
+                        </div>
+                    </div>
+                    <div class="acc-dates">
+                        <div class="acc-date-row"><i class="fas fa-paper-plane" style="color:rgba(56,189,248,0.35);margin-right:5px;"></i>Submitted: <strong>30 Sep 2025</strong></div>
+                        <div class="acc-date-row"><i class="fas fa-stamp" style="color:rgba(212,175,55,0.45);margin-right:5px;"></i>Approved: <strong>08 Oct 2025</strong></div>
+                    </div>
+                    <i class="fas fa-chevron-down acc-chevron"></i>
+                </div>
+                <div class="acc-body">
+                    <table class="approval-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Equipment / Item Description</th>
+                                <th>Make / Brand</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="td-num">1</td><td class="td-title">Filtration Pump 3 Hp</td><td class="td-make">PENTAIR / USA</td></tr>
+                            <tr><td class="td-num">2</td><td class="td-title">Submersible Pump For Pump Room 1 Hp</td><td class="td-make">PEDROLLO</td></tr>
+                            <tr><td class="td-num">3</td><td class="td-title">Fountain Pump 1.5 Hp</td><td class="td-make">PENTAIR / USA</td></tr>
+                            <tr><td class="td-num">4</td><td class="td-title">Waterfall Pump 2 Hp</td><td class="td-make">PENTAIR / USA</td></tr>
+                            <tr><td class="td-num">5</td><td class="td-title">Chemical Controller</td><td class="td-make">HAYWARD</td></tr>
+                            <tr><td class="td-num">6</td><td class="td-title">UV Generator 110 GPM</td><td class="td-make">ELECRO</td></tr>
+                            <tr><td class="td-num">7</td><td class="td-title">Electrical Water Heater 45 KW</td><td class="td-make">ELECRO</td></tr>
+                            <tr><td class="td-num">8</td><td class="td-title">Sand Filter 450 MM</td><td class="td-make">PENTAIR / USA</td></tr>
+                            <tr><td class="td-num">9</td><td class="td-title">Filtration Pump 1 Hp</td><td class="td-make">PENTAIR / USA</td></tr>
+                            <tr><td class="td-num">10</td><td class="td-title">Jet Pump 3 Hp</td><td class="td-make">PENTAIR / USA</td></tr>
+                            <tr><td class="td-num">11</td><td class="td-title">Electrical Jacuzzi Heater 18 KW</td><td class="td-make">ELECRO</td></tr>
+                            <tr><td class="td-num">12</td><td class="td-title">Chlorine Feeder</td><td class="td-make">HAYWARD / USA</td></tr>
+                            <tr><td class="td-num">13</td><td class="td-title">Sand Filter 450 MM</td><td class="td-make">PENTAIR / USA</td></tr>
+                            <tr><td class="td-num">14</td><td class="td-title">Filtration Pump 2 Hp</td><td class="td-make">PENTAIR / USA</td></tr>
+                            <tr><td class="td-num">15</td><td class="td-title">Heat Chill Pump 17 KW Cooling</td><td class="td-make">COATZONE</td></tr>
+                            <tr><td class="td-num">16</td><td class="td-title">Chlorine Feeder</td><td class="td-make">HAYWARD / USA</td></tr>
+                            <tr><td class="td-num">17</td><td class="td-title">Submersible Pump 0.75 Hp</td><td class="td-make">PEDROLLO</td></tr>
+                            <tr><td class="td-num">18</td><td class="td-title">Sauna Room 3.5×2.3×2.4 Custom Fabrication</td><td class="td-make">AQUA</td></tr>
+                            <tr><td class="td-num">19</td><td class="td-title">Sauna Heater 14.4 KW</td><td class="td-make">AQUA</td></tr>
+                            <tr><td class="td-num">20</td><td class="td-title">Sauna Light</td><td class="td-make">AQUA</td></tr>
+                            <tr><td class="td-num">21</td><td class="td-title">Sauna Controller</td><td class="td-make">AQUA</td></tr>
+                            <tr><td class="td-num">22</td><td class="td-title">Sauna Accessories</td><td class="td-make">AQUA</td></tr>
+                            <tr><td class="td-num">23</td><td class="td-title">Steam Generator 14 KW</td><td class="td-make">AMREC</td></tr>
+                            <tr><td class="td-num">24</td><td class="td-title">Auto Drain Valve ¾"</td><td class="td-make">AMREC</td></tr>
+                            <tr><td class="td-num">25</td><td class="td-title">Steam Controller</td><td class="td-make">AMREC</td></tr>
+                            <tr><td class="td-num">26</td><td class="td-title">Fragrance Dosing Pump</td><td class="td-make">AMREC</td></tr>
+                            <tr><td class="td-num">27</td><td class="td-title">Wall Inlet In Polished S.S AISI 316 Threaded — Connection Size: 2&quot; Flow: 5 M³/H, Brush Finish</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">28</td><td class="td-title">(Sample Will Be Provided)</td><td class="td-make">LOCAL</td></tr>
+                            <tr><td class="td-num">29</td><td class="td-title">Main Drain 300mm×300mm</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">30</td><td class="td-title">Suction Inlet In Polished S.S AISI 316 Threaded Connection Size: 2&quot; Opening Flap Cover, Brush Finish (Sample Will Be Provided)</td><td class="td-make">AKUA4CE</td></tr>
+                            <tr><td class="td-num">31</td><td class="td-title">Gutter Drain 2&quot; Abs Plastic</td><td class="td-make">LOCAL</td></tr>
+                            <tr><td class="td-num">32</td><td class="td-title">Waterfall SS 316L Gutter Custom Made</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">33</td><td class="td-title">LED Light SS AISI 316 (Sample Will Be Provided)</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">34</td><td class="td-title">Strip Light (Sample Will Be Provided)</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">35</td><td class="td-title">Fountain Ring Light (Sample Will Be Provided)</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">36</td><td class="td-title">Light Controller (Sample Will Be Provided)</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">37</td><td class="td-title">Deck Box SS (Sample Will Be Provided)</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">38</td><td class="td-title">Wall Washer 1 M</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">39</td><td class="td-title">Wall Inlet in Polished S.S AISI 316 Threaded</td><td class="td-make">LOCAL</td></tr>
+                            <tr><td class="td-num">40</td><td class="td-title">Connection Size: 2&quot; Flow: 5 M³/H, Brush Finish</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">41</td><td class="td-title">(Sample Will Be Provided)</td><td class="td-make">AKUA4CE</td></tr>
+                            <tr><td class="td-num">42</td><td class="td-title">Main Drain 300mm×300mm</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">43</td><td class="td-title">Suction Inlet in Polished S.S AISI 316 Threaded — Connection Size: 2&quot; Opening Flap Cover, Brush Finish</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">44</td><td class="td-title">Gutter Drain 2&quot; Abs Plastic</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">45</td><td class="td-title">Hydro Jet (Sample Will Be Provided)</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">46</td><td class="td-title">LED Light SS AISI 316 (Sample Will Be Provided)</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">47</td><td class="td-title">Strip Light (Sample Will Be Provided)</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">48</td><td class="td-title">Light Controller (Sample Will Be Provided)</td><td class="td-make">LOCAL</td></tr>
+                            <tr><td class="td-num">49</td><td class="td-title">Deck Box SS (Sample Will Be Provided)</td><td class="td-make">ATECPOOL</td></tr>
+                            <tr><td class="td-num">50</td><td class="td-title">Wall Inlet in Polished S.S AISI 316 Threaded</td><td class="td-make">ATECPOOL</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="acc-footer">
+                        <a href="#" class="btn-download" title="Download signed approval document">
+                            <i class="fas fa-file-pdf"></i> Download Signed Approval
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════
+                 SUBMITTAL 4 — Mechanical Equipment R0
+            ══════════════════════════════════════════ -->
+            <div class="acc-item" id="acc-4">
+                <div class="acc-header" onclick="toggleAcc('acc-4')">
+                    <div class="acc-num">4</div>
+                    <div class="acc-main">
+                        <div class="acc-submittal-no">IHCC-HO-T-250-226-1-R0</div>
+                        <div class="acc-meta">
+                            <span class="badge badge-blue"><i class="fas fa-cogs"></i> Mechanical Equipment</span>
+                            <span class="badge badge-amber"><i class="fas fa-check-circle"></i> B — Approved with Comments</span>
+                            <span class="badge badge-count"><i class="fas fa-list"></i> 71 Items</span>
+                            <span><i class="fas fa-user-check"></i> Engineer Rehan</span>
+                        </div>
+                    </div>
+                    <div class="acc-dates">
+                        <div class="acc-date-row"><i class="fas fa-paper-plane" style="color:rgba(56,189,248,0.35);margin-right:5px;"></i>Submitted: <strong>26 Feb 2025</strong></div>
+                        <div class="acc-date-row"><i class="fas fa-stamp" style="color:rgba(212,175,55,0.45);margin-right:5px;"></i>Approved: <strong>06 Mar 2025</strong></div>
+                    </div>
+                    <i class="fas fa-chevron-down acc-chevron"></i>
+                </div>
+                <div class="acc-body">
+                    <table class="approval-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Equipment / Item Description</th>
+                                <th>Make / Brand</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="td-num">1</td><td class="td-title">SPA &amp; POOL Accessories &amp; Equipment</td><td class="td-make">All</td></tr>
+                            <tr><td class="td-num">2</td><td class="td-title">Sand Filter TR 140, 36"</td><td class="td-make">Pentair</td></tr>
+                            <tr><td class="td-num">3</td><td class="td-title">Filtration Pump 3 HP</td><td class="td-make">Pentair</td></tr>
+                            <tr><td class="td-num">4</td><td class="td-title">Submersible Pump For Pump Room 1 HP</td><td class="td-make">Pedrollo</td></tr>
+                            <tr><td class="td-num">5</td><td class="td-title">Wall Inlet 2", SS 316</td><td class="td-make">Astral</td></tr>
+                            <tr><td class="td-num">6</td><td class="td-title">Main Drain SS 316 — 300×300 mm</td><td class="td-make">Astral</td></tr>
+                            <tr><td class="td-num">7</td><td class="td-title">Vacuum Adaptor 2" SS 316</td><td class="td-make">Astral</td></tr>
+                            <tr><td class="td-num">8</td><td class="td-title">Gutter Drain 2" ABS Plastic</td><td class="td-make">Akua4ce</td></tr>
+                            <tr><td class="td-num">9</td><td class="td-title">Float Switch Inside Balance Tank</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">10</td><td class="td-title">Fountain Pump 1.5 HP</td><td class="td-make">Pentair</td></tr>
+                            <tr><td class="td-num">11</td><td class="td-title">Water Fall SS 316L Gutter Custom Made</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">12</td><td class="td-title">Water Fall Pump 2 HP</td><td class="td-make">Pentair</td></tr>
+                            <tr><td class="td-num">13</td><td class="td-title">RGB Light 12W SS316</td><td class="td-make">Unonovestte / Italy</td></tr>
+                            <tr><td class="td-num">14</td><td class="td-title">Strip Light</td><td class="td-make">Unonovestte / Italy</td></tr>
+                            <tr><td class="td-num">15</td><td class="td-title">Light Controller</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">16</td><td class="td-title">Deck Box SS</td><td class="td-make">Astral</td></tr>
+                            <tr><td class="td-num">17</td><td class="td-title">Dosing System Using Liquid Chlorine</td><td class="td-make">Pulsafeeder / Hayward</td></tr>
+                            <tr><td class="td-num">18</td><td class="td-title">UV Generator 110 GPM</td><td class="td-make">Elecro</td></tr>
+                            <tr><td class="td-num">19</td><td class="td-title">Cleaning Kit Including (Brush, Telescopic Pole, Test Kit, Vacuum Hose, Head and Leaf Skimmer)</td><td class="td-make">Akua4ce</td></tr>
+                            <tr><td class="td-num">20</td><td class="td-title">Electric Water Heater 45 KW Using Titanium Elements</td><td class="td-make">Elecro / UK</td></tr>
+                            <tr><td class="td-num">21</td><td class="td-title">Mechanical Hardware Using CPVC SCH 80 Items</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">22</td><td class="td-title">Electrical Hardware Switches Fountain and Water Fall</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">23</td><td class="td-title">Electrical Control Panel</td><td class="td-make">Alfanar</td></tr>
+                            <tr><td class="td-num">24</td><td class="td-title">Wall Washer Light For The Water Fall</td><td class="td-make">China</td></tr>
+                            <tr><td class="td-num">25</td><td class="td-title">Fountain Standing Light</td><td class="td-make">Linea / Italy</td></tr>
+                            <tr><td class="td-num">26</td><td class="td-title">Water Fall Pump, Submersible Pump 3/4 HP</td><td class="td-make">Pedrollo</td></tr>
+                            <tr><td class="td-num">27</td><td class="td-title">Wall Washer 1 M</td><td class="td-make">China</td></tr>
+                            <tr><td class="td-num">28</td><td class="td-title">Light Controller</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">29</td><td class="td-title">Deck Box SS</td><td class="td-make">Astral</td></tr>
+                            <tr><td class="td-num">30</td><td class="td-title">Mechanical Hardware Using CPVC SCH 80 Items</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">31</td><td class="td-title">Electrical Hardware</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">32</td><td class="td-title">Sauna Room 3.5×2.3×2.4 Custom Fabrication, Beech Wood Germany Origin 2 Layer With Thermal Insulation</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">33</td><td class="td-title">Sauna Heater 14.4 KW</td><td class="td-make">Amerec</td></tr>
+                            <tr><td class="td-num">34</td><td class="td-title">Sauna Lights</td><td class="td-make">Philips</td></tr>
+                            <tr><td class="td-num">35</td><td class="td-title">Sauna Controller Using T1 With Touch Screen</td><td class="td-make">Amerec</td></tr>
+                            <tr><td class="td-num">36</td><td class="td-title">Sauna Accessories (Stone, Lampshade, Ladle, Bucket and Thermometer)</td><td class="td-make">Amerec</td></tr>
+                            <tr><td class="td-num">37</td><td class="td-title">Electrical Hardware</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">38</td><td class="td-title">Steam Generator 14 KW With Auto Drain Valve</td><td class="td-make">Amerec</td></tr>
+                            <tr><td class="td-num">39</td><td class="td-title">Steam Head 3/4"</td><td class="td-make">Amerec</td></tr>
+                            <tr><td class="td-num">40</td><td class="td-title">Steam Light</td><td class="td-make">Philips</td></tr>
+                            <tr><td class="td-num">41</td><td class="td-title">Steam Controller / Digital</td><td class="td-make">Amerec</td></tr>
+                            <tr><td class="td-num">42</td><td class="td-title">Fragrance Dosing Pump</td><td class="td-make">Amerec</td></tr>
+                            <tr><td class="td-num">43</td><td class="td-title">Electrical and Mechanical Hardware</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">44</td><td class="td-title">450 MM Sand Filter With Manual Multiport Valve</td><td class="td-make">Pentair USA</td></tr>
+                            <tr><td class="td-num">45</td><td class="td-title">Filtration Pump 1 HP</td><td class="td-make">Pentair USA</td></tr>
+                            <tr><td class="td-num">46</td><td class="td-title">Jets Pump 3 HP</td><td class="td-make">Pentair / USA</td></tr>
+                            <tr><td class="td-num">47</td><td class="td-title">Gutter Drain</td><td class="td-make">Pentair</td></tr>
+                            <tr><td class="td-num">48</td><td class="td-title">Float Valve</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">49</td><td class="td-title">Hydro Massage Jets</td><td class="td-make">Astral / Spain</td></tr>
+                            <tr><td class="td-num">50</td><td class="td-title">Air Inlets</td><td class="td-make">Astral / Spain</td></tr>
+                            <tr><td class="td-num">51</td><td class="td-title">Anti-Vortex Drain</td><td class="td-make">Astral / Spain</td></tr>
+                            <tr><td class="td-num">52</td><td class="td-title">Wall Inlets 1.5"</td><td class="td-make">Astral / Spain</td></tr>
+                            <tr><td class="td-num">53</td><td class="td-title">Plumbing Hardware Using CPVC SCH 80 Items</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">54</td><td class="td-title">Electrical Cables and Hardware</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">55</td><td class="td-title">Underwater Lights 6W, 12 VAC</td><td class="td-make">Unonovestte / Italy</td></tr>
+                            <tr><td class="td-num">56</td><td class="td-title">Lighting Driver 100 VA, 220/12VAC</td><td class="td-make">Meanwell</td></tr>
+                            <tr><td class="td-num">57</td><td class="td-title">Strip Light</td><td class="td-make">Unonovestte / Italy</td></tr>
+                            <tr><td class="td-num">58</td><td class="td-title">SS 316 Deck Box</td><td class="td-make">Astral / Spain</td></tr>
+                            <tr><td class="td-num">59</td><td class="td-title">Electrical Control Panel</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">60</td><td class="td-title">Chlorine Feeder</td><td class="td-make">Pentair</td></tr>
+                            <tr><td class="td-num">61</td><td class="td-title">Electrical Jacuzzi Heater 18 KW With Titanium Elements</td><td class="td-make">Elecro / UK</td></tr>
+                            <tr><td class="td-num">62</td><td class="td-title">450 MM Sand Filter</td><td class="td-make">Pentair USA</td></tr>
+                            <tr><td class="td-num">63</td><td class="td-title">Filtration Pump 2 HP</td><td class="td-make">Pentair USA</td></tr>
+                            <tr><td class="td-num">64</td><td class="td-title">Wall Inlet 1.5" SS 316</td><td class="td-make">Astral</td></tr>
+                            <tr><td class="td-num">65</td><td class="td-title">Anti Vortex Drain SS 316</td><td class="td-make">Astral</td></tr>
+                            <tr><td class="td-num">66</td><td class="td-title">Electrical Control Panel</td><td class="td-make">Alfanar</td></tr>
+                            <tr><td class="td-num">67</td><td class="td-title">Chlorine Feeder</td><td class="td-make">Pentair</td></tr>
+                            <tr><td class="td-num">68</td><td class="td-title">Cold Plunge Pool Heat Chill Pump 17 KW Cooling</td><td class="td-make">Coatzone</td></tr>
+                            <tr><td class="td-num">69</td><td class="td-title">Temperature Controller</td><td class="td-make">Delta</td></tr>
+                            <tr><td class="td-num">70</td><td class="td-title">Plumbing Hardware Using CPVC SCH 80 Items</td><td class="td-make">Local</td></tr>
+                            <tr><td class="td-num">71</td><td class="td-title">Electrical Cables and Hardware</td><td class="td-make">Local</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="acc-footer">
+                        <a href="#" class="btn-download" title="Download signed approval document">
+                            <i class="fas fa-file-pdf"></i> Download Signed Approval
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════════
+                 SUBMITTAL 5 — Pool Lights
+            ══════════════════════════════════════════ -->
+            <div class="acc-item" id="acc-5">
+                <div class="acc-header" onclick="toggleAcc('acc-5')">
+                    <div class="acc-num">5</div>
+                    <div class="acc-main">
+                        <div class="acc-submittal-no">IHCC-HO-T-251-0164-4-R1</div>
+                        <div class="acc-meta">
+                            <span class="badge badge-blue"><i class="fas fa-lightbulb"></i> Pool Lights</span>
+                            <span class="badge badge-amber"><i class="fas fa-check-circle"></i> B — Approved with Comments</span>
+                            <span class="badge badge-count"><i class="fas fa-list"></i> 4 Items</span>
+                            <span><i class="fas fa-user-check"></i> Mr. Filipe</span>
+                        </div>
+                    </div>
+                    <div class="acc-dates">
+                        <div class="acc-date-row"><i class="fas fa-paper-plane" style="color:rgba(56,189,248,0.35);margin-right:5px;"></i>Submitted: <strong>26 Nov 2025</strong></div>
+                        <div class="acc-date-row"><i class="fas fa-stamp" style="color:rgba(212,175,55,0.45);margin-right:5px;"></i>Approved: <strong>07 Dec 2025</strong></div>
+                    </div>
+                    <i class="fas fa-chevron-down acc-chevron"></i>
+                </div>
+                <div class="acc-body">
+                    <table class="approval-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Equipment / Item Description</th>
+                                <th>Make / Brand</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="td-num">1</td>
+                                <td class="td-title">UWL-RGB Light SS AISI 316 — With Remote Control</td>
+                                <td class="td-make">Atecpool — Spain</td>
+                            </tr>
+                            <tr>
+                                <td class="td-num">2</td>
+                                <td class="td-title">Strip Lights In 3000K IP68 With Corner, Connector</td>
+                                <td class="td-make">Atecpool — Spain</td>
+                            </tr>
+                            <tr>
+                                <td class="td-num">3</td>
+                                <td class="td-title">GB Fountain Ring Light — With Remote Control</td>
+                                <td class="td-make">Atecpool — Spain</td>
+                            </tr>
+                            <tr>
+                                <td class="td-num">4</td>
+                                <td class="td-title">Wall Washer In RGB With Remote Control</td>
+                                <td class="td-make">Aqua — Italy</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="acc-footer">
+                        <a href="#" class="btn-download" title="Download signed approval document">
+                            <i class="fas fa-file-pdf"></i> Download Signed Approval
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /accordion -->
+
+    </main>
+
+    <footer>
+        <span class="footer-gold">SPA &amp; POOL O&amp;M Portal</span>
+        &nbsp;·&nbsp; CEO Villa — Project 10144
+        &nbsp;·&nbsp; IHCC, Jeddah, Saudi Arabia
+        &nbsp;·&nbsp; Approval / Compliance Register
+        <a href="#top" class="btn-up" title="Back to top"><i class="fas fa-arrow-up"></i></a>
+    </footer>
+
+    <script>
+        function toggleAcc(id) {
+            var item = document.getElementById(id);
+            var isOpen = item.classList.contains('open');
+            // Close all
+            document.querySelectorAll('.acc-item').forEach(function(el) {
+                el.classList.remove('open');
+            });
+            // Toggle clicked
+            if (!isOpen) {
+                item.classList.add('open');
+                // Smooth scroll into view
+                setTimeout(function() {
+                    item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 50);
+            }
+        }
+    </script>
+
+</body>
+</html>

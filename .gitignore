@@ -1,0 +1,10 @@
+push_to_github.bat
+.git
+google-apps-script/
+__pycache__/
+.cursor/
+*.gs
+*.py
+*.txt
+split_run.log
+update_github.bat

@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mechanical Systems Panel Keys Register | CEO Villa Project</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(16, 185, 129, 0.18), transparent 34%),
+        linear-gradient(135deg, #011f18 0%, #022c22 45%, #064e3b 100%);
+      color: #ecfdf5;
+      min-height: 100vh;
+      padding: 22px;
+    }
+
+    .page {
+      max-width: 1420px;
+      margin: 0 auto;
+      background: rgba(2, 44, 34, 0.92);
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      border-radius: 22px;
+      box-shadow: 0 22px 55px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 24px;
+      background: rgba(1, 31, 24, 0.95);
+      border-bottom: 1px solid rgba(52, 211, 153, 0.25);
+    }
+
+    .nav-btn {
+      text-decoration: none;
+      color: #ffffff;
+      background: rgba(6, 78, 59, 0.95);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.2px;
+      border: 1px solid rgba(52, 211, 153, 0.45);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+      transition: all 0.25s ease;
+    }
+
+    .nav-btn:hover {
+      background: #022c22;
+      transform: translateY(-1px);
+    }
+
+    .header {
+      padding: 38px 30px 34px;
+      text-align: center;
+      background: linear-gradient(135deg, #011f18 0%, #064e3b 55%, #047857 100%);
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(52, 211, 153, 0.28);
+    }
+
+    .header::before,
+    .header::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .header::before {
+      width: 260px;
+      height: 260px;
+      top: -120px;
+      left: -70px;
+    }
+
+    .header::after {
+      width: 210px;
+      height: 210px;
+      bottom: -90px;
+      right: -55px;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-title {
+      font-size: 34px;
+      font-weight: 300;
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+    }
+
+    .project-code {
+      font-size: 16px;
+      font-weight: 300;
+      opacity: 0.93;
+      margin-bottom: 18px;
+      color: #d1fae5;
+    }
+
+    .document-title {
+      display: inline-block;
+      padding: 13px 28px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(4px);
+      font-size: 20px;
+      font-weight: 300;
+      letter-spacing: 0.4px;
+    }
+
+    .content {
+      padding: 28px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .info-card {
+      background: rgba(6, 78, 59, 0.75);
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .info-card span {
+      display: block;
+      font-size: 12px;
+      color: #a7f3d0;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 300;
+    }
+
+    .info-card strong {
+      font-size: 15px;
+      font-weight: 400;
+      color: #ffffff;
+    }
+
+    .action-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin: 8px 0 22px;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #ffffff;
+      background: linear-gradient(135deg, #15803d, #064e3b);
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 400;
+      border: 1px solid #34d399;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.38);
+      transition: all 0.25s ease;
+    }
+
+    .download-btn:hover {
+      background: linear-gradient(135deg, #166534, #022c22);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.48);
+    }
+
+    .section-title {
+      margin: 8px 0 15px;
+      font-size: 20px;
+      font-weight: 300;
+      color: #d1fae5;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 5px;
+      height: 24px;
+      background: #34d399;
+      border-radius: 8px;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      border-radius: 18px;
+      background: rgba(1, 31, 24, 0.85);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1250px;
+    }
+
+    thead {
+      background: #064e3b;
+      color: #ffffff;
+    }
+
+    th {
+      padding: 13px 10px;
+      font-size: 12px;
+      font-weight: 400;
+      text-align: left;
+      white-space: nowrap;
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    td {
+      padding: 12px 10px;
+      font-size: 12.5px;
+      font-weight: 300;
+      border-bottom: 1px solid rgba(167, 243, 208, 0.13);
+      border-right: 1px solid rgba(167, 243, 208, 0.10);
+      color: #ecfdf5;
+      vertical-align: top;
+      line-height: 1.35;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(6, 78, 59, 0.38);
+    }
+
+    tbody tr:nth-child(odd) {
+      background: rgba(2, 44, 34, 0.46);
+    }
+
+    tbody tr:hover {
+      background: rgba(16, 185, 129, 0.16);
+    }
+
+    .sr,
+    .center {
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .tag {
+      font-weight: 500;
+      color: #86efac;
+      white-space: nowrap;
+    }
+
+    .discipline {
+      display: inline-block;
+      min-width: 70px;
+      text-align: center;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .plumbing {
+      background: rgba(14, 165, 233, 0.18);
+      color: #bae6fd;
+      border: 1px solid rgba(125, 211, 252, 0.35);
+    }
+
+    .hvac {
+      background: rgba(34, 197, 94, 0.16);
+      color: #bbf7d0;
+      border: 1px solid rgba(134, 239, 172, 0.35);
+    }
+
+    .civil {
+      background: rgba(245, 158, 11, 0.18);
+      color: #fde68a;
+      border: 1px solid rgba(252, 211, 77, 0.35);
+    }
+
+    .mep {
+      background: rgba(168, 85, 247, 0.18);
+      color: #e9d5ff;
+      border: 1px solid rgba(216, 180, 254, 0.35);
+    }
+
+    .note-box {
+      margin-top: 22px;
+      padding: 18px 20px;
+      background: rgba(6, 78, 59, 0.72);
+      border-left: 5px solid #34d399;
+      border-radius: 14px;
+      color: #d1fae5;
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .handover-strip {
+      margin-top: 24px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #064e3b, #022c22);
+      color: #ffffff;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.4px;
+      border: 1px solid rgba(52, 211, 153, 0.28);
+    }
+
+    .signatures {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 18px;
+    }
+
+    .sig-card {
+      border: 1px solid rgba(52, 211, 153, 0.25);
+      border-radius: 16px;
+      background: rgba(1, 31, 24, 0.55);
+      overflow: hidden;
+    }
+
+    .sig-title {
+      background: rgba(6, 78, 59, 0.85);
+      color: #ffffff;
+      padding: 12px 16px;
+      font-weight: 400;
+      border-bottom: 1px solid rgba(52, 211, 153, 0.22);
+    }
+
+    .sig-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 10px;
+      padding: 13px 16px;
+      border-bottom: 1px solid rgba(167, 243, 208, 0.12);
+      font-size: 13px;
+      min-height: 45px;
+    }
+
+    .sig-row:last-child {
+      border-bottom: none;
+      min-height: 70px;
+    }
+
+    .label {
+      color: #a7f3d0;
+      font-weight: 300;
+    }
+
+    .line {
+      border-bottom: 1px dashed rgba(167, 243, 208, 0.55);
+    }
+
+    .footer {
+      padding: 18px 28px;
+      background: rgba(1, 31, 24, 0.95);
+      border-top: 1px solid rgba(52, 211, 153, 0.25);
+      font-size: 12px;
+      color: #a7f3d0;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-weight: 300;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+        color: #000000;
+      }
+
+      .page {
+        box-shadow: none;
+        border-radius: 0;
+        max-width: none;
+        background: #ffffff;
+        border: none;
+      }
+
+      .top-bar,
+      .action-row {
+        display: none;
+      }
+
+      .header {
+        background: #064e3b;
+        color: #ffffff;
+      }
+
+      .content {
+        color: #000000;
+        background: #ffffff;
+      }
+
+      .info-card,
+      .note-box,
+      .sig-card {
+        background: #ffffff;
+        color: #000000;
+        border-color: #cccccc;
+      }
+
+      .info-card span,
+      .info-card strong,
+      .section-title,
+      .note-box,
+      .label {
+        color: #000000;
+      }
+
+      .table-wrap {
+        overflow: visible;
+        box-shadow: none;
+        background: #ffffff;
+        border-color: #cccccc;
+      }
+
+      table {
+        min-width: 0;
+        font-size: 10px;
+      }
+
+      th {
+        background: #064e3b;
+        color: #ffffff;
+      }
+
+      td {
+        color: #000000;
+        border-color: #cccccc;
+      }
+
+      th,
+      td {
+        padding: 7px 5px;
+        font-size: 9.5px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 12px;
+      }
+
+      .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .project-title {
+        font-size: 28px;
+      }
+
+      .document-title {
+        font-size: 17px;
+      }
+
+      .signatures {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .top-bar,
+      .footer {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .content {
+        padding: 18px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-btn {
+        padding: 9px 14px;
+      }
+
+      .action-row {
+        justify-content: center;
+      }
+
+      .download-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <div class="top-bar">
+      <a class="nav-btn" href="javascript:void(0)" onclick="evaReturnToEva()">← Back</a>
+      <a class="nav-btn" href="javascript:void(0)" onclick="evaGoHome()">Home ⌂</a>
+    </div>
+
+    <header class="header">
+      <div class="header-content">
+        <h1 class="project-title">CEO Villa Project</h1>
+        <div class="project-code">Project Code: 10144</div>
+        <div class="document-title">Mechanical Systems Panel Keys Register</div>
+      </div>
+    </header>
+
+    <section class="content">
+      <div class="info-grid">
+        <div class="info-card"><span>Total Registered Items</span><strong>14 Items</strong></div>
+        <div class="info-card"><span>Total Keys / Tools</span><strong>16 Nos.</strong></div>
+        <div class="info-card"><span>Registered Locations</span><strong>2 Areas</strong></div>
+        <div class="info-card"><span>Status</span><strong>For O&amp;M / Handover</strong></div>
+      </div>
+
+      <div class="action-row">
+        <a href="Signed_Key_Register_Form.pdf" class="download-btn" download>
+          ⬇ Download Signed Form
+        </a>
+      </div>
+
+      <h2 class="section-title">Mechanical Equipment Panel Key Register</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Sr. No.</th>
+              <th>Key Tag No.</th>
+              <th>Floor / Level</th>
+              <th>Area / Location</th>
+              <th>Panel Name</th>
+              <th>Equipment Name</th>
+              <th>Discipline</th>
+              <th>Key Type</th>
+              <th>Qty</th>
+              <th>Access Level</th>
+              <th>Key Type / Lock Details</th>
+              <th>Size</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td class="sr">01</td>
+              <td class="tag">K-PL-01</td>
+              <td>Basement</td>
+              <td>MEP Service Corridor</td>
+              <td>Pump Control Panel</td>
+              <td>Duples Submersible Pumps - 01</td>
+              <td><span class="discipline plumbing">Plumbing</span></td>
+              <td>Socket Spaner</td>
+              <td class="center">1</td>
+              <td>Authorized Only</td>
+              <td>Double Bit Spanner Lock</td>
+              <td class="center">5mm</td>
+            </tr>
+
+            <tr>
+              <td class="sr">02</td>
+              <td class="tag">K-PL-02</td>
+              <td>Basement</td>
+              <td>MEP Service Corridor</td>
+              <td>Pump Control Panel</td>
+              <td>Duples Submersible Pumps - 02</td>
+              <td><span class="discipline plumbing">Plumbing</span></td>
+              <td>Socket Spaner</td>
+              <td class="center">1</td>
+              <td>Authorized Only</td>
+              <td>Double Bit Spanner Lock</td>
+              <td class="center">5mm</td>
+            </tr>
+
+            <tr>
+              <td class="sr">03</td>
+              <td class="tag">K-PL-03</td>
+              <td>Basement</td>
+              <td>MEP Service Corridor</td>
+              <td>Pump Control Panel</td>
+              <td>Duples Submersible Pumps - 03</td>
+              <td><span class="discipline plumbing">Plumbing</span></td>
+              <td>Socket Spaner</td>
+              <td class="center">1</td>
+              <td>Authorized Only</td>
+              <td>Double Bit Spanner Lock</td>
+              <td class="center">5mm</td>
+            </tr>
+
+            <tr>
+              <td class="sr">04</td>
+              <td class="tag">K-PL-05</td>
+              <td>Basement</td>
+              <td>MEP Service Corridor</td>
+              <td>Pump Control Panel</td>
+              <td>Duples Submersible Pumps - 05</td>
+              <td><span class="discipline plumbing">Plumbing</span></td>
+              <td>Socket Spaner</td>
+              <td class="center">1</td>
+              <td>Authorized Only</td>
+              <td>Double Bit Spanner Lock</td>
+              <td class="center">5mm</td>
+            </tr>
+
+            <tr>
+              <td class="sr">05</td>
+              <td class="tag">K-PL-06</td>
+              <td>Basement</td>
+              <td>MEP Service Corridor</td>
+              <td>Pump Control Panel</td>
+              <td>Duples Submersible Pumps - 06</td>
+              <td><span class="discipline plumbing">Plumbing</span></td>
+              <td>Socket Spaner</td>
+              <td class="center">1</td>
+              <td>Authorized Only</td>
+              <td>Double Bit Spanner Lock</td>
+              <td class="center">5mm</td>
+            </tr>
+
+            <tr>
+              <td class="sr">06</td>
+              <td class="tag">K-PL-07</td>
+              <td>Basement</td>
+              <td>MEP Service Corridor</td>
+              <td>Pump Control Panel</td>
+              <td>Water Supply Booster Pumps</td>
+              <td><span class="discipline plumbing">Plumbing</span></td>
+              <td>Socket Spaner</td>
+              <td class="center">1</td>
+              <td>Authorized Only</td>
+              <td>Double Bit Spanner Lock</td>
+              <td class="center">5mm</td>
+            </tr>
+
+            <tr>
+              <td class="sr">07</td>
+              <td class="tag">K-PL-08</td>
+              <td>Basement</td>
+              <td>MEP Service Corridor</td>
+              <td>Pump Control Panel</td>
+              <td>Hot Water Circulation Pumps</td>
+              <td><span class="discipline plumbing">Plumbing</span></td>
+              <td>Socket Spaner</td>
+              <td class="center">1</td>
+              <td>Authorized Only</td>
+              <td>Double Bit Spanner Lock</td>
+              <td class="center">5mm</td>
+            </tr>
+
+            <tr>
+              <td class="sr">08</td>
+              <td class="tag">K-PL-09</td>
+              <td>Roof</td>
+              <td>Lower Roof Service Area</td>
+              <td>Chiller Control Panel</td>
+              <td>Cold Shower Chiller</td>
+              <td><span class="discipline plumbing">Plumbing</span></td>
+              <td>Socket Spaner</td>
+              <td class="center">1</td>
+              <td>Authorized Only</td>
+              <td>Double Bit Spanner Lock</td>
+              <td class="center">5mm</td>
+            </tr>
+
+            <tr>
+              <td class="sr">09</td>
+              <td class="tag">K-HVAC-01</td>
+              <td>Roof</td>
+              <td>Lower Roof Service Area</td>
+              <td>AHU Control Panel</td>
+              <td>Hood Make-Up Air Handling Unit</td>
+              <td><span class="discipline hvac">HVAC</span></td>
+              <td>Socket Spaner</td>
+              <td class="center">1</td>
+              <td>Authorized Only</td>
+              <td>Double Bit Spanner Lock</td>
+              <td class="center">5mm</td>
+            </tr>
+
+            <tr>
+              <td class="sr">10</td>
+              <td class="tag">K-HVAC-02</td>
+              <td>Roof</td>
+              <td>Lower Roof Service Area</td>
+              <td>FAHU Control Panel</td>
+              <td>Freah Air Handling Unit</td>
+              <td><span class="discipline hvac">HVAC</span></td>
+              <td>Socket Spaner</td>
+              <td class="center">1</td>
+              <td>Authorized Only</td>
+              <td>Double Bit Spanner Lock</td>
+              <td class="center">5mm</td>
+            </tr>
+
+            <tr>
+              <td class="sr">11</td>
+              <td class="tag">K-HVAC-03</td>
+              <td>Roof</td>
+              <td>Lower Roof Service Area</td>
+              <td>FAHU Power Panel</td>
+              <td>Freah Air Handling Unit</td>
+              <td><span class="discipline hvac">HVAC</span></td>
+              <td>Socket Spaner</td>
+              <td class="center">1</td>
+              <td>Authorized Only</td>
+              <td>Double Bit Spanner Lock</td>
+              <td class="center">5mm</td>
+            </tr>
+
+            <tr>
+              <td class="sr">12</td>
+              <td class="tag">K-IR-01</td>
+              <td>Basement</td>
+              <td>MEP Service Corridor</td>
+              <td>Pump Control Panel</td>
+              <td>Irrigation Water Supply Pumps</td>
+              <td><span class="discipline plumbing">Plumbing</span></td>
+              <td>Socket Spaner</td>
+              <td class="center">1</td>
+              <td>Authorized Only</td>
+              <td>Double Bit Spanner Lock</td>
+              <td class="center">5mm</td>
+            </tr>
+
+            <tr>
+              <td class="sr">13</td>
+              <td class="tag">K-RM-01</td>
+              <td>Basement</td>
+              <td>MEP Service Corridor</td>
+              <td>MEP Service Corridor Door</td>
+              <td>Room</td>
+              <td><span class="discipline civil">Civil</span></td>
+              <td>Door Key</td>
+              <td class="center">3</td>
+              <td>Authorized Only</td>
+              <td>Falcon</td>
+              <td class="center">N/a</td>
+            </tr>
+
+            <tr>
+              <td class="sr">14</td>
+              <td class="tag">k-MASTER-00</td>
+              <td>Basement</td>
+              <td>MEP Service Corridor</td>
+              <td>All Panels</td>
+              <td>All Equipment</td>
+              <td><span class="discipline mep">MEP</span></td>
+              <td>Multifunction</td>
+              <td class="center">1</td>
+              <td>FM Manager</td>
+              <td>Corss Wrench Multi</td>
+              <td class="center">Multi</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note-box">
+        <strong>Note:</strong> Each mechanical panel key/tool shall be physically tagged with the same key tag number mentioned in this register. Access shall remain under the authorized FM/O&amp;M team. The master/multifunction key shall be controlled by the FM Manager only.
+      </div>
+
+      <div class="handover-strip">
+        MECHANICAL DEPARTMENT &nbsp; | &nbsp; HANDING OVER DOCUMENTS &nbsp; | &nbsp; PROJECT: CEO VILLA &nbsp; | &nbsp; PROJECT CODE: 10144
+      </div>
+
+      <div class="signatures">
+        <div class="sig-card">
+          <div class="sig-title">Handed Over By</div>
+          <div class="sig-row"><span class="label">Name</span><span class="line"></span></div>
+          <div class="sig-row"><span class="label">Designation</span><span class="line"></span></div>
+          <div class="sig-row"><span class="label">Date</span><span class="line"></span></div>
+          <div class="sig-row"><span class="label">Signature</span><span class="line"></span></div>
+        </div>
+
+        <div class="sig-card">
+          <div class="sig-title">Received By</div>
+          <div class="sig-row"><span class="label">Name</span><span class="line"></span></div>
+          <div class="sig-row"><span class="label">Designation</span><span class="line"></span></div>
+          <div class="sig-row"><span class="label">Date</span><span class="line"></span></div>
+          <div class="sig-row"><span class="label">Signature</span><span class="line"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>CEO Villa Project | Mechanical Systems Panel Keys Register</span>
+      <span>Prepared for O&amp;M / Final Handover Documentation</span>
+    </footer>
+  </main>
+
+  <script>
+    function evaReturnToEva() {
+      var target = sessionStorage.getItem('eva_local_return') || 'EVA-PLUMBING.html#pg_plumb_contents';
+      if (target.indexOf('pg_plumb_contents') >= 0 || target.indexOf('EVA-PLUMBING') >= 0) {
+        sessionStorage.setItem('eva_plumb_contents_expand', '1');
+      }
+      window.location.href = target;
+    }
+    function evaGoHome() {
+      window.location.href = 'EVA-CORE.html#pg3';
+    }
+  </script>
+</body>
+</html>

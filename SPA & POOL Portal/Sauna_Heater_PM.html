@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Sauna Heater SH-01 PM | CEO Villa SPA &amp; Pool</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050507;--deep:#0a0b10;--surface:#0f1117;--panel:#141720;
+  --border:#1e2330;--gold:#c9a84c;--text:#e8eaf0;--muted:#7a8099;--dim:#3a4055;
+  --green:#2abf8f;--cyan:#22d3ee;--blue:#4a9eff;--orange:#e87a4a;--purple:#b06fd4;
+}
+html,body{width:100%;background:var(--bg);font-family:'Exo 2',sans-serif;color:var(--text);-webkit-text-size-adjust:100%}
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.55rem 1rem;background:rgba(10,11,16,.96);border-bottom:1px solid rgba(201,168,76,.2);backdrop-filter:blur(8px);gap:.75rem}
+.topbar-left{display:flex;align-items:center;gap:.75rem}
+.tb-icon-btn{width:30px;height:30px;border-radius:5px;background:transparent;border:1px solid rgba(255,255,255,.15);color:#adb4cc;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;flex-shrink:0;text-decoration:none}
+.tb-icon-btn:hover{border-color:var(--gold);color:var(--gold)}
+.tb-icon-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.app-name{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--cyan);letter-spacing:.05em}
+.breadcrumb{font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.07em;color:var(--muted)}
+.breadcrumb span{color:var(--cyan)}
+.title-section{padding:.75rem 1.2rem .6rem;background:linear-gradient(135deg,rgba(34,211,238,.07),transparent);border-bottom:1px solid rgba(255,255,255,.05)}
+.equip-title{font-family:'Rajdhani',sans-serif;font-size:clamp(1.3rem,4vw,1.7rem);font-weight:700;color:#fff;letter-spacing:.04em;line-height:1.1}
+.equip-title span{color:var(--cyan)}
+.equip-sub{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.07em;color:var(--muted);margin-top:.3rem}
+.tabs{display:flex;background:#090b12;border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:49px;z-index:99;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{flex:1;min-width:90px;padding:.6rem .5rem;background:transparent;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:all .2s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.15rem}
+.tab-btn .tab-label{font-family:'Share Tech Mono',monospace;font-size:.78rem;font-weight:700;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.tab-btn .tab-count{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--muted)}
+.tab-btn .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tab-btn.monthly3 .dot{background:var(--gold);box-shadow:0 0 5px var(--gold)}
+.tab-btn.monthly6 .dot{background:var(--purple);box-shadow:0 0 5px var(--purple)}
+.tab-btn.monthly3.active{background:rgba(201,168,76,.12);border-bottom-color:var(--gold)}
+.tab-btn.monthly3.active .tab-label{color:var(--gold)}.tab-btn.monthly3.active .tab-count{color:var(--gold)}
+.tab-btn.monthly6.active{background:rgba(176,111,212,.12);border-bottom-color:var(--purple)}
+.tab-btn.monthly6.active .tab-label{color:var(--purple)}.tab-btn.monthly6.active .tab-count{color:var(--purple)}
+.panel{display:none;padding:1rem 1.2rem 4rem}.panel.active{display:block}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem;padding:.6rem .9rem;background:rgba(201,168,76,.08);border-radius:8px;border-left:3px solid var(--cyan);flex-wrap:wrap;gap:.5rem}
+.panel-title{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--cyan);letter-spacing:.04em}
+.panel-badge{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--gold);background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);padding:.2rem .6rem;border-radius:4px;white-space:nowrap}
+.dl-btn{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:.9rem;padding:.5rem 1.1rem;background:var(--gold);border-radius:7px;text-decoration:none;font-family:'Share Tech Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.08em;color:#000;transition:background .2s,transform .15s}
+.dl-btn:hover{background:#e0b85c;transform:translateY(-1px)}
+.dl-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+table{width:100%;border-collapse:collapse;min-width:520px}
+thead tr{background:#0f1220}
+th{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--cyan);padding:.55rem .6rem;letter-spacing:.06em;border-bottom:1px solid rgba(34,211,238,.15);white-space:nowrap}
+th:nth-child(1){text-align:center;width:42px}
+th:nth-child(3),th:nth-child(4){text-align:center}
+th:nth-child(3){color:var(--green)}th:nth-child(4){color:#ff6b6b}
+.sec-row td{background:rgba(201,168,76,.15);color:#fff;font-family:'Share Tech Mono',monospace;font-size:.76rem;font-weight:700;letter-spacing:.08em;padding:.5rem .8rem;border-bottom:1px solid rgba(201,168,76,.2)}
+tbody tr.data-row{border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s}
+tbody tr.data-row:hover{background:rgba(201,168,76,.04)}
+.num-cell{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--muted);text-align:center;padding:.5rem .4rem;white-space:nowrap;vertical-align:top;padding-top:.75rem}
+.chk-cell{font-family:'Exo 2',sans-serif;font-size:.83rem;color:#dce0f2;padding:.5rem .7rem;line-height:1.55;vertical-align:top}
+.box-cell{text-align:center;padding:.45rem .4rem;vertical-align:top;padding-top:.65rem}
+.ck{width:20px;height:20px;border-radius:4px;margin:0 auto;cursor:pointer;appearance:none;-webkit-appearance:none;border:2px solid;background:transparent;transition:background .15s;display:block}
+.ck.ok{border-color:var(--green)}.ck.ok:checked{background:var(--green)}
+.ck.nok{border-color:#ff6b6b}.ck.nok:checked{background:#ff6b6b}
+.rem-cell{font-family:'Exo 2',sans-serif;font-size:.72rem;color:var(--muted);padding:.4rem .5rem;vertical-align:top;min-width:90px}
+.signoff{margin-top:1.4rem;padding:1rem 1.2rem;background:var(--panel);border:1px solid var(--border);border-radius:10px;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between}
+.signoff-item{flex:1;min-width:160px}
+.signoff-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--muted);margin-bottom:.3rem}
+.signoff-line{border-bottom:1px solid var(--dim);height:24px}
+@media(max-width:600px){.tabs{top:48px}.panel{padding:.8rem .8rem 3rem}.tab-btn{min-width:75px;padding:.5rem .2rem}.tab-btn .tab-label{font-size:.7rem}.chk-cell{font-size:.8rem}}
+@media print{.topbar,.tabs{position:static}.dl-btn{display:none}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="tb-icon-btn" onclick="history.back()" title="Back">
+      <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+    </button>
+    <span class="app-name">EVA-APP</span>
+    <span class="breadcrumb">PPM &rsaquo; <span>SAUNA HEATER SH-01</span></span>
+  </div>
+  <a href="../EVA-CORE.html" class="tb-icon-btn" title="Home">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+  </a>
+</div>
+
+<div class="title-section">
+  <div class="equip-title">SAUNA HEATER <span>SH-01</span></div>
+  <div class="equip-sub">OCS ZL16.2 · 16.2 kW · 400 VAC, 3N · 50/60 Hz · IPX4 · S/N: 26010294 · Tag: SH-01 · Sauna Room · CEO Villa</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn monthly3 active" onclick="switchTab('monthly')">
+    <div class="tab-label"><span class="dot"></span>MONTHLY</div>
+    <div class="tab-count">23 ITEMS</div>
+  </button>
+  <button class="tab-btn monthly6" onclick="switchTab('annual')">
+    <div class="tab-label"><span class="dot"></span>ANNUAL</div>
+    <div class="tab-count">39 ITEMS</div>
+  </button>
+</div>
+
+<!-- ═══ MONTHLY ═══ -->
+<div class="panel active" id="panel-monthly">
+  <div class="panel-header"><div class="panel-title">MONTHLY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">23 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Sauna Heater/Sauna Heater SH-01 - Monthly PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">A.&nbsp; VISUAL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Inspect sauna heater body, outer casing, and stone guard frame for dents, rust, corrosion, discolouration, or burn marks — discolouration on casing may indicate overheating</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Check that the heater is securely fixed to wall or floor — inspect all mounting brackets and fixing bolts for tightness and corrosion; tighten any loose fasteners</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Confirm the stone guard / wire basket is intact and properly seated — guard must fully enclose the stone/element area to prevent accidental contact</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Check that no foreign objects (towels, debris, cleaning cloths) are on or inside the heater stone basket</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Confirm required clearances are maintained: minimum 500 mm clearance above the heater, minimum 200 mm to side walls — no combustible materials within clearance zone</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">B.&nbsp; SAUNA STONE INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Inspect sauna stones — confirm stones are correctly arranged with clear air gaps to allow airflow around heating elements; no stone should rest directly on a heating element</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Examine each visible stone for cracks, crumbling, or heavy fragmentation — crumbled or deteriorated stones block airflow and cause element overheating; remove and replace any badly fragmented stones immediately</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Check for accumulation of stone dust or fine debris at the base of the stone basket — excessive powder indicates stone deterioration; note condition and plan stone replacement if significant debris is present</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Rearrange stones as necessary to restore correct stacking: larger stones at the base surrounding elements with clear air gaps; smaller/medium stones layered on top; no stone bridging across elements or blocking air channels</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">C.&nbsp; ELECTRICAL CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">SAFETY: Switch off the heater at the controller and isolate power at the local MCB/isolator before any electrical inspection; confirm de-energised with a voltage tester</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Inspect external power supply cable entry at the heater for damage, chafing, kinking, or abrasion; confirm cable gland is tight and sealing correctly</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Inspect all accessible wiring at conduit/cable entries for signs of heat damage, discolouration, or exposed conductors — do not open internal terminal covers during monthly inspection; report any concerns for specialist attention</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Confirm all conduit entries, cable glands, and access panel covers are correctly closed and sealed — heater is rated IPX4 (splash-proof); any open entry compromises water ingress protection</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">D.&nbsp; HIGH-TEMPERATURE CUT-OFF (TCO) STATUS CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">With power restored, confirm the high-temperature thermal cut-off (TCO) has not tripped — if heater fails to energise after correct controller operation, check TCO reset button per manufacturer instructions</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">If TCO has tripped since last inspection: investigate root cause before resetting (check stone arrangement, element condition, and airflow) — do NOT reset TCO without identifying and correcting the cause of overheating</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">E.&nbsp; CONTROLLER &amp; OPERATIONAL CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Restore power and activate heater at the controller — confirm display illuminates and shows current sauna room temperature reading</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Set operating temperature (80–90 °C as per venue schedule) and confirm the heater calls for heat — heating indicator on the controller display should show heating mode</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Verify all controller LEDs, digital display segments, and indicator lights are functioning correctly — report any faulty indicators</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">Confirm sauna room temperature rises toward setpoint — ZL16.2 (16.2 kW) should reach 80–90 °C within approximately 25–35 minutes from cold start</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Confirm timer function operates correctly and heater shuts down automatically at the end of the set period</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">F.&nbsp; DOCUMENTATION</td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Record all inspection findings, stone condition noted, and any corrective actions taken in the equipment maintenance log</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Update maintenance schedule with today's inspection date and next monthly due date</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Submit completed checklist to Supervisor for review and countersignature</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<!-- ═══ ANNUAL ═══ -->
+<div class="panel" id="panel-annual">
+  <div class="panel-header"><div class="panel-title">ANNUAL PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">39 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Sauna Heater/Sauna Heater SH-01 - Annual PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">A.&nbsp; SAFETY ISOLATION</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Switch off heater at the controller; isolate power at the electrical distribution panel (MCB/circuit breaker); apply lockout/tagout as required by site safety procedure; allow heater to cool for a minimum of 2 hours after last operation before proceeding</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Confirm power is isolated using a calibrated voltage tester at the heater terminal block before opening any covers or removing stones</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">B.&nbsp; SAUNA STONES — FULL ANNUAL REPLACEMENT</td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Remove ALL sauna stones from the heater basket — full stone replacement is mandatory for commercial installations annually; deteriorated stones are the primary cause of heating element failure</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Inspect each removed stone individually — discard all crumbled, fragmented, severely cracked, or heavily deteriorated stones; do not reuse any stone that is structurally compromised</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Clean stone basket interior — remove all stone dust, small debris, and residue; vacuum or wipe clean; heating elements must be clearly visible and accessible after cleaning</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Inspect stone basket / wire guard frame for deformation, rust, or corrosion — repair or replace basket if structurally compromised</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Install fresh approved sauna stones: olivine, diabase, or equivalent heat-resistant volcanic rock; stone diameter 4–7 cm; do NOT use limestone, sandstone, marble, or river pebbles — these fracture explosively under heat</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Stack stones correctly: LARGER stones at base surrounding elements with clear air gaps; SMALLER/MEDIUM stones layered on top; no stone to rest directly on any heating element surface; visible air channels must be maintained throughout</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">C.&nbsp; HEATING ELEMENT FULL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">With power isolated and stones removed, inspect each heating element for: discolouration (dark brown/black = overheating), physical deformation, bends, cracks, or visible damage to element sheath</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Inspect element mounting brackets, support rods, and flanges for corrosion, rust, or mechanical damage — corroded or loose mounts must be repaired before reinstalling stones</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Test element resistance with a calibrated digital multimeter — ZL16.2 (16.2 kW, 400 V, 3-phase): expected resistance approximately 9–10 Ω per phase circuit; significant deviation indicates element degradation. Measured: L1-L2 _____ Ω &nbsp;|&nbsp; L2-L3 _____ Ω &nbsp;|&nbsp; L1-L3 _____ Ω</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Perform insulation resistance (IR) test using a 500 V DC megohmmeter — minimum acceptable IR is 1 MΩ; reading below 1 MΩ indicates moisture ingress or element failure requiring replacement. Measured: L1-PE _____ MΩ &nbsp;|&nbsp; L2-PE _____ MΩ &nbsp;|&nbsp; L3-PE _____ MΩ</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">If any element is defective: replace ONLY with manufacturer-approved elements rated for ZL16.2 (16.2 kW, 400 VAC, 3N, 50/60 Hz, IPX4) — contact OCS/ZL Series authorised supplier for genuine replacement parts</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">D.&nbsp; ELECTRICAL WIRING FULL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Open heater terminal compartment with power isolated and zero-voltage confirmed — inspect all supply terminals (L1, L2, L3, N, PE) for loose connections, discolouration from heat, corrosion, oxidation, or burn marks</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Tighten all terminal screws to the torque specified in the IOM manual — loose connections at 400 V / 3-phase are a fire and arc-flash hazard; document any connections requiring re-termination</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Inspect supply cable from terminal block to distribution board — check cable insulation along the full accessible length for cracking, chafing, heat damage, or rodent damage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Inspect the earth (PE) protective bonding conductor — confirm secure connection at heater body bonding lug, at terminal block PE terminal, and at distribution panel earth bar; earth continuity is a life safety requirement</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Inspect temperature sensor wiring, thermostat wiring, and control signal cables — confirm all connections are tight and insulation is undamaged</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">Inspect high-temperature cut-off (TCO) device — confirm TCO is correctly positioned adjacent to the heating element zone; check TCO wiring and connections for security and correct routing</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">E.&nbsp; HIGH-TEMPERATURE CUT-OFF (TCO) — FUNCTIONAL TEST</td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Confirm TCO is in the non-tripped (reset) state before restoring power</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">CAUTION — TCO functional test must be carried out by a qualified electrician only: allow heater to reach elevated temperature while monitoring with an independent thermometer; confirm TCO trips at rated cut-off temperature. TCO trip temperature recorded: _____ °C</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Confirm TCO resets correctly after cooling; restore power and confirm unit returns to normal heating operation after TCO test</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">F.&nbsp; CONTROLLER &amp; SENSOR CALIBRATION CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Restore power; activate controller — confirm display illuminates and shows room temperature reading; confirm no fault codes or error messages</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Compare controller temperature display with an independent calibrated reference thermometer at sensor height in sauna room — drift of more than ±3 °C should be investigated and corrected. Controller: _____ °C &nbsp;|&nbsp; Reference: _____ °C &nbsp;|&nbsp; Deviation: _____ °C</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">25</td><td class="chk-cell">Confirm timer function operates correctly over a full set/countdown/automatic shutdown cycle</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">26</td><td class="chk-cell">Inspect controller wiring connections inside control panel — confirm all terminals are tight and cable insulation is undamaged</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">27</td><td class="chk-cell">Confirm all controller LEDs, display segments, and indicator lights are functioning correctly</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">G.&nbsp; IPX4 PROTECTION INTEGRITY CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">28</td><td class="chk-cell">Confirm all cable gland entries are correctly tightened and sealed after servicing — IPX4 protection (splash-proof from any direction) requires all entries to be sealed</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">29</td><td class="chk-cell">Confirm all terminal cover gaskets and access panel seals are in good condition and correctly reinstalled — replace any damaged or compressed gaskets</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">30</td><td class="chk-cell">Confirm all fixing screws, stone guard brackets, and enclosure covers are reinstalled correctly and all fasteners are fully tightened after inspection</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">H.&nbsp; PERFORMANCE COMMISSIONING</td></tr>
+      <tr class="data-row"><td class="num-cell">31</td><td class="chk-cell">Restore power; activate heater — confirm unit calls for heat and no fault codes appear on display</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">32</td><td class="chk-cell">Monitor initial heat-up cycle with new stones — ZL16.2 should reach 80–90 °C within approximately 25–35 minutes from cold start; minor stone crackling is normal during first heat cycle with new stones. Heat-up start: _____ &nbsp;|&nbsp; Temp at 30 min: _____ °C &nbsp;|&nbsp; Time to 80 °C: _____</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">33</td><td class="chk-cell">Monitor for any electrical burning smell during heat-up — if detected, IMMEDIATELY isolate power and investigate before continuing commissioning; do not proceed with any burning smell present</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">34</td><td class="chk-cell">Confirm heater maintains set temperature at steady state — no erratic cycling or temperature undershoot below setpoint by more than 5 °C</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">35</td><td class="chk-cell">Confirm automatic shutdown at end of programmed timer period — heater de-energises completely at set time</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">I.&nbsp; DOCUMENTATION</td></tr>
+      <tr class="data-row"><td class="num-cell">36</td><td class="chk-cell">Record all inspection findings and measurement data (element resistance, IR test results, TCO trip temperature, controller calibration deviation) in the equipment maintenance history log</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">37</td><td class="chk-cell">Record all parts replaced: sauna stones (quantity and specification), elements, or other components — include specifications, supplier, and invoice/delivery reference</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">38</td><td class="chk-cell">Update next annual service due date in maintenance planner — Next Annual PM Due: _____________________</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">39</td><td class="chk-cell">Submit completed checklist to Supervisor for review and countersignature</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<script>
+function switchTab(tab){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('panel-'+tab).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  if(tab==='monthly') document.querySelector('.tab-btn.monthly3').classList.add('active');
+  if(tab==='annual')  document.querySelector('.tab-btn.monthly6').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

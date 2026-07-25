@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chemical Feeders Troubleshooting | SSB Villa O&amp;M Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--gold:#D4AF37;--gold-light:#f0d060}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#0d1829;display:flex;flex-direction:column;min-height:100vh;font-family:'Aptos Display','Segoe UI',sans-serif}
+header{background:rgba(5,10,20,0.95);border-bottom:2px solid rgba(212,175,55,0.45);padding:0 24px;height:72px;display:flex;align-items:center;position:fixed;top:0;width:100%;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.hl{flex:1;display:flex;align-items:center}
+.hc{flex:2;text-align:center;line-height:1.4}
+.hc .l1{font-size:10px;font-weight:600;color:rgba(212,175,55,0.6);text-transform:uppercase;letter-spacing:2.5px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hc .l2{font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hrr{flex:1;display:flex;justify-content:flex-end;align-items:center}
+.btn-back,.btn-home{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);padding:8px 16px;border-radius:4px;cursor:pointer;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;transition:background 0.3s}
+.btn-back:hover,.btn-home:hover{background:rgba(212,175,55,0.28)}
+main{margin-top:72px;margin-bottom:60px;padding:26px 28px;max-width:1500px;width:100%;margin-left:auto;margin-right:auto;flex:1}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.3);color:rgba(212,175,55,0.7);padding:8px 22px;border-radius:4px;cursor:pointer;font-size:13px;transition:all 0.2s}
+.tab-btn.active,.tab-btn:hover{background:rgba(212,175,55,0.18);border-color:rgba(212,175,55,0.7);color:var(--gold)}
+.tbl-wrap{overflow-x:auto}
+.ts{width:100%;border-collapse:collapse;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;min-width:600px}
+.ts thead tr th{background:rgba(212,175,55,0.22);color:#f5edd5;padding:11px 13px;text-align:left;border:1px solid rgba(212,175,55,0.38);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
+.ts tbody tr:nth-child(odd) td{background:rgba(255,255,255,0.04)}
+.ts tbody tr:nth-child(even) td{background:rgba(255,255,255,0.07)}
+.ts tbody tr:hover td{background:rgba(212,175,55,0.09)}
+.ts tbody td{padding:10px 13px;vertical-align:top;border:1px solid rgba(255,255,255,0.07);color:#e0d8c8;line-height:1.6;font-size:13px}
+.ts tbody td.fc{color:#f5e9c4;font-weight:700;border-right:2px solid rgba(212,175,55,0.35);background:rgba(212,175,55,0.07)!important;min-width:140px}
+footer{background:rgba(5,10,20,0.95);border-top:2px solid rgba(212,175,55,0.45);padding:14px 30px;display:flex;align-items:center;justify-content:space-between;position:fixed;bottom:0;width:100%;font-size:13px;color:rgba(212,175,55,0.75);z-index:1000;font-family:'Aptos Display','Segoe UI',sans-serif}
+.btn-up{background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.3s}
+.btn-up:hover{background:rgba(212,175,55,0.35)}
+</style>
+</head>
+<body id="top">
+<header>
+  <div class="hl"><a href="Error Codes &amp; Troubleshooting Register.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a></div>
+  <div class="hc"><span class="l1">SPA &amp; POOL FACILITY</span><span class="l2">Chemical Feeders Troubleshooting</span></div>
+  <div class="hrr"><a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a></div>
+</header>
+<main>
+<div class="tbl-wrap"><table class="ts">
+<thead><tr><th>Problem</th><th>Probable Cause</th><th>Remedy</th></tr></thead><tbody>
+<tr><td class="fc">LOSS OF CHEMICAL RESIDUAL</td><td>1. Pump setting too low</td><td>1. Adjust to higher setting (feeder must be operating during the stroke length adjustment).</td></tr>
+<tr><td class="fc">LOSS OF CHEMICAL RESIDUAL</td><td>2. Scale at injection point</td><td>2. Clean injection parts with 8% muriatic acid or undiluted vinegar. See Maintenance Section.</td></tr>
+<tr><td class="fc">LOSS OF CHEMICAL RESIDUAL</td><td>3. Solution container allowed to run dry</td><td>3. Refill the tank with solution and prime. See Start-Up Section.</td></tr>
+<tr><td class="fc">TOO MUCH CHEMICAL</td><td>1. Feeder setting too high</td><td>1. Lower feeder setting (feeder must be operating to adjust the dial).</td></tr>
+<tr><td class="fc">TOO MUCH CHEMICAL</td><td>2. Chemical in solution tank too rich</td><td>2. Dilute chemical solution. NOTE: For chemical that reacts with water, it may be necessary to purchase a more dilute grade of chemical direct from chemical supplier.</td></tr>
+<tr><td class="fc">TOO MUCH CHEMICAL</td><td>3. Siphoning of chemical into well or main line</td><td>3. Test for suction or vacuum at the injection point. If suction exists, install an anti-siphon valve. See Figure G.</td></tr>
+<tr><td class="fc">LEAKAGE AROUND TUBING CONNECTIONS</td><td>1. Worn tube ends</td><td>1. Cut off end of tubing (about 1&quot;) and then slip on as before or replace suction valve housing and compression fitting to prevent leakage.</td></tr>
+<tr><td class="fc">LEAKAGE AROUND TUBING CONNECTIONS</td><td>2. Chemical attack</td><td>2. Consult your chemical supplier for compatible materials.</td></tr>
+<tr><td class="fc">FAILURE TO PUMP OR FEED</td><td>1. Leak in suction side of pump</td><td>1. Examine suction tubing. If worn at the end, cut approximately an inch off and replace or replace valve body and coupling nut.</td></tr>
+<tr><td class="fc">FAILURE TO PUMP OR FEED</td><td>2. Valve seats not sealing</td><td>2. Clean valve seats if dirty or replace with proper material if deterioration is noted.</td></tr>
+<tr><td class="fc">FAILURE TO PUMP OR FEED</td><td>3. Low setting on feeder</td><td>3. When pumping against pressure, the dial should be set above 40% maximum rated capacity for a reliable feed rate.</td></tr>
+<tr><td class="fc">FAILURE TO PUMP OR FEED</td><td>4. Low solution level</td><td>4. Solution must be above foot valve.</td></tr>
+<tr><td class="fc">FAILURE TO PUMP OR FEED</td><td>5. Diaphragm ruptured</td><td>5. Replace diaphragm as shown in &quot;Service&quot; Section. Check for pressure above 100 PSI (7 BAR) at the injection point. NOTE: Chemical incompatibility with diaphragm material can cause diaphragm rupture and leakage around the pump head.</td></tr>
+<tr><td class="fc">FAILURE TO PUMP OR FEED</td><td>6. Pump head cracked or broken</td><td>6. Replace pump head as shown in &quot;Service&quot; Section. Do not use pipe tape or other sealants. Make sure fittings hand tight only. Using pliers or wrench can crack pump head. Also, chemical incompatibility can cause cracking and subsequent leakage.</td></tr>
+<tr><td class="fc">FAILURE TO PUMP OR FEED</td><td>7. Pumphead contains air or chlorine gas</td><td>7. While pump is running, turn bleed valve adjustment screw counter-clockwise until air is purged. Close bleed valve.</td></tr>
+<tr><td class="fc">UNIT LOSES PRIME</td><td>1. Dirty check valve</td><td>1. Remove and replace or clean off any scale or sediment.</td></tr>
+<tr><td class="fc">UNIT LOSES PRIME</td><td>2. Ball checks not seating or not sealing properly</td><td>2. Check seat and ball checks for chips, clean gently. If deformity or deterioration is noted, replace part with proper material. Chemical crystallization can hold check valves open, therefore the valves must be disassembled and cleaned. Be sure to replace all parts as shown in the Parts Diagram (at the end of the manual).</td></tr>
+<tr><td class="fc">UNIT LOSES PRIME</td><td>3. Solution container allowed to run dry</td><td>3. Refill the tank with solution and prime.</td></tr>
+<tr><td class="fc">LEAKAGE AT FITTING</td><td>1. Loose fittings</td><td>1. All fittings can be hand tightened to prevent leakage. Clean off chemicals which have spilled on feeder.</td></tr>
+<tr><td class="fc">LEAKAGE AT FITTING</td><td>2. Broken or twisted gasket</td><td>2. Check gaskets and replace if broken or damaged.</td></tr>
+<tr><td class="fc">LEAKAGE AT FITTING</td><td>3. Chemical attack</td><td>3. Consult your chemical supplier for compatible materials.</td></tr>
+<tr><td class="fc">FEEDER WILL NOT PRIME</td><td>1. Too much pressure at discharge</td><td>1. Open bleed valve and circulate fluid until all air is purged from pump head assembly. Close bleed valve.</td></tr>
+<tr><td class="fc">FEEDER WILL NOT PRIME</td><td>2. Check valves not sealing</td><td>2. Disassemble, loosen, clean and check for deterioration or swelling. Reassemble and wet the valve assembly, then prime. See INSTALLATION Section.</td></tr>
+<tr><td class="fc">FEEDER WILL NOT PRIME</td><td>3. Output dials not set at maximum</td><td>3. Always prime pump with output dial set at maximum rated capacity.</td></tr>
+<tr><td class="fc">ANTI-SIPHON VALVE MALFUNCTION</td><td>1. Scale or particles have plugged diaphragm</td><td>4. Remove, clean and reassemble, being careful not to wrinkle the diaphragm. Check sequence and position of parts to be sure reassembly is correct.</td></tr>
+<tr><td class="fc">ANTI-SIPHON VALVE MALFUNCTION</td><td>2. Ruptured valves</td><td>5. Consult your distributor for replacement.</td></tr>
+<tr><td class="fc">PUMP MOTOR STALLS</td><td>1. Pumping against excessive pressure</td><td>1. Test pressure to determine if it exceeds feeder specifications. If so, consult your distributor.</td></tr>
+<tr><td class="fc">PUMP MOTOR STALLS</td><td>2. Low voltage to feeder</td><td>2. Make sure voltage of power source matches the voltage on the feeder specifications label. If not transformers are available.</td></tr>
+<tr><td class="fc">MOTOR RUNNING VERY HOT</td><td>1. Low voltage</td><td>1. Power supply voltage should match voltage on feeder specification label.</td></tr>
+<tr><td class="fc">MOTOR RUNNING VERY HOT</td><td>2. If using a stepdown transformer, it may be undersized for the feeder</td><td>2. Check the transformer to be sure it has at least 100 watts capacity.</td></tr>
+</tbody>
+</table></div>
+</main>
+<footer>
+  <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+  <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+</footer>
+
+</body>
+</html>

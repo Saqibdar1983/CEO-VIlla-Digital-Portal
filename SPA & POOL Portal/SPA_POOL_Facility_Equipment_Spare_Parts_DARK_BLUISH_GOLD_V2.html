@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPA & Pool Facility - Equipment Spare Parts</title>
+<style>
+  :root {
+    --bg1:#0e0c08;
+    --bg2:#080600;
+    --paper:#131008;
+    --paper2:#0d0b06;
+    --text:#eee8d8;
+    --muted:#b8a070;
+    --gold:#d6b76c;
+    --gold2:#e2c888;
+    --gold3:#eedcaa;
+    --line:rgba(214,183,108,.20);
+  }
+
+  * { box-sizing:border-box; }
+
+  html, body {
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:"Segoe UI", Arial, sans-serif;
+    color:var(--text);
+  }
+
+  /* ── Background image via pseudo-element (blurred, scale avoids white edges) ── */
+  body {
+    background:
+      radial-gradient(circle at 30% 20%, rgba(160,130,70,.12), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(140,90,0,.10), transparent 38%),
+      linear-gradient(145deg, rgba(12,9,0,.60), rgba(6,4,0,.65));
+    padding:12px;
+  }
+
+  body::after {
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:url('Spare Part Dash Board Background.jpg') center/cover no-repeat;
+    pointer-events:none;
+  }
+
+  .page {
+    width:min(1240px, 98vw);
+    height:calc(100vh - 24px);
+    margin:0 auto;
+    display:grid;
+    grid-template-rows:auto 1fr auto;
+    gap:9px;
+  }
+
+  /* ── Header – transparent glass gold ── */
+  .header {
+    position:relative;
+    min-height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:8px 110px;
+    border:1px solid rgba(214,183,108,.30);
+    border-radius:18px;
+    background:rgba(10,7,0,.48);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    box-shadow:0 10px 28px rgba(0,0,0,.40), 0 0 0 1px rgba(214,183,108,.10);
+  }
+
+  .nav-btn {
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    min-width:82px;
+    height:34px;
+    border:1px solid rgba(214,183,108,.45);
+    border-radius:999px;
+    background:rgba(18,12,0,.50);
+    backdrop-filter:blur(10px);
+    color:var(--gold2);
+    font-size:11px;
+    font-weight:650;
+    letter-spacing:.04em;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    text-decoration:none;
+    box-shadow:0 5px 12px rgba(0,0,0,.22);
+    transition:.2s ease;
+  }
+
+  .nav-btn:hover {
+    transform:translateY(-50%) translateY(-2px);
+    border-color:var(--gold2);
+    color:var(--gold3);
+    background:rgba(40,28,0,.65);
+    box-shadow:0 6px 18px rgba(160,130,70,.22);
+  }
+
+  .back { left:14px; }
+  .home { right:14px; }
+
+  .heading {
+    text-align:center;
+  }
+
+  .eyebrow {
+    font-size:13px;
+    letter-spacing:.22em;
+    color:var(--gold2);
+    font-weight:800;
+    margin-bottom:4px;
+    text-shadow:0 0 14px rgba(214,183,108,.55);
+  }
+
+  h1 {
+    margin:0;
+    font-size:22px;
+    line-height:1;
+    letter-spacing:.04em;
+    font-weight:680;
+    color:var(--gold2);
+    text-shadow:0 0 28px rgba(214,183,108,.50), 0 2px 4px rgba(0,0,0,.60);
+  }
+
+  .meta {
+    margin-top:5px;
+    font-size:12px;
+    color:var(--gold3);
+    letter-spacing:.08em;
+    font-weight:600;
+    text-shadow:0 0 10px rgba(214,183,108,.40);
+  }
+
+  .grid {
+    min-height:0;
+    height:100%;
+    display:grid;
+    grid-template-columns:repeat(5, minmax(0,1fr));
+    grid-template-rows:repeat(3, 1fr);
+    gap:8px 12px;
+  }
+
+  .card {
+    position:relative;
+    min-height:0;
+    display:grid;
+    grid-template-columns:1fr 24px;
+    text-decoration:none;
+    color:inherit;
+    filter:drop-shadow(0 10px 14px rgba(0,0,0,.30));
+    transition:.22s ease;
+  }
+
+  .card:hover {
+    transform:translateY(-3px);
+    filter:drop-shadow(0 14px 18px rgba(0,0,0,.40));
+  }
+
+  /* ── Card main panel – transparent glass gold ── */
+  .card-main {
+    position:relative;
+    z-index:2;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    background:rgba(30,16,2,.68);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border:1px solid rgba(214,183,108,.22);
+    border-radius:12px 0 0 12px;
+    padding:7px 11px;
+    overflow:hidden;
+    transition:background .22s ease, border-color .22s ease, box-shadow .22s ease;
+  }
+
+  .card:hover .card-main {
+    background:rgba(45,24,4,.78);
+    border-color:rgba(214,183,108,.45);
+    box-shadow:inset 0 0 18px rgba(160,130,70,.08);
+  }
+
+  .card-main::before {
+    content:"";
+    position:absolute;
+    inset:0 auto 0 0;
+    width:3px;
+    background:linear-gradient(var(--gold2), rgba(160,130,70,.10));
+    box-shadow:0 0 8px rgba(214,183,108,.35);
+  }
+
+  .icon {
+    width:38px;
+    height:38px;
+    border:1.5px solid rgba(214,183,108,.45);
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-size:20px;
+    color:var(--gold2);
+    margin-bottom:6px;
+    background:rgba(160,130,70,.14);
+    box-shadow:0 0 10px rgba(214,183,108,.18);
+    flex-shrink:0;
+  }
+
+  .category {
+    font-size:10px;
+    letter-spacing:.18em;
+    color:#5bc8f5;
+    font-weight:800;
+    margin-bottom:4px;
+    text-shadow:0 0 10px rgba(91,200,245,.50);
+  }
+
+  h3 {
+    margin:0;
+    font-size:14px;
+    line-height:1.22;
+    font-weight:700;
+    color:var(--gold2);
+    text-shadow:0 1px 3px rgba(0,0,0,.70), 0 0 12px rgba(160,130,70,.25);
+    overflow-wrap:anywhere;
+  }
+
+  .tab {
+    position:relative;
+    z-index:1;
+    border-radius:0 12px 12px 0;
+    background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 82%,white 18%),var(--accent));
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    padding-top:8px;
+    color:#fff;
+    box-shadow:inset 1px 0 rgba(255,255,255,.42);
+    transition:transform .22s ease, box-shadow .22s ease, filter .22s ease;
+  }
+
+  .tab::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:0 12px 12px 0;
+    background:linear-gradient(180deg,rgba(255,255,255,.28),transparent 42%);
+  }
+
+  .card:hover .tab {
+    box-shadow:
+      inset 1px 0 rgba(255,255,255,.45),
+      0 0 10px color-mix(in srgb, var(--accent) 80%, white 20%),
+      0 0 22px color-mix(in srgb, var(--accent) 55%, transparent);
+    filter: brightness(1.28) saturate(1.18);
+    transform: translateX(2px);
+  }
+
+  .card:hover .tab span {
+    text-shadow:
+      0 0 4px rgba(255,255,255,.95),
+      0 0 10px rgba(255,255,255,.65);
+  }
+
+  .tab span {
+    position:relative;
+    z-index:2;
+    font-size:13px;
+    font-weight:700;
+    color:#1a3a6e;
+    text-shadow:0 0 6px rgba(26,58,110,.80);
+  }
+
+  /* ── Footer – gold ── */
+  .footer {
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    color:var(--muted);
+    font-size:8px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    padding:2px 0;
+    text-shadow:0 0 8px rgba(160,130,70,.30);
+  }
+
+  @media (max-width:1000px) {
+    .grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    h3 { font-size:9px; }
+  }
+
+  @media (max-width:760px) {
+    html, body { overflow:auto; }
+    body { padding:8px; }
+    .page { height:auto; }
+    .header { padding:58px 14px 12px; }
+    .back { top:10px; transform:none; }
+    .home { top:10px; transform:none; }
+    .nav-btn:hover { transform:translateY(-2px); }
+    .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .card { min-height:98px; }
+  }
+</style>
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <a href="javascript:history.back()" class="nav-btn back">← Back</a>
+
+      <div class="heading">
+        <div class="eyebrow">SPA & POOL FACILITY</div>
+        <h1>Equipment Spare Parts</h1>
+        <div class="meta">CEO Villa · Project Code 10144 · 13 Equipment Documents</div>
+      </div>
+
+      <a href="../EVA-CORE.html" class="nav-btn home">⌂ Home</a>
+    </header>
+
+    <section class="grid">
+
+      <a class="card" href="Sapre Parts/6 Way Valve Side SFV-01 Spare Parts.html">
+        <div class="card-main">
+          <div class="icon">⚙</div>
+          <div class="category">VALVE</div>
+          <h3>6 Way Valve Side SFV-01 Spare Parts</h3>
+        </div>
+        <div class="tab" style="--accent:#d8a548">
+          <span>01</span>
+        </div>
+      </a>
+
+      <a class="card" href="Sapre Parts/6 Way Valve Top SFV-02 03 Spare Parts.html">
+        <div class="card-main">
+          <div class="icon">⚙</div>
+          <div class="category">VALVE</div>
+          <h3>6 Way Valve Top SFV-02 03 Spare Parts</h3>
+        </div>
+        <div class="tab" style="--accent:#b78345">
+          <span>02</span>
+        </div>
+      </a>
+
+      <a class="card" href="Sapre Parts/Clorine Feeder CL200 Spare Parts.html">
+        <div class="card-main">
+          <div class="icon">◉</div>
+          <div class="category">DOSING</div>
+          <h3>Clorine Feeder CL200 Spare Parts</h3>
+        </div>
+        <div class="tab" style="--accent:#c69759">
+          <span>03</span>
+        </div>
+      </a>
+
+      <a class="card" href="Sapre Parts/Cold Plunge Chiller Spare Parts.html">
+        <div class="card-main">
+          <div class="icon">❄</div>
+          <div class="category">CHILLER</div>
+          <h3>Cold Plunge Chiller Spare Parts</h3>
+        </div>
+        <div class="tab" style="--accent:#a97969">
+          <span>04</span>
+        </div>
+      </a>
+
+      <a class="card" href="Sapre Parts/Electric Water Heater E2 3 18 Indoor Pool.html">
+        <div class="card-main">
+          <div class="icon">♨</div>
+          <div class="category">HEATER</div>
+          <h3>Electric Water Heater E2 3 18 Indoor Pool</h3>
+        </div>
+        <div class="tab" style="--accent:#d2a15a">
+          <span>05</span>
+        </div>
+      </a>
+
+      <a class="card" href="Sapre Parts/Electric Water Heater SFSD 45.html">
+        <div class="card-main">
+          <div class="icon">♨</div>
+          <div class="category">HEATER</div>
+          <h3>Electric Water Heater SFSD 45</h3>
+        </div>
+        <div class="tab" style="--accent:#b88a4d">
+          <span>06</span>
+        </div>
+      </a>
+
+      <a class="card" href="Sapre Parts/Hayward HCC 2000 Spare Parts.html">
+        <div class="card-main">
+          <div class="icon">⌁</div>
+          <div class="category">CONTROL</div>
+          <h3>Hayward HCC 2000 Spare Parts</h3>
+        </div>
+        <div class="tab" style="--accent:#c28c78">
+          <span>07</span>
+        </div>
+      </a>
+
+      <a class="card" href="Sapre Parts/HR UVC Lamp Spare Parts.html">
+        <div class="card-main">
+          <div class="icon">✦</div>
+          <div class="category">UV-C</div>
+          <h3>HR UVC Lamp Spare Parts</h3>
+        </div>
+        <div class="tab" style="--accent:#9d6b73">
+          <span>08</span>
+        </div>
+      </a>
+
+      <a class="card" href="Sapre Parts/Pumps SuperFlo Replacement SF-N1-1.html">
+        <div class="card-main">
+          <div class="icon">◒</div>
+          <div class="category">PUMP</div>
+          <h3>Pumps SuperFlo Replacement SF-N1-1</h3>
+        </div>
+        <div class="tab" style="--accent:#d3a24f">
+          <span>09</span>
+        </div>
+      </a>
+
+      <a class="card" href="Sapre Parts/Pumps Whisperflow Replacement P WFE.html">
+        <div class="card-main">
+          <div class="icon">◒</div>
+          <div class="category">PUMP</div>
+          <h3>Pumps Whisperflow Replacement P WFE</h3>
+        </div>
+        <div class="tab" style="--accent:#b67d55">
+          <span>10</span>
+        </div>
+      </a>
+
+      <a class="card" href="Sapre Parts/Sand Filter Tagelus TA40 Spare Parts.html">
+        <div class="card-main">
+          <div class="icon">▦</div>
+          <div class="category">FILTER</div>
+          <h3>Sand Filter Tagelus TA40 Spare Parts</h3>
+        </div>
+        <div class="tab" style="--accent:#c18b68">
+          <span>11</span>
+        </div>
+      </a>
+
+      <a class="card" href="Sapre Parts/Sand Filter Triton II TR140 Spare Parts.html">
+        <div class="card-main">
+          <div class="icon">▦</div>
+          <div class="category">FILTER</div>
+          <h3>Sand Filter Triton II TR140 Spare Parts</h3>
+        </div>
+        <div class="tab" style="--accent:#9f6c59">
+          <span>12</span>
+        </div>
+      </a>
+
+      <a class="card" href="Sapre Parts/Steam Generator AK14 Spare Parts.html">
+        <div class="card-main">
+          <div class="icon">☁</div>
+          <div class="category">STEAM</div>
+          <h3>Steam Generator AK14 Spare Parts</h3>
+        </div>
+        <div class="tab" style="--accent:#b99562">
+          <span>13</span>
+        </div>
+      </a>
+
+    </section>
+
+    <footer class="footer">
+      <span>SPA & Pool Facility</span>
+      <span>CEO Villa · Project 10144</span>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Cold Plunge Circulation Pumps PM | CEO Villa SPA &amp; Pool</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050507;--deep:#0a0b10;--surface:#0f1117;--panel:#141720;
+  --border:#1e2330;--gold:#c9a84c;--text:#e8eaf0;--muted:#7a8099;--dim:#3a4055;
+  --green:#2abf8f;--cyan:#22d3ee;--blue:#4a9eff;--orange:#e87a4a;--purple:#b06fd4;
+}
+html,body{width:100%;background:var(--bg);font-family:'Exo 2',sans-serif;color:var(--text);-webkit-text-size-adjust:100%}
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.55rem 1rem;background:rgba(10,11,16,.96);border-bottom:1px solid rgba(201,168,76,.2);backdrop-filter:blur(8px);gap:.75rem}
+.topbar-left{display:flex;align-items:center;gap:.75rem}
+.tb-icon-btn{width:30px;height:30px;border-radius:5px;background:transparent;border:1px solid rgba(255,255,255,.15);color:#adb4cc;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;flex-shrink:0;text-decoration:none}
+.tb-icon-btn:hover{border-color:var(--gold);color:var(--gold)}
+.tb-icon-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.app-name{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--cyan);letter-spacing:.05em}
+.breadcrumb{font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.07em;color:var(--muted)}
+.breadcrumb span{color:var(--cyan)}
+.title-section{padding:.75rem 1.2rem .6rem;background:linear-gradient(135deg,rgba(34,211,238,.07),transparent);border-bottom:1px solid rgba(255,255,255,.05)}
+.equip-title{font-family:'Rajdhani',sans-serif;font-size:clamp(1.3rem,4vw,1.7rem);font-weight:700;color:#fff;letter-spacing:.04em;line-height:1.1}
+.equip-title span{color:var(--cyan)}
+.equip-sub{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.07em;color:var(--muted);margin-top:.3rem}
+.tabs{display:flex;background:#090b12;border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:49px;z-index:99;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{flex:1;min-width:110px;padding:.6rem .5rem;background:transparent;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:all .2s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.15rem}
+.tab-btn .tab-label{font-family:'Share Tech Mono',monospace;font-size:.78rem;font-weight:700;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.tab-btn .tab-count{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--muted)}
+.tab-btn .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tab-btn.daily .dot{background:var(--green);box-shadow:0 0 5px var(--green)}
+.tab-btn.monthly3 .dot{background:var(--gold);box-shadow:0 0 5px var(--gold)}
+.tab-btn.monthly6 .dot{background:var(--purple);box-shadow:0 0 5px var(--purple)}
+.tab-btn.daily.active{background:rgba(42,191,143,.12);border-bottom-color:var(--green)}
+.tab-btn.daily.active .tab-label{color:var(--green)}.tab-btn.daily.active .tab-count{color:var(--green)}
+.tab-btn.monthly3.active{background:rgba(201,168,76,.12);border-bottom-color:var(--gold)}
+.tab-btn.monthly3.active .tab-label{color:var(--gold)}.tab-btn.monthly3.active .tab-count{color:var(--gold)}
+.tab-btn.monthly6.active{background:rgba(176,111,212,.12);border-bottom-color:var(--purple)}
+.tab-btn.monthly6.active .tab-label{color:var(--purple)}.tab-btn.monthly6.active .tab-count{color:var(--purple)}
+.panel{display:none;padding:1rem 1.2rem 4rem}.panel.active{display:block}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem;padding:.6rem .9rem;background:rgba(201,168,76,.08);border-radius:8px;border-left:3px solid var(--cyan);flex-wrap:wrap;gap:.5rem}
+.panel-title{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--cyan);letter-spacing:.04em}
+.panel-badge{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--gold);background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);padding:.2rem .6rem;border-radius:4px;white-space:nowrap}
+.dl-btn{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:.9rem;padding:.5rem 1.1rem;background:var(--gold);border-radius:7px;text-decoration:none;font-family:'Share Tech Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.08em;color:#000;transition:background .2s,transform .15s}
+.dl-btn:hover{background:#e0b85c;transform:translateY(-1px)}
+.dl-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+table{width:100%;border-collapse:collapse;min-width:520px}
+thead tr{background:#0f1220}
+th{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--cyan);padding:.55rem .6rem;letter-spacing:.06em;border-bottom:1px solid rgba(34,211,238,.15);white-space:nowrap}
+th:nth-child(1){text-align:center;width:42px}
+th:nth-child(3),th:nth-child(4){text-align:center}
+th:nth-child(3){color:var(--green)}th:nth-child(4){color:#ff6b6b}
+.sec-row td{background:rgba(201,168,76,.15);color:#fff;font-family:'Share Tech Mono',monospace;font-size:.76rem;font-weight:700;letter-spacing:.08em;padding:.5rem .8rem;border-bottom:1px solid rgba(201,168,76,.2)}
+tbody tr.data-row{border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s}
+tbody tr.data-row:hover{background:rgba(201,168,76,.04)}
+.num-cell{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--muted);text-align:center;padding:.5rem .4rem;white-space:nowrap;vertical-align:top;padding-top:.75rem}
+.chk-cell{font-family:'Exo 2',sans-serif;font-size:.83rem;color:#dce0f2;padding:.5rem .7rem;line-height:1.55;vertical-align:top}
+.box-cell{text-align:center;padding:.45rem .4rem;vertical-align:top;padding-top:.65rem}
+.ck{width:20px;height:20px;border-radius:4px;margin:0 auto;cursor:pointer;appearance:none;-webkit-appearance:none;border:2px solid;background:transparent;transition:background .15s;display:block}
+.ck.ok{border-color:var(--green)}.ck.ok:checked{background:var(--green)}
+.ck.nok{border-color:#ff6b6b}.ck.nok:checked{background:#ff6b6b}
+.rem-cell{font-family:'Exo 2',sans-serif;font-size:.72rem;color:var(--muted);padding:.4rem .5rem;vertical-align:top;min-width:90px}
+.signoff{margin-top:1.4rem;padding:1rem 1.2rem;background:var(--panel);border:1px solid var(--border);border-radius:10px;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between}
+.signoff-item{flex:1;min-width:160px}
+.signoff-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--muted);margin-bottom:.3rem}
+.signoff-line{border-bottom:1px solid var(--dim);height:24px}
+@media(max-width:600px){.tabs{top:48px}.panel{padding:.8rem .8rem 3rem}.tab-btn{min-width:80px;padding:.5rem .2rem}.tab-btn .tab-label{font-size:.7rem}.chk-cell{font-size:.8rem}}
+@media print{.topbar,.tabs{position:static}.dl-btn{display:none}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="tb-icon-btn" onclick="history.back()" title="Back">
+      <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+    </button>
+    <span class="app-name">EVA-APP</span>
+    <span class="breadcrumb">PPM &rsaquo; <span>COLD PLUNGE CIRCULATION PUMPS</span></span>
+  </div>
+  <a href="../EVA-CORE.html" class="tb-icon-btn" title="Home">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+  </a>
+</div>
+
+<div class="title-section">
+  <div class="equip-title">COLD PLUNGE CIRCULATION PUMPS <span>FP-CP-01 &amp; FP-CP-02</span></div>
+  <div class="equip-sub">WhisperFlo P-WFL-801 · Tags: FP-CP-01 &amp; FP-CP-02 · Duty / Standby · SPA &amp; Pool Pump Room · CEO Villa</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn daily active" onclick="switchTab('daily')">
+    <div class="tab-label"><span class="dot"></span>DAILY</div>
+    <div class="tab-count">12 ITEMS</div>
+  </button>
+  <button class="tab-btn monthly3" onclick="switchTab('monthly3')">
+    <div class="tab-label"><span class="dot"></span>3-MONTHLY</div>
+    <div class="tab-count">24 ITEMS</div>
+  </button>
+  <button class="tab-btn monthly6" onclick="switchTab('monthly6')">
+    <div class="tab-label"><span class="dot"></span>6-MONTHLY</div>
+    <div class="tab-count">30 ITEMS</div>
+  </button>
+</div>
+
+<!-- ═══ DAILY ═══ -->
+<div class="panel active" id="panel-daily">
+  <div class="panel-header"><div class="panel-title">DAILY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">12 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Cold Plung Circulation Pumps/Cold Plunge Circulation Pumps - Daily PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">A.&nbsp; VISUAL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Confirm duty pump (FP-CP-01 or FP-CP-02) is running — listen for smooth motor operation; no unusual noise, vibration, or grinding</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Inspect pump body, strainer pot, and volute for cracks, corrosion, or water leakage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Inspect strainer pot lid clamp — confirm handles are horizontal (fully secured position)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Inspect strainer basket through see-through lid — cold plunge water can carry fine debris; note accumulation level</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Inspect all union fittings, pipe connections, and check valves for drips or weeping</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">B.&nbsp; MOTOR &amp; ELECTRICAL CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Check motor area for water puddles, moisture ingress, or chemical spillage — rectify immediately</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Confirm motor ventilation is unobstructed — no materials stored against motor housing</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Confirm GFCI protection is active on pump circuit</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">C.&nbsp; COLD PLUNGE SYSTEM CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Verify cold plunge chiller is operational — confirm chiller is running and producing cold water (water at pump inlet should be cold to touch)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Record cold plunge water temperature at pump inlet: _______ °C (normal chiller setpoint: approx 10–15°C)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Confirm standby pump (FP-CP-01 or FP-CP-02) isolation valves are in correct standby position</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Verify water returning to cold plunge pool — confirm visible flow and correct water level in cold plunge</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<!-- ═══ 3-MONTHLY ═══ -->
+<div class="panel" id="panel-monthly3">
+  <div class="panel-header"><div class="panel-title">3-MONTHLY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">24 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Cold Plung Circulation Pumps/Cold Plunge Circulation Pumps - 3-Monthly PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">A.&nbsp; VISUAL &amp; MECHANICAL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Inspect pump body, volute, and strainer pot for cracks, corrosion, or physical damage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Inspect all union fittings — check O-rings and union nuts for tightness and leaks</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Inspect suction drain cover at cold plunge pool — confirm undamaged and secured; ANSI/ASME A112.19.8 compliant</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Inspect check valves on discharge line — confirm correct operation; no reverse flow</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Check pump mounting feet and base fixings — tighten loose fasteners</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">B.&nbsp; STRAINER BASKET SERVICE</td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Isolate pump power at circuit breaker before opening strainer pot — WARNING: do not open pot if pump recently ran dry (scalding vapor hazard per WhisperFlo manual)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Relieve system pressure before opening pot; open and close isolation valves as required to de-pressurize</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Remove strainer pot lid clamp (counter-clockwise) and lid carefully — ensure pot is cool to touch before opening</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Remove strainer basket — inspect for cracks; replace if cracked (P/N 070387)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Clean basket thoroughly — remove all debris; note any unusual sediment from cold plunge system</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Clean strainer pot interior and lid sealing surface</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Inspect lid O-ring (P/N 350013) — clean, lubricate, and replace if compressed or deteriorated</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Reinstall basket; fill pot with water; reinstall lid and clamp (clockwise to horizontal)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Start pump; confirm primed and running normally; verify flow returns to cold plunge</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">C.&nbsp; ELECTRICAL CHECKS</td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Inspect power cable from circuit breaker to motor for damage, heat marks, or abrasion</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Test GFCI — press TEST: power interrupts; press RESET: power restores; report any failure immediately</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Check and tighten all electrical terminal screws at motor</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Inspect motor fan guard and cooling vents — clear accumulated dust and debris</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">D.&nbsp; DUTY / STANDBY CHANGEOVER TEST</td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">Switch from duty pump (FP-CP-01) to standby pump (FP-CP-02) — confirm standby starts, primes, and runs without unusual noise or vibration</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Confirm cold plunge chiller continues to operate and cold water circulates during changeover</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Return system to duty pump after confirming standby is fully operational</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">E.&nbsp; PERFORMANCE VERIFICATION</td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Record suction pressure: _______ PSI; discharge pressure: _______ PSI</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Confirm no abnormal noise, vibration, or cavitation from operating pump</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Verify cold plunge water temperature is maintained within chiller setpoint range</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<!-- ═══ 6-MONTHLY ═══ -->
+<div class="panel" id="panel-monthly6">
+  <div class="panel-header"><div class="panel-title">6-MONTHLY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">30 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Cold Plung Circulation Pumps/Cold Plunge Circulation Pumps - 6-Monthly PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">A.&nbsp; VISUAL &amp; SAFETY INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Inspect pump body, volute, strainer pot, all fittings, and pipe connections for cracks, corrosion, or damage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Inspect all union fittings — replace deteriorated O-rings; tighten union nuts</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Inspect cold plunge suction drain cover — replace if cracked, loose, or non-compliant with ANSI/ASME A112.19.8</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Inspect check valves — confirm correct operation and no reverse flow</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Check and tighten all pump mounting fixings</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">B.&nbsp; STRAINER BASKET &amp; POT FULL SERVICE</td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Isolate power at circuit breaker; de-pressurize system fully before opening pot</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Remove strainer pot lid carefully — verify cool and pressure-free</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Remove and clean strainer basket (P/N 070387) — replace if cracked</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Clean pot interior, drain plug ports, and lid sealing surface</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Remove both drain plugs (P/N 071131) and O-rings (P/N 192115) — replace O-rings; reinstall plugs securely</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Replace lid O-ring (P/N 350013) — lubricate with silicone grease before fitting</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Reinstall basket; fill pot with water; reinstall lid and clamp; start pump; confirm prime and flow</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">C.&nbsp; SHAFT SEAL &amp; INTERNAL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Inspect pump body around seal plate for water seepage or mineral deposits indicating seal wear</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">If seal leakage confirmed: isolate power; remove 6 bolts securing strainer pot; separate motor/hydraulics sub-assembly</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Inspect shaft seal (P/N PA-7 / PS1000 with ceramic seat) — replace if damaged; do not scratch polished seal faces</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Inspect impeller for wear, corrosion, or debris — clean passages; note impeller lock screw is LEFT-HAND thread</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Inspect diffuser and diffuser O-ring — replace if worn</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Reassemble: seal plate to motor (70 in-lbs cross-pattern); impeller (25 in-lbs); pot to motor (110 in-lbs cross-pattern)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">D.&nbsp; ELECTRICAL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">With power isolated, inspect power cable — check insulation, routing, and termination tightness at both ends</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Tighten all electrical terminal connections at motor</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Test GFCI — confirm TEST trips power; RESET restores; record result and date</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Inspect motor fan, fan guard, and cooling vents — clean all obstructions</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">E.&nbsp; RECOMMISSIONING</td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Prime duty pump; confirm no air in system; verify flow to cold plunge chiller circuit</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Switch to standby pump — confirm primes and runs; record pressures</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">25</td><td class="chk-cell">Return to duty pump; record suction pressure: _______ PSI; discharge pressure: _______ PSI</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">26</td><td class="chk-cell">Verify cold plunge water temperature maintained at chiller setpoint; confirm no leaks at any connection</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">F.&nbsp; DOCUMENTATION</td></tr>
+      <tr class="data-row"><td class="num-cell">27</td><td class="chk-cell">Record all maintenance activities and findings in equipment history log</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">28</td><td class="chk-cell">List all parts replaced with description and part number (P/N)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">29</td><td class="chk-cell">Update next service dates in maintenance planner</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">30</td><td class="chk-cell">Submit checklist to Supervisor for review and countersignature</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<script>
+function switchTab(tab){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('panel-'+tab).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  document.querySelector('.tab-btn.'+tab).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

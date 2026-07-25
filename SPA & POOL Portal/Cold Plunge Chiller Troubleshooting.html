@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cold Plunge Chiller Troubleshooting | SSB Villa O&amp;M Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--gold:#D4AF37;--gold-light:#f0d060}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#0d1829;display:flex;flex-direction:column;min-height:100vh;font-family:'Aptos Display','Segoe UI',sans-serif}
+header{background:rgba(5,10,20,0.95);border-bottom:2px solid rgba(212,175,55,0.45);padding:0 24px;height:72px;display:flex;align-items:center;position:fixed;top:0;width:100%;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.hl{flex:1;display:flex;align-items:center}
+.hc{flex:2;text-align:center;line-height:1.4}
+.hc .l1{font-size:10px;font-weight:600;color:rgba(212,175,55,0.6);text-transform:uppercase;letter-spacing:2.5px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hc .l2{font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hrr{flex:1;display:flex;justify-content:flex-end;align-items:center}
+.btn-back,.btn-home{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);padding:8px 16px;border-radius:4px;cursor:pointer;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;transition:background 0.3s}
+.btn-back:hover,.btn-home:hover{background:rgba(212,175,55,0.28)}
+main{margin-top:72px;margin-bottom:60px;padding:26px 28px;max-width:1500px;width:100%;margin-left:auto;margin-right:auto;flex:1}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.3);color:rgba(212,175,55,0.7);padding:8px 22px;border-radius:4px;cursor:pointer;font-size:13px;transition:all 0.2s}
+.tab-btn.active,.tab-btn:hover{background:rgba(212,175,55,0.18);border-color:rgba(212,175,55,0.7);color:var(--gold)}
+.tbl-wrap{overflow-x:auto}
+.ts{width:100%;border-collapse:collapse;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;min-width:600px}
+.ts thead tr th{background:rgba(212,175,55,0.22);color:#f5edd5;padding:11px 13px;text-align:left;border:1px solid rgba(212,175,55,0.38);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
+.ts tbody tr:nth-child(odd) td{background:rgba(255,255,255,0.04)}
+.ts tbody tr:nth-child(even) td{background:rgba(255,255,255,0.07)}
+.ts tbody tr:hover td{background:rgba(212,175,55,0.09)}
+.ts tbody td{padding:10px 13px;vertical-align:top;border:1px solid rgba(255,255,255,0.07);color:#e0d8c8;line-height:1.6;font-size:13px}
+.ts tbody td.fc{color:#f5e9c4;font-weight:700;border-right:2px solid rgba(212,175,55,0.35);background:rgba(212,175,55,0.07)!important;min-width:140px}
+footer{background:rgba(5,10,20,0.95);border-top:2px solid rgba(212,175,55,0.45);padding:14px 30px;display:flex;align-items:center;justify-content:space-between;position:fixed;bottom:0;width:100%;font-size:13px;color:rgba(212,175,55,0.75);z-index:1000;font-family:'Aptos Display','Segoe UI',sans-serif}
+.btn-up{background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.3s}
+.btn-up:hover{background:rgba(212,175,55,0.35)}
+</style>
+</head>
+<body id="top">
+<header>
+  <div class="hl"><a href="Error Codes &amp; Troubleshooting Register.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a></div>
+  <div class="hc"><span class="l1">SPA &amp; POOL FACILITY</span><span class="l2">Cold Plunge Chiller Troubleshooting</span></div>
+  <div class="hrr"><a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a></div>
+</header>
+<main>
+<div class="tbl-wrap"><table class="ts">
+<thead><tr><th>Error / Alarm Display</th><th>Description</th><th>Probable Cause</th><th>Corrective Action</th><th>Site Check / Notes</th></tr></thead><tbody>
+<tr><td class="fc">Flow failure</td><td>Flow sensor failure</td><td>The sensor is not properly connected</td><td>Reconnect the sensor</td><td>Check plug/socket and cable continuity first.</td></tr>
+<tr><td class="fc">Flow failure</td><td>Flow sensor failure</td><td>The sensor is defective</td><td>Replace the sensor</td><td></td></tr>
+<tr><td class="fc">Flow failure</td><td>Flow sensor failure</td><td>The electronic board is defective</td><td>Replace the electronic board</td><td>Only after sensor and wiring checks are completed.</td></tr>
+<tr><td class="fc">Level 1 anti-freeze protection</td><td>Level 1 frost protection</td><td>The ambient temperature is too low</td><td>No action required</td><td>Monitor ambient condition.</td></tr>
+<tr><td class="fc">Level 2 anti-freeze protection</td><td>Level 2 frost protection</td><td>The ambient temperature is too low</td><td>No action required</td><td>Monitor ambient condition.</td></tr>
+<tr><td class="fc">High pressure 1 protection / High pressure 2 protection</td><td>Compressor 1 or 2 High Pressure Protection</td><td>Insufficient water flow</td><td>Check the operation of the water pump and the opening of the inlet / outlet valves of the By Pass</td><td>Most common site issue: low flow / closed bypass / dirty strainer.</td></tr>
+<tr><td class="fc">High pressure 1 protection / High pressure 2 protection</td><td>Compressor 1 or 2 High Pressure Protection</td><td>4-way valve defective or refrigerant overload</td><td>Readjust the refrigerant charge</td><td>Qualified refrigeration technician required.</td></tr>
+<tr><td class="fc">High pressure 1 protection / High pressure 2 protection</td><td>Compressor 1 or 2 High Pressure Protection</td><td>The setting water temperature too high</td><td>Set the target temperature 5 °C above the current temperature then proceed in 5 °C steps</td><td>Avoid sudden large temperature setpoint change.</td></tr>
+<tr><td class="fc">High pressure 1 protection / High pressure 2 protection</td><td>Compressor 1 or 2 High Pressure Protection</td><td>Pressure switch disconnected or defective</td><td>Reconnect or replace the pressure switch</td><td></td></tr>
+<tr><td class="fc">Low pressure 1 protection / Low pressure 2 protection</td><td>Compressor 1 or 2 Low Pressure Protection</td><td>Not enough refrigerant</td><td>Readjust the refrigerant charge</td><td>Qualified refrigeration technician required.</td></tr>
+<tr><td class="fc">Low pressure 1 protection / Low pressure 2 protection</td><td>Compressor 1 or 2 Low Pressure Protection</td><td>4-way valve defective</td><td>Replace the valve</td><td></td></tr>
+<tr><td class="fc">Low pressure 1 protection / Low pressure 2 protection</td><td>Compressor 1 or 2 Low Pressure Protection</td><td>Pressure switch disconnected or defective</td><td>Reconnect or replace the pressure switch</td><td></td></tr>
+<tr><td class="fc">Low pressure 1 protection / Low pressure 2 protection</td><td>Compressor 1 or 2 Low Pressure Protection</td><td>Defective electronic board</td><td>Replace the electronic board</td><td></td></tr>
+<tr><td class="fc">Connection failure between control main Program board and controller</td><td>Connection problem between the electronic board and controller</td><td>Bad connection between the controller and the electronic board</td><td>Check the connection cables between the remote controller and the electronic board</td><td>Check cable, terminal tightness, and plug orientation.</td></tr>
+<tr><td class="fc">Connection failure between control main Program board and controller</td><td>Connection problem between the electronic board and controller</td><td>Wired remote controller defective</td><td>Replace the remote controller</td><td></td></tr>
+<tr><td class="fc">Connection failure between control main Program board and controller</td><td>Connection problem between the electronic board and controller</td><td>Defective electronic board</td><td>Replace the electronic board</td><td></td></tr>
+<tr><td class="fc">Exhaust temperature 1 over / Exhaust temperature 2 over</td><td>Compressor 1 or 2 outlet temperature too high</td><td>The heat pump does not work</td><td>Check that the filtration pump is working and the water flow is sufficient (bypass adjustment)</td><td>Check water flow before touching refrigeration circuit.</td></tr>
+<tr><td class="fc">Water inlet sensor failure</td><td>Failure of the water inlet temperature sensor</td><td>The sensor is not properly connected</td><td>Reconnect the sensor</td><td></td></tr>
+<tr><td class="fc">Water inlet sensor failure</td><td>Failure of the water inlet temperature sensor</td><td>The sensor is defective</td><td>Replace the sensor</td><td></td></tr>
+<tr><td class="fc">Water inlet sensor failure</td><td>Failure of the water inlet temperature sensor</td><td>The electronic board is defective</td><td>Replace the electronic board</td><td></td></tr>
+<tr><td class="fc">Outside coil sensor 1 failure / Outside coil sensor 2 failure</td><td>Evaporator 1 or 2 sensor failure</td><td>The sensor is not properly connected</td><td>Reconnect the sensor</td><td></td></tr>
+<tr><td class="fc">Outside coil sensor 1 failure / Outside coil sensor 2 failure</td><td>Evaporator 1 or 2 sensor failure</td><td>The sensor is defective</td><td>Replace the sensor</td><td></td></tr>
+<tr><td class="fc">Outside coil sensor 1 failure / Outside coil sensor 2 failure</td><td>Evaporator 1 or 2 sensor failure</td><td>The electronic board is defective</td><td>Replace the electronic board</td><td></td></tr>
+<tr><td class="fc">Exhaust sensor 1 failure / Exhaust sensor 2 failure</td><td>Compressor 1 or 2 output sensor failure</td><td>The sensor is not properly connected</td><td>Reconnect the sensor</td><td></td></tr>
+<tr><td class="fc">Exhaust sensor 1 failure / Exhaust sensor 2 failure</td><td>Compressor 1 or 2 output sensor failure</td><td>The sensor is defective</td><td>Replace the sensor</td><td></td></tr>
+<tr><td class="fc">Exhaust sensor 1 failure / Exhaust sensor 2 failure</td><td>Compressor 1 or 2 output sensor failure</td><td>The electronic board is defective</td><td>Replace the electronic board</td><td></td></tr>
+<tr><td class="fc">Ambient temperature sensor failure</td><td>Ambient temperature sensor failure</td><td>The sensor is not properly connected</td><td>Reconnect the sensor</td><td></td></tr>
+<tr><td class="fc">Ambient temperature sensor failure</td><td>Ambient temperature sensor failure</td><td>The sensor is defective</td><td>Replace the sensor</td><td></td></tr>
+<tr><td class="fc">Ambient temperature sensor failure</td><td>Ambient temperature sensor failure</td><td>The electronic board is defective</td><td>Replace the electronic board</td><td></td></tr>
+<tr><td class="fc">Water outlet sensor failure</td><td>Water outlet temperature sensor failure</td><td>The sensor is not properly connected</td><td>Reconnect the sensor</td><td></td></tr>
+<tr><td class="fc">Water outlet sensor failure</td><td>Water outlet temperature sensor failure</td><td>The sensor is defective</td><td>Replace the sensor</td><td></td></tr>
+<tr><td class="fc">Water outlet sensor failure</td><td>Water outlet temperature sensor failure</td><td>The electronic board is defective</td><td>Replace the electronic board</td><td></td></tr>
+<tr><td class="fc">Suction pipe sensor 1 failure</td><td>Return air temperature sensor 1 failure</td><td>The sensor is not properly connected</td><td>Reconnect the sensor</td><td></td></tr>
+<tr><td class="fc">Suction pipe sensor 1 failure</td><td>Return air temperature sensor 1 failure</td><td>The sensor is defective</td><td>Replace the sensor</td><td></td></tr>
+<tr><td class="fc">Suction pipe sensor 1 failure</td><td>Return air temperature sensor 1 failure</td><td>The electronic board is defective</td><td>Replace the electronic board</td><td></td></tr>
+<tr><td class="fc">Suction pipe sensor 2 failure</td><td>Return air temperature sensor 2 failure</td><td>The sensor is not properly connected</td><td>Reconnect the sensor</td><td></td></tr>
+<tr><td class="fc">Suction pipe sensor 2 failure</td><td>Return air temperature sensor 2 failure</td><td>The sensor is defective</td><td>Replace the sensor</td><td></td></tr>
+<tr><td class="fc">Suction pipe sensor 2 failure</td><td>Return air temperature sensor 2 failure</td><td>The electronic board is defective</td><td>Replace the electronic board</td><td></td></tr>
+<tr><td class="fc">Outside coil temperature 1 over in Cooling Mode / Outside coil temperature 2 over in Cooling Mode</td><td>Temperature of evaporator 1 or 2 too high (&gt;60 °C) for the cooling mode</td><td>The heat pump does not work</td><td>Check that the filtration pump is working and that the sensor is properly connected</td><td></td></tr>
+<tr><td class="fc">Inside coil sensor 1 failure / Inside coil sensor 2 failure</td><td>Evaporator 1 or 2 sensor failure</td><td>The sensor is not properly connected</td><td>Reconnect the sensor</td><td></td></tr>
+<tr><td class="fc">Inside coil sensor 1 failure / Inside coil sensor 2 failure</td><td>Evaporator 1 or 2 sensor failure</td><td>The sensor is defective</td><td>Replace the sensor</td><td></td></tr>
+<tr><td class="fc">Inside coil sensor 1 failure / Inside coil sensor 2 failure</td><td>Evaporator 1 or 2 sensor failure</td><td>The electronic card is defective</td><td>Replace the electronic board</td><td></td></tr>
+<tr><td class="fc">Water outlet temperature lower in Cooling Mode</td><td>Water temperature too low at the exchanger outlet in the cooling mode</td><td>The heat pump does not work</td><td>Check that the filtration pump is working and that the water flow is sufficient (bypass adjustment)</td><td></td></tr>
+<tr><td class="fc">Water outlet temperature over in Heat Mode</td><td>Water temperature too high at the exchanger outlet in the heating mode</td><td>The heat pump does not work</td><td>Check that the filtration pump is working and that the water flow is sufficient (bypass adjustment)</td><td></td></tr>
+<tr><td class="fc">Fan 1 fault / Fan 2 fault / EC Fan 1 fault</td><td>Fan 1 or 2 fault / EC fan failure</td><td>Bad connection</td><td>Reconnect the fan</td><td></td></tr>
+<tr><td class="fc">Fan 1 fault / Fan 2 fault / EC Fan 1 fault</td><td>Fan 1 or 2 fault / EC fan failure</td><td>The fan motor is defective</td><td>Replace motor</td><td></td></tr>
+<tr><td class="fc">Connection failure between driver 1 and main Program board / Connection failure between driver 2 and main Program board</td><td>Inverter module 1 or 2 communication failure</td><td>Module disconnected or defective</td><td>Reconnect or replace the Module</td><td></td></tr>
+<tr><td class="fc">Connection failure between driver 1 and main Program board / Connection failure between driver 2 and main Program board</td><td>Inverter module 1 or 2 communication failure</td><td>Defective module</td><td>Replace the module</td><td></td></tr>
+<tr><td class="fc">Failure of frequency conversion module 1 / Failure of frequency conversion module 2</td><td>Frequency converter 1 or 2 failure</td><td>Module disconnected or defective</td><td>Reconnect or replace the Module</td><td></td></tr>
+<tr><td class="fc">Failure of frequency conversion module 1 / Failure of frequency conversion module 2</td><td>Frequency converter 1 or 2 failure</td><td>Defective module</td><td>Replace the module</td><td></td></tr>
+</tbody>
+</table></div>
+</main>
+<footer>
+  <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+  <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS-STEAM-SPA-06 — Steam Generator SG-01</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root{
+  --gold:#D4AF37;--gold-l:#f0d878;
+  --navy:#040c18;--navy2:#0d2040;
+  --teal:#17C3D4;--red:#C0392B;--amber:#EF9F27;
+  --green:#27AE60;
+  --steam:#E67E22;--steam-l:#F5B041;--steam-d:#A04000;
+  --text:#fdf3e8;--text2:rgba(253,243,232,0.60);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--navy);color:var(--text);display:flex;flex-direction:column;min-height:100vh;}
+.bg-wrap{position:fixed;inset:0;z-index:-1;}
+.bg-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 40%,rgba(230,126,34,0.10) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(212,175,55,0.07) 0%,transparent 50%),linear-gradient(180deg,#020a14 0%,#140802 100%);}
+.bg-wrap::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(230,126,34,0.03) 80px),repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(230,126,34,0.03) 80px);}
+/* HEADER */
+header{position:fixed;top:0;width:100%;z-index:1000;background:rgba(20,8,2,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(230,126,34,0.28);padding:8px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 24px rgba(0,0,0,0.60);}
+.hdr-left{display:flex;align-items:center;gap:16px;}
+.hdr-title h1{font-family:'Arial Narrow',Arial,sans-serif;font-size:17px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-shadow:0 0 16px rgba(212,175,55,0.45);}
+.hdr-title .sub{font-size:10px;color:rgba(230,126,34,0.60);letter-spacing:1.5px;text-transform:uppercase;margin-top:1px;}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.doc-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:rgba(230,126,34,0.08);border:1px solid rgba(230,126,34,0.30);color:rgba(245,176,65,0.90);letter-spacing:1px;}
+.btn-nav{display:flex;align-items:center;gap:7px;padding:6px 13px;border-radius:5px;border:1px solid rgba(212,175,55,0.45);background:rgba(212,175,55,0.10);color:var(--gold);font-size:12px;font-weight:600;text-decoration:none;transition:all 0.25s;}
+.btn-nav:hover{background:rgba(212,175,55,0.22);border-color:var(--gold);color:var(--gold-l);}
+.btn-download{display:flex;align-items:center;gap:7px;padding:6px 13px;border-radius:5px;border:1px solid rgba(230,126,34,0.35);background:rgba(230,126,34,0.08);color:var(--steam-l);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.25s;}
+.btn-download:hover{background:rgba(230,126,34,0.20);border-color:var(--steam-l);}
+/* LAYOUT */
+.layout{display:flex;padding-top:60px;}
+/* SIDEBAR */
+.sidebar{width:240px;min-width:240px;position:fixed;top:60px;left:0;bottom:0;background:rgba(20,8,2,0.92);border-right:1px solid rgba(230,126,34,0.15);overflow-y:auto;padding:16px 0;z-index:100;}
+.sidebar::-webkit-scrollbar{width:4px;}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(230,126,34,0.25);border-radius:2px;}
+.sidebar-title{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(230,126,34,0.50);padding:0 16px 10px;border-bottom:1px solid rgba(230,126,34,0.12);margin-bottom:8px;}
+.nav-item{display:block;padding:7px 16px;font-size:11px;color:rgba(253,243,232,0.50);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;}
+.nav-item:hover,.nav-item.active{color:var(--steam-l);border-left-color:var(--steam);background:rgba(230,126,34,0.07);}
+.nav-item .nav-num{color:var(--steam);font-weight:700;margin-right:6px;}
+.nav-section{padding:8px 16px 4px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(230,126,34,0.32);}
+/* MAIN */
+main{margin-left:240px;flex:1;padding:24px 32px 60px;max-width:calc(100% - 240px);}
+/* COVER */
+.cover{position:relative;overflow:hidden;border:1px solid rgba(230,126,34,0.35);border-radius:16px;padding:40px 48px;margin-bottom:32px;box-shadow:0 24px 56px rgba(0,0,0,0.75);}
+.cover::before{content:'';position:absolute;inset:0;background-image:url('MS-STEAM-SPA-06.jpg');background-size:cover;background-position:center 25%;z-index:0;}
+.cover::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(4,12,28,0.38) 0%,rgba(2,8,18,0.42) 100%);z-index:1;}
+.cover>*{position:relative;z-index:2;}
+.cover-project{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--steam-l);margin-bottom:4px;}
+.cover-location{font-size:12px;color:var(--text2);margin-bottom:28px;}
+.cover-ms-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(212,175,55,0.60);margin-bottom:8px;}
+.cover-title{font-family:'Arial Narrow',Arial,sans-serif;font-size:30px;font-weight:700;line-height:1.2;color:var(--gold);letter-spacing:2px;text-transform:uppercase;text-shadow:0 0 24px rgba(212,175,55,0.35);margin-bottom:16px;}
+.equip-chip{padding:6px 14px;border-radius:5px;font-size:11.5px;font-weight:700;background:rgba(230,126,34,0.10);border:1px solid rgba(230,126,34,0.28);color:var(--steam-l);display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;}
+.cover-divider{height:3px;background:linear-gradient(90deg,var(--steam),var(--gold),transparent);border-radius:2px;margin:20px 0 24px;}
+.cover-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;}
+.cover-meta-item{display:flex;flex-direction:column;gap:2px;}
+.cover-meta-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);}
+.cover-meta-value{font-size:13px;font-weight:600;color:var(--text);}
+/* SECTION HEADERS */
+.sec-h1{background:linear-gradient(90deg,#2d1200,#160800);border-left:4px solid var(--steam);padding:12px 20px;margin:32px 0 16px;border-radius:0 8px 8px 0;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;}
+.sec-h2{font-size:13px;font-weight:700;color:var(--steam-l);margin:24px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(212,175,55,0.35);}
+.sec-h3{font-size:12px;font-weight:700;color:var(--gold-l);margin:18px 0 8px;}
+/* TABLES */
+.tbl-wrap{overflow-x:auto;margin:12px 0 20px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th{background:#2d1200;color:#fff;padding:9px 12px;text-align:left;font-weight:700;font-size:11px;letter-spacing:0.5px;}
+td{padding:8px 12px;border-bottom:1px solid rgba(230,126,34,0.10);color:var(--text);line-height:1.45;}
+tr:nth-child(even) td{background:rgba(22,8,0,0.55);}
+tr:nth-child(odd) td{background:rgba(10,4,0,0.45);}
+tr:hover td{background:rgba(230,126,34,0.07);}
+td.key{font-weight:700;color:var(--steam-l);white-space:nowrap;width:40%;}
+td.tag{font-weight:700;color:var(--gold);font-size:11px;letter-spacing:0.5px;}
+td.num{text-align:center;color:var(--steam);font-weight:700;width:36px;}
+td.chk{text-align:center;font-size:18px;color:rgba(253,243,232,0.4);width:60px;}
+td.rec{color:rgba(212,175,55,0.65);font-style:italic;}
+td.danger{color:var(--red);font-weight:700;}
+/* STEP / BULLET */
+.bul-list{list-style:none;margin:8px 0 12px;padding:0;}
+.bul-list li{padding:4px 0 4px 20px;position:relative;font-size:12.5px;line-height:1.5;}
+.bul-list li::before{content:'●';position:absolute;left:0;color:var(--steam);font-size:8px;top:8px;}
+.step-list{list-style:none;margin:8px 0 12px;padding:0;counter-reset:steps;}
+.step-list li{counter-increment:steps;padding:5px 0 5px 34px;position:relative;font-size:12.5px;line-height:1.5;border-bottom:1px solid rgba(230,126,34,0.07);}
+.step-list li::before{content:counter(steps)'.';position:absolute;left:0;top:5px;color:var(--steam);font-weight:700;font-size:12px;width:28px;text-align:right;}
+/* NOTES */
+.note{padding:10px 16px;margin:12px 0;border-radius:0 6px 6px 0;font-size:12px;line-height:1.5;}
+.note-note{border-left:4px solid var(--teal);background:rgba(23,195,212,0.08);}
+.note-warn{border-left:4px solid var(--red);background:rgba(192,57,43,0.10);}
+.note-caut{border-left:4px solid var(--amber);background:rgba(239,159,39,0.08);}
+.note-info{border-left:4px solid var(--steam);background:rgba(230,126,34,0.08);}
+.note .tag{font-weight:700;font-size:11px;letter-spacing:1px;margin-right:6px;}
+.note-note .tag{color:var(--teal);}
+.note-warn .tag{color:#e74c3c;}
+.note-caut .tag{color:var(--amber);}
+.note-info .tag{color:var(--steam-l);}
+p.body{font-size:12.5px;line-height:1.6;color:var(--text);margin:8px 0 14px;}
+section{scroll-margin-top:72px;}
+/* FOOTER */
+footer{position:fixed;bottom:0;width:100%;background:rgba(20,8,2,0.94);border-top:1px solid rgba(212,175,55,0.28);color:rgba(212,175,55,0.65);padding:8px 24px;font-size:11px;display:flex;align-items:center;justify-content:space-between;z-index:999;}
+.btn-up{width:30px;height:30px;border-radius:50%;background:rgba(212,175,55,0.10);border:1px solid rgba(212,175,55,0.38);color:var(--gold);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all 0.3s;font-size:12px;}
+.btn-up:hover{background:rgba(212,175,55,0.24);border-color:var(--gold);}
+@media print{.bg-wrap,header,.sidebar,footer,.btn-nav,.btn-download{display:none!important;}main{margin-left:0!important;padding:16px!important;max-width:100%!important;}body{background:#fff;color:#000;}.cover{background:#f9f0e8;border-radius:0;}.cover-title{color:#2d1200;}.sec-h1{background:#2d1200;color:#fff;}.sec-h2{color:#2d1200;}td,p.body,.bul-list li,.step-list li{color:#000;}}
+@media(max-width:900px){.sidebar{display:none;}main{margin-left:0;max-width:100%;padding:16px;}.cover-meta{grid-template-columns:1fr;}}
+</style>
+</head>
+<body id="top">
+<div class="bg-wrap"></div>
+
+<header>
+  <div class="hdr-left">
+    <a href="Method Statements Dashboard.html" class="btn-nav"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+    <div class="hdr-title">
+      <h1><i class="fa-solid fa-cloud" style="margin-right:8px;color:#F5B041;"></i>SPA &amp; Pool Facility Method Statements</h1>
+      <span class="sub">CEO Villa — Al Murjan, Jeddah — IHCC</span>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <span class="doc-badge">MS-STEAM-SPA-06 | Rev.00</span>
+    <button class="btn-download" onclick="downloadPDF()"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+    <a href="../../EVA-CORE.html" class="btn-nav"><i class="fa-solid fa-house"></i> Home</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-title">Document Sections</div>
+    <a class="nav-item" href="#cover"><span class="nav-num">◆</span>Cover</a>
+    <a class="nav-item" href="#projinfo"><span class="nav-num">◆</span>Project Information</a>
+    <div class="nav-section">Main Sections</div>
+    <a class="nav-item" href="#sec1"><span class="nav-num">1.</span>Purpose &amp; Scope</a>
+    <a class="nav-item" href="#sec2"><span class="nav-num">2.</span>Codes &amp; Standards</a>
+    <a class="nav-item" href="#sec3"><span class="nav-num">3.</span>Responsibilities</a>
+    <a class="nav-item" href="#sec4"><span class="nav-num">4.</span>Materials &amp; Equipment</a>
+    <a class="nav-item" href="#sec5"><span class="nav-num">5.</span>Health, Safety &amp; Environment</a>
+    <a class="nav-item" href="#sec6"><span class="nav-num">6.</span>Installation Procedure</a>
+    <a class="nav-item" href="#sec7"><span class="nav-num">7.</span>QC Inspection Checklist</a>
+    <a class="nav-item" href="#sec8"><span class="nav-num">8.</span>Testing &amp; Commissioning</a>
+    <a class="nav-item" href="#sec9"><span class="nav-num">9.</span>Documentation &amp; Handover</a>
+    <a class="nav-item" href="#signatures"><span class="nav-num">✎</span>Signatures</a>
+    <div style="margin-top:16px;padding:10px 14px;border-top:1px solid rgba(230,126,34,0.12);">
+      <div style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(230,126,34,0.40);margin-bottom:8px;">Equipment</div>
+      <div style="font-size:9.5px;color:var(--steam-l);font-weight:700;margin-bottom:2px;">SG-01</div>
+      <div style="font-size:9px;color:rgba(253,243,232,0.45);margin-bottom:6px;">Amerec AK14 · 14 kW · 400-415V/3N</div>
+      <div style="font-size:9.5px;color:var(--gold-l);font-weight:700;margin-bottom:2px;">Controller</div>
+      <div style="font-size:9px;color:rgba(253,243,232,0.45);">Amerec K3 Digital Steam Bath Control</div>
+    </div>
+    <div style="margin:12px 14px;padding:10px 12px;border-radius:6px;background:rgba(192,57,43,0.12);border:1px solid rgba(192,57,43,0.30);">
+      <div style="font-size:9px;font-weight:700;color:#e74c3c;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">⚠ Critical</div>
+      <div style="font-size:9.5px;color:rgba(253,243,232,0.70);line-height:1.4;">Factory wired single-phase. MUST reconfigure to 3-phase before energizing. See Section 6.8.2</div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- COVER -->
+    <section id="cover">
+      <div class="cover">
+        <div class="cover-project">CEO VILLA &nbsp;|&nbsp; SPA &amp; POOL FACILITY</div>
+        <div class="cover-location">IHCC &nbsp;·&nbsp; Al Murjan, Jeddah, Kingdom of Saudi Arabia &nbsp;·&nbsp; Project Code: 10144</div>
+        <div class="cover-ms-label">Method Statement</div>
+        <div class="cover-title">Installation, Plumbing,<br>Electrical &amp; Commissioning<br>of Steam Generator<br>with K3 Controller</div>
+        <div>
+          <div class="equip-chip"><i class="fa-solid fa-cloud" style="color:#F5B041;"></i>SG-01 &nbsp;—&nbsp; Amerec AK14 Steam Generator &nbsp;|&nbsp; 14 kW &nbsp;|&nbsp; 400-415V/3N</div>
+          <div style="display:block;"></div>
+          <div class="equip-chip"><i class="fa-solid fa-sliders" style="color:var(--gold-l);"></i>K3 Digital Steam Bath Controller</div>
+        </div>
+        <div class="cover-divider"></div>
+        <div class="note note-warn" style="margin-bottom:20px;"><span class="tag">CRITICAL:</span>The AK14 is factory-wired for single-phase. It MUST be reconfigured to 3-phase (400-415V~N3) by a licensed electrician during installation, per the AK IOM wiring diagram (Page 18-19). Failure to reconfigure causes incorrect operation or permanent equipment damage.</div>
+        <div class="cover-meta">
+          <div class="cover-meta-item"><span class="cover-meta-label">Document Reference</span><span class="cover-meta-value" style="color:var(--steam-l);">MS-STEAM-SPA-06</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Revision</span><span class="cover-meta-value">Rev. 00</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Prepared By</span><span class="cover-meta-value">Adil Magdy – Mechanical Engineer, Aseeb Contracting Co.</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Submitted To</span><span class="cover-meta-value">Saqib Manzoor – Senior Mechanical Engineer, IHCC</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECT INFO -->
+    <section id="projinfo">
+      <div class="sec-h1">PROJECT &amp; DOCUMENT INFORMATION</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Project Name</td><td>CEO Villa (Private Residence)</td></tr>
+        <tr><td class="key">Location</td><td>Al Murjan, Jeddah, Kingdom of Saudi Arabia</td></tr>
+        <tr><td class="key">Client</td><td>Engr. Sultan Batterjee</td></tr>
+        <tr><td class="key">Consultant</td><td>3C Engineering &amp; Architectural Consultant</td></tr>
+        <tr><td class="key">Main Contractor</td><td>IHCC – Integrated Home Construction Company</td></tr>
+        <tr><td class="key">Sub-Contractor</td><td>Aseeb Contracting Company</td></tr>
+        <tr><td class="key">Work Order No.</td><td>WO # 34982</td></tr>
+        <tr><td class="key">Document No.</td><td style="color:var(--steam-l);font-weight:700;">MS-STEAM-SPA-06</td></tr>
+        <tr><td class="key">Revision</td><td>00 – Initial Issue</td></tr>
+                <tr><td class="key">Approved Shop Drawing</td><td>SB-ASB-SD-ME-008-R1</td></tr>
+        <tr><td class="key">Status</td><td><span style="color:var(--steam);font-weight:700;">Submitted for Review &amp; Approval</span></td></tr>
+      </tbody></table></div>
+    </section>
+
+    <!-- SECTION 1 -->
+    <section id="sec1">
+      <div class="sec-h1">1. &nbsp;PURPOSE &amp; SCOPE</div>
+      <div class="sec-h2">1.1 &nbsp;Purpose</div>
+      <p class="body">This Method Statement defines the approved procedure for the installation, plumbing connections, electrical connections, K3 controller installation, and commissioning of the SPA Steam Generator (Tag: SG-01) within the SPA &amp; Pool Facility of the CEO Villa Project. The document ensures full compliance with the Amerec AK14 Installation and Operation Manual (Doc. 4211-1552), ANSI/UL Standard 499, CAN/CSA Standard C22.2 No. 64, applicable electrical codes, and the project quality and safety plan.</p>
+
+      <div class="sec-h2">1.2 &nbsp;Equipment Summary</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Equipment Tag</td><td style="color:var(--steam-l);font-weight:700;">SG-01</td></tr>
+        <tr><td class="key">Description</td><td>Steam Bath Generator with K3 Digital Control</td></tr>
+        <tr><td class="key">Manufacturer / Brand</td><td>Amerec (Cokato, Minnesota, USA) — Made in USA</td></tr>
+        <tr><td class="key">Model</td><td style="color:var(--steam-l);font-weight:700;">AK14</td></tr>
+        <tr><td class="key">Serial / Code Number</td><td>10413683318</td></tr>
+        <tr><td class="key">Power Rating (at 400-415V, 3N)</td><td>14.0 kW</td></tr>
+        <tr><td class="key">Rated Voltage</td><td>400-415V~N3 (3-Phase + Neutral, Y-connected)</td></tr>
+        <tr><td class="key">Frequency</td><td>50 / 60 Hz</td></tr>
+        <tr><td class="key">Rated Current (at 415V~N3)</td><td>19 A</td></tr>
+        <tr><td class="key">Required Circuit Breaker</td><td style="color:var(--amber);font-weight:700;">30 A — 4-pole (3P+N), dedicated circuit</td></tr>
+        <tr><td class="key">Factory Wiring</td><td style="color:var(--red);font-weight:700;">Single-phase — MUST be reconfigured to 3-phase at site</td></tr>
+        <tr><td class="key">IP Rating</td><td>IP20 (indoor dry location only)</td></tr>
+        <tr><td class="key">Controller</td><td>Amerec K3 Digital Steam Bath Control</td></tr>
+        <tr><td class="key">Certifications</td><td>ETL Listed (Intertek No. 3141369) &nbsp;|&nbsp; UKCA &nbsp;|&nbsp; CE</td></tr>
+        <tr><td class="key">Standard Compliance</td><td>ANSI/UL STD 499 &nbsp;|&nbsp; CAN/CSA STD C22.2 No. 64</td></tr>
+        <tr><td class="key">Steam Room Size (AK14)</td><td>9.91 – 15.60 m³ at 415V~N3 &nbsp;|&nbsp; Max ceiling height 2.4 m recommended</td></tr>
+        <tr><td class="key">Installation Location</td><td>SPA Pump Room / Steam Generator Enclosure — per Drawing SB-ASB-SD-ME-008-R1</td></tr>
+      </tbody></table></div>
+
+      <div class="sec-h2">1.3 &nbsp;Scope of Work</div>
+      <ul class="bul-list">
+        <li>Receiving, inspection, and MIR submission for SG-01 and K3 controller</li>
+        <li>Mounting the AK14 generator on wall or floor as per approved drawing (must be perfectly level)</li>
+        <li>Cold water supply connection: 3/8" NPT inlet with isolation valve and optional inline filter</li>
+        <li>Steam line installation: 1/2" hard-drawn copper pipe from generator to steam room</li>
+        <li>Steam head installation in steam room at correct height (460 mm above finished floor), outlet facing downward</li>
+        <li>Pressure Relief Valve (PRV, 10 PSI / 38 kPa) installation and discharge piping to floor drain</li>
+        <li>Tank drain connection: 3/4" NPT ball valve + union, piped to gravity floor drain</li>
+        <li>Electrical supply: 400-415V/3N, 30A dedicated 4-pole MCB; field reconfiguration from single-phase to 3-phase per AK IOM page 18-19</li>
+        <li>K3 controller installation in steam room and low-voltage control cable in separate conduit to generator</li>
+        <li>Water quality pre-check before first start-up (Jeddah hard water risk)</li>
+        <li>First start-up, K3 setpoint configuration, and full functional test</li>
+      </ul>
+      <div class="note note-warn"><span class="tag">WARNING:</span>The AK14 is factory-wired for single-phase. It MUST be reconfigured to 3-phase 400-415V~N3 by repositioning the internal jumper on the terminal block per the wiring diagram on pages 18-19 of the Amerec AK IOM (Doc. 4211-1552). This MUST be done BEFORE energizing the unit. Failure to reconfigure will result in incorrect operation or permanent equipment damage. Aluminium wire is NOT permitted — copper wire only. Amerec warranty is voided by aluminium wiring.</div>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section id="sec2">
+      <div class="sec-h1">2. &nbsp;APPLICABLE CODES, STANDARDS &amp; REFERENCES</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Reference / Standard</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="key">Amerec AK IOM (Doc. 4211-1552)</td><td>AK Steam Generator Installation &amp; Service Instructions — covers AK4.5 to AK14. Primary installation reference.</td></tr>
+          <tr><td class="key">Amerec K3 Owner's Manual (4209-42)</td><td>K3 &amp; KT3 Steam Bath Control — Installation and Operating Instructions</td></tr>
+          <tr><td class="key">Amerec K3 Keypad Installation Guide</td><td>K3 Keypad Installation Instructions (separate document)</td></tr>
+          <tr><td class="key">ANSI/UL STD 499</td><td>Standard for Safety — Electric Heating Appliances (ETL listing basis for AK14)</td></tr>
+          <tr><td class="key">CAN/CSA STD C22.2 No. 64</td><td>Canadian equivalent standard (referenced on nameplate)</td></tr>
+          <tr><td class="key">NFPA 70 (NEC)</td><td>National Electrical Code — dedicated circuit, copper wire sizing, earthing for SG-01</td></tr>
+          <tr><td class="key">IEC 60364-7-703</td><td>Electrical Installations — Rooms and Cabins Containing Sauna Heaters (applied to steam rooms)</td></tr>
+          <tr><td class="key">ASHRAE 62.1</td><td>Ventilation for Acceptable Indoor Air Quality (steam room exhaust fan requirements)</td></tr>
+          <tr><td class="key">SB-ASB-SD-ME-008-R1</td><td>Approved Mechanical Shop Drawing — Steam Generator Location &amp; Piping Schematic</td></tr>
+          <tr><td class="key">Project Mechanical Specifications</td><td>CEO Villa — SPA Mechanical Specification: Steam Generator</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section id="sec3">
+      <div class="sec-h1">3. &nbsp;RESPONSIBILITIES</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Role</th><th>Responsibility</th></tr></thead>
+        <tbody>
+          <tr><td class="key">Sr. Mechanical Engineer – IHCC<br><span style="font-size:11px;color:var(--steam-l);">(Saqib Manzoor)</span></td><td>Review and approve this MS. Witness first start-up and functional tests. Issue WIR for consultant approval.</td></tr>
+          <tr><td class="key">Mechanical Engineer – Aseeb<br><span style="font-size:11px;color:var(--steam-l);">(Adil Magdy)</span></td><td>Supervise all installation. Ensure steam line slope is maintained with no dips. Ensure PRV and drain lines route correctly to drain and not into the steam room.</td></tr>
+          <tr><td class="key">Licensed Plumber</td><td>Install all water supply (3/8"), steam (1/2" copper), drain (3/4"), and PRV connections in compliance with local plumbing codes. Responsible for steam line slope and all penetration seals.</td></tr>
+          <tr><td class="key">Licensed Electrician</td><td>Reconfigure AK14 terminal block jumper from single-phase to 3-phase per AK IOM page 18-19. Connect 400-415V~N3 supply on dedicated 30A 4-pole MCB. Install and test K3 control cable. Perform insulation resistance and phase sequence tests. Earthing and LOTO compliance.</td></tr>
+          <tr><td class="key">QA / QC Engineer</td><td>Inspect materials on delivery. Witness leak test and commissioning run. Sign QC checklist and commissioning data sheet.</td></tr>
+          <tr><td class="key">HSE Officer</td><td>Toolbox talk on steam burn hazards, 415V electrical safety, and wet area work. Enforce PPE. Confirm LOTO applied before any electrical work on SG-01.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section id="sec4">
+      <div class="sec-h1">4. &nbsp;MATERIALS &amp; EQUIPMENT</div>
+
+      <div class="sec-h2">4.1 &nbsp;SG-01 Generator &amp; K3 Controller Technical Data</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">SG-01 Model / Code</td><td>Amerec AK14 (Model Code: AK14)</td></tr>
+        <tr><td class="key">Serial / Code Number</td><td>10413683318</td></tr>
+        <tr><td class="key">Power (at 400-415V~N3)</td><td>14.0 kW</td></tr>
+        <tr><td class="key">Current (at 415V~N3)</td><td>19 A per phase</td></tr>
+        <tr><td class="key">Required Circuit Breaker (at 415V~N3)</td><td style="color:var(--amber);font-weight:700;">30 A — 4-pole (3P+N), dedicated circuit</td></tr>
+        <tr><td class="key">Factory Wiring</td><td style="color:var(--red);font-weight:700;">Single-phase — must be reconfigured to 3-phase at site</td></tr>
+        <tr><td class="key">Earth / Ground</td><td>Required on all Amerec generators. Copper earth lug provided inside unit.</td></tr>
+        <tr><td class="key">Wire Specification</td><td style="color:var(--red);">Minimum 75°C rated COPPER wire ONLY — aluminium wire voids warranty</td></tr>
+        <tr><td class="key">Water Inlet Connection</td><td>3/8" NPT (cold water supply)</td></tr>
+        <tr><td class="key">Required Water Pressure</td><td>20–100 PSI (138–690 kPa)</td></tr>
+        <tr><td class="key">Steam Outlet Connection</td><td>1/2" NPT (to 1/2" hard-drawn copper steam pipe)</td></tr>
+        <tr><td class="key">Tank Drain Connection</td><td>3/4" NPT (manual ball valve or Autodrain option)</td></tr>
+        <tr><td class="key">Pressure Relief Valve (PRV)</td><td>10 PSI (38 kPa) — supplied with unit; install within 150 mm of generator body</td></tr>
+        <tr><td class="key">Generator Dimensions (approx.)</td><td>368 mm wide × 335 mm deep (per Amerec manual Diagram 2)</td></tr>
+        <tr><td class="key">Minimum Installation Space</td><td>0.2 m³ (7 cubic feet) minimum enclosure volume</td></tr>
+        <tr><td class="key">Service Clearance Required</td><td>330 mm (13") minimum on element access side</td></tr>
+        <tr><td class="key">IP Rating</td><td>IP20 — indoor installation only; dry, well-ventilated area</td></tr>
+        <tr><td class="key">Levelling Requirement</td><td style="color:var(--amber);font-weight:700;">MUST be perfectly level front-back AND side-to-side. Top arrows must point straight up.</td></tr>
+        <tr><td class="key">Controller</td><td>Amerec K3 Digital Steam Bath Control</td></tr>
+        <tr><td class="key">K3 Functions</td><td>Steam time setting, temperature setpoint, on/off, auto shut-off (default 30 min)</td></tr>
+        <tr><td class="key">Auto Shut-Off</td><td>Default 30 minutes. Adjustable per K3 Owner's Manual.</td></tr>
+      </tbody></table></div>
+
+      <div class="sec-h2">4.2 &nbsp;Plumbing Materials</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Item</th><th style="width:130px;">Material</th><th style="width:80px;">Size</th><th>Purpose / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;">Cold Water Supply Pipe</td><td>Copper or CPVC</td><td>3/8" (10mm)</td><td>From building cold water supply to generator 3/8" water inlet valve</td></tr>
+          <tr><td style="font-weight:700;">Water Inlet Isolation Ball Valve</td><td>Brass or CPVC</td><td>3/8"</td><td>Install close to generator; emergency shut-off and service valve. Must be accessible.</td></tr>
+          <tr><td style="font-weight:700;">3/8" NPT Male Adapter + Union</td><td>Copper × NPT</td><td>3/8" NPT</td><td>At generator water inlet. Union allows easy disconnection for service.</td></tr>
+          <tr><td style="font-weight:700;">Water Inlet Strainer / Filter</td><td>SS316 mesh</td><td>3/8"</td><td>Strongly recommended given Jeddah water quality (hard water). Install upstream of isolation valve.</td></tr>
+          <tr><td style="font-weight:700;color:var(--steam-l);">Steam Line Pipe</td><td style="color:var(--steam-l);font-weight:700;">Copper (hard-drawn) ONLY</td><td>1/2" (15mm)</td><td style="color:var(--red);">COPPER ONLY. No plastic, no PEX, no flexible hose. Seal wall penetrations with 100% silicone.</td></tr>
+          <tr><td style="font-weight:700;">1/2" NPT Male Adapters ×2</td><td>Copper sweat × NPT</td><td>1/2" NPT</td><td>At generator steam outlet and at steam room wall penetration</td></tr>
+          <tr><td style="font-weight:700;">1/2" Union (service disconnection)</td><td>Copper/brass</td><td>1/2" NPT</td><td>Installed after generator steam outlet for service disconnection only. NOT used as a valve.</td></tr>
+          <tr><td style="font-weight:700;">Steam Head (Amerec ComfortFlo or equivalent)</td><td>Stainless / chrome</td><td>1/2" NPT</td><td>End-fitting in steam room. Must face DOWNWARD. Mount at 460 mm above finished floor.</td></tr>
+          <tr><td style="font-weight:700;">Steam Head Insulator / Wall Plate</td><td>Supplied with steam head</td><td>1/2"</td><td>Installed at wall penetration; sealed with 100% silicone caulk on back face</td></tr>
+          <tr><td style="font-weight:700;color:var(--red);">Pressure Relief Safety Valve (PRV)</td><td>Supplied with AK14</td><td>10 PSI / 38 kPa</td><td style="color:var(--red);">Install within 150 mm of generator. Discharge pipe (3/4" copper) to floor drain only. NEVER to steam room.</td></tr>
+          <tr><td style="font-weight:700;">PRV Discharge Pipe</td><td>Copper</td><td>3/4"</td><td>From PRV to floor drain. Continuous gravity slope. No uphill sections.</td></tr>
+          <tr><td style="font-weight:700;">Tank Drain Pipe + Ball Valve</td><td>Copper + brass ball valve</td><td>3/4"</td><td>From 3/4" tank drain port to gravity floor drain. Install 3/4" NPT nipple + ball valve + union.</td></tr>
+          <tr><td style="font-weight:700;">100% Silicone Caulk (neutral cure)</td><td>Food-grade / NSF rated</td><td>—</td><td>Seal ALL pipe and conduit penetrations through steam room walls and floor. No gaps permitted.</td></tr>
+          <tr><td style="font-weight:700;">Pipe Thread Compound (&gt;212°F rated)</td><td>Suitable for drinking water</td><td>—</td><td>For all NPT threaded connections on generator ports. Not standard PTFE tape alone.</td></tr>
+          <tr><td style="font-weight:700;">Pipe Clips / Hangers</td><td>Copper or SS316</td><td>1/2" &amp; 3/4"</td><td>Support steam and drain lines. Maximum 1.0 m spacing. Maintain slope at all support points.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">4.3 &nbsp;Electrical Materials</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Item</th><th>Rating / Specification</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;">Power Cable — 3-Phase Supply to SG-01</td><td>4C × 4 mm² Cu (min.), 75°C rated, 600V~</td><td>L1, L2, L3, E. Copper ONLY — no aluminium wire permitted by Amerec.</td></tr>
+          <tr><td style="font-weight:700;color:var(--steam-l);">Dedicated MCB in DB</td><td>4-pole 30A (3P+N), 400-415V~N3</td><td>AK14 at 415V~N3 = 19A FLA → 30A breaker. Dedicated circuit — no shared loads. Label: "SG-01 Steam Generator AK14".</td></tr>
+          <tr><td style="font-weight:700;">RCD / Earth Leakage Protection</td><td>30 mA sensitivity, 4-pole</td><td>Not required by ETL listing but recommended by local codes for wet area. Note: RCD may nuisance-trip as heating elements age.</td></tr>
+          <tr><td style="font-weight:700;">Earth Wire</td><td>6 mm² green/yellow Cu</td><td>To main earth bar. All Amerec generators require dedicated electrical earth.</td></tr>
+          <tr><td style="font-weight:700;">Power Cable Conduit</td><td>25 mm GI rigid conduit</td><td>For exposed cable runs. Use appropriate conduit fittings at generator entry point.</td></tr>
+          <tr><td style="font-weight:700;color:var(--steam-l);">K3 Control Cable (low voltage)</td><td>2C × 0.75 mm² (or per K3 manual spec)</td><td>From K3 keypad in steam room to generator control terminals. Low voltage — keep in separate conduit from 415V power.</td></tr>
+          <tr><td style="font-weight:700;">K3 Control Cable Conduit</td><td>16 mm PVC or GI conduit</td><td>For control cable in steam room wall. Seal conduit entry with 100% silicone at steam room wall.</td></tr>
+          <tr><td style="font-weight:700;">Terminal Labels</td><td>Heat-shrink labels</td><td>Label L1, L2, L3, E at both DB terminals and generator terminals.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">4.4 &nbsp;Water Quality Requirements for Steam Generator Feed</div>
+      <p class="body">Jeddah municipal water is generally hard. Before first start-up, the water supply to SG-01 must be tested and compared against Amerec's required range. If not within specification, an inline water softener or de-scaler must be installed upstream of the generator.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Parameter</th><th>Amerec Required Range</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;">Water Hardness</td><td>10 – 30 ppm (0.5 – 1.75 gpg)</td><td style="color:var(--red);">High calcium causes scale on heating elements and probes. Most critical parameter in Jeddah.</td></tr>
+          <tr><td style="font-weight:700;">Total Alkalinity</td><td>150 – 700 ppm (8.75 – 40.8 gpg)</td><td>Low alkalinity can cause foaming, which affects water level sensors and controller accuracy.</td></tr>
+          <tr><td style="font-weight:700;">Silica</td><td>15 – 25 ppm (1.28 – 1.45 gpg)</td><td>Higher silica causes hard scale deposits on tank and elements.</td></tr>
+          <tr><td style="font-weight:700;">pH</td><td>10.5 – 11.5</td><td>Must be within range to prevent foaming and scale formation inside tank.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>If Jeddah municipal water hardness exceeds 30 ppm, install an inline water softener or de-scaler on the cold water feed line to the generator. Calcium scale build-up on heating elements is the most common cause of AK14 element failure in the Middle East. This is NOT covered by Amerec warranty if water quality was not properly managed.</div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section id="sec5">
+      <div class="sec-h1">5. &nbsp;HEALTH, SAFETY &amp; ENVIRONMENT</div>
+
+      <div class="sec-h2">5.1 &nbsp;Key Hazards &amp; Controls</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:17%;">Hazard</th><th style="width:43%;">Risk</th><th>Control Measure</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;color:var(--red);">Steam — 100°C Saturated Steam</td>
+            <td>Severe scalding burns. Steam head, 1/2" copper steam pipe, and PRV discharge are all severe burn hazards during and after operation.</td>
+            <td>Never touch the steam head or steam pipe during or after operation. Min. 300 mm safe zone around steam outlet. PRV discharge must terminate at floor drain, never into steam room.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--red);">Electrical — 415V 3-Phase</td>
+            <td>Electrocution. Reconfiguring the terminal block jumper inside the generator requires the panel cover to be opened.</td>
+            <td>LOTO at DB before opening generator panel. Licensed electrician only. Test zero volts with multimeter before touching any terminals inside generator.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--red);">PRV Discharge — 10 PSI Steam</td>
+            <td>PRV discharge of 100°C steam/water at 10 PSI can cause severe burns to anyone nearby.</td>
+            <td>Pipe PRV discharge via 3/4" copper to floor drain in mechanical room. Never direct PRV into steam room. Never stand over PRV discharge point.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--amber);">Hot Water Scalding — Tank Drain</td>
+            <td>Tank drain water may be up to 100°C if drained immediately after operation.</td>
+            <td>Allow generator to cool minimum 30 minutes after use before draining tank for maintenance. Warn all maintenance personnel.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--amber);">Wet Area / Slip Hazard</td>
+            <td>Steam room floors become very wet and slippery during installation and operation testing.</td>
+            <td>Non-slip safety footwear inside steam room. Post CAUTION — WET FLOOR sign during installation and commissioning.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--amber);">Hot Copper Steam Pipe</td>
+            <td>The 1/2" copper steam line reaches very high temperatures during normal operation.</td>
+            <td>Insulate exposed steam pipe where accessible to occupants per IEC 60364-7-703. Post DO NOT TOUCH warning near steam pipe where accessible.</td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">5.2 &nbsp;PPE &amp; LOTO Requirements</div>
+      <p class="body">All personnel in the installation area: safety helmet, safety shoes, high-visibility vest, chemical gloves, safety glasses. Inside steam room during installation: non-slip safety footwear, eye protection (steam/moisture). Electrician during terminal block reconfiguration: insulated gloves (CAT III minimum), face shield. LOTO procedure: switch OFF the SG-01 dedicated MCB at DB, apply personal lock and tag, test zero volts at generator terminals with calibrated multimeter, then proceed.</p>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section id="sec6">
+      <div class="sec-h1">6. &nbsp;INSTALLATION PROCEDURE</div>
+
+      <div class="sec-h2">6.1 &nbsp;Pre-Installation Activities</div>
+      <div class="sec-h3">6.1.1 &nbsp;Material Inspection</div>
+      <ol class="step-list">
+        <li>Inspect SG-01 (Amerec AK14) and K3 controller upon delivery. Check for shipping damage: dents to generator body, damage to the 3/8" water inlet valve, bent 1/2" steam outlet nipple, or cracked K3 keypad face. Photograph any damage.</li>
+        <li>Verify nameplate data: Model AK14, Serial/Code 10413683318, 14 kW, 400-415V. Submit MIR for SG-01 and K3 controller. Obtain consultant approval in writing before any installation begins.</li>
+        <li>Confirm the 10 PSI Pressure Relief Valve (PRV) is included in the delivery package. This is factory-supplied with the AK14 and must not be substituted with any other valve.</li>
+        <li>Confirm the Amerec AK IOM (Doc. 4211-1552) and K3 Owner's Manual (Doc. 4209-42) are physically present on site. These are required throughout the installation.</li>
+        <li>Test the cold water supply pressure at the generator installation point: must be within 20–100 PSI (138–690 kPa). If below 20 PSI, install a booster pump. If above 100 PSI, install a pressure reducing valve upstream.</li>
+        <li>Submit a water quality test from the cold water supply to SG-01. Compare hardness, pH, alkalinity, and silica against the Amerec requirements in Section 4.4. If water hardness exceeds 30 ppm, install an inline water softener or de-scaler before proceeding.</li>
+      </ol>
+
+      <div class="sec-h2">6.2 &nbsp;Generator Mounting</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>The generator MUST be perfectly level — front-to-back and side-to-side. A generator that is not level will not fill or drain correctly and will not operate properly. Confirm with a spirit level. The arrows on the top of the generator must point straight up.</div>
+      <ol class="step-list">
+        <li>Confirm the installation location per drawing SB-ASB-SD-ME-008-R1. The location must be: indoor only, protected from freezing, dry and well-ventilated, minimum 0.2 m³ (7 cu ft) space around the generator, with 330 mm service clearance on the element access side, and steam line run to steam room less than 6 m (3 m preferred).</li>
+        <li>For WALL MOUNTING: locate and mark two solid wall studs at 368 mm (14.5") centres. Drill pilot holes and install the two #10 × 38 mm (1.5") wall screws (supplied by Amerec) into solid studs or rated wall backing. Verify the wall can support the generator weight.</li>
+        <li>Carefully hang the generator on the two mounting screws. Tighten screws securely. Verify the generator is level using a spirit level — check front-to-back AND side-to-side. The arrows on the top of the unit must point vertically upward.</li>
+        <li>For FLOOR MOUNTING (if applicable per drawing): place the generator on a level surface and secure against movement. The unit must still be confirmed level on both axes before any piping is connected.</li>
+        <li>Do not connect any piping or electrical connections until the generator is confirmed level and securely mounted.</li>
+      </ol>
+
+      <div class="sec-h2">6.3 &nbsp;Cold Water Supply Connection</div>
+      <ol class="step-list">
+        <li>Flush the building cold water supply line thoroughly before making the final connection to the generator. This removes installation debris that would foul the generator's internal water valve and water level probe.</li>
+        <li>Install the 3/8" isolation ball valve (cold water rated) on the supply line close to the generator. This serves as the emergency shut-off and service valve. It must be in an accessible, clearly visible location.</li>
+        <li>Install an optional 3/8" inline filter/strainer on the supply line upstream of the isolation valve. This is strongly recommended given Jeddah water quality.</li>
+        <li>Install a 3/8" NPT male adapter and union at the generator water inlet valve connection. The union allows the generator to be disconnected for servicing without cutting pipes.</li>
+        <li>Make the final connection of the 3/8" copper supply line to the generator water inlet valve. Use pipe thread compound rated for drinking water service above 212°F (100°C) on all NPT connections at the generator. Do not rely on PTFE tape alone for the generator port connections.</li>
+        <li>Do NOT open the cold water isolation valve until all plumbing is complete and checked.</li>
+      </ol>
+
+      <div class="sec-h2">6.4 &nbsp;Steam Line Installation</div>
+      <div class="note note-warn"><span class="tag">CRITICAL — STEAM LINE RULES (Amerec IOM):</span>These rules are mandatory. Violating them causes equipment damage or injury. (1) NO valves, shut-offs, or restrictions of any kind in the steam line — EVER. (2) NO interconnection of steam lines between separate generators. (3) NO dips or valleys in the steam line — condensation will collect and cause spitting of hot water from the steam head. (4) Steam line must slope continuously so condensation drains back to the generator or forward to the steam room — no level horizontal runs. (5) The PRV discharge must NEVER be connected to the steam line.</div>
+      <ol class="step-list">
+        <li>Install a 1/2" NPT male sweat adapter directly into the generator steam outlet (top of tank). Follow immediately with a 1/2" union — this is for service disconnection only and must never be used as a valve.</li>
+        <li>Run the 1/2" hard-drawn copper steam line from the generator union to the steam room wall penetration. The line must slope continuously — either back toward the generator or forward toward the steam room — with no dips, valleys, or level horizontal sections. A slope of approximately 5–10 mm per metre is sufficient.</li>
+        <li>Support the steam line with copper or stainless clips at maximum 1.0 m intervals. Verify the slope is maintained at every support point.</li>
+        <li>Keep the steam line as short as possible. Preferred maximum: 3 m (10 ft). Absolute maximum: 6 m (20 ft). Steam lines over 6 m must be insulated to prevent excessive condensation.</li>
+        <li>Minimize elbows and bends. Where bends are unavoidable, maintain the continuous slope on both sides of the bend.</li>
+        <li>At the steam room wall: drill a 35 mm (1-3/8") diameter hole at the steam head location. Centre the 1/2" copper pipe in this hole.</li>
+        <li>The steam line must enter the steam room at 460 mm (18") above the finished floor level. For rooms with a bench or ledge, minimum 305 mm (12") above the bench rim. The pipe must protrude 9.5 mm (3/8") from the finished wall surface inside the steam room.</li>
+        <li>Install a 1/2" NPT male adapter at the termination point inside the steam room. Fill the gap between the copper pipe and the 35 mm wall hole completely with 100% neutral-cure silicone caulk. This seal is critical — any steam escaping into the wall cavity will cause severe structural damage over time.</li>
+      </ol>
+      <div class="note note-info"><span class="tag">NOTE:</span>For the AK14 (14 kW), the Amerec manual recommends installing TWO steam heads to distribute steam more evenly in larger rooms and reduce noise during operation. Confirm with the consultant/client whether two steam heads are specified before closing out the steam line installation.</div>
+
+      <div class="sec-h2">6.5 &nbsp;Steam Head Installation</div>
+      <ol class="step-list">
+        <li>Apply 100% silicone caulk to the back (wall side) of the steam head insulator plate.</li>
+        <li>Slide the insulator plate over the 1/2" NPT male adapter stub protruding from the wall and press firmly against the finished wall surface.</li>
+        <li>Thread the steam head onto the 1/2" NPT stub. Hand-tighten until the steam head outlet opening faces DOWNWARD. If hand-tight does not achieve the downward orientation, apply Teflon tape to the thread to make fine adjustments. The steam outlet MUST face downward to direct steam toward the floor and disperse it throughout the room.</li>
+        <li>Tighten the hex-head retaining screw underneath the steam head with the Allen wrench provided to secure the head in position.</li>
+        <li>Verify the steam head position meets all clearance requirements: minimum 150 mm (6") from any adjacent second steam head; minimum 305 mm (12") from any side wall; minimum 150 mm (6") from any bench or seating surface.</li>
+        <li>Seal all fixture holes in the steam room walls (steam head, K3 conduit entry) with 100% silicone caulk — no gaps. Steam moisture entering wall cavities causes rot and mould behind the tile finish.</li>
+      </ol>
+
+      <div class="sec-h2">6.6 &nbsp;Pressure Relief Valve (PRV) Installation</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>The PRV discharge must NEVER be directed into the steam room. It must NEVER be connected to the steam line. The PRV discharges at 10 PSI with 100°C steam/water — anyone in the steam room at the time would sustain severe burns.</div>
+      <ol class="step-list">
+        <li>Install the supplied 10 PSI (38 kPa) pressure relief valve into its designated port on the AK14 generator tank. The PRV must be installed within 150 mm of the generator body. Use thread compound on the NPT threads.</li>
+        <li>Run a 3/4" copper pipe from the PRV outlet to the floor drain in the generator room (pump room / mechanical space). This pipe must slope continuously downward to the drain with no uphill sections or dips.</li>
+        <li>The PRV discharge pipe must not route back through the steam room. It must terminate freely above a floor drain in the mechanical room where the discharge can flow safely away.</li>
+      </ol>
+
+      <div class="sec-h2">6.7 &nbsp;Tank Drain Installation</div>
+      <ol class="step-list">
+        <li>Install a 3/4" NPT nipple directly into the tank drain port on the bottom of the generator.</li>
+        <li>Install a 3/4" brass ball valve on the nipple. This is the manual drain valve for tank cleaning and descaling maintenance. The valve must be accessible in the installed position.</li>
+        <li>Install a union after the ball valve to allow easy generator disconnection during maintenance.</li>
+        <li>Run a 3/4" copper line from the union to the nearest floor drain. All drain lines must run continuously downhill. No uphill sections at any point. Do NOT drain into the steam room.</li>
+      </ol>
+
+      <div class="sec-h2">6.8 &nbsp;Electrical Connections</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>LOTO at DB before any electrical work inside the generator. Licensed electrician only. 75°C minimum copper wire is mandatory — Amerec warranty is voided by aluminium wire. The 3-phase jumper reconfiguration (Section 6.8.2) is CRITICAL and must be performed before energizing the unit.</div>
+
+      <div class="sec-h3">6.8.1 &nbsp;Power Supply Wiring</div>
+      <ol class="step-list">
+        <li>Run 4C × 4 mm² (minimum) 75°C-rated copper cable in 25 mm GI conduit from the dedicated 30A 4-pole MCB at the DB to the generator location. Leave 1.2 m (4 ft) of slack at the generator end for termination.</li>
+        <li>At the DB: install a dedicated 30A 4-pole MCB (3P+N) and 30 mA RCD (if required by local authority). Label clearly: "SG-01 — Steam Generator AK14". No other loads may share this circuit.</li>
+        <li>Route the supply cable through the POWER ENTRY knockout on the generator enclosure. Install an approved strain relief gland at the entry point.</li>
+      </ol>
+
+      <div class="sec-h3">6.8.2 &nbsp;3-Phase Reconfiguration (CRITICAL — Factory Is Single-Phase)</div>
+      <div class="note note-warn"><span class="tag">CRITICAL:</span>Before connecting power, perform the 3-phase reconfiguration. The AK14 leaves the factory configured for single-phase. Energizing a single-phase configured unit on a 3-phase 415V supply WILL damage the unit. This step is mandatory.</div>
+      <ol class="step-list">
+        <li>With LOTO applied at DB: open the generator electrical panel cover. Locate the power terminal block. Identify the factory jumper that configures single-phase operation.</li>
+        <li>Reposition the internal jumper from the single-phase position to the 3-phase 400-415V~N3 position per the wiring diagram on pages 18-19 of the Amerec AK IOM (Doc. 4211-1552). Do NOT alter any other internal wiring. Have the licensed electrician sign the commissioning record confirming this step was completed.</li>
+        <li>Connect supply wires to the power terminal block: L1, L2, L3 per the 3-phase wiring diagram. Connect Earth wire to the copper Earth ground lug inside the generator.</li>
+        <li>Cover the supply wires inside the generator with the protective mesh cable sleeve (if supplied) to protect the cables from the water valve heating element.</li>
+        <li>Perform insulation resistance test before energizing: minimum 1 MΩ between each phase and earth at 500V DC Megger. Record all three readings: L1-E, L2-E, L3-E.</li>
+        <li>Verify phase sequence at the generator terminals before energizing.</li>
+      </ol>
+
+      <div class="sec-h2">6.9 &nbsp;K3 Controller Installation</div>
+      <ol class="step-list">
+        <li>Select the K3 keypad mounting location inside the steam room. For the standard K3 (without a built-in temperature sensor), an external temperature sensor probe must be placed inside the steam room at the specified height — confirm per the K3 manual.</li>
+        <li>Mount the K3 keypad at a comfortable height on the steam room wall: typically 1200–1400 mm above the finished floor. Position away from direct steam head spray and condensation drip zones.</li>
+        <li>Run the low-voltage K3 control cable (2C × 0.75 mm² or as specified in the K3 Owner's Manual) from the K3 keypad location through a 16 mm conduit — in a separate conduit from the 415V power cable — to the generator control terminal block.</li>
+        <li>Connect the K3 control cable to the designated control terminals in the generator per the K3 wiring diagram in the K3 Owner's Manual (Doc. 4209-42). Do not apply any external power supply to the control terminals.</li>
+        <li>Seal the control conduit entry at the steam room wall with 100% silicone caulk to prevent steam and moisture from travelling back through the conduit to the electrical connections.</li>
+        <li>Post the Amerec safety warning label on the outside of the steam room door or on the adjacent wall. Photograph the posted label for the QC record.</li>
+      </ol>
+
+      <div class="sec-h2">6.10 &nbsp;Pre-Start Checks</div>
+      <ol class="step-list">
+        <li>Confirm all plumbing connections are complete: no visible leaks, all copper joints silver-soldered or correctly compression-fitted, all silicone seals at wall penetrations fully cured.</li>
+        <li>Confirm steam line has continuous slope throughout, no dips or valleys, and absolutely no valves or restrictions anywhere between the generator steam outlet and the steam head.</li>
+        <li>Confirm the PRV is installed and its discharge pipe runs continuously downhill to the floor drain without routing through the steam room.</li>
+        <li>Confirm the tank drain ball valve is in the CLOSED position before filling.</li>
+        <li>Slowly open the 3/8" cold water supply isolation valve to fill the generator tank. The tank fills automatically via the internal water valve. Listen for water flowing in, then stopping when the tank is full (typically 1–2 minutes).</li>
+        <li>Inspect all water connections for leaks with supply on. Check: 3/8" supply union, PRV connection, and tank drain ball valve. No leaks or drips permitted before proceeding to start-up.</li>
+        <li>Confirm electrical insulation resistance test passed (recorded readings ≥ 1 MΩ each phase) and 3-phase reconfiguration is confirmed by licensed electrician.</li>
+        <li>Confirm K3 controller is wired and the keypad is mounted securely in the steam room.</li>
+      </ol>
+
+      <div class="sec-h2">6.11 &nbsp;First Start-Up</div>
+      <div class="note note-caut"><span class="tag">CAUTION:</span>The first start-up must be attended by the IHCC Sr. Mechanical Engineer and the licensed electrician. The steam room door must remain closed during the functional test. Have a calibrated thermometer available inside the steam room.</div>
+      <ol class="step-list">
+        <li>Confirm water supply to the generator is ON and tank is full (per Section 6.10, Steps 5-6).</li>
+        <li>Energize the dedicated MCB at the DB. The K3 controller display should power on and show default settings.</li>
+        <li>On the K3 keypad, press ON/OFF to activate the steam generator. The unit will begin heating the water in the tank.</li>
+        <li>The generator will take 10–20 minutes to reach operating temperature and begin producing steam. During this time, monitor: any leaks from the tank, PRV, or water supply; any electrical fault codes on the K3 display; any unusual hissing noise from a pipe connection.</li>
+        <li>Set the desired temperature setpoint on the K3 controller per the K3 manual. Typical steam room temperature: 40–50°C. Set the session time as required by the client.</li>
+        <li>When steam begins flowing from the steam head, close the steam room door and allow the room to fill. Verify steam is flowing from all steam heads if two are installed.</li>
+        <li>After 20–30 minutes of operation, verify room temperature is rising toward the setpoint using the calibrated thermometer inside the steam room. Record the temperature at 20 minutes and 30 minutes.</li>
+        <li>Test the auto shut-off: confirm the unit shuts off automatically at the set session time. K3 default is 30 minutes.</li>
+        <li>Measure running current on all 3 phases using a clamp ammeter at the MCB or generator terminals. Maximum allowable: 19A per phase at 415V~N3. Record L1, L2, L3 readings.</li>
+        <li>After successful first start-up, complete all commissioning records in Section 8 and obtain IHCC Sr. ME signature.</li>
+      </ol>
+    </section>
+
+    <!-- SECTION 7 -->
+    <section id="sec7">
+      <div class="sec-h1">7. &nbsp;QUALITY CONTROL CHECKLIST</div>
+
+      <div class="sec-h2">7.1 &nbsp;Pre-Installation Checks</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Check Item</th><th style="text-align:center;width:60px;">✓</th><th style="width:120px;">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>SG-01 nameplate verified: Model AK14, Serial 10413683318, 14 kW, 400-415V</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">2</td><td>K3 controller inspected — no damage to keypad, display, or cable connector</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>10 PSI pressure relief valve (PRV) included in delivery package</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">4</td><td>Amerec AK IOM (4211-1552) and K3 manual (4209-42) physically present on site</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">5</td><td>MIR submitted and approved by consultant for SG-01 and K3 controller</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">6</td><td>Water supply pressure tested at generator location: within 20–100 PSI (138–690 kPa)</td><td class="chk">☐</td><td class="rec">___ PSI</td></tr>
+          <tr><td class="num">7</td><td>Water quality test completed — hardness, pH, alkalinity, silica within Amerec specification (Section 4.4)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">8</td><td>Installation space confirmed: min. 0.2 m³ enclosure, 330 mm service clearance on element access side</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">7.2 &nbsp;Mechanical / Plumbing Installation Checks</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Check Item</th><th style="text-align:center;width:60px;">✓</th><th style="width:120px;">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Generator mounted level: front-back AND side-to-side (spirit level confirmed — arrows pointing straight up)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">2</td><td>Generator mounted securely: wall screws in solid studs or equivalent rated backing; no wobble</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>Cold water supply line flushed before final connection to generator</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">4</td><td>3/8" isolation ball valve installed on cold water supply line — accessible and clearly visible</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">5</td><td>3/8" union installed at generator water inlet for service disconnection</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">6</td><td>Water supply connected with pipe thread compound rated above 100°C (not PTFE tape alone)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">7</td><td>STEAM LINE: 1/2" hard-drawn copper ONLY — no plastic, no PEX, no flexible pipe permitted</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">8</td><td>STEAM LINE: No valves, shut-offs, or restrictions anywhere in steam line from generator to steam head</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">9</td><td>STEAM LINE: Continuous slope maintained throughout — no dips or valleys anywhere</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">10</td><td>STEAM LINE: Total length less than 6 m (generator to steam head)</td><td class="chk">☐</td><td class="rec">___ m</td></tr>
+          <tr><td class="num">11</td><td>35 mm (1-3/8") hole drilled in steam room wall for steam line entry</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">12</td><td>Steam line protrudes 9.5 mm (3/8") from finished steam room wall surface</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">13</td><td>Steam head installed: outlet opening facing DOWNWARD</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">14</td><td>Steam head height: 460 mm (18") minimum above finished floor level</td><td class="chk">☐</td><td class="rec">___ mm</td></tr>
+          <tr><td class="num">15</td><td>Steam head: minimum 305 mm (12") from any bench or seating surface</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">16</td><td>All wall penetrations sealed with 100% neutral-cure silicone caulk — no gaps anywhere</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">17</td><td>PRV (10 PSI) installed within 150 mm of generator tank on correct port</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">18</td><td>PRV discharge piped in 3/4" copper to floor drain — NOT into steam room, NOT into steam line</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">19</td><td>Tank drain: 3/4" ball valve + union, piped to floor drain with continuous downward slope</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">20</td><td>No drain or PRV lines run uphill at any point</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">7.3 &nbsp;Electrical Checks</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Check Item</th><th style="text-align:center;width:60px;">✓</th><th style="width:120px;">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>LOTO confirmed at DB before any electrical work inside generator</td><td class="chk">☐</td><td class="rec">Confirmed</td></tr>
+          <tr><td class="num">2</td><td>Dedicated 30A 4-pole MCB installed at DB, labeled "SG-01 Steam Generator AK14"</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>30 mA RCD installed on SG-01 circuit (if required by local authority)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">4</td><td>Cable: 75°C rated COPPER wire — no aluminium wire used</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">5</td><td>Minimum 4 mm² Cu 4-core cable used for power supply</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">6</td><td>Strain relief gland installed at generator power entry knockout</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">7</td><td style="color:var(--red);font-weight:700;">CRITICAL: Internal jumper reconfigured from single-phase to 3-phase per AK IOM pages 18-19</td><td class="chk">☐</td><td class="rec" style="color:var(--red);">Confirmed</td></tr>
+          <tr><td class="num">8</td><td>L1, L2, L3 connected to terminal block per 3-phase wiring diagram</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">9</td><td>Earth wire connected to copper Earth ground lug inside generator</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">10</td><td>Supply cables protected with mesh sleeve inside generator (over water valve area)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">11</td><td>K3 control cable in separate conduit from 415V power cable</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">12</td><td>K3 control cable connected to correct control terminals in generator per K3 manual</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">13</td><td>K3 control conduit entry into steam room sealed with 100% silicone caulk</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">14</td><td>Insulation resistance test: minimum 1 MΩ per phase to earth at 500V Megger</td><td class="chk">☐</td><td class="rec">L1-E: ___MΩ<br>L2-E: ___MΩ<br>L3-E: ___MΩ</td></tr>
+          <tr><td class="num">15</td><td>Phase sequence verified at generator terminals before energizing</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">16</td><td>Supply voltage measured at generator terminals (MCB ON, generator OFF): 400-415V L-L</td><td class="chk">☐</td><td class="rec">L1-L2: ___V<br>L2-L3: ___V<br>L1-L3: ___V</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">7.4 &nbsp;Commissioning Checks</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Check Item</th><th style="text-align:center;width:60px;">✓</th><th style="width:120px;">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Water supply isolation valve opened — generator tank filled with water</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">2</td><td>No leaks at any water connection under supply pressure (3/8" supply, PRV, tank drain valve)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>Generator started via K3 controller — no error codes in first 10 minutes</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">4</td><td>Steam produced from steam head within 10-20 minutes of start</td><td class="chk">☐</td><td class="rec">___min</td></tr>
+          <tr><td class="num">5</td><td>Steam room door closed during operation — steam contained in room</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">6</td><td>Room temperature at 20 minutes and 30 minutes recorded (calibrated thermometer)</td><td class="chk">☐</td><td class="rec">20min: ___°C<br>30min: ___°C</td></tr>
+          <tr><td class="num">7</td><td>Auto shut-off confirmed at set session time (K3 turns off automatically)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">8</td><td>Running current measured on all 3 phases at steady-state operation — maximum 19A per phase</td><td class="chk">☐</td><td class="rec">L1: ___A<br>L2: ___A<br>L3: ___A</td></tr>
+          <tr><td class="num">9</td><td>Amerec safety warning label posted outside steam room door or adjacent wall — photographed</td><td class="chk">☐</td><td class="rec">Confirmed</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 8 -->
+    <section id="sec8">
+      <div class="sec-h1">8. &nbsp;TESTING &amp; COMMISSIONING RECORDS</div>
+
+      <div class="sec-h2">8.1 &nbsp;Plumbing Leak Test</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th style="width:40%;">Test / Activity</th><th style="width:30%;">Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Open cold water supply isolation valve to generator. Allow tank to fill. Inspect all connections: 3/8" supply union, PRV connection, tank drain ball valve.</td><td>No leaks at any connection under supply pressure. Zero drips or moisture on fittings.</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">2</td><td>Inspect steam line union connections and steam head NPT connection after tank fill (with system pressurized).</td><td>No leaks at steam line unions or steam head NPT thread.</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">8.2 &nbsp;Electrical Tests</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th style="width:40%;">Test / Activity</th><th style="width:30%;">Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Insulation resistance test at 500V DC Megger: L1-E, L2-E, L3-E.</td><td>Minimum 1.0 MΩ per reading. Record all three values.</td><td class="rec">L1-E: ___MΩ<br>L2-E: ___MΩ<br>L3-E: ___MΩ</td></tr>
+          <tr><td class="num">2</td><td>Phase sequence verification at generator power terminals.</td><td>Correct phase rotation confirmed before energizing.</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>Supply voltage measurement at generator terminals (MCB ON, generator OFF).</td><td>L1-L2, L2-L3, L1-L3 all reading 400–415V.</td><td class="rec">L1-L2: ___V<br>L2-L3: ___V<br>L1-L3: ___V</td></tr>
+          <tr><td class="num">4</td><td>Verify 3-phase reconfiguration is complete (jumper repositioned per AK IOM page 18-19). Confirmed by licensed electrician signature.</td><td>Confirmed by licensed electrician in writing on commissioning record.</td><td class="rec">Electrician Sign &amp; Date</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">8.3 &nbsp;Functional Performance Tests</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th style="width:40%;">Test / Activity</th><th style="width:30%;">Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Start generator via K3 controller. Time from start to first visible steam at steam head.</td><td>First steam produced within 10–20 minutes. No fault codes on K3 display during first 30 min.</td><td class="rec">Time to steam: ___min<br>Fault codes: None</td></tr>
+          <tr><td class="num">2</td><td>Measure running current on all 3 phases at steady-state operation (30 min after start).</td><td>Maximum 19 A per phase at 415V~N3.</td><td class="rec">L1: ___A<br>L2: ___A<br>L3: ___A</td></tr>
+          <tr><td class="num">3</td><td>Measure steam room temperature at 20 minutes and 30 minutes of continuous operation using calibrated thermometer inside steam room.</td><td>Room temperature visibly rising and trending toward setpoint by 30 min.</td><td class="rec">20min: ___°C<br>30min: ___°C<br>Setpoint: ___°C</td></tr>
+          <tr><td class="num">4</td><td>Test K3 auto shut-off: allow timer to reach the set session time without manual intervention.</td><td>Generator turns off automatically at set session time. K3 display returns to standby state.</td><td class="rec">Pass / Fail<br>Set time: ___min</td></tr>
+          <tr><td class="num">5</td><td>Test K3 manual ON/OFF while generator is running.</td><td>Generator stops immediately when K3 ON/OFF is pressed during active operation.</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">6</td><td>Inspect steam line for condensate during operation.</td><td>No dripping from steam line along its run. Some condensate drip from steam head initial start-up is normal; check slope if persistent dripping occurs.</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 9 -->
+    <section id="sec9">
+      <div class="sec-h1">9. &nbsp;DOCUMENTATION &amp; HANDOVER</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Document</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Approved Method Statement MS-STEAM-SPA-06 (this document)</td><td>Signed IHCC &amp; Consultant approval</td></tr>
+          <tr><td class="num">2</td><td>MIR for SG-01 (Amerec AK14) and K3 Controller</td><td>Separate MIR per item. Consultant approval required before installation.</td></tr>
+          <tr><td class="num">3</td><td>Water Quality Test Report (pre-commissioning)</td><td>Hardness, pH, alkalinity, silica within Amerec specification. Signed by ME.</td></tr>
+          <tr><td class="num">4</td><td>QC Checklist Section 7 (Pre-Installation, Plumbing, Electrical, Commissioning)</td><td>Signed by Site Engineer &amp; QA/QC Engineer</td></tr>
+          <tr><td class="num">5</td><td>Electrical Insulation Resistance Test Report</td><td>L1-E, L2-E, L3-E readings recorded. Signed by Licensed Electrician with 3-phase reconfiguration confirmation.</td></tr>
+          <tr><td class="num">6</td><td>Commissioning Performance Data Sheet (Section 8.3)</td><td>Time to steam, running currents, room temperatures, auto shut-off test. Signed by IHCC Sr. ME.</td></tr>
+          <tr><td class="num">7</td><td>Work Inspection Request (WIR) — Consultant Approval</td><td style="color:var(--red);">Submit before any concealment of pipework or conduit.</td></tr>
+          <tr><td class="num">8</td><td>As-Built Drawing (if any deviation from SB-ASB-SD-ME-008-R1)</td><td>Approved by IHCC Sr. Mechanical Engineer</td></tr>
+          <tr><td class="num">9</td><td>Amerec AK14 IOM (Doc. 4211-1552) — original</td><td>For handover O&amp;M package</td></tr>
+          <tr><td class="num">10</td><td>Amerec K3 Owner's Manual (Doc. 4209-42)</td><td>For handover O&amp;M package</td></tr>
+          <tr><td class="num">11</td><td>Amerec K3 Controller Data Sheet</td><td>For handover O&amp;M package</td></tr>
+          <tr><td class="num">12</td><td>Warranty Document for SG-01</td><td>Note: Warranty is voided if aluminium wire used or if unit is not earthed.</td></tr>
+          <tr><td class="num">13</td><td>Amerec Safety Warning Label — photo of label posted outside steam room door</td><td>Photograph for QC records</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SIGNATURES -->
+    <section id="signatures">
+      <div class="sec-h1">DOCUMENT APPROVAL &amp; SIGNATURES</div>
+      <p class="body">By signing below, each party confirms they have reviewed this Method Statement. No steam generator installation, plumbing connection, or electrical work may commence until written approval is received from the IHCC Senior Mechanical Engineer.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Role</th><th>Name</th><th>Signature</th><th>Date</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;">Prepared By (Aseeb Contracting Co.)</td><td>Adil Magdy – Mechanical Engineer</td><td style="height:50px;vertical-align:bottom;">&nbsp;</td><td style="height:50px;vertical-align:bottom;">&nbsp;</td></tr>
+          <tr><td style="font-weight:700;">Reviewed By (IHCC)</td><td>Saqib Manzoor – Sr. Mechanical Engineer</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td style="font-weight:700;">Approved By (IHCC – Management)</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td style="font-weight:700;">Consultant Approval (3C Engineering)</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note note-note" style="margin-top:20px;"><span class="tag">NOTE:</span>Prepared by Aseeb Contracting Company. Submitted to IHCC and 3C Engineering for review and approval. Post the Amerec safety warning label on or adjacent to the steam room door before the steam system is operated for the first time.</div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <span>CEO Villa — SPA &amp; Pool Facility &nbsp;|&nbsp; MS-STEAM-SPA-06 &nbsp;|&nbsp; Rev. 00 &nbsp;|&nbsp; IHCC / Aseeb Contracting Co.</span>
+  <a href="#top" class="btn-up"><i class="fa-solid fa-arrow-up"></i></a>
+</footer>
+
+<script>
+const sections=document.querySelectorAll('section[id]');
+const navItems=document.querySelectorAll('.nav-item');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navItems.forEach(n=>n.classList.remove('active'));
+      const a=document.querySelector('.nav-item[href="#'+e.target.id+'"]');
+      if(a)a.classList.add('active');
+    }
+  });
+},{rootMargin:'-60px 0px -60% 0px'});
+sections.forEach(s=>observer.observe(s));
+
+function downloadPDF() {
+  const fn = (location.pathname.split('/').pop() || 'method-statement.html').replace('.html', '.pdf');
+  const css = [
+    'main{background:#fff!important;margin:0!important;margin-top:0!important;padding:20px 24px!important;max-width:100%!important;width:100%!important}',
+    'main *{background-color:transparent!important;color:#1a1a1a!important;box-shadow:none!important;text-shadow:none!important;border-color:#ccc!important}',
+    'main .cover{background:#eef2f7!important;border:2px solid #1a3a5c!important;border-radius:8px!important}',
+    'main .cover::before,main .cover::after{display:none!important}',
+    'main .cover-title{color:#1a3a5c!important;font-size:22px!important}',
+    'main .cover-project{color:#2471a3!important}',
+    'main .cover-ms-label{color:#2471a3!important}',
+    'main .cover-divider{background:#1a3a5c!important;height:2px!important}',
+    'main .cover-meta-label{color:#555!important}',
+    'main .cover-meta-value{color:#111!important}',
+    'main .sec-h1{background:#1a3a5c!important;color:#fff!important;border-radius:4px!important}',
+    'main .sec-h1 *{color:#fff!important}',
+    'main .sec-h2{color:#1a3a5c!important;background:transparent!important;border-left:4px solid #1a3a5c!important}',
+    'main .sec-h3{color:#2471a3!important;background:transparent!important}',
+    'main table{border-collapse:collapse!important}',
+    'main th{background:#1a3a5c!important;color:#fff!important;border:1px solid #999!important}',
+    'main th *{color:#fff!important}',
+    'main td{background:#fff!important;border:1px solid #bbb!important;color:#111!important}',
+    'main tr:nth-child(even) td{background:#f5f7fa!important}',
+    'main .note-warn{border-left:4px solid #c0392b!important;background:#fff8f8!important}',
+    'main .note-warn *{color:#7b241c!important}',
+    'main .note-warn .tag{color:#c0392b!important}',
+    'main .note-note{border-left:4px solid #2471a3!important;background:#f0f8ff!important}',
+    'main .note-note *{color:#1a3a5c!important}',
+    'main .note-caut{border-left:4px solid #d4870a!important;background:#fffaf0!important}',
+    'main .note-caut *{color:#7d5000!important}',
+    'main .bul-list li{background:#f5f7fa!important;border:1px solid #ddd!important}',
+    'main .bul-list li::before{background:#1a3a5c!important}',
+    'main .step-list li{background:#f5f7fa!important;border:1px solid #ddd!important}',
+    'main .step-list li::before{background:#1a3a5c!important;color:#fff!important}',
+    'main p.body,main .body{color:#111!important}',
+  ].join('');
+  const mainEl  = document.querySelector('main');
+  const sidebar = document.querySelector('.sidebar');
+  const hdr     = document.querySelector('header');
+  const ftr     = document.querySelector('footer');
+  const origMainStyle = mainEl.getAttribute('style') || '';
+  const origSidebar   = sidebar ? sidebar.style.display : '';
+  const origHdr       = hdr     ? hdr.style.display     : '';
+  const origFtr       = ftr     ? ftr.style.display     : '';
+  if (sidebar) sidebar.style.display = 'none';
+  if (hdr)     hdr.style.display     = 'none';
+  if (ftr)     ftr.style.display     = 'none';
+  mainEl.setAttribute('style','position:fixed;left:0;top:0;margin:0;padding:20px 24px;width:794px;max-width:794px;background:#fff;display:block;box-sizing:border-box;z-index:99999;');
+  void mainEl.getBoundingClientRect();
+  const style = document.createElement('style');
+  style.id = '__pdf_override__';
+  style.textContent = css;
+  document.head.appendChild(style);
+  setTimeout(() => {
+    html2pdf().set({
+      margin: [10, 10, 10, 10],
+      filename: fn,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, backgroundColor: '#ffffff', windowWidth: 794, logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(mainEl).save().then(() => {
+      mainEl.removeAttribute('style');
+      if (sidebar) sidebar.style.display = origSidebar;
+      if (hdr)     hdr.style.display     = origHdr;
+      if (ftr)     ftr.style.display     = origFtr;
+      const s = document.getElementById('__pdf_override__');
+      if (s) s.remove();
+    });
+  }, 200);
+}
+</script>
+</body>
+</html>

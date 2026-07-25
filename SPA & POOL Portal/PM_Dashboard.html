@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPA & Pool PM Schedules – CEO Villa | IHCC</title>
+<style>
+:root{
+  --bg:    #030C1B;
+  --blue:  #5B8DEA;
+  --blue2: #4472C4;
+  --blue3: #9DC0E8;
+  --gold:  #d6b76c;
+  --gold2: #e2c888;
+  --text:  #EEF3FF;
+  --muted: #7A95BC;
+  --line:  rgba(68,114,196,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  height:100%;overflow:hidden;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);color:var(--text);
+}
+body{
+  background:
+    radial-gradient(circle at 50% 40%,rgba(47,84,150,.22),transparent 38%),
+    linear-gradient(160deg,rgba(2,9,17,.55) 0%,rgba(5,20,40,.55) 55%,rgba(2,9,17,.55) 100%);
+}
+/* Blurred background image */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:url('SPA & POOL PM Schedule Background Image.jpeg') center/cover no-repeat;
+  filter:blur(3px);
+  transform:scale(1.06);
+  pointer-events:none;
+}
+/* Subtle grid overlay */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);
+  background-size:38px 38px;
+}
+
+/* ══ FULL-PAGE SHELL ══ */
+.page{
+  position:relative;z-index:1;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  max-width:1700px;
+  margin:auto;
+}
+
+/* ══ TOP BAR ══ */
+.topbar{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:12px 22px 10px;border-bottom:1px solid var(--line);
+}
+.t-left{display:flex;align-items:center;gap:12px}
+.eyebrow{font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue3)}
+.t-left strong{display:block;font-size:12.5px;margin-top:3px;color:#d8e7ed}
+.t-title{text-align:center}
+.t-title h1{font-size:clamp(14px,1.5vw,24px);font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold)}
+.t-title p{margin-top:3px;font-size:10px;color:var(--muted);letter-spacing:.4px}
+.t-right{display:flex;justify-content:flex-end}
+.btn-nav{
+  display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;
+  border:1px solid rgba(214,183,108,.40);color:var(--gold);text-decoration:none;
+  background:rgba(214,183,108,.06);font-size:12px;font-weight:500;letter-spacing:.3px;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.btn-nav:hover{background:rgba(214,183,108,.18);border-color:rgba(214,183,108,.70);color:#f0d898}
+.btn-nav svg{width:15px;height:15px;flex-shrink:0}
+
+/* ══ SEARCH STRIP ══ */
+.search-strip{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  padding:8px 22px;border-bottom:1px solid rgba(68,114,196,.12);
+  background:rgba(8,29,58,.35);
+}
+.srch-box{position:relative;width:320px}
+.srch-box svg{
+  position:absolute;left:11px;top:50%;transform:translateY(-50%);
+  width:13px;height:13px;color:var(--blue3);pointer-events:none
+}
+.srch-box input{
+  width:100%;height:30px;padding:0 12px 0 30px;
+  border:1px solid rgba(68,114,196,.30);border-radius:20px;
+  background:rgba(68,114,196,.08);color:var(--text);font-size:11px;
+  font-family:inherit;outline:none;
+  transition:border-color .2s,background .2s;
+}
+.srch-box input:focus{border-color:rgba(68,114,196,.65);background:rgba(68,114,196,.14)}
+.srch-box input::placeholder{color:var(--muted)}
+.srch-count{font-size:10px;color:var(--muted);white-space:nowrap;letter-spacing:.3px}
+
+/* ══ CARD GRID ══ */
+.card-grid{
+  flex:1;
+  min-height:0;
+  padding:10px 16px 12px;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  grid-template-rows:repeat(3,1fr);
+  gap:9px;
+}
+
+/* ══ EQUIPMENT CARD ══ */
+.eq-card{
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;gap:5px;
+  background:linear-gradient(135deg,rgba(8,22,54,.25),rgba(3,11,28,.28));
+  border:1px solid rgba(68,114,196,.24);
+  border-bottom:2px solid rgba(214,183,108,.55);
+  border-radius:12px;
+  padding:10px 11px 9px;
+  text-decoration:none;
+  color:var(--text);
+  cursor:pointer;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 6px 20px rgba(0,0,0,.32);
+  transition:transform .22s cubic-bezier(.22,.68,0,1.2),
+             border-color .22s ease,
+             background .22s ease,
+             box-shadow .22s ease;
+  overflow:hidden;
+  position:relative;
+}
+.eq-card::before{
+  content:"";
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(214,183,108,.22),transparent);
+}
+.eq-card:hover{
+  transform:translateY(-3px) scale(1.015);
+  background:linear-gradient(135deg,rgba(14,38,90,.40),rgba(6,20,50,.42));
+  border-color:rgba(91,141,234,.65);
+  border-bottom-color:var(--gold2);
+  box-shadow:0 0 0 1px rgba(68,114,196,.18),
+             0 0 28px rgba(68,114,196,.22),
+             0 14px 30px rgba(0,0,0,.40);
+}
+.eq-card.dimmed{opacity:.10;pointer-events:none;transition:opacity .3s}
+
+/* Icon — centered, larger */
+.eq-icon{
+  width:50px;height:50px;border-radius:14px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(68,114,196,.12);border:1px solid rgba(68,114,196,.28);
+  transition:background .22s,border-color .22s;
+  box-shadow:0 0 16px rgba(68,114,196,.14);
+}
+.eq-card:hover .eq-icon{background:rgba(68,114,196,.26);border-color:rgba(91,141,234,.60)}
+.eq-icon svg{width:24px;height:24px;color:rgba(91,141,234,.70);transition:color .22s}
+.eq-card:hover .eq-icon svg{color:var(--blue3)}
+
+/* Model number */
+.eq-num{
+  font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  color:var(--gold);text-transform:uppercase;line-height:1.2;
+}
+
+/* Card title */
+.eq-card h4{
+  font-size:13.5px;line-height:1.3;margin:0;
+  color:var(--text);font-weight:900;
+  transition:color .22s;
+}
+.eq-card:hover h4{color:#fff}
+
+/* Card bottom: model + status */
+.eq-bottom{display:flex;justify-content:space-between;align-items:center;gap:4px}
+.eq-model{font-size:8.5px;color:var(--muted);letter-spacing:.3px;line-height:1.2}
+.eq-freq{
+  font-size:8px;color:rgba(214,183,108,.75);letter-spacing:.5px;
+  background:rgba(214,183,108,.08);border:1px solid rgba(214,183,108,.18);
+  border-radius:4px;padding:1px 5px;white-space:nowrap;
+}
+.eq-stt{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.eq-stt-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:#73efc6;box-shadow:0 0 7px rgba(115,239,198,.8)
+}
+.eq-stt-txt{font-size:8px;color:#73efc6;letter-spacing:.3px}
+
+/* ══ FOOTER ══ */
+footer{
+  padding:9px 22px;display:flex;justify-content:space-between;align-items:center;
+  border-top:1px solid var(--line);font-size:10px;color:var(--muted);
+  flex-wrap:wrap;gap:6px;
+}
+footer b{color:var(--blue3)}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <div class="topbar">
+      <div class="t-left">
+        <a href="../EVA-CORE.html" class="btn-nav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          Back
+        </a>
+        <div>
+          <div class="eyebrow">IHCC · Jeddah KSA</div>
+          <strong>SPA &amp; Pool Facilities</strong>
+        </div>
+      </div>
+
+      <div class="t-title">
+        <h1>Preventive Maintenance Schedules</h1>
+        <p>CEO Villa &nbsp;·&nbsp; SPA &amp; Pool Pump Room &nbsp;·&nbsp; 18 Equipment Assets &nbsp;·&nbsp; Project Code 10144</p>
+      </div>
+
+      <div class="t-right">
+        <a href="../EVA-CORE.html" class="btn-nav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 11 9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>
+          </svg>
+          Home
+        </a>
+      </div>
+    </div>
+
+    <div class="search-strip">
+      <div class="srch-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search equipment…" autocomplete="off"/>
+      </div>
+      <span class="srch-count" id="searchCount">All 18 equipment shown</span>
+    </div>
+  </header>
+
+  <!-- ══ CARD GRID ══ -->
+  <main class="card-grid">
+
+    <!-- 01 -->
+    <a class="eq-card" href="Sand_Filter_Valve_PM.html" data-name="6-way sand filter valve praher v6 equipment 01">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+          </svg>
+        </div>
+      <div class="eq-num">01 · Praher V6</div>
+      <h4>6-Way Sand Filter Valve</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">3-Mo / Annual</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 02 -->
+    <a class="eq-card" href="Chemical_Dosing_Pump_PM.html" data-name="chemical dosing pumps x030 equipment 02">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 2h4M12 2v6l3 3v7a2 2 0 0 1-4 0v-7l3-3"/>
+            <line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+        </div>
+      <div class="eq-num">02 · X030-XC-AAAA</div>
+      <h4>Chemical Dosing Pumps</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">D / W / 3-Mo</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 03 -->
+    <a class="eq-card" href="Chlorine_Feeder_PM.html" data-name="chlorine feeder hayward cl200 equipment 03">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="7" y="3" width="10" height="18" rx="2"/>
+            <line x1="7" y1="9" x2="17" y2="9"/>
+            <line x1="12" y1="9" x2="12" y2="21"/>
+          </svg>
+        </div>
+      <div class="eq-num">03 · Hayward CL200</div>
+      <h4>Chlorine Feeder</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">D / W / 3-Mo</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 04 -->
+    <a class="eq-card" href="Filtration_Pumps_Outdoor_PM.html" data-name="filtration pumps outdoor pool odp p-wfl-901 equipment 04">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+          </svg>
+        </div>
+      <div class="eq-num">04 · P-WFL-901 ODP</div>
+      <h4>Filtration Pumps Outdoor Pool (ODP)</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">D / 3-Mo / 6-Mo</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 05 -->
+    <a class="eq-card" href="Cold_Plunge_Circulation_Pump_PM.html" data-name="cold plunge circulation pumps p-wfl-801 equipment 05">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+            <path d="M3 3v5h5"/>
+            <line x1="9" y1="12" x2="15" y2="12"/>
+          </svg>
+        </div>
+      <div class="eq-num">05 · P-WFL-801</div>
+      <h4>Cold Plunge Circulation Pumps</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">Checklist</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 06 -->
+    <a class="eq-card" href="Cold_Plunge_Chiller_PM.html" data-name="cold plunge chiller czchcpi103t equipment 06">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="2" x2="12" y2="22"/>
+            <path d="m20 10-8-8-8 8"/>
+            <path d="m20 14-8 8-8-8"/>
+          </svg>
+        </div>
+      <div class="eq-num">06 · CZCHCPI103T</div>
+      <h4>Cold Plunge Chiller</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">Checklist</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 07 -->
+    <a class="eq-card" href="Electric_Water_Heater_18KW_PM.html" data-name="electric water heater 18kw e2-3-18-380 equipment 07">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+      <div class="eq-num">07 · E2-3-18-380</div>
+      <h4>Electric Water Heater 18 KW</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">Checklist</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 08 -->
+    <a class="eq-card" href="Electric_Water_Heater_45KW_PM.html" data-name="electric water heater 45kw sfsd-45-380 equipment 08">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+      <div class="eq-num">08 · SFSD-45-380</div>
+      <h4>Electric Water Heater 45 KW</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">Checklist</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 09 -->
+    <a class="eq-card" href="Filtration_Pumps_Indoor_PM.html" data-name="filtration pumps indoor pool inp sf-n1-1 equipment 09">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+          </svg>
+        </div>
+      <div class="eq-num">09 · SF-N1-1 INP</div>
+      <h4>Filtration Pumps Indoor Pool (INP)</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">D / 3-Mo / 6-Mo</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 10 -->
+    <a class="eq-card" href="Jet_Nozzle_Pump_Indoor_PM.html" data-name="jet nozzle pumps p-wfl-901 3hp equipment 10">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+      <div class="eq-num">10 · P-WFL-901 3HP</div>
+      <h4>Jet Nozzle Pumps</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">Checklist</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 11 -->
+    <a class="eq-card" href="Pool_Feature_Pumps_Outdoor_PM.html" data-name="pool feature pumps outdoor wfl-801 wfl-751 equipment 11">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 15c3-3.5 6-3.5 9 0s6 3.5 9 0"/>
+            <path d="M3 9c3-3.5 6-3.5 9 0s6 3.5 9 0"/>
+          </svg>
+        </div>
+      <div class="eq-num">11 · WFL-801 / WFL-751</div>
+      <h4>Pool Feature Pumps</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">Checklist</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 12 -->
+    <a class="eq-card" href="Sand_Filter_TR140_PM.html" data-name="sand filter tr140 pentair equipment 12">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+          </svg>
+        </div>
+      <div class="eq-num">12 · Pentair TR140</div>
+      <h4>Sand Filter TR140</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">Checklist</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 13 -->
+    <a class="eq-card" href="Sand_Filter_TA40_PM.html" data-name="sand filter ta40 pentair equipment 13">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+          </svg>
+        </div>
+      <div class="eq-num">13 · Pentair TA40</div>
+      <h4>Sand Filter TA40</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">Checklist</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 14 -->
+    <a class="eq-card" href="Steam_Generator_PM.html" data-name="steam generator amerec ak14 equipment 14">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 8a4 4 0 0 1 8 0c0 2-1 3-2 4s-2 2-2 4"/>
+            <line x1="12" y1="19" x2="12" y2="22"/>
+            <line x1="10" y1="22" x2="14" y2="22"/>
+          </svg>
+        </div>
+      <div class="eq-num">14 · Amerec AK14</div>
+      <h4>Steam Generator</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">Checklist</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 15 -->
+    <a class="eq-card" href="Submersible_Pump_PM.html" data-name="submersible pumps pedrollo top 4n equipment 15">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="2" x2="12" y2="16"/>
+            <path d="m8 12 4 4 4-4"/>
+            <path d="M4 20c2-2 4-3 8-3s6 1 8 3"/>
+          </svg>
+        </div>
+      <div class="eq-num">15 · Pedrollo TOP 4N</div>
+      <h4>Submersible Pumps</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">Checklist</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 16 -->
+    <a class="eq-card" href="UV_Lamp_PM.html" data-name="uv lamp elecro hrp-110 equipment 16">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+        </div>
+      <div class="eq-num">16 · Elecro HRP-110</div>
+      <h4>UV Lamp</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">Daily / Annual</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 17 -->
+    <a class="eq-card" href="pH_Controller_PM.html" data-name="ph controller hcc2000 hayward equipment 17">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8M12 17v4"/>
+          </svg>
+        </div>
+      <div class="eq-num">17 · Hayward HCC2000</div>
+      <h4>pH Controller HCC2000</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">D / W / 3-Mo</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+    <!-- 18 -->
+    <a class="eq-card" href="Sauna_Heater_PM.html" data-name="sauna heater zl16.2 ocs sh-01 equipment 18">
+      <div class="eq-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2c0 5.5-5 7.5-5 13a5 5 0 0 0 10 0c0-5.5-5-7.5-5-13z"/>
+            <path d="M12 11c0 3-2 4-2 6a2 2 0 0 0 4 0c0-2-2-3-2-6z"/>
+          </svg>
+        </div>
+      <div class="eq-num">18 · ZL16.2 (SH-01)</div>
+      <h4>Sauna Heater</h4>
+      <div class="eq-bottom">
+        <span class="eq-freq">Mo / Annual</span>
+        <div class="eq-stt"><div class="eq-stt-dot"></div><span class="eq-stt-txt">Available</span></div>
+      </div>
+    </a>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <span><b>IHCC</b> &nbsp;|&nbsp; HANDING OVER DOCUMENTS: SPA &amp; POOL FACILITIES &nbsp;|&nbsp; WE DESIGN &amp; BUILD THE FUTURE</span>
+    <span>Project: CEO Villa &nbsp;·&nbsp; Code 10144 &nbsp;·&nbsp; SPA &amp; Pool Pump Room</span>
+  </footer>
+
+</div>
+
+<script>
+// ── Search → dim non-matching cards
+var input = document.getElementById('searchInput');
+var count = document.getElementById('searchCount');
+var cards = Array.from(document.querySelectorAll('.eq-card[data-name]'));
+
+input.addEventListener('input', function(){
+  var q = this.value.trim().toLowerCase();
+  var vis = 0;
+  cards.forEach(function(c){
+    var match = !q || c.getAttribute('data-name').indexOf(q) !== -1;
+    c.classList.toggle('dimmed', !match);
+    if(match) vis++;
+  });
+  count.textContent = q
+    ? (vis === 0 ? 'No match found' : vis + ' equipment found')
+    : 'All 18 equipment shown';
+});
+</script>
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           

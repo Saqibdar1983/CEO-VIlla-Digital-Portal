@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPA &amp; POOL FACILITY</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root { --blue:#32cfff; --pale:#b8f2ff; --muted:#8da4b2; }
+    body {
+      position: relative;
+      margin: 0;
+      min-height: 100vh;
+      color: #f5fbff;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 50% -20%, rgba(0,150,255,.21), transparent 40%),
+        linear-gradient(rgba(50,207,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(50,207,255,.035) 1px, transparent 1px),
+        #010408;
+      background-size: auto, 70px 70px, 70px 70px, auto;
+    }
+    body::before,
+    body::after {
+      content:"";
+      position:fixed;
+      z-index:0;
+      pointer-events:none;
+      inset:0;
+      opacity:.5;
+      background:repeating-radial-gradient(
+        ellipse at 50% 115%,
+        transparent 0 46px,
+        rgba(74,215,255,.16) 48px 50px,
+        transparent 52px 88px
+      );
+      background-size:100% 100%;
+      transform:scale(.75);
+      animation:waterRipple 8s linear infinite;
+    }
+    body::after { background-position:22vw -10vh; opacity:.3; animation-delay:-4s; animation-duration:10s; }
+    @keyframes waterRipple {
+      0% { transform:scale(.68) translateY(8%); opacity:.1; }
+      20% { opacity:.5; }
+      78% { opacity:.28; }
+      100% { transform:scale(1.35) translateY(-5%); opacity:0; }
+    }
+    .page {
+      position:relative;
+      z-index:1;
+      width: min(1240px, calc(100% - 40px));
+      margin: auto;
+      height:100vh;
+      max-height:100vh;
+      overflow:hidden;
+      padding: 10px 0 10px;
+      display:flex;
+      flex-direction:column;
+    }
+    header {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(50,207,255,.18);
+      flex-shrink:0;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      width: clamp(280px, 38vw, 430px);
+      min-height: 52px;
+      padding: 6px 24px;
+      border: 1px solid var(--blue);
+      border-radius: 18px;
+      background: #03121d;
+      box-shadow: 0 0 10px rgba(50,207,255,.85), 0 0 30px rgba(50,207,255,.28), inset 0 0 18px rgba(50,207,255,.08);
+    }
+    .brand strong { display:block; color:#C9A93A; font-size:13px; letter-spacing:.16em; text-align:center; text-shadow:0 0 12px rgba(201,169,58,.6); }
+    .brand small { display:block; margin-top:3px; color:#C9A93A; font-size:8px; letter-spacing:.17em; text-transform:uppercase; text-align:center; opacity:.8; }
+    .back-action { position:absolute; left:0; top:6px; }
+    .home-action { position:absolute; right:0; top:6px; }
+    .nav-button {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      min-width:82px;
+      height:36px;
+      padding:0 13px;
+      border:1px solid rgba(201,169,58,.65);
+      border-radius:13px;
+      color:#C9A93A;
+      background:#04141f;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+      text-decoration:none;
+      box-shadow:0 0 8px rgba(201,169,58,.25), inset 0 0 12px rgba(201,169,58,.05);
+      transition:.22s ease;
+    }
+    .nav-button:hover { border-color:#e5c85a; color:#fff; box-shadow:0 0 9px rgba(201,169,58,.7),0 0 22px rgba(201,169,58,.3); transform:translateY(-2px); }
+    .hero { padding: 16px 0 14px; text-align: center; flex-shrink:0; }
+    .eyebrow { color:var(--pale); font-size:11px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; }
+    .eyebrow::before, .eyebrow::after { content:""; display:inline-block; width:36px; height:1px; margin:0 12px 3px; background:var(--blue); box-shadow:0 0 8px var(--blue); }
+    h1 { margin:12px 0 12px; font-size:clamp(38px,5.2vw,67px); line-height:.94; letter-spacing:-.055em; color:#C9A93A; text-shadow:0 0 40px rgba(201,169,58,.35); }
+    h1 span { color:transparent; -webkit-text-stroke:1px rgba(201,169,58,.9); text-shadow:0 0 32px rgba(201,169,58,.3); }
+    .intro { max-width:720px; margin:auto; color:#a5bac5; font-size:clamp(12px,1.15vw,15px); line-height:1.55; }
+    .section-label { display:flex; justify-content:space-between; align-items:end; margin:4px 0 8px; flex-shrink:0; }
+    .section-label small { color:var(--pale); font-size:10px; letter-spacing:.2em; text-transform:uppercase; }
+    .section-label h2 { margin:4px 0 0; font-size:clamp(24px,3vw,34px); letter-spacing:-.04em; }
+    .section-label p { margin:0; color:#617987; font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
+    .cards { display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+    .card {
+      position:relative;
+      min-height:148px;
+      padding:17px;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      border:1px solid rgba(96,220,255,.43);
+      border-radius:25px;
+      color:inherit;
+      text-decoration:none;
+      background:linear-gradient(145deg,#071723,#01060b);
+      box-shadow:0 0 5px rgba(50,207,255,.5), 0 0 22px rgba(50,207,255,.14), inset 0 0 20px rgba(50,207,255,.04);
+      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+    .card:nth-child(-n+3) { grid-column:span 2; }
+    .card:nth-child(n+4) { grid-column:span 3; }
+    .card::before { content:""; position:absolute; inset:0; opacity:0; background:radial-gradient(circle at 80% 5%,rgba(50,207,255,.22),transparent 45%); transition:opacity .25s ease; }
+    .card:hover { transform:translateY(-6px); border-color:#8cecff; box-shadow:0 0 8px var(--blue),0 0 30px rgba(50,207,255,.36),inset 0 0 22px rgba(50,207,255,.08); }
+    .card:hover::before { opacity:1; }
+    .number { position:relative; color:#C9A93A; font-size:11px; letter-spacing:.15em; text-shadow:0 0 8px rgba(201,169,58,.5); }
+    .card-content { position:relative; }
+    .card h3 { max-width:86%; margin:0 0 7px; font-size:clamp(17px,1.65vw,22px); line-height:1.08; letter-spacing:-.035em; }
+    .card p { max-width:86%; margin:0; color:#C9A93A; font-size:11px; line-height:1.4; text-shadow:0 1px 4px rgba(0,0,0,.8); }
+    .card-icon { position:relative; z-index:2; font-size:34px; line-height:1; color:rgba(184,242,255,.70); align-self:flex-end; margin-top:10px; transition:color .3s ease, text-shadow .3s ease; }
+    .card:hover .card-icon { color:#C9A93A; text-shadow:0 0 20px rgba(201,169,58,.65); }
+    footer { display:flex; justify-content:center; gap:clamp(18px,5vw,70px); flex-wrap:wrap; margin-top:10px; padding-top:8px; border-top:1px solid rgba(201,169,58,.25); color:#C9A93A; font-size:9px; letter-spacing:.13em; text-transform:uppercase; text-align:center; flex-shrink:0; }
+    footer strong { color:#C9A93A; font-weight:700; text-shadow:0 0 8px rgba(201,169,58,.4); }
+    @media(max-width:850px) { .card:nth-child(n) { grid-column:span 3; } .card:last-child { grid-column:2/span 4; } }
+    @media(max-width:600px) {
+      .page { width:min(100% - 28px,1240px); }
+      .section-label p { display:none; }
+      header { padding-top:58px; }
+      .brand { width:100%; padding:8px 14px; }
+      .brand strong { font-size:13px; }
+      .brand small { font-size:9px; }
+      .back-action,.home-action { top:5px; }
+      .nav-button { min-width:76px; height:37px; padding:0 11px; font-size:9px; }
+      .hero { padding:30px 0 26px; }
+      .cards { grid-template-columns:1fr; }
+      .card:nth-child(n),.card:last-child { grid-column:1; min-height:150px; }
+      footer { flex-direction:column; gap:10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body::before,body::after { animation:none; opacity:.16; transform:scale(1); }
+    }
+    /* ── card video backgrounds ── */
+    .card-video {
+      position:absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      object-fit:cover;
+      z-index:0;
+      opacity:.88;
+      filter:brightness(.82) saturate(1.2);
+      transition:opacity .35s ease, filter .35s ease;
+      pointer-events:none;
+    }
+    .card:hover .card-video { opacity:1; filter:brightness(.95) saturate(1.35); }
+    .card-overlay {
+      position:absolute;
+      inset:0;
+      background:linear-gradient(160deg,rgba(3,14,22,.38) 0%,rgba(1,6,11,.28) 100%);
+      z-index:1;
+      pointer-events:none;
+    }
+    .card .number, .card .card-content, .card .arrow { position:relative; z-index:2; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <a class="nav-button back-action" href="javascript:history.back()">← Back</a>
+      <div class="brand"><div><strong>SPA &amp; POOL</strong><small>Facility Guide</small></div></div>
+      <a class="nav-button home-action" href="../../EVA-CORE.html">⌂ Home</a>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="eyebrow">Welcome</div>
+      <h1>SPA &amp; POOL<br><span>FACILITY</span></h1>
+      <p class="intro">Welcome to the Spa &amp; Pool Facility guide. Select a system below to explore its purpose, operation, equipment and essential facility information.</p>
+    </section>
+
+    <section>
+      <div class="section-label"><div><small>Select a system</small><h2>Facility Areas</h2></div><p>Choose a card to continue</p></div>
+      <div class="cards">
+        <a class="card" href="01 - Outdoor Pool Introduction.html">
+          <video class="card-video" autoplay muted loop playsinline><source src="outdoor Pool Video.mp4" type="video/mp4"></video>
+          <div class="card-overlay"></div>
+          <span class="number">01</span><div class="card-content"><h3>Outdoor Pool</h3><p>Open-air recreation, circulation, filtration and water-quality systems.</p></div><span class="card-icon">≋</span>
+        </a>
+        <a class="card" href="02 - Indoor Pool & Cold Plunge Introduction.html">
+          <video class="card-video" autoplay muted loop playsinline><source src="Jacuzzi Video.mp4" type="video/mp4"></video>
+          <div class="card-overlay"></div>
+          <span class="number">02</span><div class="card-content"><h3>Indoor Pool / Jacuzzi</h3><p>Climate-controlled swimming and hydrotherapy facilities for year-round use.</p></div><span class="card-icon">♨</span>
+        </a>
+        <a class="card" href="03 - Steam Room Introduction.html">
+          <video class="card-video" autoplay muted loop playsinline><source src="Steam Room Video.mp4" type="video/mp4"></video>
+          <div class="card-overlay"></div>
+          <span class="number">03</span><div class="card-content"><h3>Steam Room</h3><p>High-humidity thermal experience supported by steam generation and ventilation.</p></div><span class="card-icon">☁</span>
+        </a>
+        <a class="card" href="04 - Sauna Room Introduction.html">
+          <video class="card-video" autoplay muted loop playsinline><source src="Sauna Video.mp4" type="video/mp4"></video>
+          <div class="card-overlay"></div>
+          <span class="number">04</span><div class="card-content"><h3>Sauna Room</h3><p>Dry-heat wellness environment with purpose-built controls and safety systems.</p></div><span class="card-icon">☀</span>
+        </a>
+        <a class="card" href="05 - Feature Wall Showers Introduction.html">
+          <video class="card-video" autoplay muted loop playsinline><source src="Wall Feature Video.mp4" type="video/mp4"></video>
+          <div class="card-overlay"></div>
+          <span class="number">05</span><div class="card-content"><h3>Water Feature Walls</h3><p>Architectural water displays combining visual movement, sound and ambience.</p></div><span class="card-icon">≈</span>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <span><strong>CEO Villa</strong></span>
+      <span>Project Code: <strong>10144</strong></span>
+      <span>Documents: <strong>Handing Over</strong></span>
+    </footer>
+  </main>
+<script>
+  document.querySelectorAll('.card-video').forEach(function(v){
+    v.addEventListener('loadedmetadata', function(){ v.playbackRate = 0.75; });
+    v.playbackRate = 0.75;
+  });
+</script>
+</body>
+</html>

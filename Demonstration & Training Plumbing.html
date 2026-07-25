@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <meta name="theme-color" content="#FFC107">
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CEO Villa | Demonstration & Training</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Aptos Display", "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(54, 255, 170, 0.20), transparent 28%),
+        radial-gradient(circle at 88% 10%, rgba(0, 180, 140, 0.22), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(86, 255, 190, 0.10), transparent 35%),
+        linear-gradient(135deg, #03120d, #061c15 45%, #020806);
+      padding: 22px 24px 46px;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(120, 255, 190, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(120, 255, 190, 0.045) 1px, transparent 1px);
+      background-size: 46px 46px;
+      pointer-events: none;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    .page {
+      max-width: 1220px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+      padding-bottom: 18px;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+      margin-bottom: 24px;
+    }
+
+    .nav-btn {
+      text-decoration: none;
+      color: #dcfff2;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(126, 255, 198, 0.25);
+      padding: 9px 18px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+      transition: 0.3s ease;
+    }
+
+    .nav-btn:hover {
+      background: rgba(42, 255, 170, 0.16);
+      border-color: rgba(126, 255, 198, 0.65);
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .hero-card,
+    .summary-card {
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.13), rgba(255,255,255,0.045));
+      border: 1px solid rgba(126, 255, 198, 0.20);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.36);
+      backdrop-filter: blur(18px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card {
+      padding: 32px;
+      min-height: 230px;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      right: -70px;
+      top: -70px;
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      border: 34px solid rgba(80, 255, 180, 0.08);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 100px;
+      background: rgba(47, 255, 170, 0.12);
+      border: 1px solid rgba(126, 255, 198, 0.38);
+      color: #8effcf;
+      font-size: 12px;
+      font-weight: 400;
+      margin-bottom: 18px;
+      letter-spacing: 0.8px;
+    }
+
+    .hero-card h1 {
+      font-size: 48px;
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 14px;
+      letter-spacing: 0.4px;
+    }
+
+    .hero-card p {
+      max-width: 720px;
+      color: #b9d8cd;
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+
+    .flow-strip {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .flow-pill {
+      padding: 8px 14px;
+      border-radius: 11px;
+      background: rgba(0, 0, 0, 0.18);
+      border: 1px solid rgba(126, 255, 198, 0.18);
+      color: #d9fff2;
+      font-size: 13px;
+      font-weight: 300;
+    }
+
+    .summary-card {
+      padding: 24px;
+    }
+
+    .summary-card h3 {
+      font-size: 21px;
+      font-weight: 350;
+      margin-bottom: 18px;
+      color: #ffffff;
+    }
+
+    .info-box {
+      padding: 13px 14px;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.20);
+      border: 1px solid rgba(126, 255, 198, 0.14);
+      margin-bottom: 10px;
+    }
+
+    .info-box span {
+      display: block;
+      color: #87a99c;
+      font-size: 11px;
+      font-weight: 300;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+
+    .info-box strong {
+      color: #eafff7;
+      font-size: 15.5px;
+      font-weight: 350;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin: 24px 0 16px;
+    }
+
+    .section-head h2 {
+      font-size: 29px;
+      font-weight: 300;
+    }
+
+    .section-head p {
+      color: #8db5a6;
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .training-card {
+      min-height: 245px;
+      padding: 18px;
+      border-radius: 24px;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.12), rgba(255,255,255,0.035)),
+        rgba(4, 30, 22, 0.76);
+      border: 1px solid rgba(126, 255, 198, 0.18);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.30);
+      position: relative;
+      overflow: hidden;
+      transition: 0.3s ease;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .training-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(126, 255, 198, 0.65);
+      box-shadow: 0 22px 48px rgba(47, 255, 170, 0.12);
+    }
+
+    .training-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom right, rgba(58,255,170,0.13), transparent 45%);
+      opacity: 0;
+      transition: 0.3s ease;
+    }
+
+    .training-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-top {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 17px;
+      background: rgba(42, 255, 170, 0.13);
+      border: 1px solid rgba(126, 255, 198, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      flex-shrink: 0;
+    }
+
+    .number {
+      font-size: 13px;
+      color: #8effcf;
+      font-weight: 400;
+      letter-spacing: 1px;
+    }
+
+    .card-body {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+
+    .training-card h3 {
+      font-size: 18.5px;
+      font-weight: 300;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .training-card p {
+      color: #a9c8bd;
+      font-size: 13.2px;
+      font-weight: 300;
+      line-height: 1.48;
+    }
+
+    .card-bottom {
+      position: relative;
+      z-index: 1;
+      padding-top: 11px;
+      border-top: 1px solid rgba(126, 255, 198, 0.13);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: #8effcf;
+      font-size: 11.5px;
+      font-weight: 400;
+      margin-top: auto;
+    }
+
+    .nice-panel {
+      margin-top: 22px;
+      margin-bottom: 34px;
+      border-radius: 24px;
+      padding: 17px 22px;
+      background: linear-gradient(90deg, rgba(47,255,170,0.14), rgba(255,255,255,0.04));
+      border: 1px solid rgba(126, 255, 198, 0.20);
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.3fr;
+      gap: 16px;
+      color: #c8e9dd;
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    .nice-panel strong {
+      color: #8effcf;
+      font-weight: 400;
+    }
+
+    @media (max-width: 1100px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .training-card {
+        min-height: 220px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      body {
+        padding: 20px 16px 42px;
+      }
+
+      .top-nav {
+        margin-top: 3px;
+        margin-bottom: 22px;
+      }
+
+      .hero-card {
+        padding: 24px;
+      }
+
+      .hero-card h1 {
+        font-size: 36px;
+      }
+
+      .hero-card p {
+        font-size: 15.5px;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .section-head h2 {
+        font-size: 26px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .training-card {
+        min-height: auto;
+      }
+
+      .nice-panel {
+        grid-template-columns: 1fr;
+        margin-bottom: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <div class="top-nav">
+      <a href="javascript:void(0)" onclick="evaReturnToEva()" class="nav-btn">← Back</a>
+      <a href="javascript:void(0)" onclick="evaGoHome()" class="nav-btn">Home ⌂</a>
+    </div>
+
+    <section class="hero">
+
+      <div class="hero-card">
+        <div class="tag">● HANDING OVER TRAINING</div>
+
+        <h1>Demonstration & Training</h1>
+
+        <p>
+          Project handover training page for CEO Villa plumbing and water systems.
+          This page is prepared to support FM orientation, system demonstration,
+          operation briefing, and final handing-over record.
+        </p>
+
+        <div class="flow-strip">
+          <div class="flow-pill">Water Supply</div>
+          <div class="flow-pill">Drainage</div>
+          <div class="flow-pill">Rain Water</div>
+          <div class="flow-pill">Pumps</div>
+          <div class="flow-pill">Water Heaters</div>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <h3>Project Information</h3>
+
+        <div class="info-box">
+          <span>Project</span>
+          <strong>CEO Villa</strong>
+        </div>
+
+        <div class="info-box">
+          <span>Project Code</span>
+          <strong>10144</strong>
+        </div>
+
+        <div class="info-box">
+          <span>Document</span>
+          <strong>Handing Over</strong>
+        </div>
+
+        <div class="info-box">
+          <span>Discipline</span>
+          <strong>Mechanical / Plumbing</strong>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="section-head">
+      <div>
+        <h2>Training Modules</h2>
+        <p>Select each system demonstration item for operation and maintenance briefing.</p>
+      </div>
+      <p>FM Orientation | Final Handover Stage</p>
+    </div>
+
+    <section class="cards">
+
+      <a href="https://drive.google.com/file/d/1BSRYlDGosPOv2Bm7e7iC00WgKk48ATz8/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="training-card" style="text-decoration: none; color: inherit;">
+        <div class="card-top">
+          <div class="icon">💧</div>
+          <div class="number">01</div>
+        </div>
+
+        <div class="card-body">
+          <h3>Water Supply System Demonstration</h3>
+          <p>
+            Main water supply route, isolation valves, filtration arrangement,
+            booster connection, and normal operation sequence.
+          </p>
+        </div>
+
+        <div class="card-bottom">
+          <span>System Demo</span>
+          <span>Ready</span>
+        </div>
+      </a>
+
+      <a href="https://drive.google.com/file/d/1JWSNvS5Pr70hRQAhvY5uCXE2c7cX69db/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="training-card" style="text-decoration: none; color: inherit;">
+        <div class="card-top">
+          <div class="icon">🚿</div>
+          <div class="number">02</div>
+        </div>
+
+        <div class="card-body">
+          <h3>Sanitary & Drainage System Demonstration</h3>
+          <p>
+            Sanitary fixtures, drainage lines, floor drains, cleanouts,
+            traps, inspection points, and maintenance access.
+          </p>
+        </div>
+
+        <div class="card-bottom">
+          <span>System Demo</span>
+          <span>Ready</span>
+        </div>
+      </a>
+
+      <a href="https://drive.google.com/file/d/1KQk35ylxU_5-46xRsTCbhJ9eHyNVOiqN/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="training-card" style="text-decoration: none; color: inherit;">
+        <div class="card-top">
+          <div class="icon">🌧️</div>
+          <div class="number">03</div>
+        </div>
+
+        <div class="card-body">
+          <h3>Rain Water System Demonstration</h3>
+          <p>
+            Rainwater pits, duplex submersible pumps, float switches,
+            alarm levels, discharge route, and emergency response.
+          </p>
+        </div>
+
+        <div class="card-bottom">
+          <span>Pump Demo</span>
+          <span>Ready</span>
+        </div>
+      </a>
+
+      <div class="training-card">
+        <div class="card-top">
+          <div class="icon">⚙️</div>
+          <div class="number">04</div>
+        </div>
+
+        <div class="card-body">
+          <h3>Hot & Cold Water Pumps Demonstration</h3>
+          <p>
+            Pump duty/standby operation, pressure settings, control panel
+            indications, fault reset, and maintenance checks.
+          </p>
+        </div>
+
+        <div class="card-bottom">
+          <span>Operation</span>
+          <span>Ready</span>
+        </div>
+      </div>
+
+      <div class="training-card">
+        <div class="card-top">
+          <div class="icon">🔥</div>
+          <div class="number">05</div>
+        </div>
+
+        <div class="card-body">
+          <h3>Hot Water Heater & Accessories Demonstration</h3>
+          <p>
+            Electric water heaters, circulation accessories, thermostats,
+            safety valves, isolation valves, and drain points.
+          </p>
+        </div>
+
+        <div class="card-bottom">
+          <span>Equipment Demo</span>
+          <span>Ready</span>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="nice-panel">
+      <div><strong>Purpose:</strong> FM training and operation briefing</div>
+      <div><strong>Stage:</strong> Final handing over</div>
+      <div><strong>Record:</strong> Demonstration attendance and comments to be attached separately</div>
+    </section>
+
+  </main>
+
+  <script>
+    function evaReturnToEva() {
+      window.location.href = sessionStorage.getItem('eva_local_return') || 'EVA-PLUMBING.html#pg_plumb_contents';
+    }
+    function evaGoHome() {
+      window.location.href = 'EVA-CORE.html#pg3';
+    }
+  </script>
+</body>
+</html>

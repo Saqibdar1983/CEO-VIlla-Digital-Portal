@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>External Swimming Pool Piping Over All</title>
+  <style>
+    :root { --navy:#071a2e; --blue:#67c3ff; --gold:#c6a15b; --gold-dark:#a98543; --pale:#eef4f8; --line:#29435e; --green:#15803d; }
+    * { box-sizing:border-box; }
+    html, body { height:100%; margin:0; }
+    body { display:grid; grid-template-rows:auto 1fr auto; min-height:100vh; overflow:hidden; color:#102a43; background:#dfe7ee; font-family:Inter,Segoe UI,Arial,sans-serif; }
+    header { position:relative; z-index:10; display:grid; grid-template-columns:160px 1fr 160px; align-items:center; gap:18px; padding:14px 20px; background:var(--navy); border-bottom:1px solid var(--gold-dark); box-shadow:0 3px 16px rgb(0 0 0 / 24%); }
+    .header-center { text-align:center; min-width:0; }
+    h1 { margin:0; font-size:clamp(17px,2vw,26px); letter-spacing:.055em; color:var(--gold); }
+    .drawing-meta { display:flex; justify-content:center; flex-wrap:wrap; gap:6px 22px; margin-top:7px; font-size:13px; color:var(--blue); }
+    .drawing-meta strong { color:#fff; }
+    .meta-value { color:var(--blue); font-weight:700; }
+    .nav-button, .tool-button, .download-button { display:inline-flex; align-items:center; justify-content:center; gap:7px; border:1px solid transparent; border-radius:8px; min-height:40px; padding:9px 13px; font:600 14px/1 inherit; cursor:pointer; text-decoration:none; transition:.18s ease; }
+    .nav-button { width:100%; color:var(--navy); background:var(--gold); border-color:#dfc17f; box-shadow:inset 0 1px 0 rgb(255 255 255 / 22%),0 2px 5px rgb(0 0 0 / 24%); }
+    .nav-button:hover { background:#d2b26e; border-color:#ead08f; transform:translateY(-1px); }
+    .tool-button:hover { background:#dcebf5; border-color:#9fb3c8; }
+    .home { justify-self:end; }
+    main { min-height:0; display:grid; grid-template-rows:auto 1fr; }
+    .toolbar { position:relative; z-index:5; display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px; padding:9px 14px; background:#f8fafc; border-bottom:1px solid #cbd5e1; }
+    .tool-button { min-width:40px; min-height:36px; padding:7px 10px; color:#243b53; background:#fff; border-color:#bcccdc; }
+    .zoom-value { min-width:58px; text-align:center; font-variant-numeric:tabular-nums; font-weight:700; color:#334e68; }
+    .download-button { margin-left:12px; color:#fff; background:var(--green); box-shadow:0 2px 5px rgb(21 128 61 / 20%); }
+    .download-button:hover { background:#166534; transform:translateY(-1px); }
+    .viewer { position:relative; min-height:0; overflow:auto; cursor:grab; background-color:#ccd6df; background-image:linear-gradient(45deg,#c3ced8 25%,transparent 25%),linear-gradient(-45deg,#c3ced8 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#c3ced8 75%),linear-gradient(-45deg,transparent 75%,#c3ced8 75%); background-size:28px 28px; background-position:0 0,0 14px,14px -14px,-14px 0; }
+    .viewer.dragging { cursor:grabbing; user-select:none; }
+    .stage { min-width:100%; min-height:100%; display:flex; align-items:flex-start; justify-content:center; padding:28px; }
+    #drawing { display:block; width:auto; max-width:none; height:auto; background:white; box-shadow:0 8px 28px rgb(15 23 42 / 24%); transform-origin:top center; }
+    footer { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:8px 18px; font-size:12px; color:#fff; background:var(--navy); border-top:1px solid var(--gold-dark); }
+    .project-info { color:#fff; font-weight:300; letter-spacing:.02em; }
+    kbd { padding:1px 5px; border:1px solid #bcccdc; border-bottom-width:2px; border-radius:4px; background:#fff; font-family:inherit; }
+    @media (max-width:760px) {
+      header { grid-template-columns:auto 1fr auto; padding:10px; gap:8px; }
+      .nav-button { min-width:42px; padding:9px; font-size:0; }
+      .nav-button span { font-size:19px; }
+      .drawing-meta { font-size:11px; gap:3px 10px; }
+      .download-button { margin-left:0; width:100%; }
+      footer { justify-content:center; text-align:center; }
+      footer .hint { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button class="nav-button" type="button" onclick="history.back()" aria-label="Go back"><span aria-hidden="true">←</span> Back</button>
+    <div class="header-center">
+      <h1>SPA &amp; POOL FACILITY SHOP DRAWING</h1>
+      <div class="drawing-meta">
+        <span><strong>Drawing Number:</strong> <span class="meta-value">SB-ASB-SD-ME-002-R2</span></span>
+        <span><strong>Drawing Title:</strong> <span class="meta-value">External Swimming Pool Piping Over All</span></span>
+      </div>
+    </div>
+    <a class="nav-button home" href="../../EVA-CORE.html" aria-label="Go home"><span aria-hidden="true">⌂</span> Home</a>
+  </header>
+
+  <main>
+    <div class="toolbar" role="toolbar" aria-label="Drawing controls">
+      <button class="tool-button" id="zoomOut" type="button" aria-label="Zoom out">−</button>
+      <span class="zoom-value" id="zoomValue" aria-live="polite">100%</span>
+      <button class="tool-button" id="zoomIn" type="button" aria-label="Zoom in">+</button>
+      <button class="tool-button" id="fitWidth" type="button">Fit width</button>
+      <button class="tool-button" id="fitPage" type="button">Fit page</button>
+      <button class="tool-button" id="reset" type="button">100%</button>
+      <a class="download-button" href="assets/SB-ASB-SD-ME-002-R2-APPROVED.pdf" download>↓ Download Approved</a>
+    </div>
+    <section class="viewer" id="viewer" aria-label="Zoomable electrical plan drawing">
+      <div class="stage" id="stage">
+        <img id="drawing" src="assets/SB-ASB-SD-ME-002-R2-page-1.png" alt="External Swimming Pool Piping Over All drawing">
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span class="project-info">Project: CEO Villa, Project Code: 10144</span>
+    <span class="hint">Use <kbd>+</kbd> / <kbd>−</kbd>, Ctrl + mouse wheel, or drag to inspect the plan</span>
+    <span>Revision R2 · Sheet 1 of 1</span>
+  </footer>
+
+  <script>
+    const viewer = document.getElementById('viewer');
+    const drawing = document.getElementById('drawing');
+    const stage = document.getElementById('stage');
+    const zoomValue = document.getElementById('zoomValue');
+    let zoom = 1;
+    const minZoom = 0.1;
+    const maxZoom = 4;
+
+    function applyZoom(next, focalX = viewer.clientWidth / 2, focalY = viewer.clientHeight / 2) {
+      const old = zoom;
+      zoom = Math.min(maxZoom, Math.max(minZoom, next));
+      const contentX = viewer.scrollLeft + focalX;
+      const contentY = viewer.scrollTop + focalY;
+      drawing.style.width = `${drawing.naturalWidth * zoom}px`;
+      zoomValue.textContent = `${Math.round(zoom * 100)}%`;
+      requestAnimationFrame(() => {
+        viewer.scrollLeft = contentX * (zoom / old) - focalX;
+        viewer.scrollTop = contentY * (zoom / old) - focalY;
+      });
+    }
+
+    function fit(mode) {
+      if (!drawing.naturalWidth) return;
+      const pad = 56;
+      const fitW = (viewer.clientWidth - pad) / drawing.naturalWidth;
+      const fitH = (viewer.clientHeight - pad) / drawing.naturalHeight;
+      applyZoom(mode === 'page' ? Math.min(fitW, fitH) : fitW);
+      requestAnimationFrame(() => { viewer.scrollLeft = Math.max(0, (stage.scrollWidth - viewer.clientWidth) / 2); viewer.scrollTop = 0; });
+    }
+
+    document.getElementById('zoomIn').onclick = () => applyZoom(zoom * 1.2);
+    document.getElementById('zoomOut').onclick = () => applyZoom(zoom / 1.2);
+    document.getElementById('fitWidth').onclick = () => fit('width');
+    document.getElementById('fitPage').onclick = () => fit('page');
+    document.getElementById('reset').onclick = () => applyZoom(1);
+    drawing.addEventListener('load', () => fit('page'));
+
+    viewer.addEventListener('wheel', e => {
+      if (!e.ctrlKey) return;
+      e.preventDefault();
+      const rect = viewer.getBoundingClientRect();
+      applyZoom(zoom * (e.deltaY < 0 ? 1.12 : 0.89), e.clientX - rect.left, e.clientY - rect.top);
+    }, { passive:false });
+
+    let drag = null;
+    viewer.addEventListener('pointerdown', e => {
+      if (e.button !== 0) return;
+      drag = { x:e.clientX, y:e.clientY, left:viewer.scrollLeft, top:viewer.scrollTop };
+      viewer.classList.add('dragging');
+      viewer.setPointerCapture(e.pointerId);
+    });
+    viewer.addEventListener('pointermove', e => {
+      if (!drag) return;
+      viewer.scrollLeft = drag.left - (e.clientX - drag.x);
+      viewer.scrollTop = drag.top - (e.clientY - drag.y);
+    });
+    viewer.addEventListener('pointerup', () => { drag = null; viewer.classList.remove('dragging'); });
+
+    window.addEventListener('keydown', e => {
+      if (e.key === '+' || e.key === '=') applyZoom(zoom * 1.2);
+      if (e.key === '-') applyZoom(zoom / 1.2);
+      if (e.key === '0') applyZoom(1);
+      if (e.key.toLowerCase() === 'f') fit('page');
+    });
+  </script>
+</body>
+</html>

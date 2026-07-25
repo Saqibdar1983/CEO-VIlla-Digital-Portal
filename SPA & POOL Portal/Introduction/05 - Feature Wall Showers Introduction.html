@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feature Wall Showers – O&M Manual | CEO Villa SPA & Pool Facility</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#062A35;color:#FFFFFF;min-height:100vh;line-height:1.6}
+  .top-bar{background:#041E26;padding:.5rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(200,169,58,.35);position:sticky;top:0;z-index:9999;gap:1rem}
+  .top-bar-left{font-size:12px;color:#5A9BAA;letter-spacing:.04em}
+  .top-bar-right{font-size:11px;color:#5A9BAA}
+  .top-bar-right span{color:#C9A93A}
+  .btn-nav{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border:1px solid rgba(201,169,58,.55);border-radius:10px;background:rgba(201,169,58,.07);color:#C9A93A;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:.2s ease;flex-shrink:0}
+  .btn-nav:hover{background:rgba(201,169,58,.18);border-color:#e5c85a;box-shadow:0 0 10px rgba(201,169,58,.3)}
+  .hero{padding:2.5rem 2rem 2rem;border-bottom:3px solid #C9A93A;position:relative;overflow:hidden;min-height:220px}
+  .hero-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(1.2)}
+  .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(4,18,24,.70);z-index:1}
+  .hero-content{position:relative;z-index:2}
+  .chapter-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(23,195,212,.12);border:1px solid rgba(23,195,212,.3);border-radius:20px;padding:4px 12px;font-size:11px;color:#17C3D4;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem}
+  .hero-title{font-size:36px;font-weight:700;color:#FFFFFF;line-height:1.15;margin-bottom:.3rem;letter-spacing:-.01em}
+  .hero-sub{font-size:14px;color:#8EC9D4;margin-bottom:1.25rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem}
+  .hero-meta-item{font-size:12px;color:#5A9BAA}
+  .hero-meta-item strong{color:#C9A93A;font-weight:500}
+  .container{max-width:1100px;margin:0 auto;padding:2rem}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .grid-6{display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem}
+  .stat-card{background:#0D3D4A;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem 1.1rem;border-left:3px solid #17C3D4}
+  .stat-card.gold{border-left-color:#C9A93A}
+  .stat-card.rgb{border-left:3px solid transparent;background:linear-gradient(#0D3D4A,#0D3D4A) padding-box,linear-gradient(135deg,#FF6B6B,#A855F7,#3B82F6) border-box}
+  .stat-label{font-size:10px;color:#5A9BAA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+  .stat-value{font-size:24px;font-weight:700;color:#FFFFFF;line-height:1;margin-bottom:.2rem}
+  .stat-unit{font-size:11px;color:#8EC9D4}
+  .section{margin-bottom:1.75rem}
+  .sec-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(255,255,255,.08)}
+  .sec-num{width:28px;height:28px;border-radius:50%;background:#17C3D4;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#041E26;flex-shrink:0}
+  .sec-title{font-size:16px;font-weight:600;color:#FFFFFF;letter-spacing:.01em}
+  .card{background:#0D3D4A;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.1rem 1.25rem}
+  .card-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#17C3D4;margin-bottom:.75rem;font-weight:600}
+  .info-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px}
+  .info-row:last-child{border-bottom:none}
+  .info-row .k{color:#8EC9D4}
+  .info-row .v{color:#FFFFFF;font-weight:500;text-align:right;max-width:58%}
+  .body-text{font-size:13px;color:#8EC9D4;line-height:1.7;margin-bottom:.9rem}
+  .table-wrap{overflow-x:auto;border-radius:10px;border:1px solid rgba(255,255,255,.08)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead tr{background:#041E26}
+  th{padding:.75rem 1rem;text-align:left;font-size:11px;font-weight:600;color:#17C3D4;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap}
+  td{padding:.7rem 1rem;border-top:1px solid rgba(255,255,255,.05);color:#FFFFFF;vertical-align:top}
+  tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  tr:hover td{background:rgba(23,195,212,.04)}
+  .tag{font-family:'Courier New',monospace;font-size:12px;color:#17C3D4;font-weight:700;white-space:nowrap}
+  .brand{color:#8EC9D4}
+  .cap{color:#C9A93A;font-size:12px}
+  .note{background:rgba(201,169,58,.08);border-left:3px solid #C9A93A;border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:12px;color:#D4B560;margin-top:.75rem;line-height:1.55}
+  .alert{background:rgba(23,195,212,.07);border-left:3px solid #17C3D4;border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:12px;color:#8EC9D4;margin-top:.75rem;line-height:1.55}
+  .wall-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+  .wall-card{background:#0D3D4A;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem 1.1rem;border-top:3px solid #17C3D4}
+  .wall-card.south{border-top-color:#C9A93A}
+  .wall-label{font-size:12px;font-weight:700;color:#17C3D4;margin-bottom:.5rem;letter-spacing:.04em}
+  .wall-card.south .wall-label{color:#C9A93A}
+  .wall-detail{font-size:12px;color:#8EC9D4;margin-bottom:.2rem}
+  .wall-detail strong{color:#FFFFFF}
+  .flow{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;margin:.75rem 0}
+  .flow-step{background:#0D3D4A;border:1px solid rgba(23,195,212,.25);border-radius:6px;padding:.4rem .8rem;font-size:12px;color:#FFFFFF;white-space:nowrap}
+  .flow-arrow{color:#C9A93A;font-size:16px;font-weight:700}
+  .footer{background:#041E26;border-top:1px solid rgba(201,169,58,.2);padding:1.25rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+  .footer-left{font-size:12px;color:#5A9BAA}
+  .footer-right{font-size:11px;color:#5A9BAA;text-align:right}
+  .footer-right span{color:#C9A93A}
+  @media(max-width:720px){.grid-2,.grid-3,.grid-6,.wall-cards{grid-template-columns:1fr 1fr}.hero-title{font-size:26px}.container{padding:1.25rem}}
+  @media(max-width:480px){.grid-6{grid-template-columns:repeat(3,1fr)}.grid-2,.grid-3,.wall-cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <a class="btn-nav" href="javascript:history.back()">← Back</a>
+    <div class="top-bar-left">CEO VILLA &nbsp;·&nbsp; SPA &amp; POOL FACILITY &nbsp;·&nbsp; O&amp;M MANUAL</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <div class="top-bar-right">Project Code: <span>10144</span> &nbsp;|&nbsp; IHCC – Jeddah, Saudi Arabia</div>
+    <a class="btn-nav" href="../../EVA-CORE.html">⌂ Home</a>
+  </div>
+</div>
+<div class="hero">
+  <video class="hero-video" id="heroVid" autoplay muted loop playsinline>
+    <source src="Wall Feature Video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="chapter-pill">◆ Chapter 5 · Facility Introduction</div>
+    <div class="hero-title">Feature Wall Showers</div>
+    <div class="hero-sub">Ground Floor · Outdoor Pool Area · FW-01 (North Wall) &amp; FW-02 (South Wall)</div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">Document ref: <strong>IHCC-CEO-SPA-OM-INT-005</strong></div>
+      <div class="hero-meta-item">Drawing: <strong>SB-ASB-SD-ME-005-R2</strong></div>
+      <div class="hero-meta-item">Revision: <strong>R0 – For Review</strong></div>
+      <div class="hero-meta-item">Contractor: <strong>IHCC</strong></div>
+    </div>
+  </div>
+</div>
+<div class="container">
+
+  <!-- STAT CARDS -->
+  <div class="grid-6" style="margin-bottom:1.75rem">
+    <div class="stat-card gold">
+      <div class="stat-label">No. of walls</div>
+      <div class="stat-value">2</div>
+      <div class="stat-unit">North &amp; South</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Wall height</div>
+      <div class="stat-value">2,880</div>
+      <div class="stat-unit">mm</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Basin width</div>
+      <div class="stat-value">1,600</div>
+      <div class="stat-unit">mm</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Water depth</div>
+      <div class="stat-value">500</div>
+      <div class="stat-unit">mm in basin</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pump power</div>
+      <div class="stat-value">0.55</div>
+      <div class="stat-unit">kW each (TOP3)</div>
+    </div>
+    <div class="stat-card rgb">
+      <div class="stat-label">Lighting</div>
+      <div class="stat-value">RGB</div>
+      <div class="stat-unit">AQUA AQ-XT005</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: OVERVIEW -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">1</div><div class="sec-title">Facility Overview</div></div>
+    <div class="body-text">The Feature Wall Showers are two decorative water cascade installations located on the north and south walls of the ground floor outdoor pool area (FW-01 – North Wall and FW-02 – South Wall). Each feature wall is a self-contained, closed-loop water recirculation system in which a submersible pump (PEDROLLO TOP3) draws water from a tiled reinforced concrete storage basin at the base of the wall and delivers it via a rising pipe to a custom stainless steel overflow gutter (AISI 316L, marine grade) mounted at the top of the 2,880 mm wall. Water overflows the gutter continuously and cascades as a full-width sheet down the tiled wall face, returning to the storage basin below by gravity.</div>
+    <div class="body-text">Each wall is served independently by its own dedicated submersible pump (WFSP-01 / WFSP-02), stainless steel overflow gutter (WFC-01 / WFC-02), 20 mm mains cold water supply with manual isolation valve (for initial filling and evaporation top-up), and a 1½" DN40 UPVC drain pipe with ball valve for complete basin drainage during maintenance. An AQUA AQ-XT005 purpose-built RGB underwater LED linear wall washer (1,200 mm, IP68) is submerged in each storage basin, projecting dynamic colour-changing light upward across the falling water curtain — cycling through blues, aquas, amber, and gold tones to create a dramatic visual feature in the outdoor pool area.</div>
+    <div class="body-text">Both the wall face (the full shower surface from 0 to 2,880 mm) and the interior of each water storage basin (1,600 × 945 × 500 mm deep) are tiled with Caesar Ceramiche AL CHEMY/TC – Mint Matt (R9 DIN 51130, 9 mm thickness) for a consistent, high-quality wet-area finish throughout.</div>
+  </div>
+
+  <!-- SECTION 2: FEATURE WALL IDENTIFICATION -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">2</div><div class="sec-title">Feature Wall Identification</div></div>
+    <div class="wall-cards">
+      <div class="wall-card">
+        <div class="wall-label">FW-01 — North Wall</div>
+        <div class="wall-detail">Pump tag: <strong>WFSP-01</strong></div>
+        <div class="wall-detail">Gutter tag: <strong>WFC-01</strong></div>
+        <div class="wall-detail">Light tag: <strong>LT-FW-01</strong></div>
+        <div class="wall-detail">Pump serial: <strong>24909A2015670</strong></div>
+        <div class="wall-detail">Light: <strong>AQUA AQ-XT005 (1 No.)</strong></div>
+        <div class="wall-detail">Location: <strong>Ground Floor – Outdoor Pool Area</strong></div>
+      </div>
+      <div class="wall-card south">
+        <div class="wall-label">FW-02 — South Wall</div>
+        <div class="wall-detail">Pump tag: <strong>WFSP-02</strong></div>
+        <div class="wall-detail">Gutter tag: <strong>WFC-02</strong></div>
+        <div class="wall-detail">Light tag: <strong>LT-FW-02</strong></div>
+        <div class="wall-detail">Pump serial: <strong>24909A2015680</strong></div>
+        <div class="wall-detail">Light: <strong>AQUA AQ-XT005 (1 No.)</strong></div>
+        <div class="wall-detail">Location: <strong>Ground Floor – Outdoor Pool Area</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: PHYSICAL DESCRIPTION -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">3</div><div class="sec-title">Physical Description</div></div>
+    <div class="body-text"><strong style="color:#FFFFFF">3.1 Dimensions (Per Wall)</strong></div>
+    <div class="table-wrap" style="margin-bottom:1rem">
+      <table>
+        <thead><tr><th>Feature / Dimension</th><th>Measurement / Description</th></tr></thead>
+        <tbody>
+          <tr><td>Number of Feature Walls</td><td class="cap">2 (FW-01 North Wall + FW-02 South Wall)</td></tr>
+          <tr><td>Location</td><td class="cap">Ground Floor – Outdoor Pool Area (Outdoor SPA)</td></tr>
+          <tr><td>Wall Height</td><td class="cap">2,880 mm</td></tr>
+          <tr><td>Basin Width</td><td class="cap">1,600 mm</td></tr>
+          <tr><td>Basin Depth (Front to Back)</td><td class="cap">945 mm</td></tr>
+          <tr><td>Water Depth in Basin</td><td class="cap">500 mm (design operating level)</td></tr>
+          <tr><td>Overflow Gutter – Length</td><td class="cap">1,250 mm per wall</td></tr>
+          <tr><td>Overflow Gutter – Cross-Section</td><td class="cap">150 mm W × 170 mm H × 210 mm D</td></tr>
+          <tr><td>Overflow Gutter – Material</td><td class="cap">SS AISI 316L – marine grade, custom fabricated</td></tr>
+          <tr><td>Overflow Gutter – Water Inlet Connection</td><td class="cap">2" (DN50) from pump</td></tr>
+          <tr><td>Water Supply Connection</td><td class="cap">20 mm cold water supply with manual isolation valve</td></tr>
+          <tr><td>Drain Connection</td><td class="cap">1½" (DN40) UPVC drain pipe with ball valve</td></tr>
+          <tr><td>Tile – Brand / Collection</td><td class="cap">Caesar Ceramiche (Italy) – AL CHEMY/TC</td></tr>
+          <tr><td>Tile – Application</td><td class="cap">Wall face (0 – 2,880 mm) + all interior basin surfaces (1,600 × 945 × 500 mm)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="body-text"><strong style="color:#FFFFFF">3.2 Wall Face &amp; Tile Finish</strong><br>The wall face surface — the full height tiled surface over which the water sheet cascades — is finished entirely with Caesar Ceramiche Italy, collection AL CHEMY/TC, colour Mint Matt. The tile has a matte surface texture with R9 anti-slip classification per DIN 51130, 9 mm thickness, and is applied from finished floor level (0 mm) continuously up to the top of the wall (2,880 mm). The same tile is applied across both FW-01 (North Wall) and FW-02 (South Wall) for a uniform appearance throughout the outdoor pool area.</div>
+    <div class="body-text"><strong style="color:#FFFFFF">3.3 Water Storage Basin</strong><br>Each water storage basin is constructed in reinforced concrete (RC) and is fully tiled internally with the same Caesar Ceramiche AL CHEMY/TC Mint Matt tile as the wall face above. The basin measures 1,600 mm wide × 945 mm front to back, with a design water depth of 500 mm. The basin houses the submersible pump (WFSP-01 or WFSP-02) permanently submerged at the base, and the AQUA AQ-XT005 LED wall washer, also submerged and directed upward toward the cascading water. A 20 mm cold water supply with manual isolation valve serves both initial basin filling and ongoing top-up for evaporation losses. A 1½" DN40 UPVC drain pipe with ball valve is provided at the basin base for complete drainage during maintenance or shutdown periods.</div>
+  </div>
+
+  <!-- SECTION 4: WATER CIRCULATION SYSTEM -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">4</div><div class="sec-title">Water Circulation System</div></div>
+    <div class="body-text"><strong style="color:#FFFFFF">4.1 System Description</strong><br>Each feature wall operates as an independent, self-contained closed-loop recirculation system. The submersible pump (PEDROLLO TOP3) sits permanently submerged in the water storage basin. On energising, the pump draws water from the basin and delivers it under pressure to the stainless steel overflow gutter at the top of the wall. Water fills the gutter and overflows continuously across the full 1,250 mm gutter opening, cascading as a uniform water curtain down the full 2,880 mm tiled wall face back into the basin below. This gravity return completes the closed loop. Evaporation losses are compensated by the 20 mm mains water supply with isolation valve. No filtration or chemical dosing system is included — water is regularly drained and refilled as part of routine maintenance.</div>
+    <div class="flow">
+      <div class="flow-step">Storage basin (500 mm water level)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Submersible pump (PEDROLLO TOP3)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">SS overflow gutter at 2,880 mm level</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Water cascade down wall face</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Gravity return to basin</div>
+    </div>
+    <div class="grid-2" style="margin-top:.75rem">
+      <div class="card">
+        <div class="card-title">4.2 Submersible Pump – WFSP-01 &amp; WFSP-02 (PEDROLLO TOP3)</div>
+        <div class="info-row"><span class="k">Manufacturer</span><span class="v">PEDROLLO S.p.A, San Bonifacio, Verona, Italy</span></div>
+        <div class="info-row"><span class="k">Model</span><span class="v">TOP3</span></div>
+        <div class="info-row"><span class="k">Rated power</span><span class="v">0.55 kW (0.75 HP)</span></div>
+        <div class="info-row"><span class="k">Voltage</span><span class="v">220V, 1-Phase, 60Hz</span></div>
+        <div class="info-row"><span class="k">Full load current</span><span class="v">3.7 A</span></div>
+        <div class="info-row"><span class="k">Flow rate</span><span class="v">20 – 260 L/min</span></div>
+        <div class="info-row"><span class="k">Max head</span><span class="v">10 m at 20 L/min</span></div>
+        <div class="info-row"><span class="k">Design duty range</span><span class="v">10 – 2 m head</span></div>
+        <div class="info-row"><span class="k">Pump speed</span><span class="v">3,450 RPM</span></div>
+        <div class="info-row"><span class="k">Protection rating</span><span class="v">IPX8 (fully submersible)</span></div>
+        <div class="info-row"><span class="k">Body / impeller material</span><span class="v">Cast iron body / SS impeller</span></div>
+        <div class="info-row"><span class="k">WFSP-01 serial no.</span><span class="v">24909A2015670</span></div>
+        <div class="info-row"><span class="k">WFSP-02 serial no.</span><span class="v">24909A2015680</span></div>
+        <div class="info-row"><span class="k">Important note</span><span class="v">Pump must NOT run dry – confirm 500 mm water before starting</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">4.3 Overflow Gutter – WFC-01 &amp; WFC-02</div>
+        <div class="info-row"><span class="k">Tags</span><span class="v">WFC-01 (North) / WFC-02 (South)</span></div>
+        <div class="info-row"><span class="k">Material</span><span class="v">SS AISI 316L – marine grade, corrosion-resistant</span></div>
+        <div class="info-row"><span class="k">Fabrication</span><span class="v">Custom fabricated locally</span></div>
+        <div class="info-row"><span class="k">Length</span><span class="v">1,250 mm</span></div>
+        <div class="info-row"><span class="k">Width</span><span class="v">150 mm</span></div>
+        <div class="info-row"><span class="k">Height</span><span class="v">170 mm</span></div>
+        <div class="info-row"><span class="k">Depth</span><span class="v">210 mm</span></div>
+        <div class="info-row"><span class="k">Water inlet connection</span><span class="v">2" (DN50) from pump rising pipe</span></div>
+        <div class="info-row"><span class="k">Installed position</span><span class="v">Top of wall at 2,880 mm level</span></div>
+        <div class="info-row"><span class="k">Function</span><span class="v">Receives pump discharge; provides even overflow across full 1,250 mm length</span></div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1rem">
+      <div class="card-title">4.4 Water Supply &amp; Drain</div>
+      <div class="grid-2" style="gap:.5rem;margin-top:.25rem">
+        <div>
+          <div class="info-row"><span class="k">Water supply purpose</span><span class="v">Initial basin fill + top-up for evaporation losses</span></div>
+          <div class="info-row"><span class="k">Supply pipe size</span><span class="v">20 mm cold water</span></div>
+          <div class="info-row"><span class="k">Supply valve</span><span class="v">Manual isolation valve – normally open during operation</span></div>
+          <div class="info-row"><span class="k">Design water level</span><span class="v">500 mm in storage basin</span></div>
+        </div>
+        <div>
+          <div class="info-row"><span class="k">Drain pipe size</span><span class="v">1½" (DN40) UPVC</span></div>
+          <div class="info-row"><span class="k">Drain valve</span><span class="v">Ball valve – normally closed during operation</span></div>
+          <div class="info-row"><span class="k">Drain purpose</span><span class="v">Complete basin drainage for maintenance / extended shutdown</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="alert" style="margin-top:.9rem">&#9432; The submersible pump must never run dry. Always confirm basin water level is at 500 mm before energising the pump. If the basin needs draining for maintenance, switch off the pump first, wait 30 seconds, then open the 1½" drain ball valve slowly. Close supply valve during extended maintenance periods.</div>
+  </div>
+
+  <!-- SECTION 5: UNDERWATER RGB LIGHTING -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">5</div><div class="sec-title">Underwater RGB Lighting</div></div>
+    <div class="body-text">Each feature wall basin is fitted with one AQUA AQ-XT005 purpose-built underwater RGB linear LED wall washer light, permanently submerged in the storage basin and directed upward across the falling water curtain. The AQ-XT005 is 1,200 mm in length, matched to the 1,600 mm basin width to provide even, diffuse illumination across the full water cascade width. The fixture is IP68 rated for permanent submersion and produces colour-changing RGB light — cycling through blues, aquas, amber, and gold tones — creating a dynamic, high-impact visual element in the outdoor pool area, particularly effective at dusk and night-time.</div>
+    <div class="card">
+      <div class="card-title">LED Wall Washer – AQ-XT005 (LT-FW-01 &amp; LT-FW-02)</div>
+      <div class="grid-2" style="gap:.5rem;margin-top:.25rem">
+        <div>
+          <div class="info-row"><span class="k">Brand</span><span class="v">AQUA Pool Products</span></div>
+          <div class="info-row"><span class="k">Model</span><span class="v">AQ-XT005</span></div>
+          <div class="info-row"><span class="k">Type</span><span class="v">Purpose-built underwater linear LED wall washer</span></div>
+          <div class="info-row"><span class="k">Colour</span><span class="v">RGB colour-changing (blues, aquas, amber, gold)</span></div>
+          <div class="info-row"><span class="k">Length</span><span class="v">1,200 mm (matched to basin width)</span></div>
+        </div>
+        <div>
+          <div class="info-row"><span class="k">Protection rating</span><span class="v">IP68 – permanent submersion rated</span></div>
+          <div class="info-row"><span class="k">Installation</span><span class="v">Submerged in storage basin – directed upward</span></div>
+          <div class="info-row"><span class="k">Quantity</span><span class="v">1 No. per feature wall (2 No. total)</span></div>
+          <div class="info-row"><span class="k">Electrical specs</span><span class="v">Refer to AQUA product submittal / data sheet</span></div>
+          <div class="info-row"><span class="k">Reference drawing</span><span class="v">SB-ASB-SD-ME-005-R2</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:.75rem">&#9432; Full electrical specifications (wattage, voltage, lumen output, RGB controller details) to be confirmed from the AQUA product submittal / data sheet held in the project document register. Refer to drawing SB-ASB-SD-ME-005-R2 for the RGB controller wiring and lighting circuit.</div>
+  </div>
+
+  <!-- SECTION 6: OPERATION -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">6</div><div class="sec-title">Operation</div></div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">6.1 Start-Up Procedure</div>
+        <div class="body-text" style="margin-bottom:0">
+          <ol style="padding-left:1.2rem;color:#8EC9D4;font-size:13px;line-height:1.8">
+            <li>Confirm water level in basin is at design level of 500 mm. Top up via 20 mm supply valve if required.</li>
+            <li>Confirm submersible pump is fully submerged in basin water.</li>
+            <li>Energise the pump (WFSP-01 / WFSP-02) at the distribution board.</li>
+            <li>Allow 30–60 seconds for circulation to stabilise and water to reach the overflow gutter.</li>
+            <li>Confirm even cascade of water across full 1,250 mm gutter width.</li>
+            <li>Energise RGB LED light (LT-FW-01 / LT-FW-02) and confirm colour operation.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">6.2 Shutdown Procedure</div>
+        <div class="body-text" style="margin-bottom:0">
+          <ol style="padding-left:1.2rem;color:#8EC9D4;font-size:13px;line-height:1.8">
+            <li>Switch off the RGB LED light (LT-FW-01 / LT-FW-02) at the controller.</li>
+            <li>Switch off the submersible pump (WFSP-01 / WFSP-02) at the distribution board.</li>
+            <li>For extended shutdowns (maintenance / seasonal): close the 20 mm supply isolation valve.</li>
+            <li>For extended shutdowns: open the 1½" drain ball valve slowly to drain the basin completely.</li>
+            <li>Inspect basin, tile, pump, and LED fitting while drained.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">6.3 Routine Checks</div>
+        <div class="body-text" style="margin-bottom:0">
+          <ol style="padding-left:1.2rem;color:#8EC9D4;font-size:13px;line-height:1.8">
+            <li><strong style="color:#FFFFFF">Daily:</strong> Check basin water level is at 500 mm.</li>
+            <li><strong style="color:#FFFFFF">Monthly:</strong> Inspect overflow gutter for algae, debris, and scale build-up. Clean as required.</li>
+            <li><strong style="color:#FFFFFF">Monthly:</strong> Inspect tile and grouting on wall face and basin for cracks or delamination.</li>
+            <li><strong style="color:#FFFFFF">Monthly:</strong> Clean basin interior — drain, scrub, rinse, and refill.</li>
+            <li><strong style="color:#FFFFFF">Monthly:</strong> Check pump for vibration, noise, or loss of flow. Log.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: EQUIPMENT SCHEDULE -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">7</div><div class="sec-title">Installed Equipment Schedule</div></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tag no.</th><th>Equipment / Description</th><th>Brand / Model</th><th>Wall</th><th>Capacity / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag">WFSP-01</span></td><td>Feature wall submersible pump</td><td class="brand">PEDROLLO TOP3</td><td>FW-01 (North)</td><td class="cap">0.55 kW | 220V | 1Ph | IPX8 | S/N 24909A2015670</td></tr>
+          <tr><td><span class="tag">WFSP-02</span></td><td>Feature wall submersible pump</td><td class="brand">PEDROLLO TOP3</td><td>FW-02 (South)</td><td class="cap">0.55 kW | 220V | 1Ph | IPX8 | S/N 24909A2015680</td></tr>
+          <tr><td><span class="tag">WFC-01</span></td><td>Overflow gutter – custom SS AISI 316L</td><td class="brand">LOCAL – Custom Fabricated</td><td>FW-01 (North)</td><td class="cap">1,250 × 150 × 170 × 210 mm | 2" (DN50) water inlet | Top of wall at 2,880 mm</td></tr>
+          <tr><td><span class="tag">WFC-02</span></td><td>Overflow gutter – custom SS AISI 316L</td><td class="brand">LOCAL – Custom Fabricated</td><td>FW-02 (South)</td><td class="cap">1,250 × 150 × 170 × 210 mm | 2" (DN50) water inlet | Top of wall at 2,880 mm</td></tr>
+          <tr><td><span class="tag">LT-FW-01</span></td><td>RGB underwater linear LED wall washer</td><td class="brand">AQUA AQ-XT005</td><td>FW-01 (North)</td><td class="cap">1,200 mm | RGB | IP68 | Submerged in basin | Refer to AQUA datasheet</td></tr>
+          <tr><td><span class="tag">LT-FW-02</span></td><td>RGB underwater linear LED wall washer</td><td class="brand">AQUA AQ-XT005</td><td>FW-02 (South)</td><td class="cap">1,200 mm | RGB | IP68 | Submerged in basin | Refer to AQUA datasheet</td></tr>
+          <tr><td><span class="tag">—</span></td><td>Wall face &amp; basin tile finish</td><td class="brand">Caesar Ceramiche (Italy) – AL CHEMY/TC</td><td>Both walls</td><td class="cap">Mint Matt | R9 (DIN 51130) | 9 mm thick | Wall face (0–2,880 mm) + all basin surfaces</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<div class="footer">
+  <div class="footer-left">CEO Villa – SPA &amp; Pool Facility &nbsp;|&nbsp; Chapter 5: Feature Wall Showers &nbsp;|&nbsp; O&amp;M Manual</div>
+  <div class="footer-right">Document ref: <span>IHCC-CEO-SPA-OM-INT-005</span> &nbsp;|&nbsp; Rev: <span>R0 – For Review</span> &nbsp;|&nbsp; IHCC – Jeddah, KSA</div>
+</div>
+<script>
+  var v = document.getElementById('heroVid');
+  v.addEventListener('loadedmetadata', function(){ v.playbackRate = 0.9; });
+  v.playbackRate = 0.9;
+</script>
+
+
+
+<style>
+  .btn-top{position:fixed;bottom:22px;right:22px;z-index:9999;width:38px;height:38px;border-radius:50%;border:1px solid rgba(201,169,58,.65);background:rgba(4,30,38,.90);color:#C9A93A;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;text-decoration:none;backdrop-filter:blur(6px);box-shadow:0 0 8px rgba(201,169,58,.22);transition:.22s ease;}
+  .btn-top:hover{background:rgba(201,169,58,.15);border-color:#e5c85a;box-shadow:0 0 16px rgba(201,169,58,.55);transform:translateY(-3px);}
+</style>
+<a class="btn-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</a>
+</body>
+</html>

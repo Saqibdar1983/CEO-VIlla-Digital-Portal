@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>pH Controller PM | CEO Villa SPA &amp; Pool</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050507;--deep:#0a0b10;--surface:#0f1117;--panel:#141720;
+  --border:#1e2330;--gold:#c9a84c;--text:#e8eaf0;--muted:#7a8099;--dim:#3a4055;
+  --green:#2abf8f;--cyan:#22d3ee;--blue:#4a9eff;--orange:#e87a4a;
+}
+html,body{width:100%;background:var(--bg);font-family:'Exo 2',sans-serif;color:var(--text);-webkit-text-size-adjust:100%}
+
+/* ── TOP BAR ── */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.55rem 1rem;
+  background:rgba(10,11,16,.96);
+  border-bottom:1px solid rgba(201,168,76,.2);
+  backdrop-filter:blur(8px);
+  gap:.75rem;
+}
+.topbar-left{display:flex;align-items:center;gap:.75rem}
+.tb-icon-btn{
+  width:30px;height:30px;border-radius:5px;
+  background:transparent;border:1px solid rgba(255,255,255,.15);
+  color:#adb4cc;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .2s,color .2s;flex-shrink:0;
+}
+.tb-icon-btn:hover{border-color:var(--gold);color:var(--gold)}
+.tb-icon-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.app-name{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--cyan);letter-spacing:.05em}
+.breadcrumb{font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.07em;color:var(--muted)}
+.breadcrumb span{color:var(--cyan)}
+
+/* ── TITLE SECTION ── */
+.title-section{
+  padding:.75rem 1.2rem .6rem;
+  background:linear-gradient(135deg,rgba(34,211,238,.07),transparent);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.equip-title{font-family:'Rajdhani',sans-serif;font-size:clamp(1.3rem,4vw,1.7rem);font-weight:700;color:#fff;letter-spacing:.04em;line-height:1.1}
+.equip-title span{color:var(--cyan)}
+.equip-sub{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.07em;color:var(--muted);margin-top:.3rem}
+
+/* ── TABS ── */
+.tabs{
+  display:flex;background:#090b12;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  position:sticky;top:49px;z-index:99;
+  overflow-x:auto;scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{
+  flex:1;min-width:110px;padding:.6rem .5rem;
+  background:transparent;border:none;border-bottom:3px solid transparent;
+  cursor:pointer;transition:all .2s;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:.15rem;
+}
+.tab-btn .tab-label{font-family:'Share Tech Mono',monospace;font-size:.82rem;font-weight:700;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.tab-btn .tab-count{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--muted)}
+.tab-btn .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+.tab-btn.daily .dot{background:var(--green);box-shadow:0 0 5px var(--green)}
+.tab-btn.weekly .dot{background:var(--blue);box-shadow:0 0 5px var(--blue)}
+.tab-btn.monthly3 .dot{background:var(--gold);box-shadow:0 0 5px var(--gold)}
+
+.tab-btn.daily.active{background:rgba(42,191,143,.12);border-bottom-color:var(--green)}
+.tab-btn.daily.active .tab-label{color:var(--green)}
+.tab-btn.daily.active .tab-count{color:var(--green)}
+
+.tab-btn.weekly.active{background:rgba(74,158,255,.12);border-bottom-color:var(--blue)}
+.tab-btn.weekly.active .tab-label{color:var(--blue)}
+.tab-btn.weekly.active .tab-count{color:var(--blue)}
+
+.tab-btn.monthly3.active{background:rgba(201,168,76,.12);border-bottom-color:var(--gold)}
+.tab-btn.monthly3.active .tab-label{color:var(--gold)}
+.tab-btn.monthly3.active .tab-count{color:var(--gold)}
+
+/* ── PANEL ── */
+.panel{display:none;padding:1rem 1.2rem 4rem}
+.panel.active{display:block}
+
+/* Panel header */
+.panel-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:.9rem;padding:.6rem .9rem;
+  background:rgba(201,168,76,.08);
+  border-radius:8px;border-left:3px solid var(--cyan);
+  flex-wrap:wrap;gap:.5rem;
+}
+.panel-title{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--cyan);letter-spacing:.04em}
+.panel-badge{
+  font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--gold);
+  background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);
+  padding:.2rem .6rem;border-radius:4px;white-space:nowrap;
+}
+
+/* Download button */
+.dl-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  margin-bottom:.9rem;padding:.5rem 1.1rem;
+  background:var(--gold);border-radius:7px;
+  text-decoration:none;cursor:pointer;
+  font-family:'Share Tech Mono',monospace;font-size:.72rem;
+  font-weight:700;letter-spacing:.08em;color:#000;
+  transition:background .2s,transform .15s;
+}
+.dl-btn:hover{background:#e0b85c;transform:translateY(-1px)}
+.dl-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── CHECKLIST TABLE ── */
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+table{width:100%;border-collapse:collapse;min-width:520px}
+thead tr{background:#0f1220}
+th{
+  font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--cyan);
+  padding:.55rem .6rem;letter-spacing:.06em;border-bottom:1px solid rgba(34,211,238,.15);
+  white-space:nowrap;
+}
+th:nth-child(1){text-align:center;width:42px}
+th:nth-child(3),th:nth-child(4){text-align:center}
+th:nth-child(3){color:var(--green)}
+th:nth-child(4){color:#ff6b6b}
+
+/* Section header row */
+.sec-row td{
+  background:rgba(201,168,76,.15);color:#fff;
+  font-family:'Share Tech Mono',monospace;font-size:.76rem;
+  font-weight:700;letter-spacing:.08em;padding:.5rem .8rem;
+  border-bottom:1px solid rgba(201,168,76,.2);
+}
+
+/* Data row */
+tbody tr.data-row{border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s}
+tbody tr.data-row:hover{background:rgba(201,168,76,.04)}
+.num-cell{
+  font-family:'Share Tech Mono',monospace;font-size:.75rem;
+  color:var(--muted);text-align:center;padding:.5rem .4rem;
+  white-space:nowrap;vertical-align:top;padding-top:.75rem;
+}
+.chk-cell{
+  font-family:'Exo 2',sans-serif;font-size:.83rem;
+  color:#dce0f2;padding:.5rem .7rem;line-height:1.55;vertical-align:top;
+}
+.box-cell{text-align:center;padding:.45rem .4rem;vertical-align:top;padding-top:.65rem}
+.ck{
+  width:20px;height:20px;border-radius:4px;margin:0 auto;cursor:pointer;
+  appearance:none;-webkit-appearance:none;
+  border:2px solid;background:transparent;transition:background .15s;
+  display:block;flex-shrink:0;
+}
+.ck.ok{border-color:var(--green)}
+.ck.ok:checked{background:var(--green)}
+.ck.nok{border-color:#ff6b6b}
+.ck.nok:checked{background:#ff6b6b}
+.rem-cell{
+  font-family:'Exo 2',sans-serif;font-size:.72rem;color:var(--muted);
+  padding:.4rem .5rem;vertical-align:top;min-width:90px;
+}
+
+/* Sign-off row */
+.signoff{
+  margin-top:1.4rem;padding:1rem 1.2rem;
+  background:var(--panel);border:1px solid var(--border);border-radius:10px;
+  display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+}
+.signoff-item{flex:1;min-width:160px}
+.signoff-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--muted);margin-bottom:.3rem}
+.signoff-line{border-bottom:1px solid var(--dim);height:24px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .tabs{top:48px}
+  .panel{padding:.8rem .8rem 3rem}
+  .panel-header{padding:.5rem .7rem}
+  .tab-btn{min-width:95px;padding:.5rem .3rem}
+  .tab-btn .tab-label{font-size:.75rem}
+  .chk-cell{font-size:.8rem}
+}
+@media print{
+  .topbar,.tabs{position:static}
+  .dl-btn{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ── TOP BAR ── -->
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="tb-icon-btn" onclick="history.back()" title="Back">
+      <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+    </button>
+    <span class="app-name">EVA-APP</span>
+    <span class="breadcrumb">PPM &rsaquo; <span>pH CONTROLLER</span></span>
+  </div>
+  <a href="../EVA-CORE.html" class="tb-icon-btn" title="Home">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+  </a>
+</div>
+
+<!-- ── TITLE ── -->
+<div class="title-section">
+  <div class="equip-title">pH / ORP <span>CONTROLLER</span></div>
+  <div class="equip-sub">Hayward HCC2000 · Tag: PHC · CEO Villa SPA &amp; Pool Pump Room</div>
+</div>
+
+<!-- ── TABS ── -->
+<div class="tabs">
+  <button class="tab-btn daily active" onclick="switchTab('daily')">
+    <div class="tab-label"><span class="dot"></span>DAILY</div>
+    <div class="tab-count">10 ITEMS</div>
+  </button>
+  <button class="tab-btn weekly" onclick="switchTab('weekly')">
+    <div class="tab-label"><span class="dot"></span>WEEKLY</div>
+    <div class="tab-count">23 ITEMS</div>
+  </button>
+  <button class="tab-btn monthly3" onclick="switchTab('monthly3')">
+    <div class="tab-label"><span class="dot"></span>3-MONTHLY</div>
+    <div class="tab-count">38 ITEMS</div>
+  </button>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     DAILY PANEL
+════════════════════════════════════════ -->
+<div class="panel active" id="panel-daily">
+
+  <div class="panel-header">
+    <div class="panel-title">DAILY PREVENTIVE MAINTENANCE CHECKLIST</div>
+    <span class="panel-badge">10 ITEMS</span>
+  </div>
+
+  <a class="dl-btn" href="../PM Checklists/pH Controller HCC2000/pH Controller HCC2000 - Daily PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    DOWNLOAD SCHEDULE
+  </a>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr>
+      <th>#</th>
+      <th>CHECKPOINT</th>
+      <th>OK ✓</th>
+      <th>NOT OK ✗</th>
+      <th>Remarks</th>
+    </tr></thead>
+    <tbody>
+
+      <tr class="sec-row"><td colspan="5">A.&nbsp; DISPLAY &amp; STATUS CHECK</td></tr>
+
+      <tr class="data-row">
+        <td class="num-cell">1</td>
+        <td class="chk-cell">Check pH reading on HCC2000 display — record: pH _______ (acceptable range: 7.2–7.8; ideal 7.5); if reading is outside range, confirm alarm is active and investigate cause</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="data-row">
+        <td class="num-cell">2</td>
+        <td class="chk-cell">Check ORP reading on HCC2000 display — record: ORP _______ mV (minimum: 650 mV per manual); reading below setpoint indicates insufficient sanitiser activity; investigate and report</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="data-row">
+        <td class="num-cell">3</td>
+        <td class="chk-cell">Confirm both pH and ORP channels are in AUTO mode — if either channel is in MANUAL or OFF mode, identify reason and restore AUTO operation; note: MANUAL mode bypasses automated control</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="data-row">
+        <td class="num-cell">4</td>
+        <td class="chk-cell">Confirm no alarm indicators are active on controller display — audible or visual alarm signals an out-of-range condition; identify cause and take corrective action immediately</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="data-row">
+        <td class="num-cell">5</td>
+        <td class="chk-cell">Confirm chemical feed outputs are functioning — pH dosing pump should activate when pH demand is present (pH feed LED should cycle); ORP/sanitiser feed should activate when ORP is below setpoint</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="data-row">
+        <td class="num-cell">6</td>
+        <td class="chk-cell">Confirm flow sensor is active and adequate flow is present across sensors — controller disables chemical feeding when flow is absent or below minimum; if flow alarm is showing, check circulation pump and flow cell</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="sec-row"><td colspan="5">B.&nbsp; MANUAL WATER TEST (REQUIRED DAILY — Health Department Compliance)</td></tr>
+
+      <tr class="data-row">
+        <td class="num-cell">7</td>
+        <td class="chk-cell">Perform manual water test using quality test kit and record results — automated controllers are an aid to maintaining chemistry but are NOT a substitute for manual testing per Hayward manual and Health Department requirements</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="data-row">
+        <td class="num-cell">8</td>
+        <td class="chk-cell">Cross-check manual test pH against controller display pH — record: Display pH _______ | Manual test pH _______ | Difference: _______; if difference exceeds 0.2 units, calibration is required</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="data-row">
+        <td class="num-cell">9</td>
+        <td class="chk-cell">Test and record: Free Chlorine _______ ppm (target: 1.0–3.0 ppm; ideal 2.0 ppm); low chlorine despite ORP above setpoint may indicate cyanuric acid imbalance</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="data-row">
+        <td class="num-cell">10</td>
+        <td class="chk-cell">Test and record: ORP _______ mV (verify against display reading); difference between manual and display should be minimal</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div>
+
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+
+</div><!-- /panel-daily -->
+
+
+<!-- ═══════════════════════════════════════
+     WEEKLY PANEL
+════════════════════════════════════════ -->
+<div class="panel" id="panel-weekly">
+
+  <div class="panel-header">
+    <div class="panel-title">WEEKLY PREVENTIVE MAINTENANCE CHECKLIST</div>
+    <span class="panel-badge">23 ITEMS</span>
+  </div>
+
+  <a class="dl-btn" href="../PM Checklists/pH Controller HCC2000/pH Controller HCC2000 - Weekly PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    DOWNLOAD SCHEDULE
+  </a>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr>
+      <th>#</th>
+      <th>CHECKPOINT</th>
+      <th>OK ✓</th>
+      <th>NOT OK ✗</th>
+      <th>Remarks</th>
+    </tr></thead>
+    <tbody>
+
+      <tr class="sec-row"><td colspan="5">A.&nbsp; FULL WATER CHEMISTRY TEST</td></tr>
+
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Test and record: pH _______ (target 7.2–7.8; ideal 7.5); maintain pH within range before relying on automated control</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Test and record: Free Chlorine _______ ppm (target: 1.0–3.0 ppm; ideal 2.0 ppm)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Test and record: ORP _______ mV (minimum: 650 mV); ORP is a direct measure of sanitiser activity — readings below 650 mV indicate inadequate disinfection</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Test and record: Total Alkalinity _______ ppm (target: 80–120 ppm); maintain TA to ensure pH stability — pH instability is a primary cause of sensor calibration drift</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Test and record: Calcium Hardness _______ ppm (target: 200–400 ppm)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Test and record: Cyanuric Acid _______ ppm (maximum: 100 ppm); elevated cyanuric acid suppresses ORP reading relative to actual chlorine residual — ORP setpoint may need adjustment</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Adjust water chemistry as required to bring all parameters within range per manual guidelines before relying on automated control for the following week</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">B.&nbsp; pH SENSOR CALIBRATION CHECK</td></tr>
+
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Compare controller pH display reading against fresh manual test kit result — if difference exceeds 0.2 pH units, calibration adjustment is required</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">If calibration is required, perform pH calibration adjustment using the CALIBRATE function on the HCC2000 controller per Section 4 (Calibration) of the HCC 2000 Owner's Manual</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Record: Pre-calibration pH (display): _______ | Post-calibration pH (display): _______ | Manual test pH: _______</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">NOTE: For precision calibration, use commercially available reference calibration solutions — these provide instrument-grade accuracy exceeding liquid-standard test kits per Hayward manual</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">C.&nbsp; SENSOR INSPECTION &amp; CLEANING (perform if any of the following signs are present)</td></tr>
+
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Assess sensors for signs requiring cleaning: slow response to water chemistry changes; increased frequency of pH calibration needed; inconsistent or drifting pH or ORP readings — if any sign is present, proceed with cleaning below</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">SAFETY: Disconnect power to controller before removing sensors; disconnect sensor cables (pH and ORP) from BNC connectors on left side of controller; reinstall BNC protective covers on controller to prevent ESD damage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Carefully remove pH sensor (PRO15-2) and ORP sensor (PRO25-2) from flow cell by unscrewing sensor bodies — handle sensors with care; do not drop</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Clean reference junction (white teflon ring at bottom of each sensor body) with soft toothbrush and regular toothpaste — a household liquid dishwashing detergent may also be used to remove oil deposits per manual</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Rinse both sensors thoroughly with fresh water after cleaning; replace teflon thread-seal tape on sensor threads before reinstalling</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">CRITICAL: Never allow pH or ORP sensor to dry out completely — drying will damage the reference junction and will void the sensor warranty per Hayward manual; if sensors are removed for longer than 1 hour, store immediately in soaking caps filled with original storage solution or clean water</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Reinstall sensors into flow cell — hand-tighten only; do not use tools to overtighten sensor bodies; reconnect sensor cables to BNC connectors as labelled</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">Restore power and confirm sensors are reading correctly; perform pH calibration check after sensor reinstallation</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">D.&nbsp; FLOW CELL &amp; TUBING CHECK</td></tr>
+
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Inspect flow cell body and all tubing connections (influent port, effluent port, sample stream port) for leaks, blockages, or chemical deposits</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Confirm flow cell valves are open and water is passing through the cell — sensors require continuous water exposure to provide accurate readings; no flow = no accurate reading</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Inspect 3/8" OD poly installation tubing runs for kinks, blockages, UV degradation, or chemical attack; inspect 3" to 6" sample stream tubing at sample stream port for correct installation</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Confirm 1/4" NPT x 3/8" True-Seal fittings at both pipe tap locations (downstream of filter; suction/low pressure side) are secure, leak-free, and unblocked</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+    </tbody>
+  </table>
+  </div>
+
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+
+</div><!-- /panel-weekly -->
+
+
+<!-- ═══════════════════════════════════════
+     3-MONTHLY PANEL
+════════════════════════════════════════ -->
+<div class="panel" id="panel-monthly3">
+
+  <div class="panel-header">
+    <div class="panel-title">3-MONTHLY PREVENTIVE MAINTENANCE CHECKLIST</div>
+    <span class="panel-badge">38 ITEMS</span>
+  </div>
+
+  <a class="dl-btn" href="../PM Checklists/pH Controller HCC2000/pH Controller HCC2000 - 3-Monthly PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    DOWNLOAD SCHEDULE
+  </a>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr>
+      <th>#</th>
+      <th>CHECKPOINT</th>
+      <th>OK ✓</th>
+      <th>NOT OK ✗</th>
+      <th>Remarks</th>
+    </tr></thead>
+    <tbody>
+
+      <tr class="sec-row"><td colspan="5">A.&nbsp; FULL SENSOR DEEP CLEAN &amp; PERFORMANCE ASSESSMENT</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Perform complete sensor removal and cleaning per the weekly cleaning procedure (disconnect power, remove sensors, clean reference junctions with toothbrush and toothpaste, rinse thoroughly, replace teflon tape, reinstall hand-tight) — perform this regardless of apparent sensor condition at 3-monthly service</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">After cleaning and reinstallation, perform pH calibration using commercially available calibration reference solutions for instrument-grade accuracy per Hayward manual recommendation</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Record: Pre-clean pH reading: _______ | Post-clean/post-calibration pH reading: _______ | Reference solution pH: _______</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Assess pH sensor (PRO15-2) performance after deep clean and calibration — if sensor still provides slow response, drifting readings, or requires excessive calibration, sensor replacement is required; replace with genuine Hayward PRO15-2</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Assess ORP sensor (PRO25-2) performance — if ORP reading is consistently incorrect or non-responsive after cleaning, sensor replacement is required; replace with genuine Hayward PRO25-2</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Record: pH Sensor PRO15-2 condition: Satisfactory / Requires monitoring / Replace | ORP Sensor PRO25-2 condition: Satisfactory / Requires monitoring / Replace</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">B.&nbsp; FLOW CELL FULL INSPECTION &amp; CLEAN</td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Inspect flow cell body for cracks, chemical deposits, discoloration, or UV degradation</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Clean flow cell body and housing with clean soft cloth moistened with mild soap and water solution — do not use abrasives, solvents, or harsh chemical cleaners; these will damage the flow cell housing per Hayward manual</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Inspect all three port connections (influent, effluent, sample stream) for chemical scale buildup or blockage; flush ports with clean water if scaling is present</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Inspect flow sensor condition — confirm flow sensor cable is intact, undamaged, and correctly connected; confirm flow sensor is responding to flow changes (controller disables feed when flow stops)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Inspect flow cell valves — confirm both influent and effluent port valves open and close freely; no leaks from valve bodies</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">C.&nbsp; TUBING &amp; FITTINGS FULL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Inspect full length of 3/8" OD poly installation tubing from influent port to pipe tap (downstream of filter) and from effluent port to suction/low pressure tap — check entire run for kinks, blockages, UV degradation, hardening, or chemical attack; replace any damaged sections</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Confirm combined tubing run (influent + effluent) does not exceed 30 feet maximum per installation requirement; excessive run length reduces sample flow through flow cell</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Inspect both 1/4" NPT x 3/8" True-Seal connector fittings at pipe tap locations — confirm fittings are secure, leak-free, and threads are in good condition; confirm taps are not blocked by scale or debris</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Inspect 3" to 6" sample stream tubing — confirm still correctly inserted in sample stream port; replace if kinked or degraded</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">D.&nbsp; CONTROLLER ENCLOSURE &amp; ELECTRICAL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Inspect controller enclosure exterior for damage, corrosion, or moisture ingress — clean enclosure and front panel membrane with clean soft cloth and mild soap/water or glass cleaner only; no abrasives per Hayward manual</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Inspect front panel membrane switch for damage, lifting, or delamination — if membrane is damaged, controller functionality is compromised; report for replacement</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Inspect power cord for damage, abrasion, kinking, or heat marks — the manual states "All power cords should be inspected frequently; any damaged power cords must be replaced immediately to reduce the risk of electric shock"</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">Confirm GFI (GFCI) circuit breaker protecting controller circuit is functional — test GFCI trip function; confirm GFCI resets correctly; Hayward requires controller to be installed on a dedicated GFI-protected circuit</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Inspect all BNC connectors (pH sensor, ORP sensor, Flow sensor) at controller — confirm connections are fully seated, clean, and free of corrosion or moisture; confirm BNC protective covers are stored safely for use during transport or storage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Inspect pH and ORP sensor cables (24" each) and flow sensor cable for kinking, chemical attack, or physical damage — NEVER cut or splice sensor cables per Hayward manual; damaged cable requires full sensor/cable replacement</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Inspect pH feed output wiring (120/240VAC, 4A) and ORP dry contact wiring (5VDC, 1A max) connections to chemical dosing equipment — confirm terminals are secure and wire insulation is undamaged</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Confirm controller is mounted in safe area away from moving objects, physical hazards, and corrosive materials; confirm it is not accessible to the public per Hayward installation requirement</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">E.&nbsp; SETPOINT &amp; CONFIGURATION VERIFICATION</td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Verify pH setpoint — factory preset 7.5; confirm current setpoint is correctly configured: pH setpoint _______ (acceptable range 7.2–7.8); adjust if required based on current water chemistry programme</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">25</td><td class="chk-cell">Verify ORP setpoint — factory preset 650 mV; confirm current setpoint: ORP setpoint _______ mV; note: if goal is to maintain consistent chlorine residual in ppm (rather than consistent ORP), setpoint should be adjusted periodically as pool conditions change per manual</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">26</td><td class="chk-cell">Confirm both channel mode selections are set to AUTO for normal automated operation</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">27</td><td class="chk-cell">Confirm BREAKPOINT function settings (if configured) are correctly programmed per facility requirements</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">28</td><td class="chk-cell">Test alarm functions — confirm audible alarm activates for out-of-range pH and ORP conditions; confirm visual alarm indicators on display are functional</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">F.&nbsp; CHEMICAL FEED OUTPUT VERIFICATION</td></tr>
+      <tr class="data-row"><td class="num-cell">29</td><td class="chk-cell">Verify pH feed output (120/240VAC, 4A, 60Hz) is activating the connected pH dosing pump correctly — introduce a small pH demand and confirm controller activates feed output; confirm feed LED cycles</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">30</td><td class="chk-cell">Verify ORP/sanitiser feed dry contact output (5VDC, 1A max) is activating the connected chlorine dosing device correctly — confirm output activates when ORP is below setpoint</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">31</td><td class="chk-cell">Verify Chem Feed dry contact (5VDC, 1A max) is functioning correctly if connected to additional dosing equipment</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">32</td><td class="chk-cell">Confirm flow protection interlock is functioning — chemical feed must stop when flow sensor detects absent or insufficient flow; test by temporarily stopping circulation pump and confirming feed disables</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">33</td><td class="chk-cell">Record: pH feed output verified: OK / Fault | ORP feed output verified: OK / Fault | Flow interlock verified: OK / Fault</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">G.&nbsp; DOCUMENTATION</td></tr>
+      <tr class="data-row"><td class="num-cell">34</td><td class="chk-cell">Record all maintenance activities, calibration readings (before and after), sensor condition assessment, and any corrective actions taken during this 3-monthly service</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">35</td><td class="chk-cell">Record: pH Sensor PRO15-2 — cleaned: Yes / No | replaced: Yes / No | condition: _______</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">36</td><td class="chk-cell">Record: ORP Sensor PRO25-2 — cleaned: Yes / No | replaced: Yes / No | condition: _______</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">37</td><td class="chk-cell">Record: Next 3-monthly service due date: _______</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">38</td><td class="chk-cell">Update equipment maintenance history log; submit completed checklist to Supervisor for countersignature</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+    </tbody>
+  </table>
+  </div>
+
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+
+</div><!-- /panel-monthly3 -->
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active') });
+  document.getElementById('panel-' + tab).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active') });
+  document.querySelector('.tab-btn.' + tab).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TR-140 Triton Sand Filter Troubleshooting | SSB Villa O&amp;M Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--gold:#D4AF37;--gold-light:#f0d060}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#0d1829;display:flex;flex-direction:column;min-height:100vh;font-family:'Aptos Display','Segoe UI',sans-serif}
+header{background:rgba(5,10,20,0.95);border-bottom:2px solid rgba(212,175,55,0.45);padding:0 24px;height:72px;display:flex;align-items:center;position:fixed;top:0;width:100%;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.hl{flex:1;display:flex;align-items:center}
+.hc{flex:2;text-align:center;line-height:1.4}
+.hc .l1{font-size:10px;font-weight:600;color:rgba(212,175,55,0.6);text-transform:uppercase;letter-spacing:2.5px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hc .l2{font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hrr{flex:1;display:flex;justify-content:flex-end;align-items:center}
+.btn-back,.btn-home{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);padding:8px 16px;border-radius:4px;cursor:pointer;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;transition:background 0.3s}
+.btn-back:hover,.btn-home:hover{background:rgba(212,175,55,0.28)}
+main{margin-top:72px;margin-bottom:60px;padding:26px 28px;max-width:1500px;width:100%;margin-left:auto;margin-right:auto;flex:1}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.3);color:rgba(212,175,55,0.7);padding:8px 22px;border-radius:4px;cursor:pointer;font-size:13px;transition:all 0.2s}
+.tab-btn.active,.tab-btn:hover{background:rgba(212,175,55,0.18);border-color:rgba(212,175,55,0.7);color:var(--gold)}
+.tbl-wrap{overflow-x:auto}
+.ts{width:100%;border-collapse:collapse;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;min-width:600px}
+.ts thead tr th{background:rgba(212,175,55,0.22);color:#f5edd5;padding:11px 13px;text-align:left;border:1px solid rgba(212,175,55,0.38);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
+.ts tbody tr:nth-child(odd) td{background:rgba(255,255,255,0.04)}
+.ts tbody tr:nth-child(even) td{background:rgba(255,255,255,0.07)}
+.ts tbody tr:hover td{background:rgba(212,175,55,0.09)}
+.ts tbody td{padding:10px 13px;vertical-align:top;border:1px solid rgba(255,255,255,0.07);color:#e0d8c8;line-height:1.6;font-size:13px}
+.ts tbody td.fc{color:#f5e9c4;font-weight:700;border-right:2px solid rgba(212,175,55,0.35);background:rgba(212,175,55,0.07)!important;min-width:140px}
+footer{background:rgba(5,10,20,0.95);border-top:2px solid rgba(212,175,55,0.45);padding:14px 30px;display:flex;align-items:center;justify-content:space-between;position:fixed;bottom:0;width:100%;font-size:13px;color:rgba(212,175,55,0.75);z-index:1000;font-family:'Aptos Display','Segoe UI',sans-serif}
+.btn-up{background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.3s}
+.btn-up:hover{background:rgba(212,175,55,0.35)}
+</style>
+</head>
+<body id="top">
+<header>
+  <div class="hl"><a href="Error Codes &amp; Troubleshooting Register.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a></div>
+  <div class="hc"><span class="l1">SPA &amp; POOL FACILITY</span><span class="l2">TR-140 Triton Sand Filter Troubleshooting</span></div>
+  <div class="hrr"><a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a></div>
+</header>
+<main>
+<div style="background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.38);border-radius:6px;padding:9px 18px;margin-bottom:16px;color:#f0dfa0;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.8px;text-align:center;">TR-140 Triton Sand Filter Troubleshooting Guide</div>
+<div class="tbl-wrap"><table class="ts">
+<thead><tr><th>System/Equipment</th><th>Problem</th><th>Cause</th><th>Corrective Action</th></tr></thead><tbody>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Pool water not sufficiently clean</td><td>Pool chemistry not adequate to inhibit algae growth.</td><td>Maintain pool chemistry or consult pool service technician.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Pool water not sufficiently clean</td><td>Too frequent a backwash cycle.</td><td>Allow pressure to build to 10 psi above clean filter condition before backwashing.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Pool water not sufficiently clean</td><td>Improper amount or wrong sand size.</td><td>Check sand bed Freeboard and sand size or consult a pool service technician.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Pool water not sufficiently clean</td><td>Inadequate turnover rate.</td><td>Run system for longer time or consult dealer or pool service technician.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>High filter pressure</td><td>Insufficient backwashing.</td><td>Backwash until effluent runs clear.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>High filter pressure</td><td>Sand bed plugged with mineral deposits.</td><td>Chemically clean filter.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>High filter pressure</td><td>Partially closed valve.</td><td>Open valve or remove obstruction in return line.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Short cycles</td><td>Improper backwash.</td><td>Backwash until effluent runs clear.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Short cycles</td><td>Pool chemistry not adequate to inhibit algae growth.</td><td>Maintain pool chemistry or consult pool service technician.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Short cycles</td><td>Plugged sand bed.</td><td>Manually remove top 1 inch surface of sand bed, replace with new sand and chemically clean entire sand bed as described in the Chemical Cleaning Procedure.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Short cycles</td><td>Flow rate too high.</td><td>Restrict flow to capacity of filter.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Return flow to pool diminished, low filter pressure</td><td>Obstruction in pump hair and lint strainer.</td><td>Clean basket in pump strainer.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Return flow to pool diminished, low filter pressure</td><td>Obstruction in pump.</td><td>Disassemble and clean pump.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Return flow to pool diminished, low filter pressure</td><td>Obstruction in suction line to pump.</td><td>Clean skimmer basket. Remove obstruction in lines. Open valves in suction line.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Sand returning to pool</td><td>Broken under drain lateral.</td><td>Replace broken or damaged laterals.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Sand loss to waste</td><td>Backwash rate too high.</td><td>Reduce backwash flow rate.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Sand loss to waste</td><td>Improper sand size.</td><td>Change to proper sand.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Sand loss to waste</td><td>Air strainer is damaged or missing.</td><td>Replace damaged components.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Leak at closure</td><td>Improperly tightened closure.</td><td>Shut off pump, relieve tank pressure, open air bleeder, tighten closure properly.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Leak at closure</td><td>Dirt or contamination on sealing surface.</td><td>Shut off pump, relieve tank pressure, open air bleeder, remove closure and clean all sealing surfaces. Reassemble closure properly.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Leak at closure</td><td>Damaged part.</td><td>Same as above except replace damaged O-ring, closure, tank or any combination of parts as required.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Leak at bulkhead</td><td>Improper tightened bulkhead assembly.</td><td>Shut off pump, relieve tank pressure, open air bleeder, remove closure and remove sand to access leaking bulkhead on TR40, 50, 60, TR60 ClearPro, 100, 100C, 140 or 140C. Hold the 2 inch bulkhead and tighten the 2 inch internal locknut. On the TR100C-3/TR140C-3, using the special wrench, P/N 154020, hold the 3 inch flange spacer and with wrench, P/N 154019, tighten the 3 inch flange adapter. Hand tighten plus 1/2 turn.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Leak at bulkhead</td><td>Dirt or contamination on sealing surfaces.</td><td>Shut off pump, relieve tank pressure, open air bleeder, remove closure and remove sand to access leaking bulkhead. Remove attached tank internals and remove bulkhead assembly. Clean all mating surfaces and seals. Replace the bulkhead assembly, being careful to assemble properly. Tighten assembly as indicated above.</td></tr>
+<tr><td class="fc">TR-140 Triton Sand Filter</td><td>Leak at bulkhead</td><td>Damaged part.</td><td>Same as above except replace damaged part or combination of parts.</td></tr>
+<tr><td colspan="4" class="fc">Safety Warning - High Pressure Filter</td></tr>
+<tr><td class="fc">Before service</td><td colspan="3">Turn the pump OFF and shut OFF automatic controls.</td></tr>
+<tr><td class="fc">Air release</td><td colspan="3">Open the manual air bleeder valve and wait until all pressure is relieved.</td></tr>
+<tr><td class="fc">Closure</td><td colspan="3">Never service or tighten closure while the system is pressurized.</td></tr>
+<tr><td class="fc">Start-up</td><td colspan="3">After service, follow initial start-up instructions exactly.</td></tr>
+<tr><td class="fc">Parts</td><td colspan="3">Replace worn/damaged closure, pressure gauge, valves, O-rings immediately.</td></tr>
+</tbody>
+</table></div>
+</main>
+<footer>
+  <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+  <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+</footer>
+
+</body>
+</html>

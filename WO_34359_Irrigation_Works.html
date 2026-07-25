@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work Order 34359 - Irrigation Systems</title>
+  <style>
+    :root {
+      --blue-950: #123c2d;
+      --blue-900: #17543b;
+      --blue-800: #21704c;
+      --blue-700: #2f8a5b;
+      --blue-100: #e8f5ed;
+      --blue-050: #f4faf6;
+      --gold: #d6b34a;
+      --gold-light: #f1d77b;
+      --ink: #1d2a35;
+      --muted: #647586;
+      --line: #c7ddd0;
+      --white: #ffffff;
+      --warning: #fff2a8;
+      --shadow: 0 12px 30px rgba(18, 60, 45, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 5% 5%, rgba(72, 157, 103, 0.14), transparent 28rem),
+        linear-gradient(180deg, #eef8f1 0, #ffffff 32rem);
+      font-family: "Segoe UI", Arial, sans-serif;
+      line-height: 1.45;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 7px 2rem;
+      color: var(--white);
+      background: rgba(4, 14, 8, 0.98);
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(9px);
+    }
+
+    .toolbar-group { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 6px 13px;
+      color: var(--white);
+      background: var(--blue-800);
+      border: 1px solid rgba(255,255,255,0.24);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .15s ease, background .15s ease;
+    }
+
+    .button:hover { background: var(--blue-700); transform: translateY(-1px); }
+    .button.gold { color: var(--blue-950); background: var(--gold); border-color: var(--gold-light); }
+    .button.gold:hover { background: var(--gold-light); }
+
+    .page {
+      width: 100%;
+      margin: 0;
+      padding: 18px 2rem 30px;
+      box-sizing: border-box;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 12px clamp(16px, 3vw, 32px);
+      color: var(--white);
+      background: linear-gradient(135deg, var(--blue-950), var(--blue-700));
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      right: -70px;
+      top: -100px;
+      border: 30px solid rgba(255,255,255,0.07);
+      border-radius: 50%;
+    }
+
+    .eyebrow {
+      margin: 0 0 2px;
+      color: var(--gold);
+      font-size: clamp(12px, 1.6vw, 18px);
+      font-weight: 850;
+      letter-spacing: .055em;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(14px, 1.6vw, 20px);
+      font-weight: 700;
+    }
+
+    .hero p:not(.eyebrow) { margin: 3px 0 0; color: #dcecf7; font-size: 12px; }
+    .hero .eyebrow { color: var(--gold) !important; }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .card, .section {
+      background: rgba(255,255,255,0.97);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 7px 20px rgba(18, 60, 45, 0.09);
+    }
+
+    .card { padding: 9px 12px; }
+    .card.wide { grid-column: span 2; }
+    .card-label { display: block; margin-bottom: 2px; color: var(--blue-700); font-size: 10px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+    .card-value { font-size: 13px; font-weight: 700; overflow-wrap: anywhere; }
+    .card-value.total { color: var(--blue-900); font-size: 18px; }
+
+    .section { margin-top: 11px; overflow: hidden; }
+    .section-title {
+      margin: 0;
+      padding: 10px 16px;
+      color: var(--white);
+      background: linear-gradient(90deg, var(--blue-900), var(--blue-700));
+      font-size: 16px;
+    }
+
+    .table-wrap { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      min-width: 1080px;
+      border-collapse: collapse;
+      font-size: 12px;
+      line-height: 1.22;
+    }
+
+    th {
+      padding: 8px 7px;
+      color: var(--white);
+      background: var(--blue-800);
+      border-right: 1px solid rgba(255,255,255,.2);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 6px 7px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) { background: var(--blue-050); }
+    tbody tr:hover { background: var(--blue-100); }
+    td.numeric, th.numeric { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    td.center { text-align: center; }
+    th:nth-child(1), td:nth-child(1) { width: 72px; }
+    th:nth-child(2), td:nth-child(2) { width: 88px; }
+    th:nth-child(3), td:nth-child(3) { width: auto; }
+    th:nth-child(4), td:nth-child(4) { width: 104px; min-width: 104px; white-space: nowrap; }
+    th:nth-child(5), td:nth-child(5) { width: 76px; }
+    th:nth-child(6), td:nth-child(6),
+    th:nth-child(7), td:nth-child(7),
+    th:nth-child(8), td:nth-child(8) { width: 88px; }
+    td.description { min-width: 480px; }
+    td.uncertain { background: var(--warning) !important; box-shadow: inset 4px 0 #e3b821; }
+
+    tfoot td {
+      padding: 10px 7px;
+      color: var(--blue-950);
+      background: #dcefe3;
+      border-top: 2px solid var(--blue-700);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      padding: 10px;
+    }
+
+    .detail {
+      padding: 10px 12px;
+      background: var(--blue-050);
+      border: 1px solid var(--line);
+      border-radius: 11px;
+    }
+
+    .detail h3 {
+      margin: 0 0 4px;
+      color: var(--blue-800);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .detail p { margin: 0; white-space: pre-line; font-size: 12px; line-height: 1.3; }
+    .detail.full { grid-column: 1 / -1; }
+
+    footer {
+      padding: 14px 2rem;
+      color: var(--white);
+      background: #040e08;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 650;
+      letter-spacing: .02em;
+    }
+
+    footer span { color: var(--gold-light); padding: 0 8px; }
+    footer .project-name {
+      color: var(--gold);
+      font-weight: 850;
+      letter-spacing: .08em;
+    }
+
+    @media (max-width: 900px) {
+      .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .details-grid { grid-template-columns: 1fr; }
+      .detail.full { grid-column: auto; }
+    }
+
+    @media (max-width: 560px) {
+      .toolbar { position: static; flex-direction: column; }
+      .toolbar-group, .button { width: 100%; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .card.wide { grid-column: auto; }
+      .page { width: 100%; padding: 10px 1rem 20px; }
+      .hero { border-radius: 12px; }
+    }
+
+    @media print {
+      .toolbar { display: none; }
+      body { background: #fff; }
+      .page { width: 100%; margin: 0; }
+      .hero, .card, .section { box-shadow: none; }
+      .section { break-inside: avoid; }
+      footer { margin-top: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="toolbar" aria-label="Page controls">
+    <div class="toolbar-group">
+      <button class="button gold" type="button" onclick="history.back()" aria-label="Go back">Back</button>
+    </div>
+    <div class="toolbar-group">
+      <a class="button gold" href="EVA-CORE.html" aria-label="Go to portal home">Home</a>
+      <a class="button gold" href="https://drive.google.com/uc?export=download&id=14G0Veaa1Bfg2t2LkJSMv4-AFfwvWQdcm" target="_blank">Download WO</a>
+    </div>
+  </nav>
+
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">Irrigation Systems</p>
+      <h1>Work Order 34359</h1>
+      <p>Supply, installation, testing and commissioning of the irrigation system</p>
+    </header>
+
+    <section class="summary-grid" aria-label="Work order summary">
+      <div class="card">
+        <span class="card-label">Work Order Number</span>
+        <div class="card-value">34359</div>
+      </div>
+      <div class="card">
+        <span class="card-label">Date</span>
+        <div class="card-value">26-Jan-25</div>
+      </div>
+      <div class="card">
+        <span class="card-label">Currency</span>
+        <div class="card-value">SAR</div>
+      </div>
+      <div class="card">
+        <span class="card-label">Order Total</span>
+        <div class="card-value total">SAR 110,755.35</div>
+      </div>
+      <div class="card wide">
+        <span class="card-label">Contractor</span>
+        <div class="card-value">ABDULAZIZ SALEH SHATA EST</div>
+      </div>
+      <div class="card wide">
+        <span class="card-label">P.O. Box</span>
+        <div class="card-value">23218 JEDDAH 21425 - JEDDAH-</div>
+      </div>
+      <div class="card wide">
+        <span class="card-label">Project</span>
+        <div class="card-value">ENG SULTAN BATT VILLA ALMURJAN</div>
+      </div>
+      <div class="card wide">
+        <span class="card-label">Initiator / Contact</span>
+        <div class="card-value">Khawaja Khawaja / 0580742783</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Detailed Work Order</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Location</th>
+              <th>Cost Code</th>
+              <th>Description</th>
+              <th>Unit</th>
+              <th class="numeric">Quantity</th>
+              <th class="numeric">Rate</th>
+              <th class="numeric">Tax</th>
+              <th class="numeric">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Irrigation system supply, installation, testing &amp; commissioning of irrigation water lines pipe work as per approved design drawings. Bubbler, rainbird PC full circle series 1400,</td><td>Numbers</td><td class="numeric">121.00</td><td class="numeric">28.00</td><td class="numeric">508.20</td><td class="numeric">3,896.20</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Irrigation sprinkler, Rainbird HE-Ven,</td><td>Numbers</td><td class="numeric">41.00</td><td class="numeric">34.00</td><td class="numeric">209.10</td><td class="numeric">1,603.10</td></tr>
+            <tr style="background:var(--blue-050);"><td class="center">10144</td><td>32-02-030</td><td class="description">8 HE-Van,</td><td>Numbers</td><td class="numeric">6.00</td><td class="numeric">34.00</td><td class="numeric">30.60</td><td class="numeric">234.60</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">15 HE-Van,</td><td>Numbers</td><td class="numeric">35.00</td><td class="numeric">34.00</td><td class="numeric">178.50</td><td class="numeric">1,368.50</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Rain bird solenoid valve 1.5&quot; PGA,</td><td>Numbers</td><td class="numeric">4.00</td><td class="numeric">980.00</td><td class="numeric">588.00</td><td class="numeric">4,508.00</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Hoses EL-Ayed hoses garden water reels,</td><td>Numbers</td><td class="numeric">2.00</td><td class="numeric">450.00</td><td class="numeric">135.00</td><td class="numeric">1,035.00</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Quick coupling valve &amp; key rainbird P33DK 3/4&quot;,</td><td>Numbers</td><td class="numeric">10.00</td><td class="numeric">750.00</td><td class="numeric">1,125.00</td><td class="numeric">8,625.00</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">CPVC 3/4&quot; pipe SCH 40,</td><td>Liner Meter</td><td class="numeric">62.00</td><td class="numeric">24.00</td><td class="numeric">223.20</td><td class="numeric">1,711.20</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">CPVC 1&quot; pipe SCH 40,</td><td>Liner Meter</td><td class="numeric">126.00</td><td class="numeric">34.50</td><td class="numeric">652.05</td><td class="numeric">4,999.05</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">CPVC 1.25&quot; pipe SCH 40,</td><td>Liner Meter</td><td class="numeric">52.00</td><td class="numeric">57.00</td><td class="numeric">444.60</td><td class="numeric">3,408.60</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">CPVC 1.5&quot; pipe SCH 40,</td><td>Liner Meter</td><td class="numeric">38.00</td><td class="numeric">72.00</td><td class="numeric">410.40</td><td class="numeric">3,146.40</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">CPVC 2&quot; pipe SCH 40,</td><td>Liner Meter</td><td class="numeric">38.00</td><td class="numeric">84.00</td><td class="numeric">478.80</td><td class="numeric">3,670.80</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">CPVC 3/4&quot; pipe SCH 80,</td><td>Liner Meter</td><td class="numeric">112.00</td><td class="numeric">24.00</td><td class="numeric">403.20</td><td class="numeric">3,091.20</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">CPVC 1&quot; pipe SCH 80,</td><td>Liner Meter</td><td class="numeric">24.00</td><td class="numeric">34.50</td><td class="numeric">124.20</td><td class="numeric">952.20</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">CPVC 1.5&quot; pipe SCH 80,</td><td>Liner Meter</td><td class="numeric">7.00</td><td class="numeric">72.00</td><td class="numeric">75.60</td><td class="numeric">579.60</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">CPVC 2&quot; pipe SCH 80,</td><td>Liner Meter</td><td class="numeric">24.00</td><td class="numeric">84.00</td><td class="numeric">302.40</td><td class="numeric">2,318.40</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Valve box jumbo rain bird,</td><td>Numbers</td><td class="numeric">4.00</td><td class="numeric">450.00</td><td class="numeric">270.00</td><td class="numeric">2,070.00</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Wiring for controller riyadh 14 awg irrigation maxi wires,</td><td>Liner Meter</td><td class="numeric">160.00</td><td class="numeric">13.00</td><td class="numeric">312.00</td><td class="numeric">2,392.00</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Controller with IQ4 rain bird ESP LXD 60HZ,</td><td>Numbers</td><td class="numeric">1.00</td><td class="numeric">10,000.00</td><td class="numeric">1,500.00</td><td class="numeric">11,500.00</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Fittings &amp; bands El-Munif . PV Socket fittings SCH 40 ASTM D 2466. PVC socket fitting SCH 80 ASTM D 2467,</td><td>Lot</td><td class="numeric">1.00</td><td class="numeric">18,000.00</td><td class="numeric">2,700.00</td><td class="numeric">20,700.00</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Pump booster set stand by + duty pedrollo CP670,</td><td>Numbers</td><td class="numeric">1.00</td><td class="numeric">20,000.00</td><td class="numeric">3,000.00</td><td class="numeric">23,000.00</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Flush valve for drip line, netaflm Drip flush valve moble TL050 MFV-1, Modle TLEV-1,</td><td>Numbers</td><td class="numeric">5.00</td><td class="numeric">60.00</td><td class="numeric">45.00</td><td class="numeric">345.00</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Air release valve for drip line,</td><td>Numbers</td><td class="numeric">1.00</td><td class="numeric">320.00</td><td class="numeric">48.00</td><td class="numeric">368.00</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">6 Inches valve box for flush and air valve,</td><td>Numbers</td><td class="numeric">1.00</td><td class="numeric">50.00</td><td class="numeric">7.50</td><td class="numeric">57.50</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Valve boxes for piping network,</td><td>Numbers</td><td class="numeric">10.00</td><td class="numeric">450.00</td><td class="numeric">675.00</td><td class="numeric">5,175.00</td></tr>
+            <tr><td class="center">10144</td><td>32-02-030</td><td class="description">Terms and conditions:<br>- All work as per approved design and material submittal.<br>- The scope included all the material supply as specified and vendor is responsible to complete the prescribed scope by all means regardless of qty mentioned in WO.<br>- Vendor is responsible to handover the complete system to IHCC in fully operational mode and is liable to fix any issue that may arise because of any poor workmanship and substandard material usage.<br>Warranty: 1 Years (Start after T&amp;C of system)</td><td>Each</td><td class="numeric">1.00</td><td class="numeric">0.00</td><td class="numeric">0.00</td><td class="numeric">0.00</td></tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="7">Total Summary Value (Inclusive of Tax)</td>
+              <td class="numeric">SAR 110,755.35</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Order Information</h2>
+      <div class="details-grid">
+        <article class="detail">
+          <h3>Payment Terms</h3>
+          <p>30% Adv., 60% progress payment upon 15 days credit, 10% after handing over.</p>
+        </article>
+        <article class="detail">
+          <h3>Completion Period</h3>
+          <p>4-6 weeks.</p>
+        </article>
+        <article class="detail full">
+          <h3>Invoice Instructions</h3>
+          <p>Original invoice must be supported with supplier's delivery note and IHCC warehouse Goods Receipt Note &amp; P.O. At the time of delivery, the Supplier will be responsible to take approval / verification from the concerned engineer. Withholding Tax is applicable as per KSA Tax Laws for all Non Residents and deductible from Beneficiary at the time of payment.</p>
+        </article>
+        <article class="detail full">
+          <h3>Attachments</h3>
+          <p>1. Specifications
+2. Drawings
+3. General Terms and Conditions</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    SSB Villa O &amp; M Portal <span>|</span> <span class="project-name">CEO VILLA PROJECT</span> <span>|</span> Project Code 10144 <span>|</span> Handing over Documents
+  </footer>
+</body>
+</html>

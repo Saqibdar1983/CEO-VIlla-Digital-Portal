@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <meta name="theme-color" content="#FFC107">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Handing Over Certificate - HVAC</title>
+    <style>
+        :root {
+            --primary-color: #d4af37; /* Metallic Gold */
+            --primary-hover: #aa8617; /* Darker Gold */
+            --secondary-color: #f3e5ab; /* Soft Vanilla Gold */
+            --text-color: #e2e8f0;
+            --text-muted: #a0aec0;
+            --bg-color: #121620; /* Deep Charcoal Blue */
+            --card-bg: #1e2330; /* Sleek Dark Panel */
+            --border-color: #2d3748;
+            --table-label-bg: #171b26;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Facade detail background with dark blurred edge vignette */
+        .page-background {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: url('assets/final-handover-cert-background.png') center center / cover no-repeat fixed;
+            filter: brightness(0.9) sepia(0.14) saturate(0.88);
+            pointer-events: none;
+        }
+
+        .page-edge-blur {
+            position: fixed;
+            inset: -24px;
+            z-index: 0;
+            background: url('assets/final-handover-cert-background.png') center center / cover no-repeat fixed;
+            filter: blur(16px) brightness(0.42) sepia(0.18) saturate(0.85);
+            -webkit-mask-image: radial-gradient(ellipse 78% 72% at 50% 44%, transparent 50%, black 100%);
+            mask-image: radial-gradient(ellipse 78% 72% at 50% 44%, transparent 50%, black 100%);
+            pointer-events: none;
+        }
+
+        .page-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            background:
+                rgba(32, 24, 14, 0.10),
+                radial-gradient(ellipse 100% 100% at 50% 50%,
+                    transparent 35%,
+                    rgba(22, 16, 10, 0.52) 70%,
+                    rgba(16, 11, 7, 0.92) 100%),
+                linear-gradient(165deg,
+                    rgba(18, 14, 10, 0.62) 0%,
+                    rgba(22, 18, 12, 0.38) 45%,
+                    rgba(18, 14, 10, 0.68) 100%),
+                radial-gradient(ellipse 85% 65% at 50% 30%,
+                    rgba(212, 175, 55, 0.10) 0%,
+                    transparent 60%);
+            pointer-events: none;
+        }
+
+        .page-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Navigation Buttons Container */
+        .nav-container {
+            max-width: 850px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: space-between; /* Spreads content to left and right edges */
+            align-items: center;
+        }
+
+        /* Right Side Button Wrapper */
+        .right-buttons-group {
+            display: flex;
+            gap: 12px; /* Fixed space between Download and Home buttons */
+            align-items: center;
+        }
+
+        /* Action Buttons Styling */
+        .btn {
+            background-color: rgba(18, 22, 32, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 8px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            color: #121620;
+            border-color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Certificate Container — frosted glass over villa photo */
+        .certificate-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: rgba(22, 27, 38, 0.52);
+            backdrop-filter: blur(14px) saturate(1.1);
+            -webkit-backdrop-filter: blur(14px) saturate(1.1);
+            padding: 50px 60px;
+            border-radius: 8px;
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-top: 8px solid var(--primary-color);
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            margin: 0 0 5px 0;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 0 1px rgba(0, 0, 0, 0.8);
+        }
+
+        .header h2 {
+            color: var(--secondary-color);
+            margin: 0 0 10px 0;
+            font-size: 19px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .header p {
+            margin: 5px 0;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Sections */
+        .section-title {
+            color: var(--primary-color);
+            font-size: 16px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 6px;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        /* Table Styling */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+
+        .info-table td {
+            padding: 11px 14px;
+            border: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+
+        .info-table td.label {
+            background-color: rgba(12, 16, 26, 0.55);
+            font-weight: 600;
+            color: var(--secondary-color);
+            width: 30%;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-table td.value {
+            color: var(--text-color);
+            width: 70%;
+            background-color: rgba(30, 35, 48, 0.25);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Lists */
+        .custom-list {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .custom-list li {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--text-color);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+        }
+
+        /* Declaration Text */
+        .declaration-text {
+            font-size: 14px;
+            text-align: justify;
+            background-color: rgba(12, 16, 26, 0.58);
+            padding: 16px 20px;
+            border-left: 4px solid var(--primary-color);
+            margin-bottom: 20px;
+            border-radius: 0 4px 4px 0;
+            line-height: 1.7;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+        }
+
+        /* Signatures Grid */
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .sig-box {
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.15);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .sig-box h4 {
+            margin: 0 0 12px 0;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+            font-size: 13px;
+        }
+
+        .sig-line {
+            margin-top: 35px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 5px;
+            color: var(--text-muted);
+        }
+
+        /* Footer Note */
+        .footer-note {
+            margin-top: 35px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Print Optimization */
+        @media print {
+            .page-background,
+            .page-edge-blur,
+            .page-overlay {
+                display: none;
+            }
+            body {
+                background-color: #fff;
+                color: #000;
+                padding: 0;
+            }
+            .nav-container {
+                display: none;
+            }
+            .certificate-container {
+                box-shadow: none;
+                padding: 20px 0;
+                border-top: none;
+                background: #fff;
+                backdrop-filter: none;
+            }
+            .header h1 {
+                color: #aa8617 !important;
+            }
+            .info-table td.label {
+                background-color: #f7fafc !important;
+                color: #aa8617 !important;
+            }
+            .declaration-text {
+                background-color: #f8fafc !important;
+                border-left: 4px solid #aa8617 !important;
+                color: #000 !important;
+            }
+            .section-title {
+                color: #aa8617 !important;
+                border-bottom: 1px solid #cbd5e0 !important;
+            }
+            .sig-box h4 {
+                color: #aa8617 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-background" aria-hidden="true"></div>
+    <div class="page-edge-blur" aria-hidden="true"></div>
+    <div class="page-overlay" aria-hidden="true"></div>
+
+    <div class="page-content">
+
+    <div class="nav-container">
+        <a href="javascript:void(0)" onclick="evaReturnToEva()" class="btn">← EVA HVAC</a>
+        
+        <div class="right-buttons-group">
+            <a href="https://docs.google.com/document/d/1yykUPU8aZyWPfZCXl38atmvSkwDOHvYM/edit?usp=drive_link&ouid=102598342578957751252&rtpof=true&sd=true" target="_blank" class="btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Download Certificate
+            </a>
+            <a href="javascript:void(0)" onclick="evaReturnToEva()" class="btn">EVA Home ⌂</a>
+        </div>
+    </div>
+
+    <div class="certificate-container">
+        
+        <div class="header">
+            <h1>Certificate of Final Handing Over</h1>
+            <h2>Mechanical HVAC System</h2>
+            <p>CEO Villa Project — Project No. 10144</p>
+            <p>Jeddah, Kingdom of Saudi Arabia</p>
+        </div>
+
+        <div class="section-title">1. General Project Information</div>
+        <table class="info-table">
+            <tr>
+                <td class="label">Project Name</td>
+                <td class="value">CEO Villa</td>
+            </tr>
+            <tr>
+                <td class="label">Project Number</td>
+                <td class="value">10144</td>
+            </tr>
+            <tr>
+                <td class="label">Project Location</td>
+                <td class="value">Jeddah, Kingdom of Saudi Arabia</td>
+            </tr>
+            <tr>
+                <td class="label">Main Contractor</td>
+                <td class="value">IHCC (International Hospitality Company / Contractor)</td>
+            </tr>
+            <tr>
+                <td class="label">System</td>
+                <td class="value">Mechanical HVAC System</td>
+            </tr>
+            <tr>
+                <td class="label">Certificate No.</td>
+                <td class="value">IHCC-CV-FHO-HVAC-001</td>
+            </tr>
+            <tr>
+                <td class="label">Date of Issue</td>
+                <td class="value">06 June 2026</td>
+            </tr>
+            <tr>
+                <td class="label">Overall Project Progress</td>
+                <td class="value">100% (as of issue date)</td>
+            </tr>
+        </table>
+
+        <div class="section-title">2. Scope of Handover</div>
+        <p style="font-size: 14px; margin-bottom: 10px;">The following Mechanical HVAC System components, covered under this handover, have been installed, tested and commissioned in accordance with the approved drawings, technical specifications, and project requirements:</p>
+        <ul class="custom-list">
+            <li><strong>VRF System:</strong> Indoor Units (FXAQ Wall Mounted & FXSQ-A Ceiling Concealed) and Outdoor Units (RXYTQ series)</li>
+            <li><strong>Fresh Air Handling Unit (FAHU):</strong> Associated ductwork & controls</li>
+            <li><strong>Hood Make-Up Unit (HMU):</strong> Kitchen exhaust make-up air system</li>
+            <li><strong>Package Air Conditioning Units:</strong> BARD DP15CH series & DCC102 serving plant / utility areas</li>
+            <li><strong>Split Air Conditioning (SAC) Units</strong></li>
+            <li><strong>Ventilation Fans:</strong> Supply & exhaust fans, FAF / EXF series, ducting & accessories</li>
+            <li><strong>Variable Air Volume (VAV) boxes:</strong> Associated duct heaters</li>
+            <li><strong>Controls & Integration:</strong> Associated controls, BMS interface points, and electrical connections to mechanical equipment</li>
+        </ul>
+
+        <div class="section-title">3. Documents & Records Handed Over</div>
+        <p style="font-size: 14px; margin-bottom: 10px;">The following documents and records have been compiled and are being handed over together with this certificate:</p>
+        <ul class="custom-list">
+            <li>Approved shop drawings, single line diagrams (SLD/SDL) and as-built drawing register</li>
+            <li>Equipment schedules — specified, selected and name-plate data for major HVAC equipment</li>
+            <li>Operation & Maintenance (O&M) manuals for installed equipment</li>
+            <li>Testing & Commissioning (T&C) reports, air balancing reports and pre-commissioning checklists</li>
+            <li>Planned Preventive Maintenance (PPM) schedules and check-lists</li>
+            <li>Equipment error-code / troubleshooting references</li>
+            <li>Manufacturer / supplier / vendor contact directories and warranty information</li>
+            <li>Purchase order records and as-built drawing register</li>
+        </ul>
+
+        <div class="section-title">4. Declaration</div>
+        <div class="declaration-text">
+            This is to certify that the Mechanical HVAC System for the CEO Villa Project (Project No. 10144), Jeddah, has been completed, inspected, tested and commissioned in accordance with the approved drawings, project specifications, and applicable codes and standards and is hereby formally handed over in good working condition to the Client / Facility Management team for operation and maintenance.
+        </div>
+        <p style="font-size: 14px;">By signing below, the undersigned representatives acknowledge receipt of the system described above, together with the supporting documentation listed in Section 3, and confirm acceptance of the handover on behalf of their respective organizations.</p>
+
+        <div class="section-title">5. Signatures</div>
+        <div class="signature-grid">
+            
+            <div class="sig-box">
+                <h4>Handed Over By</h4>
+                <p><strong>Main Contractor:</strong> IHCC</p>
+                <p style="color: var(--text-muted); font-size: 12px; margin-top: -5px;">Jeddah, KSA</p>
+                <p style="margin-top: 15px;"><strong>Name:</strong> Saqib Manzoor Dar</p>
+                <p><strong>Designation:</strong> Senior Mechanical Engineer</p>
+                <div class="sig-line">Signature</div>
+                <div class="sig-line" style="margin-top: 15px;">Date</div>
+            </div>
+
+            <div class="sig-box">
+                <h4>Received By</h4>
+                <p><strong>FM Team Representative</strong></p>
+                <p style="color: var(--text-muted); font-size: 12px; margin-top: -5px;">CEO Villa</p>
+                <p style="margin-top: 15px;"><strong>Name:</strong> ____________________</p>
+                <p><strong>Designation:</strong> ________________</p>
+                <div class="sig-line">Signature</div>
+                <div class="sig-line" style="margin-top: 15px;">Date</div>
+            </div>
+
+            <div class="sig-box">
+                <h4>Accepted By</h4>
+                <p><strong>Client / Owner Representative</strong></p>
+                <p style="color: var(--text-muted); font-size: 12px; margin-top: -5px;">CEO Villa</p>
+                <p style="margin-top: 15px;"><strong>Name:</strong> ____________________</p>
+                <p><strong>Designation:</strong> ________________</p>
+                <div class="sig-line">Signature</div>
+                <div class="sig-line" style="margin-top: 15px;">Date</div>
+            </div>
+
+        </div>
+
+        <div class="footer-note">
+            <strong>Note:</strong> This certificate confirms physical handover of the system and associated documentation. 
+            It does not waive any contractual warranty, defects-liability, or post-handover obligations agreed between the parties.
+        </div>
+
+    </div>
+
+    </div><!-- /.page-content -->
+
+    <script>
+        function evaReturnToEva() {
+            var target = sessionStorage.getItem('eva_local_return') || 'EVA-HVAC.html#pg4';
+            if (target.indexOf('pg4') >= 0) sessionStorage.setItem('eva_pg4_expand', '1');
+            window.location.href = target;
+        }
+    </script>
+</body>
+</html>

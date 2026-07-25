@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submersible Pumps Troubleshooting | SSB Villa O&amp;M Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--gold:#D4AF37;--gold-light:#f0d060}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#0d1829;display:flex;flex-direction:column;min-height:100vh;font-family:'Aptos Display','Segoe UI',sans-serif}
+header{background:rgba(5,10,20,0.95);border-bottom:2px solid rgba(212,175,55,0.45);padding:0 24px;height:72px;display:flex;align-items:center;position:fixed;top:0;width:100%;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.hl{flex:1;display:flex;align-items:center}
+.hc{flex:2;text-align:center;line-height:1.4}
+.hc .l1{font-size:10px;font-weight:600;color:rgba(212,175,55,0.6);text-transform:uppercase;letter-spacing:2.5px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hc .l2{font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hrr{flex:1;display:flex;justify-content:flex-end;align-items:center}
+.btn-back,.btn-home{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);padding:8px 16px;border-radius:4px;cursor:pointer;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;transition:background 0.3s}
+.btn-back:hover,.btn-home:hover{background:rgba(212,175,55,0.28)}
+main{margin-top:72px;margin-bottom:60px;padding:26px 28px;max-width:1500px;width:100%;margin-left:auto;margin-right:auto;flex:1}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.3);color:rgba(212,175,55,0.7);padding:8px 22px;border-radius:4px;cursor:pointer;font-size:13px;transition:all 0.2s}
+.tab-btn.active,.tab-btn:hover{background:rgba(212,175,55,0.18);border-color:rgba(212,175,55,0.7);color:var(--gold)}
+.tbl-wrap{overflow-x:auto}
+.ts{width:100%;border-collapse:collapse;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;min-width:600px}
+.ts thead tr th{background:rgba(212,175,55,0.22);color:#f5edd5;padding:11px 13px;text-align:left;border:1px solid rgba(212,175,55,0.38);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
+.ts tbody tr:nth-child(odd) td{background:rgba(255,255,255,0.04)}
+.ts tbody tr:nth-child(even) td{background:rgba(255,255,255,0.07)}
+.ts tbody tr:hover td{background:rgba(212,175,55,0.09)}
+.ts tbody td{padding:10px 13px;vertical-align:top;border:1px solid rgba(255,255,255,0.07);color:#e0d8c8;line-height:1.6;font-size:13px}
+.ts tbody td.fc{color:#f5e9c4;font-weight:700;border-right:2px solid rgba(212,175,55,0.35);background:rgba(212,175,55,0.07)!important;min-width:140px}
+footer{background:rgba(5,10,20,0.95);border-top:2px solid rgba(212,175,55,0.45);padding:14px 30px;display:flex;align-items:center;justify-content:space-between;position:fixed;bottom:0;width:100%;font-size:13px;color:rgba(212,175,55,0.75);z-index:1000;font-family:'Aptos Display','Segoe UI',sans-serif}
+.btn-up{background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.3s}
+.btn-up:hover{background:rgba(212,175,55,0.35)}
+</style>
+</head>
+<body id="top">
+<header>
+  <div class="hl"><a href="Error Codes &amp; Troubleshooting Register.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a></div>
+  <div class="hc"><span class="l1">SPA &amp; POOL FACILITY</span><span class="l2">Submersible Pumps Troubleshooting</span></div>
+  <div class="hrr"><a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a></div>
+</header>
+<main>
+<div style="background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.38);border-radius:6px;padding:9px 18px;margin-bottom:16px;color:#f0dfa0;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.8px;text-align:center;">TROUBLESHOOTING GUIDE - PEDROLLO TOP 3 FEATURE WALL SUBMERSIBLE PUMPS</div>
+<div class="tbl-wrap"><table class="ts">
+<thead><tr><th>Sr.</th><th>Observed Problem</th><th>Most Probable Cause</th><th>Site Check / Test</th><th>Corrective Action</th><th></th><th></th></tr></thead><tbody>
+<tr><td class="fc">1</td><td>Pump not starting</td><td>No power supply</td><td>Check 220 V supply at socket/panel, breaker, and isolator.</td><td>Restore power supply. Check breaker, plug/socket, and isolator.</td><td></td><td></td></tr>
+<tr><td class="fc">2</td><td>Pump not starting</td><td>Float switch not activated or stuck</td><td>Lift float manually and confirm pump response.</td><td>Clean float area. Remove obstruction. Adjust float position.</td><td></td><td></td></tr>
+<tr><td class="fc">3</td><td>Pump not starting</td><td>Thermal protection tripped</td><td>Check if motor body is hot or recently stopped after running.</td><td>Switch OFF, allow motor to cool, then restart after checking cause.</td><td></td><td></td></tr>
+<tr><td class="fc">4</td><td>Pump starts then stops quickly</td><td>Low water level / dry running</td><td>Check if pump is properly submerged and water level is adequate.</td><td>Maintain minimum water level before operation. Avoid dry running.</td><td></td><td></td></tr>
+<tr><td class="fc">5</td><td>Pump runs but no water discharge</td><td>Air lock in discharge line</td><td>Pump is running but no water comes from outlet.</td><td>Stop/start pump. Re-route discharge line if air trap exists.</td><td></td><td></td></tr>
+<tr><td class="fc">6</td><td>Pump runs but no water discharge</td><td>Suction filter blocked</td><td>Inspect bottom suction strainer and inlet openings.</td><td>Clean suction filter and remove dirt/debris.</td><td></td><td></td></tr>
+<tr><td class="fc">7</td><td>Pump runs but no water discharge</td><td>Discharge pipe/valve blocked or closed</td><td>Check discharge pipe, hose, valves, NRV, and feature wall outlet.</td><td>Clean discharge line. Open valves. Repair/replace blocked parts.</td><td></td><td></td></tr>
+<tr><td class="fc">8</td><td>Pump flow is weak</td><td>Partial blockage in discharge line</td><td>Check flow at discharge and compare both Pump-01 and Pump-02.</td><td>Clean discharge pipe, nozzle, and non-return valve.</td><td></td><td></td></tr>
+<tr><td class="fc">9</td><td>Pump flow is weak</td><td>Actual head/pipe resistance is higher than pump capacity</td><td>Check vertical lift and long/small-size discharge pipe route.</td><td>Reduce discharge height/losses or confirm pump selection.</td><td></td><td></td></tr>
+<tr><td class="fc">10</td><td>Pump trips breaker</td><td>Short circuit, cable damage, or water ingress</td><td>Inspect cable, plug, junction box, and socket for damage/moisture.</td><td>Stop immediately. Do not operate. Call electrician.</td><td></td><td></td></tr>
+<tr><td class="fc">11</td><td>Pump trips breaker</td><td>Impeller jammed by debris</td><td>After isolation, inspect suction/impeller area.</td><td>Remove debris and clean pump base/impeller area.</td><td></td><td></td></tr>
+<tr><td class="fc">12</td><td>Pump trips thermal overload</td><td>Dry running or poor cooling</td><td>Check water level and whether pump is exposed during operation.</td><td>Keep pump submerged. Correct float switch level.</td><td></td><td></td></tr>
+<tr><td class="fc">13</td><td>Pump trips thermal overload</td><td>Blocked suction or impeller causing high load</td><td>Record running current and inspect strainer/impeller.</td><td>Clean pump. Re-test current. Normal nameplate current is 3.7 A.</td><td></td><td></td></tr>
+<tr><td class="fc">14</td><td>Pump noisy/vibrating</td><td>Debris inside impeller or pump body</td><td>Listen for abnormal noise; inspect pump base after isolation.</td><td>Remove debris. Clean suction and impeller area.</td><td></td><td></td></tr>
+<tr><td class="fc">15</td><td>Pump noisy/vibrating</td><td>Pump not stable / not vertical</td><td>Check pump position in tank/sump.</td><td>Place pump vertically on stable base.</td><td></td><td></td></tr>
+<tr><td class="fc">16</td><td>Electric shock/leakage concern</td><td>Damaged cable, plug, or insulation</td><td>Check cable/plug without touching water. Use proper electrical test only.</td><td>Stop immediately. Do not touch water. Call electrician.</td><td></td><td></td></tr>
+<tr><td class="fc">17</td><td>Burning smell / hot motor</td><td>Motor overheating or winding issue</td><td>Check current against 3.7 A and check for blockage/dry running.</td><td>Stop pump. If current remains high after cleaning, send for service.</td><td></td><td></td></tr>
+<tr><td class="fc">18</td><td>Pump running continuously</td><td>Float switch stuck ON</td><td>Check free movement of float switch.</td><td>Clean/adjust/replace float switch.</td><td></td><td></td></tr>
+<tr><td class="fc">19</td><td>Pump does not stop</td><td>Water level not dropping or float not reaching OFF level</td><td>Observe water level and float switch position.</td><td>Check discharge flow; adjust float; clean line if flow is weak.</td><td></td><td></td></tr>
+<tr><td class="fc">20</td><td>Water returns after pump stops</td><td>Non-return valve missing, blocked, or passing</td><td>Observe backflow from discharge line after pump stops.</td><td>Install, clean, or replace non-return valve.</td><td></td><td></td></tr>
+</tbody>
+</table></div>
+</main>
+<footer>
+  <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+  <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+</footer>
+
+</body>
+</html>

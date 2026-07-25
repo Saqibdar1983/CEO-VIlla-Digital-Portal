@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR UVC Lamp Double Troubleshooting | SSB Villa O&amp;M Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--gold:#D4AF37;--gold-light:#f0d060}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#0d1829;display:flex;flex-direction:column;min-height:100vh;font-family:'Aptos Display','Segoe UI',sans-serif}
+header{background:rgba(5,10,20,0.95);border-bottom:2px solid rgba(212,175,55,0.45);padding:0 24px;height:72px;display:flex;align-items:center;position:fixed;top:0;width:100%;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.hl{flex:1;display:flex;align-items:center}
+.hc{flex:2;text-align:center;line-height:1.4}
+.hc .l1{font-size:10px;font-weight:600;color:rgba(212,175,55,0.6);text-transform:uppercase;letter-spacing:2.5px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hc .l2{font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hrr{flex:1;display:flex;justify-content:flex-end;align-items:center}
+.btn-back,.btn-home{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);padding:8px 16px;border-radius:4px;cursor:pointer;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;transition:background 0.3s}
+.btn-back:hover,.btn-home:hover{background:rgba(212,175,55,0.28)}
+main{margin-top:72px;margin-bottom:60px;padding:26px 28px;max-width:1500px;width:100%;margin-left:auto;margin-right:auto;flex:1}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.3);color:rgba(212,175,55,0.7);padding:8px 22px;border-radius:4px;cursor:pointer;font-size:13px;transition:all 0.2s}
+.tab-btn.active,.tab-btn:hover{background:rgba(212,175,55,0.18);border-color:rgba(212,175,55,0.7);color:var(--gold)}
+.tbl-wrap{overflow-x:auto}
+.ts{width:100%;border-collapse:collapse;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;min-width:600px}
+.ts thead tr th{background:rgba(212,175,55,0.22);color:#f5edd5;padding:11px 13px;text-align:left;border:1px solid rgba(212,175,55,0.38);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
+.ts tbody tr:nth-child(odd) td{background:rgba(255,255,255,0.04)}
+.ts tbody tr:nth-child(even) td{background:rgba(255,255,255,0.07)}
+.ts tbody tr:hover td{background:rgba(212,175,55,0.09)}
+.ts tbody td{padding:10px 13px;vertical-align:top;border:1px solid rgba(255,255,255,0.07);color:#e0d8c8;line-height:1.6;font-size:13px}
+.ts tbody td.fc{color:#f5e9c4;font-weight:700;border-right:2px solid rgba(212,175,55,0.35);background:rgba(212,175,55,0.07)!important;min-width:140px}
+footer{background:rgba(5,10,20,0.95);border-top:2px solid rgba(212,175,55,0.45);padding:14px 30px;display:flex;align-items:center;justify-content:space-between;position:fixed;bottom:0;width:100%;font-size:13px;color:rgba(212,175,55,0.75);z-index:1000;font-family:'Aptos Display','Segoe UI',sans-serif}
+.btn-up{background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.3s}
+.btn-up:hover{background:rgba(212,175,55,0.35)}
+</style>
+</head>
+<body id="top">
+<header>
+  <div class="hl"><a href="Error Codes &amp; Troubleshooting Register.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a></div>
+  <div class="hc"><span class="l1">SPA &amp; POOL FACILITY</span><span class="l2">HR UVC Lamp Double Troubleshooting</span></div>
+  <div class="hrr"><a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a></div>
+</header>
+<main>
+<div style="background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.38);border-radius:6px;padding:9px 18px;margin-bottom:16px;color:#f0dfa0;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.8px;text-align:center;">ELECRO H.R. UV-C UPVC PRO DUAL / DOUBLE - TECHNICAL TROUBLESHOOTING GUIDE</div>
+<div class="tbl-wrap"><table class="ts">
+<tr><td class="fc">Category</td><td>Fault / Specific Symptom</td><td>On-Site Check &amp; Technical Cause</td><td>Engineering Remedy &amp; Corrective Action</td></tr>
+<tr><td class="fc">1. Power &amp; RCD</td><td>Unit Dead / Completely No Display</td><td>Tripped upstream circuit breaker or blown internal fuse.<br><br>Check: Verify main supply voltage matches system specifications (Single-Phase 100-240V).</td><td>Verify power availability. Check internal terminal block connections for loose contacts. Replace internal fuses if found blown.</td></tr>
+<tr><td class="fc">1. Power &amp; RCD</td><td>Breaker / RCD Trips Immediately</td><td>Moisture/water ingress inside the electrical enclosure or earth fault on the UV components.<br><br>Check: Disconnect/isolate the UV unit and see if the upstream breaker holds with only other pool loads active.</td><td>Ensure the unit is installed in a dry, weatherproof area (never submerged). Verify proper equipment earthing per manufacturer specs and local electrical codes. If water entered the housing, internal electronics must be dried or replaced.</td></tr>
+<tr><td class="fc">2. Flow Issues</td><td>&quot;NoFlo&quot; Error / Lamps Remain Off</td><td>Water circulation drop below the required structural limits.<br><br>Check: Minimum flow rate required is 4 m³/h. Maximum flow rate is 32 m³/h (higher flows require a bypass line setup). Check sand filter pressure and bypass valves.</td><td>Backwash the sand filter or clean out clogged pump strainer baskets to restore design velocity. Ensure the UV unit is physically located after the pump, filter, and heater, but strictly before any chemical dosing injection points.</td></tr>
+<tr><td class="fc">2. Flow Issues</td><td>Flow Switch Active but Error Persists</td><td>Incorrect installation or orientation of the flow switch paddle relative to the hydraulic line stream.</td><td>Factory default flow direction is left-to-right. If changing direction, rotate the flow switch 180° without lifting the paddle more than 5 mm. Ensure the switch body ends locked completely perpendicular to the water flow.</td></tr>
+<tr><td class="fc">3. UV Lamp &amp; Life</td><td>Lamp Counter Red / Expired Warning</td><td>The digital controller countdown timer has reached 0 hours from its 9,000-hour benchmark limit.<br><br>Check: Check LED indication (Green: 9000-500h, Amber: &lt;500h, Red: 0h).</td><td>Replace the UV lamp safely. After replacement, navigate to the &quot;UV Lamp Life&quot; menu, select &quot;Reset UV Lamp&quot;, press OK, and then press and hold OK until &quot;SAVED&quot; appears on the display to reset to 9,000 hours.</td></tr>
+<tr><td class="fc">3. UV Lamp &amp; Life</td><td>New Lamp Installed but Not Lighting</td><td>Coroded lamp connectors, loose connections, or a cracked quartz sleeve.<br><br>Check: Isolate power first (Never look directly at a lit UV lamp). Check white inserts in blue caps for corrosion or overheating signs.</td><td>Clean or replace damaged electrical connectors/inserts. Inspect the quartz sleeve thoroughly; any structural crack requires immediate replacement to prevent water entering the lamp chamber.</td></tr>
+<tr><td class="fc">3. UV Lamp &amp; Life</td><td>Poor Disinfection / Green Water</td><td>Limescale/calcium scale accumulation on the quartz glass sleeve blocking light transmission, or water parameters out of specification.</td><td>Isolate the unit, extract the quartz sleeve carefully, and clean off scale using a mild citric acid or descaling solution. Replace all O-rings during reassembly. Maintain pool parameters within limits (pH 6.8–8.0, TA 80–140 ppm).</td></tr>
+<tr><td class="fc">4. Dosing Pump</td><td>Dosing Pump Dead / No Chemical Feed</td><td>Chemical dosage volume set to 0.0 ml in the system configuration, or configuration conflicts.</td><td>Navigate to the &quot;DOSE CHEMICAL&quot; menu and select either H2O2 or CHLORINE. For H2O2, set the correct daily volume in ml/day and define a start time when the main filtration pump runs. For liquid chlorine, set total ml/day for automatic trickle dosing.</td></tr>
+<tr><td class="fc">4. Dosing Pump</td><td>UV Lamp System Intermittently Drops Out</td><td>Normal operational safety control logic loop execution.</td><td>No remedial action needed. Note that the system logic automatically switches off the UV lamps while the chemical dosing pump is running, and keeps them off for approximately 30 minutes after dosing completes.</td></tr>
+<tr><td class="fc">4. Dosing Pump</td><td>Pump Runs but Fails to Draw Chemical</td><td>Air lock inside suction line, worn peristaltic tube, or blocked injection valve assembly.</td><td>Verify that the suction foot valve is properly placed in the chemical drum. Ensure lines are pushed and glands are secured tight. Worn peristaltic tubes must be replaced every 6-12 months (remove front cover, release grey caps, rotate cam, fit new tube with ties).</td></tr>
+<tr><td class="fc">4. Dosing Pump</td><td>Shock Dose Fails to Activate</td><td>The main filtration pump is off, dropping flow velocity to zero.</td><td>The integrated &quot;SHOCK DOSE&quot; function requires the main filtration pump to be actively running to operate. Turn on the circulation line first to trigger the one-time shock cycle.</td></tr>
+</table></div>
+</main>
+<footer>
+  <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+  <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+</footer>
+
+</body>
+</html>

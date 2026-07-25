@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRF System Troubleshooting - CEO Villa</title>
+    <style>
+        :root {
+            --bg-blue: #102a43;        /* Deep blue background */
+            --card-blue: #1f3a60;      /* Slightly lighter blue for containers */
+            --accent-blue: #3b82f6;    /* Bright blue for buttons */
+            --hover-blue: #2563eb;     /* Hover color for buttons */
+            --text-white: #ffffff;     /* White text */
+            --text-light: #cbd5e1;     /* Light grayish white for subtle text */
+            --border-blue: #2d4a6e;    /* Border line color */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-blue);
+            color: var(--text-white);
+            line-height: 1.6;
+            padding-top: 70px;
+        }
+
+        /* Top Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: var(--card-blue);
+            color: var(--text-white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-blue);
+        }
+
+        .nav-btn {
+            background-color: var(--accent-blue);
+            color: var(--text-white);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--hover-blue);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Header / Project Info Card */
+        .project-card {
+            background: var(--card-blue);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            border-left: 6px solid var(--accent-blue);
+        }
+
+        .project-card h1 {
+            color: var(--text-white);
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .meta-item {
+            font-size: 14px;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            color: var(--accent-blue);
+            display: block;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        .meta-value {
+            color: var(--text-white);
+            font-size: 15px;
+        }
+
+        /* Troubleshooting Table */
+        .table-container {
+            background: var(--card-blue);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-blue);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgba(0, 0, 0, 0.3);
+            color: var(--text-white);
+            font-weight: 600;
+            padding: 14px 16px;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border-blue);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-blue);
+            font-size: 14px;
+            vertical-align: top;
+            color: var(--text-white);
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.07);
+        }
+
+        .symptom-no {
+            font-weight: 700;
+            color: var(--accent-blue);
+            width: 50px;
+            text-align: center;
+        }
+
+        .symptom-text {
+            font-weight: 600;
+            width: 25%;
+        }
+
+        .cause-text {
+            width: 35%;
+            color: var(--text-light);
+        }
+
+        .countermeasure-text {
+            width: 35%;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        li {
+            margin-bottom: 4px;
+        }
+
+        /* Responsive View for Mobile Devices */
+        @media (max-width: 768px) {
+            .meta-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            table, th, td, tr {
+                display: block;
+            }
+
+            th {
+                display: none;
+            }
+
+            tr {
+                border-bottom: 2px solid var(--accent-blue);
+                padding: 10px 0;
+            }
+
+            td {
+                border: none;
+                padding: 6px 16px;
+                width: 100% !important;
+            }
+
+            td::before {
+                content: attr(data-label);
+                font-weight: 700;
+                color: var(--accent-blue);
+                display: block;
+                margin-bottom: 2px;
+                text-transform: uppercase;
+                font-size: 12px;
+            }
+            
+            .symptom-no {
+                text-align: left;
+                font-size: 16px;
+                background: rgba(0, 0, 0, 0.2);
+                padding: 4px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="javascript:void(0)" class="nav-btn" onclick="evaBack()">&larr; Back</a>
+        <a href="javascript:void(0)" class="nav-btn" onclick="evaGoHome()">Home &#8962;</a>
+    </nav>
+
+    <div class="container">
+        <!-- Project Context Header -->
+        <div class="project-card">
+            <h1>VRF System Trouble Shooting</h1>
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <span class="meta-label">Project</span>
+                    <span class="meta-value">CEO Villa</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Project Code</span>
+                    <span class="meta-value">10144</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Discipline</span>
+                    <span class="meta-value">Mechanical HVAC</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guidelines Matrix -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="text-align: center;">Item</th>
+                        <th>Symptom</th>
+                        <th>Supposed Cause</th>
+                        <th>Countermeasure</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">1</td>
+                        <td class="symptom-text" data-label="Symptom">The system does not start operation at all.</td>
+                        <td class="cause-text" data-label="Supposed Cause">
+                            <ul>
+                                <li>Blowout of fuse(s)</li>
+                                <li>Cutout of breaker(s)</li>
+                                <li>Power failure</li>
+                            </ul>
+                        </td>
+                        <td class="countermeasure-text" data-label="Countermeasure">
+                            <ul>
+                                <li>Turn OFF the power supply and then replace the fuse(s).</li>
+                                <li>If the knob of any breaker is in its OFF position, turn ON the power supply.</li>
+                                <li>If the knob of any circuit breaker is in its tripped position, do not turn ON the power supply.</li>
+                                <li>After the power failure is reset, restart the system.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">2</td>
+                        <td class="symptom-text" data-label="Symptom">The system starts operation but makes an immediate stop.</td>
+                        <td class="cause-text" data-label="Supposed Cause">
+                            <ul>
+                                <li>Blocked air inlet or outlet of indoor or outdoor unit</li>
+                                <li>Clogged air filter(s)</li>
+                            </ul>
+                        </td>
+                        <td class="countermeasure-text" data-label="Countermeasure">
+                            <ul>
+                                <li>Remove obstacle(s).</li>
+                                <li>Clean the air filter(s).</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">3</td>
+                        <td class="symptom-text" data-label="Symptom">The system does not cool or heat air well.</td>
+                        <td class="cause-text" data-label="Supposed Cause">
+                            <ul>
+                                <li>Blocked air inlet or outlet of indoor or outdoor unit</li>
+                                <li>Clogged air filter(s)</li>
+                                <li>Enclosed outdoor unit(s)</li>
+                                <li>Improper set temperature</li>
+                                <li>Airflow rate set to "LOW"</li>
+                                <li><strong>[In cooling]:</strong> Improper direction of air diffusion</li>
+                                <li><strong>[In cooling]:</strong> Open window(s) or door(s)</li>
+                                <li><strong>[In cooling]:</strong> Direct sunlight received</li>
+                                <li><strong>[In cooling]:</strong> Too many persons staying in a room</li>
+                                <li><strong>[In cooling]:</strong> Too many heat sources (e.g. OA equipment) located in a room</li>
+                            </ul>
+                        </td>
+                        <td class="countermeasure-text" data-label="Countermeasure">
+                            <ul>
+                                <li>Remove obstacle(s).</li>
+                                <li>Clean the air filter(s).</li>
+                                <li>Remove the enclosure.</li>
+                                <li>Set the temperature to a proper degree.</li>
+                                <li>Set it to a proper airflow rate.</li>
+                                <li>Set it to a proper direction.</li>
+                                <li>Shut window(s) or door(s) tightly.</li>
+                                <li>Hang curtains or shades on windows.</li>
+                                <li>The model must be selected to match the air conditioning load.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">4</td>
+                        <td class="symptom-text" data-label="Symptom">The system does not operate.</td>
+                        <td class="cause-text" data-label="Supposed Cause">The system is controlled with centralized controller. Blinking display indicates that the system cannot be operated using the remote controller.</td>
+                        <td class="countermeasure-text" data-label="Countermeasure">The remote controller displays "UNDER CENTRALIZED CONTROL", which blinks for a period of several seconds when the OPERATION button is depressed. Operate the system using the COOL/HEAT centralized remote controller.</td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">5</td>
+                        <td class="symptom-text" data-label="Symptom">The system makes intermittent stops.</td>
+                        <td class="cause-text" data-label="Supposed Cause">
+                            <ul>
+                                <li>The system stops and immediately restarts operation to avoid unreasonable loads.</li>
+                                <li>The system stops immediately after turning ON the power supply (preparation mode of micro computer).</li>
+                                <li>The remote controller displays error codes and the system stops but restarts after a lapse of several minutes due to electrical noise unit-to-unit communication interruption.</li>
+                            </ul>
+                        </td>
+                        <td class="countermeasure-text" data-label="Countermeasure">
+                            <ul>
+                                <li>Normal operation. Pressing the TEMP ADJUST button immediately resets the system.</li>
+                                <li>Normal operation. Wait for a period of approximately 1 minute.</li>
+                                <li>Remove causes of electrical noises. If these causes are removed, the system will automatically restart operation.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">6</td>
+                        <td class="symptom-text" data-label="Symptom">COOL-HEAT selection is disabled.</td>
+                        <td class="cause-text" data-label="Supposed Cause">
+                            <ul>
+                                <li>The remote controller displays "UNDER CENTRALIZED CONTROL" and has no option to select cooling.</li>
+                                <li>The remote controller displays "UNDER CENTRALIZED CONTROL", and the COOL-HEAT selection remote controller is provided.</li>
+                            </ul>
+                        </td>
+                        <td class="countermeasure-text" data-label="Countermeasure">
+                            <ul>
+                                <li>Use a remote controller with option to select cooling operation.</li>
+                                <li>Use the COOL-HEAT selection remote controller to select cool or heat.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">7</td>
+                        <td class="symptom-text" data-label="Symptom">The system conducts fan operation but not cooling or heating operation.</td>
+                        <td class="cause-text" data-label="Supposed Cause">This symptom occurs immediately after turning ON the power supply (preparation mode).</td>
+                        <td class="countermeasure-text" data-label="Countermeasure">Wait for a period of approximately 10 minutes.</td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">8</td>
+                        <td class="symptom-text" data-label="Symptom">The airflow rate is not reproduced according to the setting.</td>
+                        <td class="cause-text" data-label="Supposed Cause">In heating operation, when room temperature reaches the set degree, the outdoor unit stops while the indoor unit is brought to fan LL operation so no one gets cold air. Also active in oil return mode during cooling.</td>
+                        <td class="countermeasure-text" data-label="Countermeasure">Normal operation.</td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">9</td>
+                        <td class="symptom-text" data-label="Symptom">The airflow direction is not reproduced according to the setting.</td>
+                        <td class="cause-text" data-label="Supposed Cause">The airflow direction is not corresponding to that displayed on the remote controller. The flap does not swing due to automatic control.</td>
+                        <td class="countermeasure-text" data-label="Countermeasure">Normal operation.</td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">10</td>
+                        <td class="symptom-text" data-label="Symptom">A white mist comes out from the system.</td>
+                        <td class="cause-text" data-label="Supposed Cause">
+                            <ul>
+                                <li>&lt;Indoor unit&gt; In cooling operation, ambient humidity is high or inside is heavily stained with oil/dust.</li>
+                                <li>&lt;Indoor unit&gt; Immediately after cooling stops, hot gas (refrigerant) flowing in results in vapor.</li>
+                                <li>&lt;Indoor and outdoor units&gt; After defrosting completion, system switches to heating and moisture turns to vapor.</li>
+                            </ul>
+                        </td>
+                        <td class="countermeasure-text" data-label="Countermeasure">
+                            <ul>
+                                <li>Clean the inside of the indoor unit.</li>
+                                <li>Normal operation.</li>
+                                <li>Normal operation.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">11</td>
+                        <td class="symptom-text" data-label="Symptom">The system produces sounds.</td>
+                        <td class="cause-text" data-label="Supposed Cause">
+                            <ul>
+                                <li>"Ringing" sound after turning ON power (Electronic expansion valve operating sound).</li>
+                                <li>Continuous "Hissing" during cooling or defrosting (Gas refrigerant flowing).</li>
+                                <li>"Hissing" immediately after startup/stop or defrosting switch (Refrigerant flow changing).</li>
+                                <li>Faint continuous sound during cooling or after stop (Drain discharge device running).</li>
+                                <li>"Creaking" during heating or after stop (Resin parts expanding/contracting).</li>
+                                <li>"Trickling" sound from stopped indoor units (Oil or refrigerant dwelling management).</li>
+                                <li>Outdoor unit operating sound pitch changes (Compressor frequency change).</li>
+                            </ul>
+                        </td>
+                        <td class="countermeasure-text" data-label="Countermeasure">
+                            <ul>
+                                <li>Normal operation. Sound lowers after approx. 1 minute.</li>
+                                <li>Normal operation.</li>
+                                <li>Normal operation.</li>
+                                <li>Normal operation.</li>
+                                <li>Normal operation.</li>
+                                <li>Normal operation.</li>
+                                <li>Normal operation.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">12</td>
+                        <td class="symptom-text" data-label="Symptom">Dust comes out from the system.</td>
+                        <td class="cause-text" data-label="Supposed Cause">Dust deposited on the inside of indoor unit is blown out during restart after an extended idle period.</td>
+                        <td class="countermeasure-text" data-label="Countermeasure">Normal operation. The inside of the indoor unit should be cleaned.</td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">13</td>
+                        <td class="symptom-text" data-label="Symptom">Odors come out from the system.</td>
+                        <td class="cause-text" data-label="Supposed Cause">Odors of room, cigarettes, or else adsorbed to the inside of indoor unit are blown out.</td>
+                        <td class="countermeasure-text" data-label="Countermeasure">The inside of the indoor unit should be cleaned.</td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">14</td>
+                        <td class="symptom-text" data-label="Symptom">The outdoor unit fan does not rotate.</td>
+                        <td class="cause-text" data-label="Supposed Cause">In operation, fan revolutions are controlled to optimize the operating state.</td>
+                        <td class="countermeasure-text" data-label="Countermeasure">Normal operation.</td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">15</td>
+                        <td class="symptom-text" data-label="Symptom">LCD display "88" appears on the remote controller.</td>
+                        <td class="cause-text" data-label="Supposed Cause">Immediately after turning ON the power supply, the system checks to be sure the remote controller is normal.</td>
+                        <td class="countermeasure-text" data-label="Countermeasure">Normal operation. This code is displayed for a maximum of approx. 1 minute.</td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">16</td>
+                        <td class="symptom-text" data-label="Symptom">The outdoor unit compressor or the outdoor unit fan does not stop.</td>
+                        <td class="cause-text" data-label="Supposed Cause">After stopping operation, it runs to prevent oil or refrigerant from dwelling.</td>
+                        <td class="countermeasure-text" data-label="Countermeasure">Normal operation. It stops after a lapse of approximately 5 to 10 minutes.</td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">17</td>
+                        <td class="symptom-text" data-label="Symptom">The outdoor unit gets hot.</td>
+                        <td class="cause-text" data-label="Supposed Cause">While stopping operation, the compressor is warmed up to provide smooth startup of the system.</td>
+                        <td class="countermeasure-text" data-label="Countermeasure">Normal operation.</td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">18</td>
+                        <td class="symptom-text" data-label="Symptom">Hot air comes out from the system even though it stops.</td>
+                        <td class="cause-text" data-label="Supposed Cause">Small quantity of refrigerant is fed to indoor units in the stopped state when other units are operating in heating mode.</td>
+                        <td class="countermeasure-text" data-label="Countermeasure">Normal operation.</td>
+                    </tr>
+                    <tr>
+                        <td class="symptom-no" data-label="Item">19</td>
+                        <td class="symptom-text" data-label="Symptom">The system does not cool air well.</td>
+                        <td class="cause-text" data-label="Supposed Cause">The system is in dry operation, which serves not to reduce room temperature where possible.</td>
+                        <td class="countermeasure-text" data-label="Countermeasure">Change the system to cooling operation if needed.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function evaBack() {
+            window.location.href = sessionStorage.getItem('eva_local_return') || 'EVA-HVAC-37.html#pg_hvac_err';
+        }
+        function evaGoHome() {
+            window.location.href = 'EVA-CORE.html#pg3';
+        }
+    </script>
+
+</body>
+</html>

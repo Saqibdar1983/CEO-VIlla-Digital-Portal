@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Method Statements — SPA & Pool Facility</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --aqua:       #17D4E8;
+            --aqua-light: #67E8F9;
+            --aqua-dim:   rgba(23, 212, 232, 0.50);
+            --card-bg:    rgba(5, 20, 45, 0.80);
+            --green:      #27AE60;
+            --amber:      #EF9F27;
+            --blue:       #2471A3;
+            --teal:       #17C3D4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: #040c18;
+            color: #dff4ff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ─── Background ─── */
+        .bg-wrap {
+            position: fixed; inset: 0; z-index: -1; overflow: hidden;
+        }
+        .bg-wrap::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: url('Method Statements Dashboard.jpg') center/cover no-repeat;
+        }
+        .bg-wrap::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(2,10,22,0.67) 0%, rgba(2,12,26,0.57) 50%, rgba(2,10,22,0.70) 100%);
+        }
+
+        /* ─── Header ─── */
+        header {
+            background: rgba(3,10,20,0.94);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(23,212,232,0.30);
+            padding: 10px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            box-shadow: 0 4px 28px rgba(0,0,0,0.65), 0 1px 0 rgba(23,212,232,0.12);
+        }
+        .header-left { display: flex; align-items: center; gap: 18px; }
+        .btn-back, .btn-home {
+            background: rgba(212,175,55,0.10);
+            color: #D4AF37;
+            border: 1px solid rgba(212,175,55,0.45);
+            padding: 7px 15px; border-radius: 5px;
+            cursor: pointer; transition: all 0.3s;
+            display: flex; align-items: center; gap: 8px;
+            text-decoration: none; font-size: 13px; font-weight: 600;
+        }
+        .btn-back:hover, .btn-home:hover {
+            background: rgba(212,175,55,0.22);
+            border-color: #D4AF37;
+            color: #f0d878;
+            box-shadow: 0 0 12px rgba(212,175,55,0.25);
+        }
+
+        .header-title-block { display: flex; flex-direction: column; }
+        header h1 {
+            font-family: 'Arial Narrow', Arial, sans-serif;
+            font-size: 21px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 3px;
+            color: #D4AF37;
+            text-shadow: 0 0 18px rgba(212,175,55,0.55);
+        }
+        header .sub {
+            font-size: 11px; color: rgba(212,175,55,0.60);
+            letter-spacing: 1.5px; text-transform: uppercase; margin-top: 2px;
+        }
+        .header-right { display: flex; align-items: center; gap: 12px; }
+        .project-tag {
+            font-size: 11px; color: rgba(23,212,232,0.70);
+            border: 1px solid rgba(23,212,232,0.25);
+            padding: 5px 12px; border-radius: 20px;
+            letter-spacing: 1px; text-transform: uppercase;
+            background: rgba(23,212,232,0.06);
+        }
+
+        /* ─── Main ─── */
+        main {
+            margin-top: 70px; margin-bottom: 60px;
+            padding: 20px 28px;
+            max-width: 1340px; width: 100%;
+            margin-left: auto; margin-right: auto;
+            flex: 1;
+        }
+
+        /* ─── Section header ─── */
+        .section-label {
+            display: flex; align-items: center; gap: 14px;
+            margin-bottom: 16px;
+        }
+        .section-label .line {
+            flex: 1; height: 1px;
+            background: linear-gradient(90deg, rgba(23,212,232,0.45), transparent);
+        }
+        .section-label span {
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: rgba(23,212,232,0.70);
+            white-space: nowrap;
+        }
+
+        /* ─── Stats strip ─── */
+        .stats-strip {
+            display: flex; gap: 14px; margin-bottom: 18px; flex-wrap: wrap;
+        }
+        .stat-box {
+            background: rgba(4,18,38,0.75);
+            border: 1px solid rgba(23,212,232,0.22);
+            border-bottom: 2px solid var(--aqua-dim);
+            border-radius: 8px;
+            padding: 10px 18px;
+            display: flex; align-items: center; gap: 12px;
+            flex: 1; min-width: 160px;
+            backdrop-filter: blur(8px);
+        }
+        .stat-box i { font-size: 20px; color: var(--aqua); opacity: 0.85; }
+        .stat-box .num {
+            font-size: 22px; font-weight: 800; color: var(--aqua-light);
+            line-height: 1;
+        }
+        .stat-box .lbl {
+            font-size: 10px; color: rgba(223,244,255,0.50);
+            letter-spacing: 0.8px; text-transform: uppercase; margin-top: 2px;
+        }
+
+        /* ─── MS Card Grid ─── */
+        .ms-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        /* ─── Individual MS Card ─── */
+        .ms-card {
+            background: rgba(3,8,18,0.72);
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(23,212,232,0.28);
+            border-top: 1px solid rgba(23,212,232,0.45);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow:
+                0 16px 40px rgba(0,0,0,0.55),
+                0 6px 18px rgba(0,20,50,0.40),
+                inset 0 1px 0 rgba(23,212,232,0.12);
+            transition: transform 0.28s cubic-bezier(.22,.68,0,1.2),
+                        box-shadow 0.28s ease,
+                        border-color 0.28s ease;
+            display: flex; flex-direction: column;
+            text-decoration: none; color: inherit;
+            cursor: pointer;
+        }
+        .ms-card:hover {
+            transform: translateY(-6px) scale(1.012);
+            border-color: rgba(23,212,232,0.65);
+            border-top-color: rgba(23,212,232,0.88);
+            box-shadow:
+                0 24px 52px rgba(0,0,0,0.60),
+                0 8px 22px rgba(0,20,50,0.45),
+                0 4px 14px rgba(23,212,232,0.22),
+                inset 0 1px 0 rgba(23,212,232,0.20);
+        }
+
+        /* Colour accent bar at top */
+        .ms-card .accent-bar {
+            height: 3px; width: 100%; flex-shrink: 0;
+        }
+
+        /* Card header */
+        .ms-card .card-head {
+            padding: 16px 20px 12px;
+            display: flex; align-items: flex-start; gap: 12px;
+            border-bottom: 1px solid rgba(23,212,232,0.18);
+            background: rgba(2,6,14,0.55);
+        }
+        .ms-card .icon-wrap {
+            width: 42px; height: 42px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; flex-shrink: 0;
+        }
+        .ms-card .doc-meta { flex: 1; }
+        .ms-card .doc-num {
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .ms-card .doc-title {
+            font-size: 13px; font-weight: 700;
+            color: #dff4ff; line-height: 1.35;
+        }
+        .ms-card .status-pill {
+            font-size: 9px; font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase;
+            padding: 3px 9px; border-radius: 20px;
+            white-space: nowrap; flex-shrink: 0;
+            align-self: flex-start;
+        }
+
+        /* Card body */
+        .ms-card .card-body {
+            padding: 12px 20px 16px;
+            flex: 1;
+            background: rgba(2,6,14,0.42);
+        }
+
+        /* Equipment tags */
+        .eq-tags {
+            display: flex; flex-wrap: wrap; gap: 5px;
+        }
+        .eq-tag {
+            font-size: 10px; font-weight: 600;
+            letter-spacing: 0.6px;
+            padding: 3px 8px; border-radius: 4px;
+            background: rgba(23,212,232,0.09);
+            border: 1px solid rgba(23,212,232,0.28);
+            color: rgba(103,232,249,0.92);
+        }
+
+        /* ─── Footer ─── */
+        footer {
+            background: rgba(3,10,20,0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(212,175,55,0.30);
+            color: rgba(212,175,55,0.75);
+            padding: 10px 30px;
+            display: flex; align-items: center; justify-content: space-between;
+            position: fixed; bottom: 0; width: 100%;
+            font-size: 13px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.45);
+        }
+        .btn-up {
+            background: rgba(212,175,55,0.10);
+            color: #D4AF37;
+            border: 1px solid rgba(212,175,55,0.40);
+            width: 34px; height: 34px; border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; text-decoration: none;
+        }
+        .btn-up:hover { background: rgba(212,175,55,0.24); border-color: #D4AF37; }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 8px; position: relative; }
+            main { margin-top: 10px; margin-bottom: 80px; padding: 20px 14px; }
+            .ms-grid { grid-template-columns: 1fr; }
+            footer { flex-direction: column; gap: 8px; text-align: center; position: relative; margin-top: auto; }
+            .stats-strip { gap: 10px; }
+        }
+    </style>
+</head>
+<body id="top">
+
+<div class="bg-wrap"></div>
+
+<!-- ─── HEADER ─── -->
+<header>
+    <div class="header-left">
+        <a href="../../EVA-CORE.html" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Back
+        </a>
+        <div class="header-title-block">
+            <h1><i class="fa-solid fa-file-contract" style="margin-right:10px;font-size:18px;color:#D4AF37;"></i>SPA &amp; Pool Facility Method Statements</h1>
+            <span class="sub">Installation &amp; Commissioning — CEO Villa, Jeddah</span>
+        </div>
+    </div>
+    <div class="header-right">
+        <span class="project-tag">Project Code: 10144</span>
+        <a href="../../EVA-CORE.html" class="btn-home">
+            <i class="fa-solid fa-house"></i> Home
+        </a>
+    </div>
+</header>
+
+<!-- ─── MAIN ─── -->
+<main>
+
+    <!-- Stats -->
+    <div class="stats-strip">
+        <div class="stat-box">
+            <i class="fa-solid fa-file-contract"></i>
+            <div>
+                <div class="num">6</div>
+                <div class="lbl">Total Method Statements</div>
+            </div>
+        </div>
+        <div class="stat-box">
+            <i class="fa-solid fa-circle-check" style="color:#27AE60;"></i>
+            <div>
+                <div class="num" style="color:#27AE60;">6</div>
+                <div class="lbl">Submitted for Review</div>
+            </div>
+        </div>
+        <div class="stat-box">
+            <i class="fa-solid fa-building" style="color:var(--teal);"></i>
+            <div>
+                <div class="num" style="color:var(--teal);">IHCC</div>
+                <div class="lbl">Reviewed by — Saqib Manzoor Sr. ME</div>
+            </div>
+        </div>
+        <div class="stat-box">
+            <i class="fa-solid fa-hard-hat" style="color:var(--amber);"></i>
+            <div>
+                <div class="num" style="color:var(--amber);">Aseeb</div>
+                <div class="lbl">Prepared by — Adil Magdy ME</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Label -->
+    <div class="section-label">
+        <div class="line"></div>
+        <span><i class="fa-solid fa-folder-open" style="margin-right:8px;"></i>Installation Method Statements — Rev 00</span>
+        <div class="line" style="background:linear-gradient(90deg,transparent,rgba(23,212,232,0.45));"></div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="ms-grid">
+
+        <!-- MS-01 Pumps -->
+        <a href="MS-PUMP-SPA-01.html" class="ms-card" target="_blank" style="background:linear-gradient(rgba(2,6,16,0.48),rgba(2,6,16,0.48)),url('MS-PUMP-SPA-01.jpg');background-size:cover;background-position:center;">
+            <div class="accent-bar" style="background:linear-gradient(90deg,#2471A3,#17C3D4);"></div>
+            <div class="card-head">
+                <div class="icon-wrap" style="background:rgba(36,113,163,0.18);border:1px solid rgba(36,113,163,0.35);">
+                    <i class="fa-solid fa-fan" style="color:#2471A3;"></i>
+                </div>
+                <div class="doc-meta">
+                    <div class="doc-num" style="color:#2471A3;">MS-PUMP-SPA-01</div>
+                    <div class="doc-title">Installation of SPA &amp; Pool Facility Pumps</div>
+                </div>
+                <span class="status-pill" style="background:rgba(39,174,96,0.15);border:1px solid rgba(39,174,96,0.40);color:#27AE60;">
+                    <i class="fa-solid fa-circle-check" style="margin-right:4px;font-size:9px;"></i>Submitted
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="eq-tags">
+                    <span class="eq-tag">FP-IDP-01</span>
+                    <span class="eq-tag">FP-IDP-02</span>
+                    <span class="eq-tag">FP-ODP-01</span>
+                    <span class="eq-tag">FP-ODP-02</span>
+                    <span class="eq-tag">FP-CPC-01</span>
+                    <span class="eq-tag">FP-CPC-02</span>
+                    <span class="eq-tag">NP-IDP-01</span>
+                    <span class="eq-tag">NP-ODP-01</span>
+                    <span class="eq-tag">WFP-ODP-01</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- MS-02 Sand Filters -->
+        <a href="MS-FILTER-SPA-02.html" class="ms-card" target="_blank" style="background:linear-gradient(rgba(2,6,16,0.48),rgba(2,6,16,0.48)),url('MS-FILTER-SPA-021.jpg');background-size:cover;background-position:center;">
+            <div class="accent-bar" style="background:linear-gradient(90deg,#8E6914,#D4AF37);"></div>
+            <div class="card-head">
+                <div class="icon-wrap" style="background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.30);">
+                    <i class="fa-solid fa-filter" style="color:#D4AF37;"></i>
+                </div>
+                <div class="doc-meta">
+                    <div class="doc-num" style="color:#D4AF37;">MS-FILTER-SPA-02</div>
+                    <div class="doc-title">Installation of Pool Sand Filters, 6-Way Multiport Valves &amp; Filter Media</div>
+                </div>
+                <span class="status-pill" style="background:rgba(39,174,96,0.15);border:1px solid rgba(39,174,96,0.40);color:#27AE60;">
+                    <i class="fa-solid fa-circle-check" style="margin-right:4px;font-size:9px;"></i>Submitted
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="eq-tags">
+                    <span class="eq-tag">SF-ODP-01</span>
+                    <span class="eq-tag">SF-INP-02</span>
+                    <span class="eq-tag">SF-CPC-03</span>
+                    <span class="eq-tag">SFV-01</span>
+                    <span class="eq-tag">SFV-02</span>
+                    <span class="eq-tag">SFV-03</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- MS-03 Heaters -->
+        <a href="MS-HEATER-SPA-03.html" class="ms-card" target="_blank" style="background:linear-gradient(rgba(2,6,16,0.48),rgba(2,6,16,0.48)),url('Pool Water HEater.jpg');background-size:cover;background-position:center;">
+            <div class="accent-bar" style="background:linear-gradient(90deg,#C0392B,#EF9F27);"></div>
+            <div class="card-head">
+                <div class="icon-wrap" style="background:rgba(239,159,39,0.13);border:1px solid rgba(239,159,39,0.32);">
+                    <i class="fa-solid fa-fire" style="color:#EF9F27;"></i>
+                </div>
+                <div class="doc-meta">
+                    <div class="doc-num" style="color:#EF9F27;">MS-HEATER-SPA-03</div>
+                    <div class="doc-title">Installation of Pool Electric Heaters</div>
+                </div>
+                <span class="status-pill" style="background:rgba(39,174,96,0.15);border:1px solid rgba(39,174,96,0.40);color:#27AE60;">
+                    <i class="fa-solid fa-circle-check" style="margin-right:4px;font-size:9px;"></i>Submitted
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="eq-tags">
+                    <span class="eq-tag">EWH-ODP-01</span>
+                    <span class="eq-tag">EWH-INP-01</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- MS-04 Cold Plunge Chiller -->
+        <a href="MS-CHILLER-SPA-04.html" class="ms-card" target="_blank" style="background:linear-gradient(rgba(2,6,16,0.48),rgba(2,6,16,0.48)),url('MS-Cold Plunge Chiller.jpg');background-size:cover;background-position:center;">
+            <div class="accent-bar" style="background:linear-gradient(90deg,#17C3D4,#2980B9);"></div>
+            <div class="card-head">
+                <div class="icon-wrap" style="background:rgba(23,195,212,0.12);border:1px solid rgba(23,195,212,0.30);">
+                    <i class="fa-solid fa-snowflake" style="color:#17C3D4;"></i>
+                </div>
+                <div class="doc-meta">
+                    <div class="doc-num" style="color:#17C3D4;">MS-CHILLER-SPA-04</div>
+                    <div class="doc-title">Installation of Cold Plunge Chiller CPC-01</div>
+                </div>
+                <span class="status-pill" style="background:rgba(39,174,96,0.15);border:1px solid rgba(39,174,96,0.40);color:#27AE60;">
+                    <i class="fa-solid fa-circle-check" style="margin-right:4px;font-size:9px;"></i>Submitted
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="eq-tags">
+                    <span class="eq-tag">CPC-01</span>
+                    <span class="eq-tag">FP-CPC-01</span>
+                    <span class="eq-tag">FP-CPC-02</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- MS-05 Chemical Treatment -->
+        <a href="MS-CHEM-SPA-05.html" class="ms-card" target="_blank" style="background:linear-gradient(rgba(2,6,16,0.48),rgba(2,6,16,0.48)),url('MS-CHEM-SPA-05.png');background-size:cover;background-position:center;">
+            <div class="accent-bar" style="background:linear-gradient(90deg,#27AE60,#1A5276);"></div>
+            <div class="card-head">
+                <div class="icon-wrap" style="background:rgba(39,174,96,0.12);border:1px solid rgba(39,174,96,0.30);">
+                    <i class="fa-solid fa-flask" style="color:#27AE60;"></i>
+                </div>
+                <div class="doc-meta">
+                    <div class="doc-num" style="color:#27AE60;">MS-CHEM-SPA-05</div>
+                    <div class="doc-title">Installation of Chemical Water Treatment Systems</div>
+                </div>
+                <span class="status-pill" style="background:rgba(39,174,96,0.15);border:1px solid rgba(39,174,96,0.40);color:#27AE60;">
+                    <i class="fa-solid fa-circle-check" style="margin-right:4px;font-size:9px;"></i>Submitted
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="eq-tags">
+                    <span class="eq-tag">UV-C 01</span>
+                    <span class="eq-tag">CF-01-IDP</span>
+                    <span class="eq-tag">CF-02-CPC</span>
+                    <span class="eq-tag">CDP-01</span>
+                    <span class="eq-tag">CDP-02</span>
+                    <span class="eq-tag">PHC</span>
+                    <span class="eq-tag">ROT-01</span>
+                    <span class="eq-tag">VT-01</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- MS-06 Steam Generator -->
+        <a href="MS-STEAM-SPA-06.html" class="ms-card" target="_blank" style="background:linear-gradient(rgba(2,6,16,0.48),rgba(2,6,16,0.48)),url('MS-STEAM-SPA-06.jpg');background-size:cover;background-position:center;">
+            <div class="accent-bar" style="background:linear-gradient(90deg,#7D3C98,#C0392B);"></div>
+            <div class="card-head">
+                <div class="icon-wrap" style="background:rgba(125,60,152,0.14);border:1px solid rgba(125,60,152,0.32);">
+                    <i class="fa-solid fa-cloud" style="color:#9B59B6;"></i>
+                </div>
+                <div class="doc-meta">
+                    <div class="doc-num" style="color:#9B59B6;">MS-STEAM-SPA-06</div>
+                    <div class="doc-title">Installation of Steam Generator SG-01 with K3 Controller</div>
+                </div>
+                <span class="status-pill" style="background:rgba(39,174,96,0.15);border:1px solid rgba(39,174,96,0.40);color:#27AE60;">
+                    <i class="fa-solid fa-circle-check" style="margin-right:4px;font-size:9px;"></i>Submitted
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="eq-tags">
+                    <span class="eq-tag">SG-01</span>
+                    <span class="eq-tag">K3 Controller</span>
+                </div>
+            </div>
+        </a>
+
+    </div><!-- end .ms-grid -->
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+    <span class="footer-text">CEO Villa — SPA &amp; Pool Facility | IHCC | Project Code: 10144 | All method statements prepared by Aseeb Contracting Co. for IHCC review</span>
+    <a href="#top" class="btn-up"><i class="fa-solid fa-arrow-up"></i></a>
+</footer>
+
+<script>
+</script>
+
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         

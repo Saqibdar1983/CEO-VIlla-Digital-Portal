@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Pre-Commissioning Check List EXF-06</title>
+  <style>
+    :root{--navy:#071a2e;--gold:#c6a15b;--green:#49a942;--purple:#9b7be8;--purple-dark:#6941c6;--line:#29435e;--pale:#eef4f8}
+    *{box-sizing:border-box}html,body{height:100%;margin:0}body{display:grid;grid-template-rows:auto 1fr auto;min-height:100vh;overflow:hidden;color:#102a43;background:#dfe7ee;font-family:Inter,Segoe UI,Arial,sans-serif}
+    header{position:relative;z-index:10;display:grid;grid-template-columns:112px 1fr 112px;align-items:center;gap:12px;padding:10px 16px;background:var(--navy);border-bottom:1px solid var(--purple-dark);box-shadow:0 3px 16px rgb(0 0 0 / 24%)}
+    .header-center{text-align:center;min-width:0}h1{margin:0;color:var(--gold);font-size:clamp(16px,2vw,25px);letter-spacing:.035em}h1 .greener{color:var(--green)}.report-title{margin-top:5px;color:#fff;font-size:clamp(12px,1.35vw,16px);font-weight:600}
+    .nav-button,.tool-button,.download-button{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid transparent;border-radius:7px;font:600 13px/1 inherit;cursor:pointer;text-decoration:none;transition:.18s ease}
+    .nav-button{width:88px;min-height:32px;padding:7px 9px;color:#fff;background:var(--purple-dark);border-color:var(--purple);box-shadow:inset 0 1px 0 rgb(255 255 255 / 18%),0 2px 4px rgb(0 0 0 / 22%)}.nav-button:hover{background:#7c56d8;transform:translateY(-1px)}.home{justify-self:end}
+    main{min-height:0;display:grid;grid-template-rows:auto 1fr}.toolbar{position:relative;z-index:5;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px;padding:8px 12px;background:#f8fafc;border-bottom:1px solid #cbd5e1}
+    .tool-button{min-width:36px;min-height:34px;padding:7px 9px;color:#243b53;background:#fff;border-color:#bcccdc}.tool-button:hover{background:#dcebf5;border-color:#9fb3c8}.zoom-value{min-width:55px;text-align:center;font-variant-numeric:tabular-nums;font-weight:700;color:#334e68}.page-value{min-width:92px;text-align:center;font-size:13px;font-weight:700;color:#486581}
+    .download-button{margin-left:10px;min-height:36px;padding:8px 12px;color:#fff;background:#15803d}.download-button:hover{background:#166534;transform:translateY(-1px)}
+    .viewer{position:relative;min-height:0;overflow:auto;cursor:grab;background-color:#ccd6df;background-image:linear-gradient(45deg,#c3ced8 25%,transparent 25%),linear-gradient(-45deg,#c3ced8 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#c3ced8 75%),linear-gradient(-45deg,transparent 75%,#c3ced8 75%);background-size:28px 28px;background-position:0 0,0 14px,14px -14px,-14px 0}.viewer.dragging{cursor:grabbing;user-select:none}.stage{min-width:100%;min-height:100%;display:flex;align-items:flex-start;justify-content:center;padding:26px}#documentPage{display:block;width:auto;max-width:none;height:auto;background:#fff;box-shadow:0 8px 28px rgb(15 23 42 / 24%)}
+    footer{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:8px 18px;font-size:12px;font-weight:300;color:var(--purple);background:var(--navy);border-top:1px solid var(--purple-dark)}
+    kbd{padding:1px 5px;border:1px solid #64748b;border-bottom-width:2px;border-radius:4px;background:#102a43;color:var(--purple);font-family:inherit}
+    @media(max-width:720px){header{grid-template-columns:auto 1fr auto;padding:8px;gap:6px}.nav-button{width:38px;font-size:0;padding:7px}.nav-button span{font-size:17px}.download-button{margin-left:0;width:100%}footer{justify-content:center;text-align:center}footer .hint{display:none}}
+  </style>
+</head>
+<body>
+  <header>
+    <button class="nav-button" type="button" onclick="if(history.length>1){history.back();}else{window.close();}" aria-label="Go back"><span aria-hidden="true">←</span> Back</button>
+    <div class="header-center"><h1>Testing &amp; Commissioning by <span class="greener">GREENER</span></h1><div class="report-title">Pre-Commissioning Check List EXF-06</div></div>
+    <button class="nav-button home" type="button" onclick="location.href='../EVA-CORE.html'" aria-label="Go home"><span aria-hidden="true">⌂</span> Home</button>
+  </header>
+  <main>
+    <div class="toolbar" role="toolbar" aria-label="Document controls">
+      <button class="tool-button" id="prevPage" type="button" aria-label="Previous page">‹</button><span class="page-value" id="pageValue">Page 1 of 1</span><button class="tool-button" id="nextPage" type="button" aria-label="Next page">›</button>
+      <button class="tool-button" id="zoomOut" type="button" aria-label="Zoom out">−</button><span class="zoom-value" id="zoomValue">100%</span><button class="tool-button" id="zoomIn" type="button" aria-label="Zoom in">+</button>
+      <button class="tool-button" id="fitWidth" type="button">Fit width</button><button class="tool-button" id="fitPage" type="button">Fit page</button><button class="tool-button" id="reset" type="button">100%</button>
+      <a class="download-button" href="assets/Pre-Commissioning EXF-06.pdf" download>↓ Download Approved</a>
+    </div>
+    <section class="viewer" id="viewer" aria-label="Zoomable report document"><div class="stage" id="stage"><img id="documentPage" alt="Pre-Commissioning Check List EXF-06"></div></section>
+  </main>
+  <footer><span>Project: CEO Villa, Project Code: 10144</span><span class="hint">Use <kbd>+</kbd> / <kbd>−</kbd>, Ctrl + mouse wheel, or drag to inspect</span><span id="footerPage">Page 1 of 1</span></footer>
+  <script>
+    const pages=["assets/pre-exf-06/page-001.jpg"];const viewer=document.getElementById('viewer');const image=document.getElementById('documentPage');const stage=document.getElementById('stage');const zoomValue=document.getElementById('zoomValue');const pageValue=document.getElementById('pageValue');const footerPage=document.getElementById('footerPage');let current=0,zoom=1;const minZoom=.1,maxZoom=4;
+    function applyZoom(next,fx=viewer.clientWidth/2,fy=viewer.clientHeight/2){const old=zoom;zoom=Math.min(maxZoom,Math.max(minZoom,next));const cx=viewer.scrollLeft+fx,cy=viewer.scrollTop+fy;image.style.width=`${image.naturalWidth*zoom}px`;zoomValue.textContent=`${Math.round(zoom*100)}%`;requestAnimationFrame(()=>{viewer.scrollLeft=cx*(zoom/old)-fx;viewer.scrollTop=cy*(zoom/old)-fy})}
+    function fit(mode){if(!image.naturalWidth)return;const pad=52,fw=(viewer.clientWidth-pad)/image.naturalWidth,fh=(viewer.clientHeight-pad)/image.naturalHeight;applyZoom(mode==='page'?Math.min(fw,fh):fw);requestAnimationFrame(()=>{viewer.scrollLeft=Math.max(0,(stage.scrollWidth-viewer.clientWidth)/2);viewer.scrollTop=0})}
+    function showPage(index){current=Math.min(pages.length-1,Math.max(0,index));image.src=pages[current];pageValue.textContent=`Page ${current+1} of ${pages.length}`;footerPage.textContent=pageValue.textContent;document.getElementById('prevPage').disabled=current===0;document.getElementById('nextPage').disabled=current===pages.length-1}
+    image.addEventListener('load',()=>fit('page'));document.getElementById('prevPage').onclick=()=>showPage(current-1);document.getElementById('nextPage').onclick=()=>showPage(current+1);document.getElementById('zoomIn').onclick=()=>applyZoom(zoom*1.2);document.getElementById('zoomOut').onclick=()=>applyZoom(zoom/1.2);document.getElementById('fitWidth').onclick=()=>fit('width');document.getElementById('fitPage').onclick=()=>fit('page');document.getElementById('reset').onclick=()=>applyZoom(1);
+    viewer.addEventListener('wheel',e=>{if(!e.ctrlKey)return;e.preventDefault();const r=viewer.getBoundingClientRect();applyZoom(zoom*(e.deltaY<0?1.12:.89),e.clientX-r.left,e.clientY-r.top)},{passive:false});let drag=null;viewer.addEventListener('pointerdown',e=>{if(e.button!==0)return;drag={x:e.clientX,y:e.clientY,left:viewer.scrollLeft,top:viewer.scrollTop};viewer.classList.add('dragging');viewer.setPointerCapture(e.pointerId)});viewer.addEventListener('pointermove',e=>{if(!drag)return;viewer.scrollLeft=drag.left-(e.clientX-drag.x);viewer.scrollTop=drag.top-(e.clientY-drag.y)});viewer.addEventListener('pointerup',()=>{drag=null;viewer.classList.remove('dragging')});
+    window.addEventListener('keydown',e=>{if(e.key==='+'||e.key==='=')applyZoom(zoom*1.2);if(e.key==='-')applyZoom(zoom/1.2);if(e.key==='0')applyZoom(1);if(e.key.toLowerCase()==='f')fit('page');if(e.key==='ArrowLeft')showPage(current-1);if(e.key==='ArrowRight')showPage(current+1)});showPage(0);
+  </script>
+</body></html>

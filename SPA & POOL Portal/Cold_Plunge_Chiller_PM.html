@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Cold Plunge Chiller PM | CEO Villa SPA &amp; Pool</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050507;--deep:#0a0b10;--surface:#0f1117;--panel:#141720;
+  --border:#1e2330;--gold:#c9a84c;--text:#e8eaf0;--muted:#7a8099;--dim:#3a4055;
+  --green:#2abf8f;--cyan:#22d3ee;--blue:#4a9eff;--orange:#e87a4a;--purple:#b06fd4;
+}
+html,body{width:100%;background:var(--bg);font-family:'Exo 2',sans-serif;color:var(--text);-webkit-text-size-adjust:100%}
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.55rem 1rem;background:rgba(10,11,16,.96);border-bottom:1px solid rgba(201,168,76,.2);backdrop-filter:blur(8px);gap:.75rem}
+.topbar-left{display:flex;align-items:center;gap:.75rem}
+.tb-icon-btn{width:30px;height:30px;border-radius:5px;background:transparent;border:1px solid rgba(255,255,255,.15);color:#adb4cc;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;flex-shrink:0;text-decoration:none}
+.tb-icon-btn:hover{border-color:var(--gold);color:var(--gold)}
+.tb-icon-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.app-name{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--cyan);letter-spacing:.05em}
+.breadcrumb{font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.07em;color:var(--muted)}
+.breadcrumb span{color:var(--cyan)}
+.title-section{padding:.75rem 1.2rem .6rem;background:linear-gradient(135deg,rgba(34,211,238,.07),transparent);border-bottom:1px solid rgba(255,255,255,.05)}
+.equip-title{font-family:'Rajdhani',sans-serif;font-size:clamp(1.3rem,4vw,1.7rem);font-weight:700;color:#fff;letter-spacing:.04em;line-height:1.1}
+.equip-title span{color:var(--cyan)}
+.equip-sub{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.07em;color:var(--muted);margin-top:.3rem}
+.tabs{display:flex;background:#090b12;border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:49px;z-index:99;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{flex:1;min-width:110px;padding:.6rem .5rem;background:transparent;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:all .2s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.15rem}
+.tab-btn .tab-label{font-family:'Share Tech Mono',monospace;font-size:.78rem;font-weight:700;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.tab-btn .tab-count{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--muted)}
+.tab-btn .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tab-btn.daily .dot{background:var(--green);box-shadow:0 0 5px var(--green)}
+.tab-btn.monthly3 .dot{background:var(--gold);box-shadow:0 0 5px var(--gold)}
+.tab-btn.monthly6 .dot{background:var(--purple);box-shadow:0 0 5px var(--purple)}
+.tab-btn.daily.active{background:rgba(42,191,143,.12);border-bottom-color:var(--green)}
+.tab-btn.daily.active .tab-label{color:var(--green)}.tab-btn.daily.active .tab-count{color:var(--green)}
+.tab-btn.monthly3.active{background:rgba(201,168,76,.12);border-bottom-color:var(--gold)}
+.tab-btn.monthly3.active .tab-label{color:var(--gold)}.tab-btn.monthly3.active .tab-count{color:var(--gold)}
+.tab-btn.monthly6.active{background:rgba(176,111,212,.12);border-bottom-color:var(--purple)}
+.tab-btn.monthly6.active .tab-label{color:var(--purple)}.tab-btn.monthly6.active .tab-count{color:var(--purple)}
+.panel{display:none;padding:1rem 1.2rem 4rem}.panel.active{display:block}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem;padding:.6rem .9rem;background:rgba(201,168,76,.08);border-radius:8px;border-left:3px solid var(--cyan);flex-wrap:wrap;gap:.5rem}
+.panel-title{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--cyan);letter-spacing:.04em}
+.panel-badge{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--gold);background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);padding:.2rem .6rem;border-radius:4px;white-space:nowrap}
+.dl-btn{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:.9rem;padding:.5rem 1.1rem;background:var(--gold);border-radius:7px;text-decoration:none;font-family:'Share Tech Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.08em;color:#000;transition:background .2s,transform .15s}
+.dl-btn:hover{background:#e0b85c;transform:translateY(-1px)}
+.dl-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+table{width:100%;border-collapse:collapse;min-width:520px}
+thead tr{background:#0f1220}
+th{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--cyan);padding:.55rem .6rem;letter-spacing:.06em;border-bottom:1px solid rgba(34,211,238,.15);white-space:nowrap}
+th:nth-child(1){text-align:center;width:42px}
+th:nth-child(3),th:nth-child(4){text-align:center}
+th:nth-child(3){color:var(--green)}th:nth-child(4){color:#ff6b6b}
+.sec-row td{background:rgba(201,168,76,.15);color:#fff;font-family:'Share Tech Mono',monospace;font-size:.76rem;font-weight:700;letter-spacing:.08em;padding:.5rem .8rem;border-bottom:1px solid rgba(201,168,76,.2)}
+tbody tr.data-row{border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s}
+tbody tr.data-row:hover{background:rgba(201,168,76,.04)}
+.num-cell{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--muted);text-align:center;padding:.5rem .4rem;white-space:nowrap;vertical-align:top;padding-top:.75rem}
+.chk-cell{font-family:'Exo 2',sans-serif;font-size:.83rem;color:#dce0f2;padding:.5rem .7rem;line-height:1.55;vertical-align:top}
+.box-cell{text-align:center;padding:.45rem .4rem;vertical-align:top;padding-top:.65rem}
+.ck{width:20px;height:20px;border-radius:4px;margin:0 auto;cursor:pointer;appearance:none;-webkit-appearance:none;border:2px solid;background:transparent;transition:background .15s;display:block}
+.ck.ok{border-color:var(--green)}.ck.ok:checked{background:var(--green)}
+.ck.nok{border-color:#ff6b6b}.ck.nok:checked{background:#ff6b6b}
+.rem-cell{font-family:'Exo 2',sans-serif;font-size:.72rem;color:var(--muted);padding:.4rem .5rem;vertical-align:top;min-width:90px}
+.signoff{margin-top:1.4rem;padding:1rem 1.2rem;background:var(--panel);border:1px solid var(--border);border-radius:10px;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between}
+.signoff-item{flex:1;min-width:160px}
+.signoff-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--muted);margin-bottom:.3rem}
+.signoff-line{border-bottom:1px solid var(--dim);height:24px}
+@media(max-width:600px){.tabs{top:48px}.panel{padding:.8rem .8rem 3rem}.tab-btn{min-width:80px;padding:.5rem .2rem}.tab-btn .tab-label{font-size:.7rem}.chk-cell{font-size:.8rem}}
+@media print{.topbar,.tabs{position:static}.dl-btn{display:none}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="tb-icon-btn" onclick="history.back()" title="Back">
+      <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+    </button>
+    <span class="app-name">EVA-APP</span>
+    <span class="breadcrumb">PPM &rsaquo; <span>COLD PLUNGE CHILLER</span></span>
+  </div>
+  <a href="../EVA-CORE.html" class="tb-icon-btn" title="Home">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+  </a>
+</div>
+
+<div class="title-section">
+  <div class="equip-title">COLD PLUNGE <span>CHILLER</span></div>
+  <div class="equip-sub">SolarEast Full Inverter Heat Pump · Model: CZCHCPI103T · SPA &amp; Pool Pump Room · CEO Villa</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn daily active" onclick="switchTab('daily')">
+    <div class="tab-label"><span class="dot"></span>DAILY</div>
+    <div class="tab-count">14 ITEMS</div>
+  </button>
+  <button class="tab-btn monthly3" onclick="switchTab('monthly3')">
+    <div class="tab-label"><span class="dot"></span>3-MONTHLY</div>
+    <div class="tab-count">27 ITEMS</div>
+  </button>
+  <button class="tab-btn monthly6" onclick="switchTab('monthly6')">
+    <div class="tab-label"><span class="dot"></span>6-MONTHLY</div>
+    <div class="tab-count">41 ITEMS</div>
+  </button>
+</div>
+
+<!-- ═══ DAILY ═══ -->
+<div class="panel active" id="panel-daily">
+  <div class="panel-header"><div class="panel-title">DAILY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">14 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Cold plunge Chiller/Cold Plunge Chiller - Daily PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">A.&nbsp; VISUAL &amp; OPERATIONAL CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Check wired remote controller display — confirm no Protection symbol is showing; if Protection symbol appears, press it to identify error code and report immediately</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Confirm unit is operating in Inverter Cooling mode at correct setpoint temperature — record: Water temp (display): _______ °C | Setpoint: _______ °C</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Confirm cooling is being achieved — cold plunge water should be at or approaching setpoint (note: temperature change takes time; continuous running without reaching setpoint indicates a fault)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Inspect around unit for visible refrigerant leaks — no oil stains or unusual frost patches on refrigerant pipework or components</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Listen for unusual noise or vibration — unit operates below 62 dB(A) at 1m; report any new noise (rattling, grinding, or high-pitched sound) immediately</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Inspect fan guard/protection grid — confirm intact, undamaged, and no objects placed near or against unit</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Check condensate drain — condensation drip is normal during cooling operation; confirm drain is running freely and not blocked</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">B.&nbsp; WATER CIRCUIT CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Confirm cold plunge circulation pump (FP-CP-01 or FP-CP-02) is running and delivering water flow to chiller water inlet (Dn63)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Check By-Pass valve assembly — confirm valves are in correct operating position (semi-open By-Pass valve as required); inlet and outlet valves are open</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Inspect water inlet and outlet pipe connections (Dn63) for drips, weeping, or moisture on fittings</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Confirm cold plunge pool is receiving chilled water return and water level is normal</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">C.&nbsp; ELECTRICAL CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Confirm main isolator / circuit breaker supplying chiller is in ON position</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Confirm electrical panel door on unit is securely closed and latched</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Check distribution board — confirm no tripped circuit breakers or fault indicators associated with chiller circuit</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<!-- ═══ 3-MONTHLY ═══ -->
+<div class="panel" id="panel-monthly3">
+  <div class="panel-header"><div class="panel-title">3-MONTHLY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">27 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Cold plunge Chiller/Cold Plunge Chiller - 3-Monthly PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">A.&nbsp; VISUAL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Inspect heat pump housing and casing for cracks, corrosion, paint damage, or impact marks — clean housing with damp cloth only (the manual prohibits detergents or household products as these degrade casing surface)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Inspect all water pipe connections (Dn63 inlet and outlet) for leaks, scale deposits, or corrosion at fittings and joints</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Inspect By-Pass valve assembly — confirm all 3 valves move freely and are positioned correctly; check valve bodies and pipe connections for leaks</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Inspect condensate drain pipe — confirm unobstructed and draining freely; flush with clean water if slow draining</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Inspect fan guard / protection grid — confirm intact, securely fixed, and no corrosion; confirm minimum clearances around unit are maintained for adequate airflow</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Confirm unit is not exposed to snow (if applicable, snow guard must be installed at least 2m above unit per manual)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">B.&nbsp; EVAPORATOR INSPECTION &amp; CLEANING</td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Inspect evaporator fins at rear of unit for dust accumulation, debris, leaves, or biological growth blocking airflow</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Isolate power at main isolator before cleaning evaporator</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Clean evaporator fins carefully using soft brush vacuum cleaner or CleanPac-type cleaner as specified by manufacturer — do not use high-pressure water jet directly on fins; do not use acid-based or corrosive cleaners</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">After cleaning, confirm fins are free of debris and air can pass through evaporator freely</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Inspect fan blades for debris accumulation, damage, or deformation — do not touch fan while running; only inspect with power isolated</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Restore power after evaporator area is dry; confirm unit restarts normally</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">C.&nbsp; REFRIGERATION CIRCUIT VISUAL CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Visually inspect all accessible refrigerant pipe connections, joints, and components for oil stains (oil stain indicates refrigerant R410A leak)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Check pressure gauge — confirm reading is above 80 PSI; reading below 80 PSI indicates possible refrigerant leak; do not operate unit if refrigerant is low and report immediately for investigation by certified engineer</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Check for abnormal frost or ice formation on refrigerant pipes (frost in unexpected locations indicates refrigerant undercharge or flow restriction)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">NOTE: Refrigerant circuit (R410A) work must only be performed by a certified refrigeration engineer; do not open refrigerant circuit or adjust pressure without certification</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">D.&nbsp; ELECTRICAL CHECKS (VISUAL)</td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Confirm no fault/error codes on wired remote controller display — press Status then Fault Query to review fault history</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Inspect external power supply cable from distribution board to unit for damage, abrasion, UV degradation, or heat marks</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">Confirm electrical panel door on unit is securely closed and sealed against moisture ingress (unit is IPX4 rated)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Confirm earth connection at power supply terminal block is intact and not corroded (mandatory per manual — 400V 3-phase supply)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">E.&nbsp; WATER QUALITY CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Test cold plunge water pH — pH must be maintained between 6.9 and 8.0 per manufacturer requirement (pH outside this range will damage titanium heat exchanger); record: pH _______</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Confirm chemical treatment system (Cl / pH dosing) is installed and operating downstream (after heat pump) in the hydraulic circuit — treatment upstream of heat pump is prohibited</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Check water clarity — no unusual cloudiness, discoloration, or scale particles indicating chemical imbalance</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">F.&nbsp; PERFORMANCE CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Record: Water temperature (display): _______ °C | Setpoint: _______ °C | Ambient air temperature: _______ °C</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">25</td><td class="chk-cell">Confirm unit is achieving and maintaining setpoint — if unit runs continuously without reaching setpoint, investigate water flow rate (rated 30 m³/h) and refrigerant charge</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">26</td><td class="chk-cell">Record current draw with clamp meter if available: _______ A (rated 27.0A at 380V/3N/60Hz; significant deviation indicates fault)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">27</td><td class="chk-cell">Confirm EER is acceptable — any notable reduction in cooling output with same power input indicates fouled evaporator, refrigerant issue, or heat exchanger scaling</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<!-- ═══ 6-MONTHLY ═══ -->
+<div class="panel" id="panel-monthly6">
+  <div class="panel-header"><div class="panel-title">6-MONTHLY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">41 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Cold plunge Chiller/Cold Plunge Chiller - 6-Monthly PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">A.&nbsp; VISUAL &amp; SAFETY INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Inspect heat pump housing, casing, mounting feet, and base frame for corrosion, cracks, or structural damage — unit weighs 420 kg; confirm base is stable and all mounting points are secure</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Inspect all water pipe connections (Dn63) for leaks, corrosion, or scale buildup — tighten or replace fittings as required</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Inspect By-Pass valve assembly — test all 3 valves for free and full operation; inspect valve bodies, seals, and pipe connections for leaks</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Inspect condensate drain pipe — confirm unobstructed; clean drain if scale or biological growth present</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Inspect fan guard / protection grid for corrosion or damage — confirm guard is in place and secured (mandatory per manual if unit is in a non-restricted access area)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Confirm no objects, vegetation, or construction materials are within the required clearance distance around the unit</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">B.&nbsp; EVAPORATOR FULL SERVICE CLEAN</td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Isolate power at main isolator before starting evaporator service</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Clean evaporator fins thoroughly using CleanPac-type cleaner as specified by manufacturer — apply with soft brush, allow to act per product instructions, then rinse with gentle low-pressure water from top to bottom of fins</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Inspect fins for bent or mechanically damaged sections — straighten bent fins with fin comb if required; do not use excessive force</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Confirm evaporator is fully free of debris, dust, scale, and biological growth after service</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Restore power after evaporator area is completely dry — confirm unit restarts in Inverter Cooling mode without fault codes</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">C.&nbsp; REFRIGERANT &amp; REFRIGERATION CIRCUIT — FULL SERVICE (CERTIFIED ENGINEER)</td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Carry out annual refrigerant leak check using approved electronic leak detector on all joints, connections, compressor, and heat exchanger — record result: PASS / FAIL and any leak locations found</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Check pressure gauge condition — confirm gauge is undamaged and reading is above 80 PSI (reading below 80 PSI confirms refrigerant loss; investigate and recharge only with R410A by certified engineer)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Inspect all refrigerant pipes, fittings, joints, and compressors for oil stains or frost indicating active refrigerant leak</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Check high-pressure switch and low-pressure switch — confirm both are correctly connected to refrigeration circuit and will electrically interrupt compressor on pressure trip (test if test facility is available)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Inspect around compressors and refrigerant components for traces of corrosion — any corrosion on refrigerant components must be reported and assessed by certified engineer</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">NOTE: Refrigerant R410A is a high-pressure refrigerant (max operating pressure 4.4 MPa); only a certified refrigeration engineer may work on the refrigerant circuit; do not open refrigerant circuit without certification</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">D.&nbsp; ELECTRICAL INSPECTION — FULL SERVICE</td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Isolate power at main isolator; open electrical panel on unit using screwdriver as per manual procedure</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">Inspect all power cables at terminal block (Phase A, Phase B, Phase C, Neutral, Earth) for insulation damage, heat marks, corrosion, or loose terminations</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Check and firmly tighten all terminal block connections — particularly Phase A, B, C, Neutral, and Earth terminals (unit operates at 400V 3-phase; loose connections create arc and fire risk)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Test earth (ground) connection continuity — confirm earth at power supply terminal block is intact; check chassis earth connection (mandatory per manual)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Inspect pump control terminals (T1, T2) for connection to circulation pump relay — confirm wiring is secure and correctly connected</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Inspect capacitors (if accessible) for signs of swelling, bulging, or electrolyte leakage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Close electrical panel securely; confirm sealed against moisture (IPX4 protection must be maintained)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">E.&nbsp; WATER CIRCUIT &amp; HEAT EXCHANGER CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">25</td><td class="chk-cell">Test By-Pass valve operation manually — confirm all 3 valves operate freely through full range and hold position correctly</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">26</td><td class="chk-cell">Check water pressure on water side — maximum operating pressure is 0.55 MPa; confirm system pressure is within this limit</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">27</td><td class="chk-cell">Check water pressure differential across heat exchanger — rated pressure loss is 40 kPa at 30 m³/h; significantly higher pressure loss indicates scaling inside titanium heat exchanger</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">28</td><td class="chk-cell">If scaling is confirmed in heat exchanger, arrange de-scaling service by qualified technician using manufacturer-approved de-scaling procedure; do not use acid de-scaling without checking titanium heat exchanger compatibility</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">29</td><td class="chk-cell">Test cold plunge water pH: _______ (maintain strictly between 6.9 and 8.0 per manual — pH out of this range causes irreversible heat exchanger damage)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">30</td><td class="chk-cell">Confirm water flow rate — rated 30 m³/h at Dn63; significant reduction indicates blockage, scaled heat exchanger, or pump fault</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">F.&nbsp; PERFORMANCE COMMISSIONING CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">31</td><td class="chk-cell">Restore power; confirm unit starts in Inverter Cooling mode without fault codes or Protection symbol</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">32</td><td class="chk-cell">Verify wired remote controller clock and time program settings are correct</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">33</td><td class="chk-cell">Record: Water temp in: _______ °C | Water temp out: _______ °C | Ambient air: _______ °C | Setpoint: _______ °C</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">34</td><td class="chk-cell">Record current draw: _______ A (rated 27.0A at 380V/3N/60Hz; rated power 15.0kW); deviation above rated indicates fault</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">35</td><td class="chk-cell">Monitor through full cooling cycle — confirm unit reaches setpoint, cycles correctly, and no fault codes appear</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">36</td><td class="chk-cell">Confirm noise level is normal — unit rated below 62 dB(A) at 1m; abnormal noise after service must be investigated before returning to service</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">G.&nbsp; DOCUMENTATION</td></tr>
+      <tr class="data-row"><td class="num-cell">37</td><td class="chk-cell">Record all maintenance activities, findings, and corrective actions in equipment history log</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">38</td><td class="chk-cell">Record refrigerant leak test result, leak test method used, and any corrective action taken (refrigerant R410A quantity added if applicable)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">39</td><td class="chk-cell">List all parts replaced or services performed with description</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">40</td><td class="chk-cell">Update next 3-monthly and 6-monthly service dates in maintenance planner</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">41</td><td class="chk-cell">Submit completed checklist to Supervisor for review and countersignature</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<script>
+function switchTab(tab){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('panel-'+tab).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  document.querySelector('.tab-btn.'+tab).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

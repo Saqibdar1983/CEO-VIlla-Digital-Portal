@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>UV Lamp PM | CEO Villa SPA &amp; Pool</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050507;--deep:#0a0b10;--surface:#0f1117;--panel:#141720;
+  --border:#1e2330;--gold:#c9a84c;--text:#e8eaf0;--muted:#7a8099;--dim:#3a4055;
+  --green:#2abf8f;--cyan:#22d3ee;--orange:#e87a4a;
+}
+html,body{width:100%;background:var(--bg);font-family:'Exo 2',sans-serif;color:var(--text);-webkit-text-size-adjust:100%}
+
+/* ── TOP BAR ── */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.55rem 1rem;
+  background:rgba(10,11,16,.96);
+  border-bottom:1px solid rgba(201,168,76,.2);
+  backdrop-filter:blur(8px);
+  gap:.75rem;
+}
+.topbar-left{display:flex;align-items:center;gap:.75rem}
+.tb-icon-btn{
+  width:30px;height:30px;border-radius:5px;
+  background:transparent;border:1px solid rgba(255,255,255,.15);
+  color:#adb4cc;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .2s,color .2s;flex-shrink:0;
+}
+.tb-icon-btn:hover{border-color:var(--gold);color:var(--gold)}
+.tb-icon-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.app-name{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--cyan);letter-spacing:.05em}
+.breadcrumb{font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.07em;color:var(--muted)}
+.breadcrumb span{color:var(--cyan)}
+
+/* ── TITLE SECTION ── */
+.title-section{
+  padding:.75rem 1.2rem .6rem;
+  background:linear-gradient(135deg,rgba(34,211,238,.07),transparent);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.equip-title{font-family:'Rajdhani',sans-serif;font-size:clamp(1.3rem,4vw,1.7rem);font-weight:700;color:#fff;letter-spacing:.04em;line-height:1.1}
+.equip-title span{color:var(--cyan)}
+.equip-sub{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.07em;color:var(--muted);margin-top:.3rem}
+
+/* ── TABS ── */
+.tabs{
+  display:flex;background:#090b12;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  position:sticky;top:49px;z-index:99;
+  overflow-x:auto;scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{
+  flex:1;min-width:120px;padding:.6rem .5rem;
+  background:transparent;border:none;border-bottom:3px solid transparent;
+  cursor:pointer;transition:all .2s;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:.15rem;
+}
+.tab-btn .tab-label{font-family:'Share Tech Mono',monospace;font-size:.82rem;font-weight:700;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.tab-btn .tab-count{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--muted)}
+.tab-btn .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+.tab-btn.daily .dot{background:var(--green);box-shadow:0 0 5px var(--green)}
+.tab-btn.annual .dot{background:var(--orange);box-shadow:0 0 5px var(--orange)}
+
+.tab-btn.daily.active{background:rgba(42,191,143,.12);border-bottom-color:var(--green)}
+.tab-btn.daily.active .tab-label{color:var(--green)}
+.tab-btn.daily.active .tab-count{color:var(--green)}
+
+.tab-btn.annual.active{background:rgba(232,122,74,.12);border-bottom-color:var(--orange)}
+.tab-btn.annual.active .tab-label{color:var(--orange)}
+.tab-btn.annual.active .tab-count{color:var(--orange)}
+
+/* ── PANEL ── */
+.panel{display:none;padding:1rem 1.2rem 4rem}
+.panel.active{display:block}
+
+/* Panel header */
+.panel-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:.9rem;padding:.6rem .9rem;
+  background:rgba(201,168,76,.08);
+  border-radius:8px;border-left:3px solid var(--cyan);
+  flex-wrap:wrap;gap:.5rem;
+}
+.panel-title{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--cyan);letter-spacing:.04em}
+.panel-badge{
+  font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--gold);
+  background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);
+  padding:.2rem .6rem;border-radius:4px;white-space:nowrap;
+}
+
+/* Download button */
+.dl-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  margin-bottom:.9rem;padding:.5rem 1.1rem;
+  background:var(--gold);border-radius:7px;
+  text-decoration:none;cursor:pointer;
+  font-family:'Share Tech Mono',monospace;font-size:.72rem;
+  font-weight:700;letter-spacing:.08em;color:#000;
+  transition:background .2s,transform .15s;
+}
+.dl-btn:hover{background:#e0b85c;transform:translateY(-1px)}
+.dl-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── CHECKLIST TABLE ── */
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+table{width:100%;border-collapse:collapse;min-width:520px}
+thead tr{background:#0f1220}
+th{
+  font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--cyan);
+  padding:.55rem .6rem;letter-spacing:.06em;border-bottom:1px solid rgba(34,211,238,.15);
+  white-space:nowrap;
+}
+th:nth-child(1){text-align:center;width:42px}
+th:nth-child(3),th:nth-child(4){text-align:center}
+th:nth-child(3){color:var(--green)}
+th:nth-child(4){color:#ff6b6b}
+
+/* Section header row */
+.sec-row td{
+  background:rgba(201,168,76,.15);color:#fff;
+  font-family:'Share Tech Mono',monospace;font-size:.76rem;
+  font-weight:700;letter-spacing:.08em;padding:.5rem .8rem;
+  border-bottom:1px solid rgba(201,168,76,.2);
+}
+
+/* Data row */
+tbody tr.data-row{border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s}
+tbody tr.data-row:hover{background:rgba(201,168,76,.04)}
+.num-cell{
+  font-family:'Share Tech Mono',monospace;font-size:.75rem;
+  color:var(--muted);text-align:center;padding:.5rem .4rem;
+  white-space:nowrap;vertical-align:top;padding-top:.75rem;
+}
+.chk-cell{
+  font-family:'Exo 2',sans-serif;font-size:.83rem;
+  color:#dce0f2;padding:.5rem .7rem;line-height:1.55;vertical-align:top;
+}
+.box-cell{text-align:center;padding:.45rem .4rem;vertical-align:top;padding-top:.65rem}
+.ck{
+  width:20px;height:20px;border-radius:4px;margin:0 auto;cursor:pointer;
+  appearance:none;-webkit-appearance:none;
+  border:2px solid;background:transparent;transition:background .15s;
+  display:block;flex-shrink:0;
+}
+.ck.ok{border-color:var(--green)}
+.ck.ok:checked{background:var(--green)}
+.ck.nok{border-color:#ff6b6b}
+.ck.nok:checked{background:#ff6b6b}
+.rem-cell{
+  font-family:'Exo 2',sans-serif;font-size:.72rem;color:var(--muted);
+  padding:.4rem .5rem;vertical-align:top;min-width:90px;
+}
+
+/* Sign-off row */
+.signoff{
+  margin-top:1.4rem;padding:1rem 1.2rem;
+  background:var(--panel);border:1px solid var(--border);border-radius:10px;
+  display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+}
+.signoff-item{flex:1;min-width:160px}
+.signoff-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--muted);margin-bottom:.3rem}
+.signoff-line{border-bottom:1px solid var(--dim);height:24px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .tabs{top:48px}
+  .panel{padding:.8rem .8rem 3rem}
+  .panel-header{padding:.5rem .7rem}
+  .tab-btn{min-width:100px;padding:.5rem .3rem}
+  .tab-btn .tab-label{font-size:.75rem}
+  .chk-cell{font-size:.8rem}
+}
+@media print{
+  .topbar,.tabs{position:static}
+  .dl-btn{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ── TOP BAR ── -->
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="tb-icon-btn" onclick="history.back()" title="Back">
+      <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+    </button>
+    <span class="app-name">EVA-APP</span>
+    <span class="breadcrumb">PPM &rsaquo; <span>UV LAMP</span></span>
+  </div>
+  <a href="../EVA-CORE.html" class="tb-icon-btn" title="Home">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+  </a>
+</div>
+
+<!-- ── TITLE ── -->
+<div class="title-section">
+  <div class="equip-title">UV <span>LAMP</span></div>
+  <div class="equip-sub">H.R. UV-C PRO · Model HRP-110 · ELECRO Engineering · UV-01 · CEO Villa SPA &amp; Pool Pump Room</div>
+</div>
+
+<!-- ── TABS ── -->
+<div class="tabs">
+  <button class="tab-btn daily active" onclick="switchTab('daily')">
+    <div class="tab-label"><span class="dot"></span>DAILY</div>
+    <div class="tab-count">6 ITEMS</div>
+  </button>
+  <button class="tab-btn annual" onclick="switchTab('annual')">
+    <div class="tab-label"><span class="dot"></span>ANNUAL</div>
+    <div class="tab-count">38 ITEMS</div>
+  </button>
+</div>
+
+<!-- ═══════════════════════════════════════
+     DAILY PANEL
+════════════════════════════════════════ -->
+<div class="panel active" id="panel-daily">
+
+  <div class="panel-header">
+    <div class="panel-title">DAILY PREVENTIVE MAINTENANCE CHECKLIST</div>
+    <span class="panel-badge">6 ITEMS</span>
+  </div>
+
+  <a class="dl-btn" href="../PM Checklists/UV Lamp/UV Lamp - Daily PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    DOWNLOAD SCHEDULE
+  </a>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr>
+      <th>#</th>
+      <th>CHECKPOINT</th>
+      <th>OK ✓</th>
+      <th>NOT OK ✗</th>
+      <th>Remarks</th>
+    </tr></thead>
+    <tbody>
+
+      <tr class="sec-row"><td colspan="5">A.&nbsp; OPERATIONAL STATUS CHECK</td></tr>
+
+      <tr class="data-row">
+        <td class="num-cell">1</td>
+        <td class="chk-cell">Check lamp life LED indicator on controller — <strong>Green</strong> (9,000–500 hrs = OK); <strong>Amber</strong> (&lt;500 hrs = order replacement lamp SP-UV-LAMP-EL immediately); <strong>Red</strong> (0 hrs = lamp must be replaced before continued operation). Record current status: _______</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="data-row">
+        <td class="num-cell">2</td>
+        <td class="chk-cell">Confirm UV lamp is ON and energised — controller indicator light confirms lamp is operating. If lamp fails to illuminate despite power being present, check flow switch and circulation pump first</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="data-row">
+        <td class="num-cell">3</td>
+        <td class="chk-cell">Confirm flow switch is active — UV lamp will not switch on if water flow is absent or below minimum threshold. If lamp does not start, verify circulation pump is running and flow is present through the UV unit</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="data-row">
+        <td class="num-cell">4</td>
+        <td class="chk-cell">Confirm unit is not running dry — water must be present in the UV vessel at all times. Operating dry will cause damage and will void warranty</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="data-row">
+        <td class="num-cell">5</td>
+        <td class="chk-cell">Confirm controller display is showing normal operation with no fault code, alarm, or error indication</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+      <tr class="data-row">
+        <td class="num-cell">6</td>
+        <td class="chk-cell">Inspect visible union fittings and pipe connections on UV unit for any water leaks, drips, or moisture at joints — report any leakage immediately and isolate unit if active leakage is present</td>
+        <td class="box-cell"><input type="checkbox" class="ck ok"></td>
+        <td class="box-cell"><input type="checkbox" class="ck nok"></td>
+        <td class="rem-cell"></td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div>
+
+  <!-- Sign-off -->
+  <div class="signoff">
+    <div class="signoff-item">
+      <div class="signoff-label">DATE</div>
+      <div class="signoff-line"></div>
+    </div>
+    <div class="signoff-item">
+      <div class="signoff-label">TIME</div>
+      <div class="signoff-line"></div>
+    </div>
+    <div class="signoff-item">
+      <div class="signoff-label">INSPECTOR SIGNATURE</div>
+      <div class="signoff-line"></div>
+    </div>
+    <div class="signoff-item">
+      <div class="signoff-label">SUPERVISOR REVIEW</div>
+      <div class="signoff-line"></div>
+    </div>
+  </div>
+
+</div><!-- /panel-daily -->
+
+
+<!-- ═══════════════════════════════════════
+     ANNUAL PANEL
+════════════════════════════════════════ -->
+<div class="panel" id="panel-annual">
+
+  <div class="panel-header">
+    <div class="panel-title">ANNUAL PREVENTIVE MAINTENANCE CHECKLIST</div>
+    <span class="panel-badge">38 ITEMS</span>
+  </div>
+
+  <a class="dl-btn" href="../PM Checklists/UV Lamp/UV Lamp - Annual PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    DOWNLOAD SCHEDULE
+  </a>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr>
+      <th>#</th>
+      <th>CHECKPOINT</th>
+      <th>OK ✓</th>
+      <th>NOT OK ✗</th>
+      <th>Remarks</th>
+    </tr></thead>
+    <tbody>
+
+      <!-- SECTION A -->
+      <tr class="sec-row"><td colspan="5">A.&nbsp; PRE-SERVICE SAFETY ISOLATION</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Notify supervisor before commencing annual service — obtain permit to work if required</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Isolate and lock off electrical supply to UV unit at main isolator or distribution board — confirm power is OFF before proceeding</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Turn off circulation pump serving the UV unit to stop water flow</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Close isolation valves upstream and downstream of UV unit</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Allow unit to cool — quartz sleeve and lamp assembly will be hot immediately after operation; allow at least <strong>10 minutes</strong> before handling</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Drain UV vessel completely before opening any union fittings or lamp housing</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <!-- SECTION B -->
+      <tr class="sec-row"><td colspan="5">B.&nbsp; UV LAMP REPLACEMENT &nbsp;·&nbsp; Lamp Code: SP-UV-LAMP-EL</td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Remove union fittings at each end of UV chamber to release vessel from pipe assembly</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Withdraw UV lamp and quartz sleeve assembly from housing — handle with care; do not apply excessive lateral force</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Remove used UV lamps from quartz sleeve — do not touch glass surface of lamps with bare hands (skin oils reduce UV output); use clean gloves</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Dispose of used UV lamps as <strong>hazardous waste</strong> in accordance with local regulations — lamps contain mercury and must not be placed in general waste</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Install 2 new UV lamps (lamp code <strong>SP-UV-LAMP-EL</strong>) — confirm lamp code on packaging matches before installation; do not touch glass surface of new lamps</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <!-- SECTION C -->
+      <tr class="sec-row"><td colspan="5">C.&nbsp; QUARTZ SLEEVE INSPECTION &amp; CLEANING</td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Remove quartz sleeve from housing for inspection</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Inspect quartz sleeve for cracks, chips, or fractures — if any damage is found, replace immediately; a cracked sleeve significantly reduces UV output and must not be reinstalled</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Inspect sleeve for limescale deposits — limescale blocks UV transmission and reduces disinfection effectiveness. In Jeddah hard water conditions, expect significant limescale accumulation annually</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">If limescale is present, descale quartz sleeve using kettle descaling solution — soak per manufacturer recommendation; rinse thoroughly with clean water after descaling</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Dry quartz sleeve completely before reinstallation — do not reinstall a wet sleeve</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Reinstall clean and inspected quartz sleeve into housing</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <!-- SECTION D -->
+      <tr class="sec-row"><td colspan="5">D.&nbsp; O-RINGS, SEALS &amp; BODY INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Remove and inspect O-ring seals (part code <strong>SP-UV-ORS</strong>) — replace O-rings if worn, flattened, cracked, or permanently compressed</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">Install new O-rings (SP-UV-ORS) — ensure correct seating in groove; do not use petroleum-based lubricants on O-rings</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Inspect blue compression fittings for cracking, yellowing, or brittleness — replace if damaged or deformed</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Inspect body housing for cracks, UV degradation, or structural damage — replace housing if any cracking is found</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Inspect plastic body components for excessive wear — inspect body and compression fittings whenever lamp change is carried out (per manufacturer manual)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <!-- SECTION E -->
+      <tr class="sec-row"><td colspan="5">E.&nbsp; DOSING TUBE REPLACEMENT</td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Inspect dosing tube for kinks, blockages, hardening, cracking, or brittleness — any of these defects will restrict chemical dosing and must be corrected</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Replace dosing tube per manufacturer recommendation (every 6–12 months); replace regardless of age if any defect is found</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">25</td><td class="chk-cell">Reinstall new dosing tube — confirm correct connection to dosing pump and dosing port; tube must be free of kinks and not pinched along its length</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <!-- SECTION F -->
+      <tr class="sec-row"><td colspan="5">F.&nbsp; REASSEMBLY &amp; RECOMMISSIONING</td></tr>
+      <tr class="data-row"><td class="num-cell">26</td><td class="chk-cell">Reassemble UV chamber — reinstall quartz sleeve with new lamps seated correctly; ensure all O-rings are correctly positioned and seated before closing housing</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">27</td><td class="chk-cell">Reconnect union fittings at both ends — hand-tighten firmly; do not use tools to over-tighten as this can crack union body</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">28</td><td class="chk-cell">Open isolation valves and restore water flow to UV unit</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">29</td><td class="chk-cell">Inspect all union fittings and connections for water leaks with water flowing — do not restore electrical power until all leak checks are complete and no leaks are present</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">30</td><td class="chk-cell">Restore electrical supply at main isolator — confirm UV lamp illuminates and controller activates normally</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">31</td><td class="chk-cell">Confirm flow switch is responding correctly — lamp should operate when flow is present and shut off when flow stops</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">32</td><td class="chk-cell">Confirm lamp life LED countdown timer resets to <strong>9,000 hours</strong> after new lamp installation — record: Timer reset confirmed: Yes / No. If timer does not reset, follow manual reset procedure on controller</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">33</td><td class="chk-cell">Verify controller display shows normal operation with no fault codes or error messages after recommissioning</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <!-- SECTION G -->
+      <tr class="sec-row"><td colspan="5">G.&nbsp; DOCUMENTATION</td></tr>
+      <tr class="data-row"><td class="num-cell">34</td><td class="chk-cell">Record: Date of annual service: _______; Lamps replaced: Yes / No; Lamp code used: SP-UV-LAMP-EL; Quartz sleeve condition (clean / descaled / replaced): _______</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">35</td><td class="chk-cell">Record: O-rings replaced (SP-UV-ORS): Yes / No; Dosing tube replaced: Yes / No; Body / compression fittings replaced: Yes / No</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">36</td><td class="chk-cell">Record: Lamp life timer reset to 9,000 hours: Yes / No; Next annual service due date: _______</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">37</td><td class="chk-cell">Update equipment maintenance history log with all actions completed, parts consumed, and findings noted</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">38</td><td class="chk-cell">Submit completed annual service checklist to Supervisor for countersignature</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+    </tbody>
+  </table>
+  </div>
+
+  <!-- Sign-off -->
+  <div class="signoff">
+    <div class="signoff-item">
+      <div class="signoff-label">DATE</div>
+      <div class="signoff-line"></div>
+    </div>
+    <div class="signoff-item">
+      <div class="signoff-label">TIME</div>
+      <div class="signoff-line"></div>
+    </div>
+    <div class="signoff-item">
+      <div class="signoff-label">INSPECTOR SIGNATURE</div>
+      <div class="signoff-line"></div>
+    </div>
+    <div class="signoff-item">
+      <div class="signoff-label">SUPERVISOR REVIEW</div>
+      <div class="signoff-line"></div>
+    </div>
+  </div>
+
+</div><!-- /panel-annual -->
+
+<script>
+function switchTab(tab) {
+  // panels
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active') });
+  document.getElementById('panel-' + tab).classList.add('active');
+  // tab buttons
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active') });
+  document.querySelector('.tab-btn.' + tab).classList.add('active');
+  // scroll to top of content
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+
+</body>
+</html>

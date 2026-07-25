@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA &amp; POOL Facility Shop Drawings | SSB Villa O&amp;M Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #f0d060;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Aptos Display', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: #0d1829;
+            background-image: url("SPA & Pool Drawings Dashboard BG.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #f0e8d0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 10, 20, 0.75);
+            z-index: 0;
+        }
+
+        /* ── HEADER ── */
+        header {
+            background: rgba(5, 10, 20, 0.90);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.45);
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-left  { flex: 1; display: flex; align-items: center; }
+
+        .header-center { flex: 2; text-align: center; }
+
+        .header-center h1 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        .header-right { flex: 1; display: flex; justify-content: flex-end; align-items: center; }
+
+        .btn-back, .btn-home {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .btn-back:hover, .btn-home:hover {
+            background: rgba(212, 175, 55, 0.28);
+        }
+
+        /* ── MAIN ── */
+        main {
+            margin-top: 64px;
+            margin-bottom: 60px;
+            padding: 40px 30px;
+            max-width: 1400px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            margin-bottom: 28px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+        }
+
+        /* ── TABLE ── */
+        .table-wrap {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-radius: 8px;
+            overflow-x: auto;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead tr {
+            background: rgba(212, 175, 55, 0.18);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.55);
+        }
+
+        thead th {
+            padding: 14px 14px;
+            text-align: left;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            white-space: nowrap;
+        }
+
+        thead th:first-child { text-align: center; width: 52px; }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+            transition: background 0.2s;
+        }
+
+        tbody tr:last-child { border-bottom: none; }
+
+        tbody tr:hover { background: rgba(212, 175, 55, 0.07); }
+
+        tbody td {
+            padding: 13px 14px;
+            color: #f0e8d0;
+            vertical-align: middle;
+            line-height: 1.45;
+        }
+
+        td.no {
+            color: var(--gold);
+            font-weight: 700;
+            text-align: center;
+        }
+
+        td.drw-num {
+            font-family: 'Courier New', monospace;
+            font-size: 12.5px;
+            color: #b8cce4;
+            white-space: nowrap;
+        }
+
+        .rev-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.14);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 9px;
+            border-radius: 3px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-view {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(212, 175, 55, 0.14);
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, 0.50);
+            padding: 5px 13px;
+            border-radius: 4px;
+            font-size: 12px;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+
+        .btn-view:hover {
+            background: rgba(212, 175, 55, 0.30);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: rgba(5, 10, 20, 0.90);
+            border-top: 2px solid rgba(212, 175, 55, 0.45);
+            padding: 14px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 13px;
+            color: rgba(212, 175, 55, 0.75);
+            z-index: 1000;
+        }
+
+        .btn-up {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn-up:hover { background: rgba(212, 175, 55, 0.35); }
+    </style>
+</head>
+<body id="top">
+
+    <header>
+        <div class="header-left">
+            <a href="CEO Villa Drawings Dashboard.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+        </div>
+        <div class="header-center">
+            <h1>SPA &amp; POOL FACILITY SHOP DRAWINGS</h1>
+        </div>
+        <div class="header-right">
+            <a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a>
+        </div>
+    </header>
+
+    <main>
+        <h2 class="page-title">SPA &amp; POOL FACILITY SHOP DRAWINGS</h2>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Project</th>
+                        <th>Drawing Title</th>
+                        <th>Drawing Number</th>
+                        <th>Date</th>
+                        <th>Revision</th>
+                        <th>Contractor</th>
+                        <th>Approved By</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="no">1</td>
+                        <td>SSB Villa Project</td>
+                        <td>External Swimming Pool Dimensions Layout</td>
+                        <td class="drw-num">SB-ASB-SD-ME-001-R2</td>
+                        <td>13/08/2025</td>
+                        <td><span class="rev-badge">C2</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-ME-001-R2.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">2</td>
+                        <td>SSB Villa Project</td>
+                        <td>External Swimming Pool Piping Over All</td>
+                        <td class="drw-num">SB-ASB-SD-ME-002-R2</td>
+                        <td>13/08/2025</td>
+                        <td><span class="rev-badge">C2</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-ME-002-R2.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">3</td>
+                        <td>SSB Villa Project</td>
+                        <td>External Swimming Pool Piping Plan &amp; Section</td>
+                        <td class="drw-num">SB-ASB-SD-ME-003-R2</td>
+                        <td>13/08/2025</td>
+                        <td><span class="rev-badge">C2</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-ME-003-R2.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">4</td>
+                        <td>SSB Villa Project</td>
+                        <td>External Swimming Pool Fitting Detail</td>
+                        <td class="drw-num">SB-ASB-SD-ME-004-R0</td>
+                        <td>04/06/2025</td>
+                        <td><span class="rev-badge">C0</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-ME-004-R0.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">5</td>
+                        <td>SSB Villa Project</td>
+                        <td>Water Fall Feature Plan &amp; Section</td>
+                        <td class="drw-num">SB-ASB-SD-ME-005-R2</td>
+                        <td>01/09/2025</td>
+                        <td><span class="rev-badge">C2</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-ME-005-R2.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">6</td>
+                        <td>SSB Villa Project</td>
+                        <td>Indoor Swimming Pool Piping Plan Over All</td>
+                        <td class="drw-num">SB-ASB-SD-ME-006-R2</td>
+                        <td>13/08/2025</td>
+                        <td><span class="rev-badge">C2</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-ME-006-R2.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">7</td>
+                        <td>SSB Villa Project</td>
+                        <td>Indoor Swimming Pool Sections</td>
+                        <td class="drw-num">SB-ASB-SD-ME-007-R2</td>
+                        <td>13/08/2025</td>
+                        <td><span class="rev-badge">C2</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-ME-007-R2.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">8</td>
+                        <td>SSB Villa Project</td>
+                        <td>External &amp; Indoor and Cold Plunge Pump Room Plan</td>
+                        <td class="drw-num">SB-ASB-SD-ME-008-R1</td>
+                        <td>18/08/2025</td>
+                        <td><span class="rev-badge">C1</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-ME-008-R1.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">9</td>
+                        <td>SSB Villa Project</td>
+                        <td>External &amp; Indoor and Cold Plunge Pump Room Sections</td>
+                        <td class="drw-num">SB-ASB-SD-ME-009-R1</td>
+                        <td>18/08/2025</td>
+                        <td><span class="rev-badge">C1</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-ME-009-R1.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">10</td>
+                        <td>SSB Villa Project</td>
+                        <td>Steam Room Plan &amp; Sections</td>
+                        <td class="drw-num">SB-ASB-SD-ME-010-R2</td>
+                        <td>20/08/2025</td>
+                        <td><span class="rev-badge">C2</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-ME-010-R2.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">11</td>
+                        <td>SSB Villa Project</td>
+                        <td>Steam Room Plan &amp; Sections</td>
+                        <td class="drw-num">SB-ASB-SD-ME-011-R2</td>
+                        <td>20/08/2025</td>
+                        <td><span class="rev-badge">C3</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-ME-011-R2.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">12</td>
+                        <td>SSB Villa Project</td>
+                        <td>Indoor Swimming Pool Piping To Heat Pump</td>
+                        <td class="drw-num">SB-ASB-SD-ME-012-R0</td>
+                        <td>12/06/2025</td>
+                        <td><span class="rev-badge">C0</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-ME-012-R0.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">13</td>
+                        <td>SSB Villa Project</td>
+                        <td>External Swimming Pool Electrical Plan Layout</td>
+                        <td class="drw-num">SB-ASB-SD-EL-001-R2</td>
+                        <td>13/08/2025</td>
+                        <td><span class="rev-badge">C2</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-EL-001-R2.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">14</td>
+                        <td>SSB Villa Project</td>
+                        <td>Indoor Swimming Pool Electrical Plan Layout</td>
+                        <td class="drw-num">SB-ASB-SD-EL-002-R2</td>
+                        <td>13/08/2025</td>
+                        <td><span class="rev-badge">C3</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-EL-002-R2.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">15</td>
+                        <td>SSB Villa Project</td>
+                        <td>SAUNA Plan</td>
+                        <td class="drw-num">SB-ASB-SD-EL-003-R3</td>
+                        <td>30/09/2025</td>
+                        <td><span class="rev-badge">C3</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-EL-003-R3.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">16</td>
+                        <td>SSB Villa Project</td>
+                        <td>SAUNA Plan &amp; Section</td>
+                        <td class="drw-num">SB-ASB-SD-EL-004-R3</td>
+                        <td>30/09/2025</td>
+                        <td><span class="rev-badge">C3</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-EL-004-R3.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">17</td>
+                        <td>SSB Villa Project</td>
+                        <td>Swimming Pool LED Strip Light Details</td>
+                        <td class="drw-num">SB-ASB-SD-EL-005A-R0</td>
+                        <td>10/08/2025</td>
+                        <td><span class="rev-badge">C0</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-EL-005A-R0.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                    <tr>
+                        <td class="no">18</td>
+                        <td>SSB Villa Project</td>
+                        <td>SAUNA LED Strip Light Details</td>
+                        <td class="drw-num">SB-ASB-SD-EL-005-R0</td>
+                        <td>10/08/2025</td>
+                        <td><span class="rev-badge">C0</span></td>
+                        <td>Aseeb Cont. Co.</td>
+                        <td>IHCC</td>
+                        <td><a href="SPA &amp; Pool Shop Drawings/SB-ASB-SD-EL-005-R0.html" class="btn-view"><i class="fas fa-file-pdf"></i> View Drawing</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+        <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+    </footer>
+
+</body>
+</html>

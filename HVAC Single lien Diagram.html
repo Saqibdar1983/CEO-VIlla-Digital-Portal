@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <meta name="theme-color" content="#FFC107">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO Villa - HVAC Handing Over Document</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0b1329;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card {
+            background-color: #1c2541;
+            border: 1px solid #3a506b;
+        }
+        .btn-primary {
+            background-color: #00b4d8;
+            color: #0b1329;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #90e0ef;
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background-color: #3a506b;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #5bc0be;
+            color: #0b1329;
+            transform: translateY(-1px);
+        }
+        .preview-container {
+            border: 2px dashed #3a506b;
+            background-color: #111a33;
+            min-height: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .text-gold {
+            color: #d4af37;
+        }
+        .text-gold:hover {
+            color: #f3e5ab;
+        }
+        
+        /* Custom zoom controls panel */
+        .zoom-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 50;
+            background: rgba(28, 37, 65, 0.9);
+            border: 1px solid #3a506b;
+        }
+
+        /* Hidden A1 print host — shown only while printing */
+        #a1-print-host {
+            display: none;
+        }
+        #print-status {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: rgba(28, 37, 65, 0.95);
+            border: 1px solid #d4af37;
+            color: #f3e5ab;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            pointer-events: none;
+        }
+        #print-status.hidden {
+            display: none;
+        }
+
+        @media print {
+            @page {
+                size: A1 landscape;
+                margin: 0;
+            }
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: #fff !important;
+            }
+            body.a1-print-mode > *:not(#a1-print-host) {
+                display: none !important;
+            }
+            body.a1-print-mode #a1-print-host {
+                display: block !important;
+                position: fixed;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background: #fff;
+            }
+            body.a1-print-mode #a1-print-frame {
+                display: block !important;
+                width: 100%;
+                height: 100%;
+                border: 0;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body class="p-3 md:p-5">
+    <div class="max-w-6xl mx-auto">
+        
+        <!-- Navigation Top Bar Row -->
+        <div class="flex justify-between items-center mb-2">
+            <!-- Left Corner: Back Button -->
+            <button onclick="evaReturnToEva();" class="text-gold font-semibold flex items-center gap-2 text-sm bg-slate-800/60 px-4 py-2 rounded-lg border border-amber-500/20 transition">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </button>
+            
+            <!-- Right Corner: Print and Home Buttons -->
+            <div class="flex items-center gap-3">
+                <button onclick="printDrawing();" class="text-gold font-semibold flex items-center gap-2 text-sm bg-slate-800/60 px-4 py-2 rounded-lg border border-amber-500/20 transition">
+                    <i class="fa-solid fa-print"></i> Print (A1)
+                </button>
+                <button onclick="evaGoHome();" class="text-gold font-semibold flex items-center gap-2 text-sm bg-slate-800/60 px-4 py-2 rounded-lg border border-amber-500/20 transition">
+                    <i class="fa-solid fa-house"></i> Home
+                </button>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-3 border-b border-slate-700 pb-3">
+            <div>
+                <h1 class="text-3xl font-bold tracking-wide text-cyan-400">CEO VILLA PROJECT</h1>
+                <p class="text-slate-400 mt-1">Handing Over Documentation &mdash; Mechanical HVAC As-Built Drawings</p>
+            </div>
+            <div class="mt-4 md:mt-0 bg-slate-800 px-4 py-2 rounded-lg border border-slate-700 text-sm">
+                <span class="text-slate-400">Project Status:</span> <span class="text-emerald-400 font-semibold">Handover Stage</span>
+            </div>
+        </div>
+
+        <!-- Main Content Layout -->
+        <div class="grid grid-cols-1 gap-3">
+            <!-- Table Card -->
+            <div class="card rounded-xl p-4 shadow-xl">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="text-xl font-semibold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-compass-drafting text-cyan-400"></i> HVAC Single Line Diagram Record
+                    </h2>
+                    <span class="text-xs bg-cyan-950 text-cyan-300 px-2.5 py-1 rounded-full border border-cyan-800">1 Document Loaded</span>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-700 text-slate-400 text-sm uppercase tracking-wider bg-slate-900/50">
+                                <th class="py-3 px-4 rounded-tl-lg">Sr. #</th>
+                                <th class="py-3 px-4">Drawing Number</th>
+                                <th class="py-3 px-4">Description</th>
+                                <th class="py-3 px-4">Revision</th>
+                                <th class="py-3 px-4">Date of Issuance</th>
+                                <th class="py-3 px-4 text-center rounded-tr-lg">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm divide-y divide-slate-800">
+                            <tr class="hover:bg-slate-800/40 transition">
+                                <td class="py-2 px-4 font-medium text-slate-400">1</td>
+                                <td class="py-2 px-4 font-mono text-cyan-300 font-semibold">M_204_RD1</td>
+                                <td class="py-2 px-4 text-slate-200">HVAC SYSTEM SINGLE LINE DIAGRAM</td>
+                                <td class="py-2 px-4"><span class="bg-amber-950 text-amber-400 px-2 py-0.5 rounded text-xs border border-amber-800">Rev-00</span></td>
+                                <td class="py-2 px-4 text-slate-400">2026-06-13</td>
+                                <td class="py-2 px-4">
+                                    <div class="flex items-center justify-center gap-2">
+                                        <!-- Open Preview Button -->
+                                        <button onclick="viewPreview('https://drive.google.com/file/d/1fRiYkogPpS210SV2OqC0dacw4F-wLMYt/preview')" class="btn-secondary px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1.5">
+                                            <i class="fa-solid fa-eye"></i> View Preview
+                                        </button>
+                                        <!-- Direct Download -->
+                                        <a href="https://drive.google.com/uc?export=download&id=1fRiYkogPpS210SV2OqC0dacw4F-wLMYt" class="btn-primary px-3 py-1.5 rounded text-xs font-bold flex items-center gap-1.5">
+                                            <i class="fa-solid fa-download"></i> Download
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Deep-Zoom View Container Panel -->
+            <div class="card rounded-xl p-4 shadow-xl">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="text-xl font-semibold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-display text-cyan-400"></i> High-Resolution Unlimited Zoom Viewer (Custom Engine)
+                    </h2>
+                    <button id="close-preview-btn" onclick="clearPreview()" class="text-slate-400 hover:text-rose-400 text-sm font-medium hidden">
+                        <i class="fa-solid fa-xmark mr-1"></i> Close Preview
+                    </button>
+                </div>
+
+                <!-- Live Preview Viewport -->
+                <div id="preview-box" class="preview-container rounded-lg flex flex-col items-center justify-center p-2 transition-all duration-300">
+                    <div id="preview-placeholder" class="text-center p-4">
+                        <i class="fa-solid fa-file-pdf text-6xl text-slate-600 mb-4 animate-pulse"></i>
+                        <p class="text-slate-400 font-medium">No drawing selected for preview</p>
+                        <p class="text-slate-500 text-xs mt-1">Click "View Preview" above to open. Use the custom panel buttons or your mouse wheel to zoom in infinitely close.</p>
+                    </div>
+                    
+                    <!-- Custom Zoom Wrapper for absolute scale control -->
+                    <div id="zoom-wrapper" class="w-full h-[700px] hidden flex items-center justify-center overflow-auto cursor-grab active:cursor-grabbing">
+                        <object id="preview-object" data="" type="application/pdf" class="w-full h-full transition-transform duration-100 ease-out origin-center"></object>
+                    </div>
+
+                    <!-- Infinite Zoom Panel UI -->
+                    <div id="custom-zoom-controls" class="zoom-controls hidden flex items-center gap-1 p-1.5 rounded-lg shadow-lg">
+                        <button onclick="adjustZoom(0.25)" class="w-10 h-10 bg-slate-800 hover:bg-cyan-500 text-slate-200 hover:text-slate-900 rounded font-bold transition flex items-center justify-center text-lg" title="Zoom In Close">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                        <button onclick="adjustZoom(-0.25)" class="w-10 h-10 bg-slate-800 hover:bg-cyan-500 text-slate-200 hover:text-slate-900 rounded font-bold transition flex items-center justify-center text-lg" title="Zoom Out">
+                            <i class="fa-solid fa-minus"></i>
+                        </button>
+                        <button onclick="resetZoom()" class="w-10 h-10 bg-slate-800 hover:bg-amber-500 text-slate-200 hover:text-slate-900 rounded font-medium transition flex items-center justify-center text-xs" title="Reset View">
+                            100%
+                        </button>
+                        <span id="zoom-factor-label" class="text-xs font-mono text-slate-400 px-2">100%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-12 text-center text-xs text-slate-500 border-t border-slate-800 pt-4">
+            <p>&copy; 2026 IHCC Jeddah &bull; CEO Villa Project &bull; Handover Documentation Portal</p>
+        </div>
+    </div>
+
+    <!-- A1 landscape print host (drawing only) -->
+    <div id="a1-print-host" aria-hidden="true">
+        <iframe id="a1-print-frame" title="HVAC Single Line Diagram — A1 print"></iframe>
+    </div>
+    <div id="print-status" class="hidden" role="status" aria-live="polite">Preparing A1 landscape print&hellip;</div>
+
+    <!-- UI Logic Script -->
+    <script>
+        const HVAC_DRAWING = {
+            fileId: '1fRiYkogPpS210SV2OqC0dacw4F-wLMYt',
+            number: 'M_204_RD1',
+            previewUrl: 'https://drive.google.com/file/d/1fRiYkogPpS210SV2OqC0dacw4F-wLMYt/preview'
+        };
+
+        let currentScale = 1.0;
+        let printInProgress = false;
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+
+        function viewPreview(previewUrl) {
+            const placeholder = document.getElementById('preview-placeholder');
+            const wrapper = document.getElementById('zoom-wrapper');
+            const obj = document.getElementById('preview-object');
+            const closeBtn = document.getElementById('close-preview-btn');
+            const previewBox = document.getElementById('preview-box');
+            const zoomUi = document.getElementById('custom-zoom-controls');
+
+            placeholder.classList.add('hidden');
+            wrapper.classList.remove('hidden');
+            closeBtn.classList.remove('hidden');
+            zoomUi.classList.remove('hidden');
+
+            // Force high-fidelity interactive viewport layout parameters
+            // Converting preview URL to a direct embed stream so our custom CSS transformer controls scaling limits manually
+            const fileId = previewUrl.match(/\/d\/([^\/]+)/)[1];
+            const modernEmbedUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+            
+            obj.data = modernEmbedUrl;
+            
+            previewBox.style.borderStyle = 'solid';
+            previewBox.style.borderColor = '#d4af37'; 
+            
+            resetZoom();
+            previewBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function clearPreview() {
+            const placeholder = document.getElementById('preview-placeholder');
+            const wrapper = document.getElementById('zoom-wrapper');
+            const obj = document.getElementById('preview-object');
+            const closeBtn = document.getElementById('close-preview-btn');
+            const previewBox = document.getElementById('preview-box');
+            const zoomUi = document.getElementById('custom-zoom-controls');
+
+            obj.data = '';
+            wrapper.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+            closeBtn.classList.add('hidden');
+            zoomUi.classList.add('hidden');
+
+            previewBox.style.borderStyle = 'dashed';
+            previewBox.style.borderColor = '#3a506b';
+        }
+
+        // Custom Scaling Engine - Eliminates default iframe 200% zoom caps completely
+        function adjustZoom(amount) {
+            const obj = document.getElementById('preview-object');
+            const label = document.getElementById('zoom-factor-label');
+            
+            currentScale += amount;
+            
+            // Setting floor boundary, but leaving roof ceiling completely open for extreme close ups (e.g. 1000%+)
+            if (currentScale < 0.25) currentScale = 0.25;
+            
+            // Apply scale matrix directly to the rendered document viewport layout
+            obj.style.transform = `scale(${currentScale})`;
+            label.innerText = `${Math.round(currentScale * 100)}%`;
+        }
+
+        function resetZoom() {
+            currentScale = 1.0;
+            const obj = document.getElementById('preview-object');
+            const label = document.getElementById('zoom-factor-label');
+            obj.style.transform = `scale(1)`;
+            label.innerText = '100%';
+        }
+
+        // Setup Drag-to-Pan mechanics across wide blueprint layouts when zoomed close
+        const wrapper = document.getElementById('zoom-wrapper');
+        wrapper.addEventListener('mousedown', (e) => {
+            if (currentScale <= 1.0) return;
+            isDragging = true;
+            startX = e.pageX - wrapper.offsetLeft;
+            startY = e.pageY - wrapper.offsetTop;
+            scrollLeft = wrapper.scrollLeft;
+            scrollTop = wrapper.scrollTop;
+        });
+        wrapper.addEventListener('mouseleave', () => { isDragging = false; });
+        wrapper.addEventListener('mouseup', () => { isDragging = false; });
+        wrapper.addEventListener('mousemove', (e) => {
+            if(!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - wrapper.offsetLeft;
+            const y = e.pageY - wrapper.offsetTop;
+            const walkX = (x - startX) * 1.5;
+            const walkY = (y - startY) * 1.5;
+            wrapper.scrollLeft = scrollLeft - walkX;
+            wrapper.scrollTop = scrollTop - walkY;
+        });
+
+        function showPrintStatus(message) {
+            const status = document.getElementById('print-status');
+            status.textContent = message;
+            status.classList.remove('hidden');
+        }
+
+        function hidePrintStatus() {
+            document.getElementById('print-status').classList.add('hidden');
+        }
+
+        function finishPrintMode() {
+            printInProgress = false;
+            document.body.classList.remove('a1-print-mode');
+            const frame = document.getElementById('a1-print-frame');
+            if (frame) {
+                frame.removeAttribute('src');
+                frame.removeAttribute('srcdoc');
+            }
+            hidePrintStatus();
+        }
+
+        function launchA1Print() {
+            const frame = document.getElementById('a1-print-frame');
+            const previewObj = document.getElementById('preview-object');
+            const pdfUrl = (previewObj && previewObj.data) ? previewObj.data : HVAC_DRAWING.previewUrl;
+            let printed = false;
+
+            showPrintStatus('Preparing A1 landscape print — M_204_RD1…');
+
+            const triggerPrint = function() {
+                if (printed) return;
+                printed = true;
+                showPrintStatus('Opening print dialog — paper: A1 · Landscape');
+
+                window.setTimeout(function() {
+                    try {
+                        if (frame.contentWindow) {
+                            frame.contentWindow.focus();
+                            frame.contentWindow.print();
+                        } else {
+                            throw new Error('print frame unavailable');
+                        }
+                    } catch (err) {
+                        document.body.classList.add('a1-print-mode');
+                        window.focus();
+                        window.print();
+                    }
+                }, 500);
+            };
+
+            frame.onload = function() {
+                window.setTimeout(triggerPrint, 2000);
+            };
+
+            frame.srcdoc = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">' +
+                '<title>M_204_RD1 — HVAC Single Line Diagram</title>' +
+                '<style>' +
+                '@page { size: A1 landscape; margin: 0; }' +
+                'html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #fff; }' +
+                'embed, iframe, object { display: block; width: 100%; height: 100%; border: 0; }' +
+                '</style></head><body>' +
+                '<embed src="' + pdfUrl + '" type="application/pdf" />' +
+                '</body></html>';
+
+            window.setTimeout(function() {
+                if (!printed) triggerPrint();
+            }, 7000);
+        }
+
+        function printDrawing() {
+            if (printInProgress) return;
+            printInProgress = true;
+
+            const previewObj = document.getElementById('preview-object');
+            if (!previewObj.data) {
+                viewPreview(HVAC_DRAWING.previewUrl);
+            }
+
+            window.setTimeout(launchA1Print, previewObj.data ? 0 : 900);
+        }
+
+        window.addEventListener('afterprint', finishPrintMode);
+
+        function evaReturnToEva() {
+            window.location.href = sessionStorage.getItem('eva_local_return') || 'EVA-HVAC.html#pg4';
+        }
+
+        function evaGoHome() {
+            window.location.href = 'EVA-CORE.html#pg3';
+        }
+    </script>
+</body>
+</html>

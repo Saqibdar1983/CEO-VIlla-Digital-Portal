@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T-40 Taglus Sand Filter Troubleshooting | SSB Villa O&amp;M Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--gold:#D4AF37;--gold-light:#f0d060}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#0d1829;display:flex;flex-direction:column;min-height:100vh;font-family:'Aptos Display','Segoe UI',sans-serif}
+header{background:rgba(5,10,20,0.95);border-bottom:2px solid rgba(212,175,55,0.45);padding:0 24px;height:72px;display:flex;align-items:center;position:fixed;top:0;width:100%;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.hl{flex:1;display:flex;align-items:center}
+.hc{flex:2;text-align:center;line-height:1.4}
+.hc .l1{font-size:10px;font-weight:600;color:rgba(212,175,55,0.6);text-transform:uppercase;letter-spacing:2.5px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hc .l2{font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hrr{flex:1;display:flex;justify-content:flex-end;align-items:center}
+.btn-back,.btn-home{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);padding:8px 16px;border-radius:4px;cursor:pointer;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;transition:background 0.3s}
+.btn-back:hover,.btn-home:hover{background:rgba(212,175,55,0.28)}
+main{margin-top:72px;margin-bottom:60px;padding:26px 28px;max-width:1500px;width:100%;margin-left:auto;margin-right:auto;flex:1}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.3);color:rgba(212,175,55,0.7);padding:8px 22px;border-radius:4px;cursor:pointer;font-size:13px;transition:all 0.2s}
+.tab-btn.active,.tab-btn:hover{background:rgba(212,175,55,0.18);border-color:rgba(212,175,55,0.7);color:var(--gold)}
+.tbl-wrap{overflow-x:auto}
+.ts{width:100%;border-collapse:collapse;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;min-width:600px}
+.ts thead tr th{background:rgba(212,175,55,0.22);color:#f5edd5;padding:11px 13px;text-align:left;border:1px solid rgba(212,175,55,0.38);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
+.ts tbody tr:nth-child(odd) td{background:rgba(255,255,255,0.04)}
+.ts tbody tr:nth-child(even) td{background:rgba(255,255,255,0.07)}
+.ts tbody tr:hover td{background:rgba(212,175,55,0.09)}
+.ts tbody td{padding:10px 13px;vertical-align:top;border:1px solid rgba(255,255,255,0.07);color:#e0d8c8;line-height:1.6;font-size:13px}
+.ts tbody td.fc{color:#f5e9c4;font-weight:700;border-right:2px solid rgba(212,175,55,0.35);background:rgba(212,175,55,0.07)!important;min-width:140px}
+footer{background:rgba(5,10,20,0.95);border-top:2px solid rgba(212,175,55,0.45);padding:14px 30px;display:flex;align-items:center;justify-content:space-between;position:fixed;bottom:0;width:100%;font-size:13px;color:rgba(212,175,55,0.75);z-index:1000;font-family:'Aptos Display','Segoe UI',sans-serif}
+.btn-up{background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.3s}
+.btn-up:hover{background:rgba(212,175,55,0.35)}
+</style>
+</head>
+<body id="top">
+<header>
+  <div class="hl"><a href="Error Codes &amp; Troubleshooting Register.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a></div>
+  <div class="hc"><span class="l1">SPA &amp; POOL FACILITY</span><span class="l2">T-40 Taglus Sand Filter Troubleshooting</span></div>
+  <div class="hrr"><a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a></div>
+</header>
+<main>
+<div style="background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.38);border-radius:6px;padding:9px 18px;margin-bottom:16px;color:#f0dfa0;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.8px;text-align:center;">T-40 TAGELUS Sand Filter Troubleshooting Guide</div>
+<div class="tbl-wrap"><table class="ts">
+<thead><tr><th>Problem</th><th>Possible Cause</th><th>Corrective Action</th></tr></thead><tbody>
+<tr><td class="fc">Water not sufficiently clean</td><td>Unbalanced water chemistry.</td><td>Rebalance pool chemistry.</td></tr>
+<tr><td class="fc">Water not sufficiently clean</td><td>Backwashing the filter too frequently.</td><td>Follow the guidelines in Cleaning Frequency, page 4.</td></tr>
+<tr><td class="fc">Water not sufficiently clean</td><td>Incorrect amount or size sand.</td><td>Verify sand meets the requirements in Table 2, page 2.</td></tr>
+<tr><td class="fc">Water not sufficiently clean</td><td>Insufficient turnover rate.</td><td>Operate the system for a longer period of time. Refer to Table 1, page 1.</td></tr>
+<tr><td class="fc">High filter pressure</td><td>Insufficient backwashing.</td><td>Backwash until effluent water runs clear.</td></tr>
+<tr><td class="fc">High filter pressure</td><td>Excess debris or mineral deposits in sand bed.</td><td>Chemically clean filter according to Chemical Cleaning Procedure, page 5.</td></tr>
+<tr><td class="fc">High filter pressure</td><td>Partially closed valve or restriction in return line.</td><td>Open valve or remove obstruction in return line.</td></tr>
+<tr><td class="fc">Short filter cycles</td><td>Improper backwashing.</td><td>Backwash until effluent water runs clear.</td></tr>
+<tr><td class="fc">Short filter cycles</td><td>Unbalanced water chemistry.</td><td>Rebalance pool chemistry.</td></tr>
+<tr><td class="fc">Short filter cycles</td><td>Excess debris or mineral deposits in sand bed.</td><td>1. Remove top 1-inch of sand from the sand bed.<br>2. Replace sand.<br>3. Chemically clean according to Chemical Cleaning Procedure, page 5.</td></tr>
+<tr><td class="fc">Short filter cycles</td><td>Flow rate too high.</td><td>Ensure pump is producing proper flow rate to the filter. Refer to Table 1, page 1.</td></tr>
+<tr><td class="fc">Short filter cycles</td><td>Sand has eroded over time and is filtering poorly.</td><td>Replace entire sand bed.</td></tr>
+<tr><td class="fc">Low flow rate at pool returns and low filter pressure</td><td>Clogged pump strainer basket.</td><td>Clean pump strainer basket.</td></tr>
+<tr><td class="fc">Low flow rate at pool returns and low filter pressure</td><td>Obstruction in pump.</td><td>Disassemble and clean the pump according to instructions in the pump manual.</td></tr>
+<tr><td class="fc">Low flow rate at pool returns and low filter pressure</td><td>Obstruction in suction line.</td><td>1. Clean pool skimmer baskets.<br>2. Verify suction line valves are fully open.<br>3. Remove other obstructions in suction line.</td></tr>
+<tr><td class="fc">Sand entering pool through return lines</td><td>Damaged filter lateral.</td><td>Replace damaged laterals.</td></tr>
+<tr><td class="fc">Sand entering pool through return lines</td><td>Backwash flow rate too high.</td><td>Reduce backwash flow rate.</td></tr>
+<tr><td class="fc">Sand entering pool through return lines</td><td>Valve air strainer damaged or missing.</td><td>Replace damaged or missing components.</td></tr>
+<tr><td colspan="3" class="fc">Safety Warning</td></tr>
+<tr><td colspan="3" class="fc">TRAPPED AIR CAN LAUNCH THE CLOSURE WITH DEADLY FORCE!</td></tr>
+<tr><td colspan="3" class="fc">Before repositioning valves or servicing the filtration system: disconnect power to the filter pump and automatic controls at the circuit breaker, open the manual air bleeder valve, and wait until all pressure is relieved.</td></tr>
+<tr><td colspan="3" class="fc">Never adjust or tighten the closure while the system is pressurized or the filter pump is running.</td></tr>
+<tr><td colspan="3" class="fc">After service, follow the start-up procedure exactly and replace worn or damaged parts immediately.</td></tr>
+</tbody>
+</table></div>
+</main>
+<footer>
+  <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+  <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+</footer>
+
+</body>
+</html>

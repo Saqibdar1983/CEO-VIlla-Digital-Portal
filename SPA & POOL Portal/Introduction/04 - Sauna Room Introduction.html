@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sauna Room – O&M Manual | CEO Villa SPA & Pool Facility</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#062A35;color:#FFFFFF;min-height:100vh;line-height:1.6}
+  .top-bar{background:#041E26;padding:.5rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(200,169,58,.35);position:sticky;top:0;z-index:9999;gap:1rem}
+  .top-bar-left{font-size:12px;color:#5A9BAA;letter-spacing:.04em}
+  .top-bar-right{font-size:11px;color:#5A9BAA}
+  .top-bar-right span{color:#C9A93A}
+  .btn-nav{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border:1px solid rgba(201,169,58,.55);border-radius:10px;background:rgba(201,169,58,.07);color:#C9A93A;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:.2s ease;flex-shrink:0}
+  .btn-nav:hover{background:rgba(201,169,58,.18);border-color:#e5c85a;box-shadow:0 0 10px rgba(201,169,58,.3)}
+  .hero{padding:2.5rem 2rem 2rem;border-bottom:3px solid #C9A93A;position:relative;overflow:hidden;min-height:220px}
+  .hero-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(4,18,24,.72);z-index:1}
+  .hero-content{position:relative;z-index:2}
+  .chapter-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(23,195,212,.12);border:1px solid rgba(23,195,212,.3);border-radius:20px;padding:4px 12px;font-size:11px;color:#17C3D4;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem}
+  .hero-title{font-size:36px;font-weight:700;color:#FFFFFF;line-height:1.15;margin-bottom:.3rem;letter-spacing:-.01em}
+  .hero-sub{font-size:14px;color:#8EC9D4;margin-bottom:1.25rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem}
+  .hero-meta-item{font-size:12px;color:#5A9BAA}
+  .hero-meta-item strong{color:#C9A93A;font-weight:500}
+  .container{max-width:1100px;margin:0 auto;padding:2rem}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .grid-6{display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem}
+  .stat-card{background:#0D3D4A;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem 1.1rem;border-left:3px solid #17C3D4}
+  .stat-card.gold{border-left-color:#C9A93A}
+  .stat-card.heat{border-left-color:#EF9F27}
+  .stat-label{font-size:10px;color:#5A9BAA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+  .stat-value{font-size:24px;font-weight:700;color:#FFFFFF;line-height:1;margin-bottom:.2rem}
+  .stat-unit{font-size:11px;color:#8EC9D4}
+  .section{margin-bottom:1.75rem}
+  .sec-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(255,255,255,.08)}
+  .sec-num{width:28px;height:28px;border-radius:50%;background:#17C3D4;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#041E26;flex-shrink:0}
+  .sec-title{font-size:16px;font-weight:600;color:#FFFFFF;letter-spacing:.01em}
+  .card{background:#0D3D4A;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.1rem 1.25rem}
+  .card-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#17C3D4;margin-bottom:.75rem;font-weight:600}
+  .info-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px}
+  .info-row:last-child{border-bottom:none}
+  .info-row .k{color:#8EC9D4}
+  .info-row .v{color:#FFFFFF;font-weight:500;text-align:right;max-width:58%}
+  .body-text{font-size:13px;color:#8EC9D4;line-height:1.7;margin-bottom:.9rem}
+  .table-wrap{overflow-x:auto;border-radius:10px;border:1px solid rgba(255,255,255,.08)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead tr{background:#041E26}
+  th{padding:.75rem 1rem;text-align:left;font-size:11px;font-weight:600;color:#17C3D4;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap}
+  td{padding:.7rem 1rem;border-top:1px solid rgba(255,255,255,.05);color:#FFFFFF;vertical-align:top}
+  tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  tr:hover td{background:rgba(23,195,212,.04)}
+  .tag{font-family:'Courier New',monospace;font-size:12px;color:#17C3D4;font-weight:700;white-space:nowrap}
+  .brand{color:#8EC9D4}
+  .cap{color:#C9A93A;font-size:12px}
+  .note{background:rgba(201,169,58,.08);border-left:3px solid #C9A93A;border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:12px;color:#D4B560;margin-top:.75rem;line-height:1.55}
+  .alert{background:rgba(239,159,39,.07);border-left:3px solid #EF9F27;border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:12px;color:#FAC775;margin-top:.75rem;line-height:1.55}
+  .bench-diagram{background:#0D3D4A;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.1rem 1.25rem;margin-bottom:1rem}
+  .bench-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#17C3D4;margin-bottom:.75rem;font-weight:600}
+  .bench-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px}
+  .bench-row:last-child{border-bottom:none}
+  .bench-row .k{color:#EF9F27}
+  .bench-row .v{color:#FFFFFF;font-weight:500}
+  .acc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-top:.5rem}
+  .acc-item{background:#0D3D4A;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:.65rem .85rem;font-size:12px}
+  .acc-code{font-family:'Courier New',monospace;font-size:10px;color:#C9A93A;display:block;margin-bottom:.2rem}
+  .acc-name{color:#8EC9D4}
+  .footer{background:#041E26;border-top:1px solid rgba(201,169,58,.2);padding:1.25rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+  .footer-left{font-size:12px;color:#5A9BAA}
+  .footer-right{font-size:11px;color:#5A9BAA;text-align:right}
+  .footer-right span{color:#C9A93A}
+  @media(max-width:720px){.grid-2,.grid-3,.grid-6,.acc-grid{grid-template-columns:1fr 1fr}.hero-title{font-size:26px}.container{padding:1.25rem}}
+  @media(max-width:480px){.grid-6{grid-template-columns:repeat(3,1fr)}.grid-2,.grid-3{grid-template-columns:1fr}.acc-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <a class="btn-nav" href="javascript:history.back()">← Back</a>
+    <div class="top-bar-left">CEO VILLA &nbsp;·&nbsp; SPA &amp; POOL FACILITY &nbsp;·&nbsp; O&amp;M MANUAL</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <div class="top-bar-right">Project Code: <span>10144</span> &nbsp;|&nbsp; IHCC – Jeddah, Saudi Arabia</div>
+    <a class="btn-nav" href="../../EVA-CORE.html">⌂ Home</a>
+  </div>
+</div>
+<div class="hero">
+  <video class="hero-video" id="heroVid" autoplay muted loop playsinline>
+    <source src="Sauna Video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="chapter-pill">◆ Chapter 4 · Facility Introduction</div>
+    <div class="hero-title">Sauna Room</div>
+    <div class="hero-sub">Ground Floor · Indoor SPA Area · CEO Villa SPA &amp; Pool Facility</div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">Document ref: <strong>IHCC-CEO-SPA-OM-INT-004</strong></div>
+      <div class="hero-meta-item">Revision: <strong>R0 – For Review</strong></div>
+      <div class="hero-meta-item">Contractor: <strong>IHCC</strong></div>
+    </div>
+  </div>
+</div>
+<script>
+  var v = document.getElementById('heroVid');
+  v.addEventListener('loadedmetadata', function(){ v.playbackRate = 0.45; });
+  v.playbackRate = 0.45;
+</script>
+<div class="container">
+
+  <!-- STAT CARDS -->
+  <div class="grid-6" style="margin-bottom:1.75rem">
+    <div class="stat-card gold">
+      <div class="stat-label">Room area</div>
+      <div class="stat-value">~8.2</div>
+      <div class="stat-unit">m²</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Width × Length</div>
+      <div class="stat-value">2.4×3.43</div>
+      <div class="stat-unit">metres</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Capacity</div>
+      <div class="stat-value">2</div>
+      <div class="stat-unit">persons</div>
+    </div>
+    <div class="stat-card heat">
+      <div class="stat-label">Heater power</div>
+      <div class="stat-value">16.2</div>
+      <div class="stat-unit">kW – AQUA ZL16.2</div>
+    </div>
+    <div class="stat-card heat">
+      <div class="stat-label">Temp range</div>
+      <div class="stat-value">50–110</div>
+      <div class="stat-unit">°C (control)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Bench wood</div>
+      <div class="stat-value">Alder</div>
+      <div class="stat-unit">Thermory SHP</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: OVERVIEW -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">1</div><div class="sec-title">Facility Overview</div></div>
+    <div class="body-text">The Sauna Room is a traditional dry-heat Finnish-style sauna located in the basement level of the CEO Villa SPA &amp; Pool Facility. The room covers an approximate floor area of 8.2 m² and is designed for 2 persons. It is heated by an AQUA ZL16.2 sauna heater (16.2 kW, 400V three-phase) located inside the room against the south wall, providing dry heat at operating temperatures of 70–90°C with relative humidity of 10–20% in normal dry mode.</div>
+    <div class="body-text">The interior is fully lined with Thermory ALDER STP tongue-and-groove wall panels and fitted with two-tier Thermory ALDER SHP bench boarding — a lower L-shaped bench running along the north and east walls and an upper bench on the east wall at a higher level. All timber is natural Alder in sauna-specific profiles, selected for low resin content, stability under heat, and smooth splinter-free surfaces. The heater control keypad is installed outside the sauna room for safe, convenient operation without entering the room.</div>
+  </div>
+
+  <!-- SECTION 2: PHYSICAL DESCRIPTION -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">2</div><div class="sec-title">Physical Description</div></div>
+    <div class="body-text"><strong style="color:#FFFFFF">2.1 Room Dimensions</strong></div>
+    <div class="table-wrap" style="margin-bottom:1rem">
+      <table>
+        <thead><tr><th>Room Feature / Dimension</th><th>Measurement / Description</th></tr></thead>
+        <tbody>
+          <tr><td>Room Width</td><td class="cap">2,400 mm</td></tr>
+          <tr><td>Room Length / Depth</td><td class="cap">3,430 mm</td></tr>
+          <tr><td>Floor Area (approx.)</td><td class="cap">~8.2 m²</td></tr>
+          <tr><td>Design Capacity</td><td class="cap">2 Persons</td></tr>
+          <tr><td>Lower Bench – Height from FFL</td><td class="cap">500 mm</td></tr>
+          <tr><td>Lower Bench – Seating Width from Wall</td><td class="cap">500 mm</td></tr>
+          <tr><td>Lower Bench – Layout</td><td class="cap">L-shape: North wall + East wall (continuous)</td></tr>
+          <tr><td>Upper Bench – Height from FFL</td><td class="cap">1,000 mm</td></tr>
+          <tr><td>Upper Bench – Seating Width from Wall</td><td class="cap">500 mm</td></tr>
+          <tr><td>Upper Bench – Location</td><td class="cap">East wall only</td></tr>
+          <tr><td>Bench Boarding Profile</td><td class="cap">Thermory ALDER SHP – 28 × 90 mm</td></tr>
+          <tr><td>Wall Panel Profile</td><td class="cap">Thermory ALDER STP – 15 × 90 mm (covering width 80 mm)</td></tr>
+          <tr><td>Heater Location</td><td class="cap">Inside room – beside south wall (left on entry)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="body-text"><strong style="color:#FFFFFF">2.2 Bench Layout</strong><br>The sauna is fitted with a two-tier bench arrangement providing the choice of lower (cooler) and upper (hotter) seating positions, consistent with traditional Finnish sauna practice where temperature increases significantly with height. The <strong style="color:#FFFFFF">Lower Bench</strong> is a continuous L-shaped bench attached to the north wall and east wall, 500 mm wide from each wall with a seating height of 500 mm from the finished floor. It also serves as the step up to the upper bench. The <strong style="color:#FFFFFF">Upper Bench</strong> is a single-tier elevated bench on the east wall only, 500 mm wide at a height of 1,000 mm from finished floor — the primary sauna seating position at the highest temperature zone. Both benches are faced with Thermory ALDER SHP bench boards in 28 × 90 mm profile, installed with gaps between boards for air circulation, drainage, and thermal safety.</div>
+    <div class="body-text"><strong style="color:#FFFFFF">2.3 Timber Specifications</strong></div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Bench Boards – Thermory ALDER SHP 28 × 90 mm</div>
+        <div class="info-row"><span class="k">Profile</span><span class="v">28 mm thickness × 90 mm face width – SHP series</span></div>
+        <div class="info-row"><span class="k">Species</span><span class="v">Alder (Alnus glutinosa)</span></div>
+        <div class="info-row"><span class="k">Application</span><span class="v">All bench seating and backrest surfaces</span></div>
+        <div class="info-row"><span class="k">Surface</span><span class="v">Planed, sanded, rounded edges – splinter-free</span></div>
+        <div class="info-row"><span class="k">Heat behaviour</span><span class="v">Does not exude resin; comfortable to touch at sauna temp; dimensionally stable under heat/humidity cycling</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Wall Panels – Thermory ALDER STP 15 × 90 mm</div>
+        <div class="info-row"><span class="k">Profile</span><span class="v">15 mm thickness × 90 mm face width, covering width 80 mm – STP T&amp;G</span></div>
+        <div class="info-row"><span class="k">Species</span><span class="v">Alder – consistent warm tone, uniform appearance, low resin</span></div>
+        <div class="info-row"><span class="k">Application</span><span class="v">All wall and ceiling surfaces of sauna room interior</span></div>
+        <div class="info-row"><span class="k">Installation</span><span class="v">Tongue-and-groove per Thermory wall panel guidelines</span></div>
+        <div class="info-row"><span class="k">Supplier</span><span class="v">Thermory (Estonia) – specialist sauna-grade timber manufacturer</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: LIGHTING SYSTEM -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">3</div><div class="sec-title">Lighting System</div></div>
+    <div class="body-text">The sauna room is fitted with two sauna-grade light fittings installed inside the room. One fitting is provided with a <strong style="color:#FFFFFF">Sauna Light Cover Araita Aspen Oval (SAU-ACC-402)</strong> — a natural Aspen wood lamp surround designed specifically for sauna environments, providing a warm diffused glow while protecting the fitting from direct heat and steam contact. All lighting inside the sauna room is rated for high-temperature, high-humidity operation consistent with sauna conditions. No LED strip lighting is used inside the sauna room, consistent with the traditional wood-lined sauna aesthetic.</div>
+  </div>
+
+  <!-- SECTION 4: VENTILATION -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">4</div><div class="sec-title">Ventilation</div></div>
+    <div class="body-text">The sauna room ventilation is controlled by two timber accessories:</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Ventilation Grill – SAU-ACC-305</div>
+        <div class="info-row"><span class="k">Product code</span><span class="v">SAU-ACC-305</span></div>
+        <div class="info-row"><span class="k">Material</span><span class="v">Thermo-treated Aspen</span></div>
+        <div class="info-row"><span class="k">Installation</span><span class="v">Wall-mounted</span></div>
+        <div class="info-row"><span class="k">Function</span><span class="v">Passive background air supply into the sauna room</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Sliding Ventilation Gate – SAU-ACC-304</div>
+        <div class="info-row"><span class="k">Product code</span><span class="v">SAU-ACC-304</span></div>
+        <div class="info-row"><span class="k">Material</span><span class="v">Thermo-treated Aspen – rectangular sliding gate</span></div>
+        <div class="info-row"><span class="k">Function</span><span class="v">Manually adjustable ventilation opening for airflow control and temperature management during session</span></div>
+        <div class="info-row"><span class="k">Operation</span><span class="v">Partially open during use; fully closed after session to retain heat</span></div>
+      </div>
+    </div>
+    <div class="alert">Correct ventilation is essential in a sauna to maintain comfortable air quality and oxygen levels during sessions. The sliding gate should be partially open during use and fully closed after the session to retain heat.</div>
+  </div>
+
+  <!-- SECTION 5: SAUNA HEATING SYSTEM -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">5</div><div class="sec-title">Sauna Heating System</div></div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">5.1 Sauna Heater – SH-01 (AQUA ZL16.2)</div>
+        <div class="info-row"><span class="k">Manufacturer</span><span class="v">AQUA S.p.A, Via Crotti 1, 42018 San Martino in Rio, Reggio Emilia, Italy</span></div>
+        <div class="info-row"><span class="k">Model</span><span class="v">ZL16.2</span></div>
+        <div class="info-row"><span class="k">Serial No.</span><span class="v">26010294</span></div>
+        <div class="info-row"><span class="k">Rated output</span><span class="v">16.2 kW at 400V, 3-Phase (3N+PE)</span></div>
+        <div class="info-row"><span class="k">Protection rating</span><span class="v">IPX4 – splash water protection</span></div>
+        <div class="info-row"><span class="k">Body</span><span class="v">Steel body with cast-iron heating element</span></div>
+        <div class="info-row"><span class="k">Certifications</span><span class="v">CE, UKCA, UKNI, RoHS</span></div>
+        <div class="info-row"><span class="k">Stone basket</span><span class="v">Top-loaded with AQUA sauna stones (S-169)</span></div>
+        <div class="info-row"><span class="k">Heater guard</span><span class="v">Thermo-treated Aspen (SAU-ACC-301, 90×400×600 mm)</span></div>
+        <div class="info-row"><span class="k">Location</span><span class="v">Floor-mounted inside room, against south wall</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">5.2 Heater Control System</div>
+        <div class="info-row"><span class="k">Keypad (Tag: KP)</span><span class="v">AQUA-OCEAN OCS B – outside sauna room</span></div>
+        <div class="info-row"><span class="k">Temp range</span><span class="v">50–110°C adjustable</span></div>
+        <div class="info-row"><span class="k">Connection</span><span class="v">6-core DIN data cable to control box</span></div>
+        <div class="info-row"><span class="k">Control box</span><span class="v">AQUA-OCEAN OCS B – wall-mounted, 400V / 3Ph (3N), 2.5–9 kW modulation, IP44</span></div>
+        <div class="info-row"><span class="k">Temp sensor (Tag: TS)</span><span class="v">AQUA-OCEAN OC-S – inside sauna room</span></div>
+        <div class="info-row"><span class="k">Sensor range</span><span class="v">0–110°C</span></div>
+        <div class="info-row"><span class="k">Thermal limit trip</span><span class="v">120°C (safety overheat protection)</span></div>
+      </div>
+    </div>
+    <div class="body-text" style="margin-top:1rem"><strong style="color:#FFFFFF">5.3 Sauna Stones (S-169)</strong><br>The stone basket of the AQUA ZL16.2 heater is loaded with sauna stones (Product Code: S-169, 1 set). Sauna stones are selected igneous rocks (typically peridotite or olivine) that store and radiate heat effectively. When cold water is poured over the heated stones using the sauna ladle — Löyly (the Finnish term for the steam burst) — a short intense wave of humid steam is released into the room, raising the perceived temperature and humidity briefly for a more intense sauna experience. Stones should be inspected annually and replaced if cracked, flaking, or significantly deteriorated.</div>
+  </div>
+
+  <!-- SECTION 6: SAUNA ACCESSORIES -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">6</div><div class="sec-title">Sauna Accessories</div></div>
+    <div class="acc-grid">
+      <div class="acc-item"><span class="acc-code">SAU-ACC-301</span><span class="acc-name">Thermo-treated Aspen heater protection guard (90×400×600 mm) – surrounds heater base to prevent accidental contact</span></div>
+      <div class="acc-item"><span class="acc-code">SAU-ACC-304</span><span class="acc-name">Sliding ventilation gate – rectangular thermo-treated Aspen; adjustable ventilation control</span></div>
+      <div class="acc-item"><span class="acc-code">SAU-ACC-305</span><span class="acc-name">Ventilation grill – thermo-treated Aspen; wall-mounted passive air supply</span></div>
+      <div class="acc-item"><span class="acc-code">SAU-ACC-402</span><span class="acc-name">Araita Aspen oval sauna light cover – natural Aspen wood lamp surround; sauna-grade light fitting protection</span></div>
+      <div class="acc-item"><span class="acc-code">SAU-ACC-411</span><span class="acc-name">Sauna pail &amp; ladle (1 set) – traditional wooden pail with ladle for pouring water onto heater stones (Löyly); kept filled with fresh water during sessions</span></div>
+      <div class="acc-item"><span class="acc-code">SAU-ACC-412</span><span class="acc-name">Thermometer &amp; hygrometer – combined instrument, wall-mounted inside the sauna room; displays air temperature (°C) and relative humidity (%)</span></div>
+      <div class="acc-item"><span class="acc-code">SAU-ACC-413</span><span class="acc-name">Sauna timer – wall-mounted timer inside sauna room for monitoring session duration; recommended session: 10–20 minutes</span></div>
+      <div class="acc-item"><span class="acc-code">S-169</span><span class="acc-name">Sauna stones (1 set) – loaded into AQUA ZL16.2 heater stone basket; inspect annually, replace if cracked or flaking</span></div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: DESIGN OPERATING PARAMETERS -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">7</div><div class="sec-title">Design Operating Parameters</div></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Parameter</th><th>Design Value / Setting</th></tr></thead>
+        <tbody>
+          <tr><td>Sauna Operating Temperature (Normal)</td><td class="cap">70 – 90 °C (Dry Heat Sauna Standard)</td></tr>
+          <tr><td>Sauna Operating Temperature (Range)</td><td class="cap">50 – 110 °C (Keypad Adjustable – AQUA ZL16.2)</td></tr>
+          <tr><td>Relative Humidity (Dry Mode)</td><td class="cap">10 – 20 % RH</td></tr>
+          <tr><td>Relative Humidity (with Water on Stones)</td><td class="cap">Up to 40 % RH (Löyly / steam burst)</td></tr>
+          <tr><td>Recommended Session Duration</td><td class="cap">10 – 20 Minutes</td></tr>
+          <tr><td>Recommended Rest Interval</td><td class="cap">Minimum 10 Minutes between sessions</td></tr>
+          <tr><td>Sauna Heater Capacity</td><td class="cap">16.2 kW (AQUA ZL16.2, 400V / 3Ph)</td></tr>
+          <tr><td>Control Panel Temp Range</td><td class="cap">50 – 110 °C (AQUA-OCEAN OCS B Keypad)</td></tr>
+          <tr><td>Temperature Sensor Measurement Range</td><td class="cap">0 – 110 °C | Limit Trip: 120 °C (OC-S)</td></tr>
+          <tr><td>Heater Protection Rating</td><td class="cap">IPX4</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 8: EQUIPMENT SCHEDULE -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">8</div><div class="sec-title">Equipment &amp; Accessories Schedule</div></div>
+    <div class="body-text">The sauna heater, control box, and temperature sensor are located in or at the sauna room. The control keypad is mounted outside the sauna room entrance.</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tag / Code</th><th>Item / Equipment</th><th>Manufacturer / Brand</th><th>Model / Reference</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag">SH-01</span></td><td>Sauna Heater</td><td class="brand">AQUA S.p.A (AQUA-OCEAN)</td><td>ZL16.2</td><td class="cap">16.2 kW | 400V | 3Ph (3N) | IPX4 | Floor-mounted inside sauna room</td></tr>
+          <tr><td><span class="tag">KP</span></td><td>Digital Keypad Controller</td><td class="brand">AQUA-OCEAN</td><td>OCS B</td><td class="cap">Outside sauna room | 50–110°C adjustable | 2.5–20 kW range</td></tr>
+          <tr><td><span class="tag">—</span></td><td>Control Box</td><td class="brand">AQUA-OCEAN</td><td>OCS B</td><td class="cap">400V | 3Ph (3N) | Wall-mounted | IP44 | Controls heater output</td></tr>
+          <tr><td><span class="tag">TS</span></td><td>Temperature Sensor</td><td class="brand">AQUA-OCEAN</td><td>OC-S (Sensor)</td><td class="cap">0–110°C range | Limit trip: 120°C | IPX4 | 2-core low-voltage cable</td></tr>
+          <tr><td><span class="tag">SAU-ACC-301</span></td><td>Sauna Heater Protection Guard</td><td class="brand">Thermory / Sauna Acc.</td><td>SAU-ACC-301</td><td class="cap">Thermo-treated Aspen | 90×400×600 mm | Around heater base</td></tr>
+          <tr><td><span class="tag">SAU-ACC-304</span></td><td>Sliding Ventilation Gate</td><td class="brand">Thermory / Sauna Acc.</td><td>SAU-ACC-304</td><td class="cap">Rectangular | Thermo-treated Aspen | Adjustable ventilation control</td></tr>
+          <tr><td><span class="tag">SAU-ACC-305</span></td><td>Ventilation Grill</td><td class="brand">Thermory / Sauna Acc.</td><td>SAU-ACC-305</td><td class="cap">Thermo-treated Aspen | Wall-mounted ventilation grille</td></tr>
+          <tr><td><span class="tag">SAU-ACC-402</span></td><td>Sauna Light Cover</td><td class="brand">Thermory / Sauna Acc.</td><td>Araita Aspen Oval</td><td class="cap">Aspen oval lamp surround | Sauna-grade light fitting cover</td></tr>
+          <tr><td><span class="tag">SAU-ACC-411</span></td><td>Sauna Pail &amp; Shovel (Ladle)</td><td class="brand">Sauna Accessories</td><td>SAU-ACC-411</td><td class="cap">1 set | For water-on-stones (Löyly) | Wall-hung or bench-placed</td></tr>
+          <tr><td><span class="tag">SAU-ACC-412</span></td><td>Thermometer &amp; Hygrometer</td><td class="brand">Sauna Accessories</td><td>SAU-ACC-412</td><td class="cap">Combined unit | Wall-mounted inside sauna | Indicates temp &amp; humidity</td></tr>
+          <tr><td><span class="tag">SAU-ACC-413</span></td><td>Sauna Timer</td><td class="brand">Sauna Accessories</td><td>SAU-ACC-413</td><td class="cap">Session timer | Wall-mounted inside sauna room</td></tr>
+          <tr><td><span class="tag">S-169</span></td><td>Sauna Stones</td><td class="brand">Thermory / Sauna Acc.</td><td>S-169</td><td class="cap">1 set | Loaded into AQUA ZL16.2 heater stone basket</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<div class="footer">
+  <div class="footer-left">CEO Villa – SPA &amp; Pool Facility &nbsp;|&nbsp; Chapter 4: Sauna Room &nbsp;|&nbsp; O&amp;M Manual</div>
+  <div class="footer-right">Document ref: <span>IHCC-CEO-SPA-OM-INT-004</span> &nbsp;|&nbsp; Rev: <span>R0 – For Review</span> &nbsp;|&nbsp; IHCC – Jeddah, KSA</div>
+</div>
+
+
+
+<style>
+  .btn-top{position:fixed;bottom:22px;right:22px;z-index:9999;width:38px;height:38px;border-radius:50%;border:1px solid rgba(201,169,58,.65);background:rgba(4,30,38,.90);color:#C9A93A;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;text-decoration:none;backdrop-filter:blur(6px);box-shadow:0 0 8px rgba(201,169,58,.22);transition:.22s ease;}
+  .btn-top:hover{background:rgba(201,169,58,.15);border-color:#e5c85a;box-shadow:0 0 16px rgba(201,169,58,.55);transform:translateY(-3px);}
+</style>
+<a class="btn-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</a>
+</body>
+</html>

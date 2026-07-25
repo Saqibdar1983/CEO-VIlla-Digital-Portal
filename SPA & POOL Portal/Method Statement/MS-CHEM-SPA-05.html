@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS-CHEM-SPA-05 — Chemical Water Treatment Systems</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root{
+  --aqua:#17D4E8;--aqua-l:#67E8F9;
+  --gold:#D4AF37;--gold-l:#f0d878;
+  --navy:#040c18;--navy2:#0d2040;
+  --teal:#17C3D4;--red:#C0392B;--amber:#EF9F27;
+  --green:#27AE60;--green-l:#58d68d;--green-d:#1a7a41;
+  --blue:#2471A3;--purple:#8E44AD;
+  --text:#dff4ff;--text2:rgba(223,244,255,0.65);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:var(--navy);color:var(--text);display:flex;flex-direction:column;min-height:100vh;}
+.bg-wrap{position:fixed;inset:0;z-index:-1;}
+.bg-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 10% 50%,rgba(39,174,96,0.11) 0%,transparent 50%),radial-gradient(ellipse at 85% 20%,rgba(23,212,232,0.08) 0%,transparent 50%),linear-gradient(180deg,#020a14 0%,#041a0c 100%);}
+.bg-wrap::after{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(39,174,96,0.04) 80px),repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(39,174,96,0.04) 80px);}
+/* HEADER */
+header{position:fixed;top:0;width:100%;z-index:1000;background:rgba(2,10,4,0.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(39,174,96,0.28);padding:8px 24px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 4px 24px rgba(0,0,0,0.60);}
+.hdr-left{display:flex;align-items:center;gap:16px;}
+.hdr-title h1{font-family:'Arial Narrow',Arial,sans-serif;font-size:17px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-shadow:0 0 16px rgba(212,175,55,0.45);}
+.hdr-title .sub{font-size:10px;color:rgba(39,174,96,0.60);letter-spacing:1.5px;text-transform:uppercase;margin-top:1px;}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.doc-badge{font-size:11px;padding:4px 12px;border-radius:20px;background:rgba(39,174,96,0.08);border:1px solid rgba(39,174,96,0.30);color:rgba(88,214,141,0.85);letter-spacing:1px;}
+.btn-nav{display:flex;align-items:center;gap:7px;padding:6px 13px;border-radius:5px;border:1px solid rgba(212,175,55,0.45);background:rgba(212,175,55,0.10);color:var(--gold);font-size:12px;font-weight:600;text-decoration:none;transition:all 0.25s;}
+.btn-nav:hover{background:rgba(212,175,55,0.22);border-color:var(--gold);color:var(--gold-l);}
+.btn-download{display:flex;align-items:center;gap:7px;padding:6px 13px;border-radius:5px;border:1px solid rgba(39,174,96,0.35);background:rgba(39,174,96,0.08);color:var(--green-l);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.25s;}
+.btn-download:hover{background:rgba(39,174,96,0.20);border-color:var(--green-l);}
+/* LAYOUT */
+.layout{display:flex;padding-top:60px;}
+/* SIDEBAR */
+.sidebar{width:240px;min-width:240px;position:fixed;top:60px;left:0;bottom:0;background:rgba(2,10,4,0.92);border-right:1px solid rgba(39,174,96,0.15);overflow-y:auto;padding:16px 0;z-index:100;}
+.sidebar::-webkit-scrollbar{width:4px;}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(39,174,96,0.25);border-radius:2px;}
+.sidebar-title{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(39,174,96,0.50);padding:0 16px 10px;border-bottom:1px solid rgba(39,174,96,0.12);margin-bottom:8px;}
+.nav-item{display:block;padding:7px 16px;font-size:11px;color:rgba(223,244,255,0.55);text-decoration:none;transition:all 0.2s;border-left:2px solid transparent;}
+.nav-item:hover,.nav-item.active{color:var(--green-l);border-left-color:var(--green);background:rgba(39,174,96,0.07);}
+.nav-item .nav-num{color:var(--green);font-weight:700;margin-right:6px;}
+.nav-section{padding:8px 16px 4px;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(39,174,96,0.32);}
+/* MAIN */
+main{margin-left:240px;flex:1;padding:24px 32px 60px;max-width:calc(100% - 240px);}
+/* COVER */
+.cover{position:relative;overflow:hidden;border:1px solid rgba(39,174,96,0.35);border-radius:16px;padding:40px 48px;margin-bottom:32px;box-shadow:0 24px 56px rgba(0,0,0,0.75);}
+.cover::before{content:'';position:absolute;inset:0;background-image:url('MS-CHEM-SPA-05.png');background-size:cover;background-position:center 25%;z-index:0;}
+.cover::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(4,12,28,0.38) 0%,rgba(2,8,18,0.42) 100%);z-index:1;}
+.cover>*{position:relative;z-index:2;}
+.cover-project{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green-l);margin-bottom:4px;}
+.cover-location{font-size:12px;color:var(--text2);margin-bottom:28px;}
+.cover-ms-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(212,175,55,0.60);margin-bottom:8px;}
+.cover-title{font-family:'Arial Narrow',Arial,sans-serif;font-size:30px;font-weight:700;line-height:1.2;color:var(--gold);letter-spacing:2px;text-transform:uppercase;text-shadow:0 0 24px rgba(212,175,55,0.35);margin-bottom:16px;}
+.equip-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:20px;}
+.equip-chip{padding:6px 12px;border-radius:5px;font-size:11.5px;font-weight:700;background:rgba(39,174,96,0.10);border:1px solid rgba(39,174,96,0.28);color:var(--green-l);}
+.cover-divider{height:3px;background:linear-gradient(90deg,var(--green),var(--gold),transparent);border-radius:2px;margin-bottom:24px;}
+.cover-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;}
+.cover-meta-item{display:flex;flex-direction:column;gap:2px;}
+.cover-meta-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text2);}
+.cover-meta-value{font-size:13px;font-weight:600;color:var(--text);}
+/* SECTION HEADERS */
+.sec-h1{background:linear-gradient(90deg,#0d3018,#041208);border-left:4px solid var(--green);padding:12px 20px;margin:32px 0 16px;border-radius:0 8px 8px 0;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;}
+.sec-h2{font-size:13px;font-weight:700;color:var(--green-l);margin:24px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(212,175,55,0.35);}
+.sec-h3{font-size:12px;font-weight:700;color:var(--gold-l);margin:18px 0 8px;}
+/* PROCESS SEQUENCE TABLE */
+.seq-table tr:nth-child(odd) td:first-child{background:var(--green-d)!important;color:#fff!important;}
+.seq-table tr:nth-child(even) td:first-child{background:#041208!important;color:#fff!important;}
+/* TABLES */
+.tbl-wrap{overflow-x:auto;margin:12px 0 20px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th{background:#0d3018;color:#fff;padding:9px 12px;text-align:left;font-weight:700;font-size:11px;letter-spacing:0.5px;}
+td{padding:8px 12px;border-bottom:1px solid rgba(39,174,96,0.10);color:var(--text);line-height:1.45;}
+tr:nth-child(even) td{background:rgba(5,18,8,0.50);}
+tr:nth-child(odd) td{background:rgba(2,10,4,0.40);}
+tr:hover td{background:rgba(39,174,96,0.07);}
+td.key{font-weight:700;color:var(--green-l);white-space:nowrap;width:40%;}
+td.tag{font-weight:700;color:var(--gold);font-size:11px;letter-spacing:0.5px;}
+td.num{text-align:center;color:var(--green);font-weight:700;width:36px;}
+td.chk{text-align:center;font-size:18px;color:rgba(223,244,255,0.4);width:60px;}
+td.rec{color:rgba(212,175,55,0.65);font-style:italic;}
+td.danger{color:var(--red);font-weight:700;}
+/* STEP/BULLET LISTS */
+.bul-list{list-style:none;margin:8px 0 12px;padding:0;}
+.bul-list li{padding:4px 0 4px 20px;position:relative;font-size:12.5px;line-height:1.5;}
+.bul-list li::before{content:'●';position:absolute;left:0;color:var(--green);font-size:8px;top:8px;}
+.step-list{list-style:none;margin:8px 0 12px;padding:0;counter-reset:steps;}
+.step-list li{counter-increment:steps;padding:5px 0 5px 34px;position:relative;font-size:12.5px;line-height:1.5;border-bottom:1px solid rgba(39,174,96,0.06);}
+.step-list li::before{content:counter(steps)'.';position:absolute;left:0;top:5px;color:var(--green);font-weight:700;font-size:12px;width:28px;text-align:right;}
+/* NOTES */
+.note{padding:10px 16px;margin:12px 0;border-radius:0 6px 6px 0;font-size:12px;line-height:1.5;}
+.note-note{border-left:4px solid var(--teal);background:rgba(23,195,212,0.08);}
+.note-warn{border-left:4px solid var(--red);background:rgba(192,57,43,0.10);}
+.note-caut{border-left:4px solid var(--amber);background:rgba(239,159,39,0.08);}
+.note .tag{font-weight:700;font-size:11px;letter-spacing:1px;margin-right:6px;}
+.note-note .tag{color:var(--teal);}
+.note-warn .tag{color:#e74c3c;}
+.note-caut .tag{color:var(--amber);}
+p.body{font-size:12.5px;line-height:1.6;color:var(--text);margin:8px 0 14px;}
+section{scroll-margin-top:72px;}
+/* FOOTER */
+footer{position:fixed;bottom:0;width:100%;background:rgba(2,10,4,0.94);border-top:1px solid rgba(212,175,55,0.28);color:rgba(212,175,55,0.65);padding:8px 24px;font-size:11px;display:flex;align-items:center;justify-content:space-between;z-index:999;}
+.btn-up{width:30px;height:30px;border-radius:50%;background:rgba(212,175,55,0.10);border:1px solid rgba(212,175,55,0.38);color:var(--gold);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:all 0.3s;font-size:12px;}
+.btn-up:hover{background:rgba(212,175,55,0.24);border-color:var(--gold);}
+@media print{.bg-wrap,header,.sidebar,footer,.btn-nav,.btn-download{display:none!important;}main{margin-left:0!important;padding:16px!important;max-width:100%!important;}body{background:#fff;color:#000;}.cover{background:#f5f5f5;border-radius:0;}.cover-title{color:#0d3018;}.sec-h1{background:#0d3018;color:#fff;}.sec-h2{color:#0d3018;}td,p.body,.bul-list li,.step-list li{color:#000;}}
+@media(max-width:900px){.sidebar{display:none;}main{margin-left:0;max-width:100%;padding:16px;}.cover-meta,.equip-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body id="top">
+<div class="bg-wrap"></div>
+
+<header>
+  <div class="hdr-left">
+    <a href="Method Statements Dashboard.html" class="btn-nav"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+    <div class="hdr-title">
+      <h1><i class="fa-solid fa-flask" style="margin-right:8px;color:#58d68d;"></i>SPA &amp; Pool Facility Method Statements</h1>
+      <span class="sub">CEO Villa — Al Murjan, Jeddah — IHCC</span>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <span class="doc-badge">MS-CHEM-SPA-05 | Rev.00</span>
+    <button class="btn-download" onclick="downloadPDF()"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+    <a href="../../EVA-CORE.html" class="btn-nav"><i class="fa-solid fa-house"></i> Home</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="sidebar-title">Document Sections</div>
+    <a class="nav-item" href="#cover"><span class="nav-num">◆</span>Cover</a>
+    <a class="nav-item" href="#projinfo"><span class="nav-num">◆</span>Project Information</a>
+    <div class="nav-section">Main Sections</div>
+    <a class="nav-item" href="#sec1"><span class="nav-num">1.</span>Purpose &amp; Scope</a>
+    <a class="nav-item" href="#sec2"><span class="nav-num">2.</span>Codes &amp; Standards</a>
+    <a class="nav-item" href="#sec3"><span class="nav-num">3.</span>Responsibilities</a>
+    <a class="nav-item" href="#sec4"><span class="nav-num">4.</span>Materials &amp; Equipment</a>
+    <a class="nav-item" href="#sec5"><span class="nav-num">5.</span>Health, Safety &amp; Environment</a>
+    <a class="nav-item" href="#sec6"><span class="nav-num">6.</span>Installation Procedure</a>
+    <a class="nav-item" href="#sec7"><span class="nav-num">7.</span>QC Inspection Checklist</a>
+    <a class="nav-item" href="#sec8"><span class="nav-num">8.</span>Testing &amp; Commissioning</a>
+    <a class="nav-item" href="#sec9"><span class="nav-num">9.</span>Documentation &amp; Handover</a>
+    <a class="nav-item" href="#signatures"><span class="nav-num">✎</span>Signatures</a>
+    <div style="margin-top:16px;padding:10px 14px;border-top:1px solid rgba(39,174,96,0.12);">
+      <div style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(39,174,96,0.40);margin-bottom:8px;">Equipment Covered</div>
+      <div style="font-size:9.5px;color:var(--green-l);font-weight:700;margin-bottom:2px;">UV-C 01</div><div style="font-size:9px;color:rgba(223,244,255,0.45);margin-bottom:6px;">Elecro HRP-110 · 120W</div>
+      <div style="font-size:9.5px;color:var(--green-l);font-weight:700;margin-bottom:2px;">CF-01-IDP / CF-02-CPC</div><div style="font-size:9px;color:rgba(223,244,255,0.45);margin-bottom:6px;">Hayward CL200 Feeders</div>
+      <div style="font-size:9.5px;color:var(--green-l);font-weight:700;margin-bottom:2px;">CDP-01 / CDP-02</div><div style="font-size:9px;color:rgba(223,244,255,0.45);margin-bottom:6px;">PULSAFEEDER Series 100</div>
+      <div style="font-size:9.5px;color:var(--green-l);font-weight:700;margin-bottom:2px;">PHC — HCC2000</div><div style="font-size:9px;color:rgba(223,244,255,0.45);margin-bottom:6px;">pH/ORP Controller</div>
+      <div style="font-size:9.5px;color:var(--green-l);font-weight:700;margin-bottom:2px;">ROT-01 / VT-01</div><div style="font-size:9px;color:rgba(223,244,255,0.45);">RO &amp; Balance Tanks</div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- COVER -->
+    <section id="cover">
+      <div class="cover">
+        <div class="cover-project">CEO VILLA &nbsp;|&nbsp; SPA &amp; POOL FACILITY</div>
+        <div class="cover-location">IHCC &nbsp;·&nbsp; Al Murjan, Jeddah, Kingdom of Saudi Arabia &nbsp;·&nbsp; Project Code: 10144</div>
+        <div class="cover-ms-label">Method Statement</div>
+        <div class="cover-title">Installation, Connections<br>&amp; Commissioning of<br>Chemical Water<br>Treatment Systems</div>
+        <div class="equip-grid">
+          <div class="equip-chip"><i class="fa-solid fa-radiation" style="margin-right:7px;color:#8E44AD;"></i>UV-C 01 — Elecro HRP-110 UV-C Sterilizer</div>
+          <div class="equip-chip"><i class="fa-solid fa-atom" style="margin-right:7px;"></i>CF-01-IDP &amp; CF-02-CPC — Hayward CL200 Chlorine Feeders</div>
+          <div class="equip-chip"><i class="fa-solid fa-syringe" style="margin-right:7px;"></i>CDP-01 &amp; CDP-02 — PULSAFEEDER Series 100 Dosing Pumps</div>
+          <div class="equip-chip"><i class="fa-solid fa-sliders" style="margin-right:7px;color:#F0D878;"></i>PHC — Hayward HCC2000 pH/ORP Controller</div>
+          <div class="equip-chip"><i class="fa-solid fa-droplet" style="margin-right:7px;color:#4FC3F7;"></i>ROT-01 — TankPAC TP-19P RO Storage Tank</div>
+          <div class="equip-chip"><i class="fa-solid fa-bucket" style="margin-right:7px;"></i>VT-01 — Marjan 4,000L Chemical Balance Tank</div>
+        </div>
+        <div class="cover-divider"></div>
+        <div class="cover-meta">
+          <div class="cover-meta-item"><span class="cover-meta-label">Document Reference</span><span class="cover-meta-value" style="color:var(--green-l);">MS-CHEM-SPA-05</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Revision</span><span class="cover-meta-value">Rev. 00</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Prepared By</span><span class="cover-meta-value">Adil Magdy – Mechanical Engineer, Aseeb Contracting Co.</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Submitted To</span><span class="cover-meta-value">Saqib Manzoor – Senior Mechanical Engineer, IHCC</span></div>
+        </div>
+        <div class="note note-warn" style="margin-top:22px;"><span class="tag">DANGER:</span>NEVER mix pool chemicals. Mixing Trichlor with Calcium Hypochlorite or other concentrated chlorine sources can cause FIRE and EXPLOSION with release of toxic chlorine gas. Each chemical must be stored separately in sealed, labeled containers. Chemical storage room must be locked, ventilated, and away from electrical equipment.</div>
+      </div>
+    </section>
+
+    <!-- PROJECT INFO -->
+    <section id="projinfo">
+      <div class="sec-h1">PROJECT &amp; DOCUMENT INFORMATION</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Project Name</td><td>CEO Villa (Private Residence)</td></tr>
+        <tr><td class="key">Location</td><td>Al Murjan, Jeddah, Kingdom of Saudi Arabia</td></tr>
+        <tr><td class="key">Client</td><td>Engr. Sultan Batterjee</td></tr>
+        <tr><td class="key">Consultant</td><td>3C Engineering &amp; Architectural Consultant</td></tr>
+        <tr><td class="key">Main Contractor</td><td>IHCC – Integrated Home Construction Company</td></tr>
+        <tr><td class="key">Sub-Contractor</td><td>Aseeb Contracting Company</td></tr>
+        <tr><td class="key">Work Order No.</td><td>WO # 34982</td></tr>
+        <tr><td class="key">Document No.</td><td style="color:var(--green-l);font-weight:700;">MS-CHEM-SPA-05</td></tr>
+        <tr><td class="key">Revision</td><td>00 – Initial Issue</td></tr>
+                <tr><td class="key">Approved Shop Drawing</td><td>SB-ASB-SD-ME-008-R1 (Chemical Treatment Schematic)</td></tr>
+        <tr><td class="key">Status</td><td><span style="color:var(--green);font-weight:700;">Submitted for Review &amp; Approval</span></td></tr>
+      </tbody></table></div>
+    </section>
+
+    <!-- SECTION 1 -->
+    <section id="sec1">
+      <div class="sec-h1">1. &nbsp;PURPOSE &amp; SCOPE</div>
+      <div class="sec-h2">1.1 &nbsp;Purpose</div>
+      <p class="body">This Method Statement defines the approved procedure for receiving, inspecting, installing, connecting, and commissioning all chemical water treatment equipment for the SPA &amp; Pool Facility of the CEO Villa Project. The document ensures full compliance with the respective manufacturer installation and operation manuals, NSF/ANSI Standard 50, applicable electrical codes, and the project quality and safety plan.</p>
+
+      <div class="sec-h2">1.2 &nbsp;Equipment Summary</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:80px;">Tag</th><th>Equipment</th><th>Brand / Model</th><th style="width:110px;">Rating</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td class="tag">UV-C 01</td><td>UV-C Pool Sanitising System</td><td>Elecro H.R. UV-C PRO<br><span style="color:var(--green-l);">Model HRP-110</span></td><td>240V/1PH<br>120W (2×55W)</td><td>UV disinfection of pool water. Installed downstream of filters, upstream of chemical dosing.</td></tr>
+          <tr><td class="tag">CF-01-IDP</td><td>Chlorine Feeder (Indoor Pool)</td><td>Hayward CL200<br><span style="font-size:10px;color:rgba(223,244,255,0.55);">S/N 21212204264912000</span></td><td>Max 50 PSI<br>NSF Listed</td><td>In-line slow-dissolving Trichlor chlorine feeder for Indoor Pool return line.</td></tr>
+          <tr><td class="tag">CF-02-CPC</td><td>Chlorine Feeder (Cold Plunge)</td><td>Hayward CL200<br><span style="font-size:10px;color:rgba(223,244,255,0.55);">S/N 21212204264912053</span></td><td>Max 50 PSI<br>NSF Listed</td><td>In-line slow-dissolving Trichlor chlorine feeder for Cold Plunge Pool return line.</td></tr>
+          <tr><td class="tag">CDP-01</td><td>Chemical Dosing Pump #1</td><td>PULSAFEEDER Series 100<br><span style="color:var(--green-l);">Model X030-XC</span></td><td>230V/1PH<br>30 GPD / 4.7 LPH</td><td>Diaphragm metering pump – pH adjustment chemical dosing into return line.</td></tr>
+          <tr><td class="tag">CDP-02</td><td>Chemical Dosing Pump #2</td><td>PULSAFEEDER Series 100<br><span style="color:var(--green-l);">Model X030-XC</span></td><td>230V/1PH<br>30 GPD / 4.7 LPH</td><td>Diaphragm metering pump – secondary chemical dosing into return line.</td></tr>
+          <tr><td class="tag">PHC</td><td>pH/ORP Automated Controller</td><td>Hayward HCC2000<br><span style="font-size:10px;color:rgba(223,244,255,0.55);">S/N 1W23205-2256669</span></td><td>120/240VAC<br>15A GFCI</td><td>Automated water chemistry controller. Monitors pH and ORP via probes. Controls CDP-01 &amp; CDP-02.</td></tr>
+          <tr><td class="tag">ROT-01</td><td>RO Water Storage Tank</td><td>TankPAC TP-19P<br><span style="font-size:10px;">(Sharky-Select RO System)</span></td><td>100 PSI max<br>60°C max (CE)</td><td>Reverse Osmosis system pressure storage tank. RO water supply.</td></tr>
+          <tr><td class="tag">VT-01</td><td>Chemical Balance Tank</td><td>Al-Muhaidib Marjan<br>Vertical Polyethylene</td><td>4,000 L<br>10-yr guarantee</td><td>Chemical dilution / balance water tank.</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">1.3 &nbsp;Sequence of Chemical Treatment — Process Order</div>
+      <p class="body">All equipment must be installed in the following process order in the piping return line. The sequence is critical; incorrect order causes chemical interference or equipment damage:</p>
+      <div class="tbl-wrap"><table class="seq-table">
+        <thead><tr><th style="width:60px;text-align:center;">Step</th><th style="width:160px;">Equipment Tag</th><th style="width:220px;">Equipment</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td style="text-align:center;font-weight:700;font-size:16px;color:var(--green-l);">1</td><td class="tag">Pump → Filter</td><td>Circulation Pump &amp; Sand Filter</td><td>Always first. Clean filtered water feeds all downstream equipment.</td></tr>
+          <tr><td style="text-align:center;font-weight:700;font-size:16px;color:var(--green-l);">2</td><td class="tag" style="color:#8E44AD;">UV-C 01</td><td>Elecro H.R. UV-C PRO HRP-110</td><td style="color:var(--amber);"><strong>UV must be BEFORE chemical injection.</strong> UV destroys chemicals if placed downstream.</td></tr>
+          <tr><td style="text-align:center;font-weight:700;font-size:16px;color:var(--green-l);">3</td><td class="tag">CF-01-IDP / CF-02-CPC</td><td>Hayward CL200 Chlorine Feeder</td><td>Chlorine injection AFTER UV (UV would otherwise destroy the chlorine).</td></tr>
+          <tr><td style="text-align:center;font-weight:700;font-size:16px;color:var(--green-l);">4</td><td class="tag">CDP-01 / CDP-02</td><td>PULSAFEEDER Dosing Pumps</td><td>pH adjustment chemicals injected into return line after chlorine.</td></tr>
+          <tr><td style="text-align:center;font-weight:700;font-size:16px;color:var(--green-l);">5</td><td class="tag" style="color:var(--gold);">PHC Flow Cell</td><td>Hayward HCC2000 Probe/Sensor Cell</td><td>Flow cell installed downstream of filters, <strong>UPSTREAM of all chemical injection</strong> to read untreated water. Control signal feeds CDP-01/CDP-02.</td></tr>
+          <tr><td style="text-align:center;font-weight:700;font-size:16px;color:var(--green-l);">6</td><td class="tag">→ Pool Return</td><td>Return Nozzles to Pool</td><td>Balanced, treated water returned to the pool.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note note-warn"><span class="tag">CRITICAL WARNING:</span>The UV-C sterilizer MUST be installed upstream (before) of any chemical injection points. Placing UV downstream of chlorine dosing will destroy the chlorine and the UV lamp quartz sleeve will degrade rapidly. Confirm this sequence on the approved shop drawing before installation.</div>
+
+      <div class="sec-h2">1.4 &nbsp;Scope of Work</div>
+      <ul class="bul-list">
+        <li>Receiving inspection and MIR submission for all chemical treatment equipment</li>
+        <li>Installation of Marjan 4,000L balance tank (VT-01) on level pad</li>
+        <li>Installation of TankPAC TP-19P RO tank (ROT-01) in pump room</li>
+        <li>Installation of Elecro UV-C sterilizer (UV-C 01): pipe connections, electrical, and lamp verification</li>
+        <li>Installation of Hayward CL200 chlorine feeders (CF-01-IDP, CF-02-CPC): in-line piping and connections</li>
+        <li>Installation of PULSAFEEDER chemical dosing pumps (CDP-01, CDP-02): suction tube to chemical tank, injection into return line</li>
+        <li>Installation of Hayward HCC2000 pH/ORP controller (PHC): flow cell, pH sensor, ORP sensor, and connections to chemical dosing pumps</li>
+        <li>Electrical connections for all equipment: UV-C, CDP-01, CDP-02, PHC (all GFCI-protected circuits)</li>
+        <li>Initial system fill, chemical balancing, and functional commissioning test</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section id="sec2">
+      <div class="sec-h1">2. &nbsp;APPLICABLE CODES, STANDARDS &amp; REFERENCES</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Reference / Standard</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="key">PULSAFEEDER Series 100 IOM (P/N 32040)</td><td>Installation &amp; Operation Manual – Chemical Dosing Pumps CDP-01 &amp; CDP-02</td></tr>
+          <tr><td class="key">Hayward CL200 Owner's Manual (ISCLSERIES RevD)</td><td>CL100/110/200/220 Automatic Chlorine Feeder Installation &amp; Operation</td></tr>
+          <tr><td class="key">Hayward HCC2000 Owner's Manual (092460 RevG)</td><td>HCC 2000 Automated Controller Installation, Configuration &amp; Operation</td></tr>
+          <tr><td class="key">Elecro H.R. UV-C Installation &amp; Operating Manual</td><td>H.R. UV-C Classic HR-55/HR-110 – General Installation, Pipe Work, Electrical, Maintenance</td></tr>
+          <tr><td class="key">TankPAC TP-19P Data Sheet</td><td>RO Water Storage Tank (CE 0035) Operating Limits</td></tr>
+          <tr><td class="key">NSF/ANSI Standard 50</td><td>Equipment for Swimming Pools, Spas, Hot Tubs, and Other Recreational Water Facilities</td></tr>
+          <tr><td class="key">NFPA 70 (NEC)</td><td>National Electrical Code – GFCI protection, grounding, bonding for pool equipment</td></tr>
+          <tr><td class="key">ASHRAE 62.1</td><td>Ventilation – chemical storage room ventilation requirements</td></tr>
+          <tr><td class="key">NFPA 400</td><td>Hazardous Materials Code – safe storage of pool chemicals (chlorine, pH adjusters)</td></tr>
+          <tr><td class="key">IEC 60335</td><td>Safety of Household Appliances (basis for Sharky RO booster pump safety)</td></tr>
+          <tr><td class="key">SB-ASB-SD-ME-008-R1</td><td>Approved Mechanical Shop Drawing – Chemical Treatment Schematic &amp; Equipment Layout</td></tr>
+          <tr><td class="key">Project Chemical Treatment Specification</td><td>CEO Villa – SPA Chemical Water Treatment Specification</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section id="sec3">
+      <div class="sec-h1">3. &nbsp;RESPONSIBILITIES</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Role</th><th>Responsibility</th></tr></thead>
+        <tbody>
+          <tr><td class="key">Sr. Mechanical Engineer – IHCC<br><span style="font-size:11px;color:var(--green-l);">(Saqib Manzoor)</span></td><td>Review and approve this MS. Confirm installation sequence (UV → Chlorine → Dosing). Witness first commissioning run. Issue WIR.</td></tr>
+          <tr><td class="key">Mechanical Engineer – Aseeb<br><span style="font-size:11px;color:var(--green-l);">(Adil Magdy)</span></td><td>Supervise all installation. Verify flow direction arrows on all equipment. Confirm no chemical injection occurs without circulation flow. Maintain chemical log.</td></tr>
+          <tr><td class="key">Licensed Plumber</td><td>Install all pipe connections for UV-C, CL200 feeders, dosing pump injection points, and flow cell saddle fittings. Responsible for leak-free connections and correct pipe-work sequence.</td></tr>
+          <tr><td class="key">Licensed Electrician</td><td>Install GFCI-protected circuits for UV-C 01, CDP-01, CDP-02, and PHC. Earth/ground all equipment. Verify 30mA RCD on UV-C.</td></tr>
+          <tr><td class="key">Chemical Specialist / Pool Operator</td><td>Balance water chemistry before commissioning. Manual water testing with test kit. Set HCC2000 pH and ORP setpoints. Load Trichlor tablets into CL200 feeders.</td></tr>
+          <tr><td class="key">QA / QC Engineer</td><td>Witness flow test, leak test, and functional tests. Sign off QC checklist.</td></tr>
+          <tr><td class="key">HSE Officer</td><td>Toolbox talk on chemical hazard handling. Enforce PPE (acid-resistant gloves, goggles, apron) when handling pool chemicals. Verify chemical storage complies with NFPA 400.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section id="sec4">
+      <div class="sec-h1">4. &nbsp;MATERIALS &amp; EQUIPMENT</div>
+
+      <div class="sec-h2">4.1 &nbsp;UV-C Sterilizer — Elecro H.R. UV-C PRO HRP-110 (Tag: UV-C 01)</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Equipment Tag</td><td style="color:var(--green-l);font-weight:700;">UV-C 01</td></tr>
+        <tr><td class="key">Brand / Manufacturer</td><td>Elecro Engineering (Made in England)</td></tr>
+        <tr><td class="key">Product Series</td><td>H.R. UV-C PRO</td></tr>
+        <tr><td class="key">Model</td><td style="color:var(--green-l);font-weight:700;">HRP-110</td></tr>
+        <tr><td class="key">Serial Number</td><td>283234</td></tr>
+        <tr><td class="key">Unit Power</td><td>120W total (2 × 55W UV-C lamps)</td></tr>
+        <tr><td class="key">Voltage / Phase / Frequency</td><td>240V – 1PH – 60Hz</td></tr>
+        <tr><td class="key">UV Type</td><td>UV-C (253.7 nm germicidal wavelength)</td></tr>
+        <tr><td class="key">Min. Flow Rate</td><td>4 m³/hour (4,000 L/hr)</td></tr>
+        <tr><td class="key">Max. Flow Rate</td><td>48 m³/hour (48,000 L/hr) – 110W double tube model</td></tr>
+        <tr><td class="key">Pipe Connection</td><td>2" or 63mm rigid pipe (reducers supplied for 50mm / 1.5")</td></tr>
+        <tr><td class="key">Lamp Life</td><td>9,000 hours (lamp life indicator supplied)</td></tr>
+        <tr><td class="key">Min. Water Temperature</td><td>1°C</td></tr>
+        <tr><td class="key">Max. Water Temperature</td><td>45°C</td></tr>
+        <tr><td class="key">Electrical Safety</td><td>Must be earthed. 30mA RCD mandatory.</td></tr>
+        <tr><td class="key">Service Clearance</td><td>Minimum 1m on one side (lamp/sleeve replacement access)</td></tr>
+        <tr><td class="key">Replacement Lamp Code</td><td>SP-UV-LAMP-EL</td></tr>
+      </tbody></table></div>
+
+      <div class="sec-h2">4.2 &nbsp;Chlorine Feeders — Hayward CL200 (Tags: CF-01-IDP &amp; CF-02-CPC)</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:35%;">Parameter</th><th>CF-01-IDP (Indoor Pool)</th><th>CF-02-CPC (Cold Plunge)</th></tr></thead>
+        <tbody>
+          <tr><td class="key">Equipment Tag</td><td>CF-01-IDP</td><td>CF-02-CPC</td></tr>
+          <tr><td class="key">Brand / Model</td><td>Hayward CL200</td><td>Hayward CL200</td></tr>
+          <tr><td class="key">Serial Number</td><td>21212204264912000</td><td>21212204264912053</td></tr>
+          <tr><td class="key">Additional Marking</td><td>CL220MY21 Rev C</td><td>CL220MY21 Rev C</td></tr>
+          <tr><td class="key">Certification</td><td>NSF Listed</td><td>NSF Listed</td></tr>
+          <tr><td class="key">Max. Operating Pressure</td><td>50 PSI (3.5 bar)</td><td>50 PSI (3.5 bar)</td></tr>
+          <tr><td class="key">Max. Output (Pool)</td><td>2.3 lbs/day</td><td>2.3 lbs/day</td></tr>
+          <tr><td class="key">Max. Output (SPA)</td><td>4.6 lbs/day</td><td>4.6 lbs/day</td></tr>
+          <tr><td class="key">Chemical Type</td><td class="danger">SLOW DISSOLVING Trichlor tablets ONLY</td><td class="danger">SLOW DISSOLVING Trichlor tablets ONLY</td></tr>
+          <tr><td class="key">Connection</td><td>1.5" female NPT (threaded)</td><td>1.5" female NPT (threaded)</td></tr>
+          <tr><td class="key">Installation Position</td><td>In-line on return line AFTER heater</td><td>In-line on return line AFTER UV-C</td></tr>
+          <tr><td class="key">Check Valve Required</td><td>Yes – anti-backflow at outlet</td><td>Yes – anti-backflow at outlet</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note note-warn"><span class="tag">DANGER:</span>Use ONLY slow-dissolving Trichlor chlorine tablets. NEVER use fast-dissolving tablets. NEVER mix chemicals. Mixing Trichlor with Calcium Hypochlorite or any other concentrated chlorine can cause FIRE and EXPLOSION. Never add other chemicals through the skimmer while the feeder is in use.</div>
+
+      <div class="sec-h2">4.3 &nbsp;Chemical Dosing Pumps — PULSAFEEDER Series 100 (Tags: CDP-01 &amp; CDP-02)</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Equipment Tags</td><td>CDP-01 (Duty) &amp; CDP-02 (Standby/Secondary)</td></tr>
+        <tr><td class="key">Brand / Manufacturer</td><td>CHEM-TECH / PULSAFEEDER</td></tr>
+        <tr><td class="key">Series / Model Number</td><td style="color:var(--green-l);font-weight:700;">Series 100 / X030-XC-AAAAASASO</td></tr>
+        <tr><td class="key">KOP-KIT (Wet End)</td><td>KX100-AAAA</td></tr>
+        <tr><td class="key">Date / Serial Nos.</td><td>CDP-01: 07/18.892419 &nbsp;|&nbsp; CDP-02: 07/18.892417</td></tr>
+        <tr><td class="key">Pump Type</td><td>Diaphragm-type metering pump</td></tr>
+        <tr><td class="key">Voltage / Phase / Frequency</td><td>230V / 1PH / 60Hz</td></tr>
+        <tr><td class="key">Current Draw</td><td>0.38 A per pump</td></tr>
+        <tr><td class="key">Nominal Output</td><td>30 GPD / 4.7 LPH per pump</td></tr>
+        <tr><td class="key">Maximum Discharge Pressure</td><td>100 PSI / 7 bar</td></tr>
+        <tr><td class="key">Wetted Parts Material</td><td>SAN, PVC, TFE (PTFE), Hypalon, Polyethylene</td></tr>
+        <tr><td class="key">Pump Connection</td><td>Poly tubing (suction from chemical tank; discharge to injection point)</td></tr>
+        <tr><td class="key">Anti-Siphon Valve</td><td>Required if injection point is BELOW chemical tank</td></tr>
+        <tr><td class="key">Output Adjustment</td><td>Manual dial on pump face – calibrate at actual operating conditions</td></tr>
+      </tbody></table></div>
+
+      <div class="sec-h2">4.4 &nbsp;pH/ORP Automated Controller — Hayward HCC2000 (Tag: PHC)</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Equipment Tag</td><td style="color:var(--gold);font-weight:700;">PHC</td></tr>
+        <tr><td class="key">Brand / Model</td><td>Hayward HCC2000 Automated Water Chemistry Controller</td></tr>
+        <tr><td class="key">Serial / Barcode</td><td>1W23205-2256669</td></tr>
+        <tr><td class="key">Certification</td><td>CSA c/us, NSF/ANSI Standard 50</td></tr>
+        <tr><td class="key">Input Voltage</td><td>120/240 VAC (dual voltage)</td></tr>
+        <tr><td class="key">Input Current</td><td>10 A</td></tr>
+        <tr><td class="key">Frequency</td><td>60 Hz</td></tr>
+        <tr><td class="key">Min. Supply Conductors</td><td>14 AWG, 2 wires plus earth ground</td></tr>
+        <tr><td class="key">Fuse / Circuit Breaker Rating</td><td>15 A Maximum (dedicated GFCI circuit)</td></tr>
+        <tr><td class="key">pH Feed Output</td><td>120/240 VAC, 4A, 60Hz (controls CDP-01)</td></tr>
+        <tr><td class="key">ORP Feed Output / Dry Contact</td><td>Chem Feed: 5VDC, 1A Max | Alarm: 5VDC, 1A Max</td></tr>
+        <tr><td class="key">pH Setpoint (Factory Default)</td><td>pH 7.5 (range 7.2–7.8 for pool)</td></tr>
+        <tr><td class="key">ORP Setpoint (Factory Default)</td><td>650 mV (minimum for safe pool water)</td></tr>
+        <tr><td class="key">Mounting Clearance from Pool</td><td>Minimum 10 feet (3.0m) from pool edge</td></tr>
+        <tr><td class="key">Flow Cell Location</td><td style="color:var(--amber);">Downstream of filter, UPSTREAM of all chemical injection</td></tr>
+      </tbody></table></div>
+
+      <div class="sec-h2">4.5 &nbsp;RO Storage Tank (ROT-01) &amp; Balance Tank (VT-01)</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">ROT-01 Tag</td><td style="color:var(--green-l);font-weight:700;">ROT-01</td></tr>
+        <tr><td class="key">ROT-01 Brand / Model</td><td>TankPAC TP-19P (Sharky-Select RO System)</td></tr>
+        <tr><td class="key">ROT-01 Serial / Lot</td><td>2019/0417346</td></tr>
+        <tr><td class="key">ROT-01 Certification</td><td>CE 0035 (Taiwan)</td></tr>
+        <tr><td class="key">ROT-01 Factory Pre-Charge Pressure</td><td>7 PSI (bladder pre-charge – set at factory, do not deflate)</td></tr>
+        <tr><td class="key">ROT-01 Max. Working Pressure</td><td>100 PSI</td></tr>
+        <tr><td class="key">ROT-01 Max. Temperature</td><td>60°C</td></tr>
+        <tr><td class="key">ROT-01 Application</td><td class="danger">RO Systems ONLY – do not use in other applications</td></tr>
+        <tr><td class="key">VT-01 Tag</td><td style="color:var(--green-l);font-weight:700;">VT-01</td></tr>
+        <tr><td class="key">VT-01 Brand / Model</td><td>Al-Muhaidib Marjan Vertical Polyethylene Tank</td></tr>
+        <tr><td class="key">VT-01 Capacity</td><td>4,000 Litres</td></tr>
+        <tr><td class="key">VT-01 Dimensions</td><td>229 cm height × 163 cm diameter</td></tr>
+        <tr><td class="key">VT-01 Material</td><td>Polyethylene (multi-layer, UV resistant, FDA accredited material)</td></tr>
+        <tr><td class="key">VT-01 Guarantee</td><td>10 years</td></tr>
+      </tbody></table></div>
+
+      <div class="sec-h2">4.6 &nbsp;Ancillary Materials / Consumables</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Item</th><th>Specification / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;">Slow-dissolving Trichlor tablets</td><td>3" diameter, 99% active Trichlor-s triazinetrione, 90% available chlorine (NSF qualified). For CF-01-IDP and CF-02-CPC.</td></tr>
+          <tr><td style="font-weight:700;">pH Adjustment Chemical</td><td>pH reducer (sodium bisulfate / dry acid) or CO₂ gas, as specified. For CDP-01 chemical tank.</td></tr>
+          <tr><td style="font-weight:700;">ORP/Chlorine Adjustment Chemical</td><td>Liquid chlorine or ORP-raising chemical for CDP-02 dosing. As per pool chemical specification.</td></tr>
+          <tr><td style="font-weight:700;">Chemical Storage Containers</td><td>Polyethylene, compatible with each specific chemical. Labeled, covered, secure.</td></tr>
+          <tr><td style="font-weight:700;">Poly dosing tubing (3/8" OD)</td><td>For CDP-01 and CDP-02 suction and discharge lines. UV-resistant if exposed to sunlight.</td></tr>
+          <tr><td style="font-weight:700;">Injection check valves</td><td>Anti-siphon check valves at injection points for CDP-01 and CDP-02.</td></tr>
+          <tr><td style="font-weight:700;">HCC2000 Flow cell tubing (3/8" OD)</td><td>30-foot roll supplied with HCC2000. 1/4" NPT × 3/8" True-Seal connectors (2× supplied).</td></tr>
+          <tr><td style="font-weight:700;">PTFE tape / thread sealant</td><td>Approved for ABS/PVC plastic. For CL200 threaded connections only.</td></tr>
+          <tr><td style="font-weight:700;">ABS / Transition cement</td><td>For UV-C union connections to PVC or ABS pipe. ABS cement for ABS-to-ABS; Transition cement for PVC-to-ABS.</td></tr>
+          <tr><td style="font-weight:700;">UV-C fixing kit (supplied)</td><td>Brackets supplied with Elecro UV-C unit for wall mounting.</td></tr>
+          <tr><td style="font-weight:700;">GFCI outlets / RCD breakers</td><td>30mA RCD for UV-C 01. 15A GFCI for PHC (HCC2000). GFCI for CDP-01 and CDP-02.</td></tr>
+          <tr><td style="font-weight:700;">PPE – Chemical handling</td><td>Acid-resistant nitrile gloves, chemical splash goggles, acid/chemical-resistant apron, emergency eyewash nearby.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section id="sec5">
+      <div class="sec-h1">5. &nbsp;HEALTH, SAFETY &amp; ENVIRONMENT</div>
+
+      <div class="sec-h2">5.1 &nbsp;Chemical Hazards</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>Pool chemicals – chlorine tablets, pH reducers, and ORP chemicals – are classified as hazardous substances. Mixing different pool chemicals (especially Trichlor with Calcium Hypochlorite) can cause fire, explosion, and release of toxic chlorine gas. NEVER mix chemicals. Store each chemical separately in sealed, labeled containers.</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:20%;">Hazard</th><th style="width:40%;">Risk</th><th>Control Measure</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;color:var(--red);">Trichlor Chlorine Tablets</td>
+            <td>Inhalation of chlorine fumes – toxic at high concentrations. Skin and eye chemical burn. Fire/explosion if mixed with Calcium Hypochlorite.</td>
+            <td>Do not inhale fumes. Handle with acid-resistant nitrile gloves and chemical splash goggles. Store separately from other chemicals. Emergency eyewash within 10 seconds travel.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--red);">pH Adjustment Chemicals</td>
+            <td>pH reducers (dry acid) are corrosive. Skin burns, eye damage if splashed.</td>
+            <td>Full PPE: acid-resistant gloves, chemical splash goggles, apron. Never add water to acid; add acid to water.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--amber);">UV-C Ultraviolet Light</td>
+            <td>Direct exposure to UV-C light causes severe eye damage and skin burns in seconds. UV-C is invisible – you cannot see when a lamp is lit.</td>
+            <td>NEVER look at an illuminated UV-C lamp. Confirm power is OFF before opening UV-C housing. Safety interlock/flow switch prevents dry operation.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--red);">Electrical – Wet Environment</td>
+            <td>Electrocution risk. All chemical equipment is near water. GFCI is mandatory.</td>
+            <td>All circuits must be GFCI protected. Licensed electrician only. Test all GFCI breakers before commissioning. LOTO before any electrical maintenance.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--amber);">Chemical Over-Dosing</td>
+            <td>Excessive chlorine or pH chemicals in pool water causes eye/skin/respiratory irritation to bathers.</td>
+            <td>HCC2000 controller monitors and limits dosing. Set alarm limits. Never allow bathers in pool until water chemistry confirmed in range by manual test kit.</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--amber);">Slips in Pump Room</td>
+            <td>Wet floors from plumbing connections and chemical spills.</td>
+            <td>Non-slip footwear. Dry spills immediately. Chemical spill kit on site.</td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">5.2 &nbsp;Chemical Storage Requirements (NFPA 400)</div>
+      <ul class="bul-list">
+        <li>Store all pool chemicals in a dedicated, locked, well-ventilated chemical storage room. Never store chemicals in the pump room where electrical equipment is present.</li>
+        <li>Keep Trichlor tablets completely separate from Calcium Hypochlorite (shock chlorine) and all other chemicals. Minimum 3m separation or separate locked storage required.</li>
+        <li>Ensure the chemical storage room has a floor drain (not connected to pool drain system) and adequate cross-ventilation to the outside.</li>
+        <li>Post MSDS (Material Safety Data Sheets) for all chemicals on the outside of the chemical storage room door.</li>
+        <li>Emergency eyewash station must be within 10 seconds travel of the chemical mixing and loading area.</li>
+      </ul>
+
+      <div class="sec-h2">5.3 &nbsp;PPE Requirements</div>
+      <p class="body">All chemical handling personnel: acid-resistant nitrile gloves (minimum), chemical splash goggles (sealed), acid/chemical-resistant apron, safety shoes. When inspecting or servicing UV-C unit: confirm power is OFF before opening (UV-C light causes immediate eye/skin injury). When working on electrical: insulated gloves (CAT III), LOTO at DB.</p>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section id="sec6">
+      <div class="sec-h1">6. &nbsp;INSTALLATION PROCEDURE</div>
+
+      <div class="sec-h2">6.1 &nbsp;Pre-Installation Activities</div>
+      <ol class="step-list">
+        <li>Inspect all equipment on delivery. Check for shipping damage. Verify nameplate tags match the approved asset register: UV-C 01 (HRP-110, S/N 283234), CF-01-IDP and CF-02-CPC (Hayward CL200, S/N as listed), CDP-01 (S/N 892419) and CDP-02 (S/N 892417), PHC (HCC2000, S/N 1W23205-2256669), ROT-01 (TankPAC TP-19P).</li>
+        <li>Submit MIR for all chemical treatment equipment. Obtain written consultant approval before any installation begins.</li>
+        <li>Verify all approved shop drawings (SB-ASB-SD-ME-008-R1) are on site and that the installation sequence shown on the drawing matches Section 1.3 of this Method Statement. Any discrepancy must be raised with IHCC Sr. Mechanical Engineer before proceeding.</li>
+        <li>Confirm all pool circulation pumps and sand filters are installed and tested (per MS-PUMP-SPA-01 and MS-FILTER-SPA-02) before installing chemical treatment equipment. Chemical treatment is always the LAST step in the pipework installation sequence.</li>
+        <li>Confirm GFCI-protected electrical outlets are available at: UV-C 01 location (30mA RCD), PHC controller location (15A dedicated GFCI), and CDP-01 &amp; CDP-02 locations.</li>
+      </ol>
+
+      <div class="sec-h2">6.2 &nbsp;Marjan 4,000L Balance Tank (VT-01)</div>
+      <ol class="step-list">
+        <li>Confirm the VT-01 installation location per drawing. The base must be a completely flat, level concrete pad. The entire tank base must rest flat on the pad – do not place on beams or intermittent blocks, even if they appear level.</li>
+        <li>Lift tank (with suitable equipment rated for the weight) and position on the concrete pad. Verify all four sides of the base ring contact the pad evenly.</li>
+        <li>Connect the inlet water supply and tank drain/overflow per the approved piping schematic. Connections use standard poly fittings screwed into the tank fittings.</li>
+        <li>Do not apply heavy load or side stress to the tank fitting connections.</li>
+      </ol>
+
+      <div class="sec-h2">6.3 &nbsp;RO Storage Tank (ROT-01)</div>
+      <ol class="step-list">
+        <li>Position ROT-01 in the designated pump room location per drawing. The tank is pre-charged at the factory at 7 PSI bladder pressure; do not deflate.</li>
+        <li>Connect the tank to the RO system feed and output lines per the RO schematic. ROT-01 is for RO system use only – do not connect to the main pool water supply line.</li>
+        <li>Maximum working pressure is 100 PSI. Ensure the RO system pressure never exceeds this limit.</li>
+        <li>Inspect the tank periodically. If the tank shows any sign of corrosion, remove it from service immediately.</li>
+      </ol>
+
+      <div class="sec-h2">6.4 &nbsp;UV-C Sterilizer Installation (UV-C 01 — Elecro H.R. UV-C PRO HRP-110)</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>UV-C MUST be installed downstream of all pumps, filters, and heaters but UPSTREAM of ALL chemical injection points. Violating this sequence destroys the chlorine and causes premature lamp failure.</div>
+
+      <div class="sec-h3">6.4.1 &nbsp;Mounting</div>
+      <ol class="step-list">
+        <li>Identify the UV-C 01 installation location on the return pipe, downstream of the sand filter and upstream of the CF chlorine feeders, per drawing SB-ASB-SD-ME-008-R1.</li>
+        <li>Mount the UV-C unit horizontally OR vertically on a solid wall using the fixing kit supplied. If horizontal, the 1m service clearance must be on either the left or right side. If vertical, 1m clearance must be above or below the unit.</li>
+        <li>Secure all four mounting bolts firmly. The unit must not move or vibrate in operation.</li>
+      </ol>
+      <div class="note note-warn"><span class="tag">WARNING:</span>The unit MUST be in a dry, permanent weatherproof area. Water or moisture entering the enclosure voids warranty and creates electrical hazard.</div>
+
+      <div class="sec-h3">6.4.2 &nbsp;Pipework Connection</div>
+      <ol class="step-list">
+        <li>The UV-C is supplied with unions for connection to 2" (50mm) or 63mm rigid pipe. Reducers are supplied for 50mm / 1.5" pipe. Use the correct union size for the existing return pipe diameter.</li>
+        <li>Apply ABS cement for ABS-to-ABS connections or Transition cement for PVC-to-ABS connections. Do NOT use PTFE tape on the UV-C union connections – the O-rings (supplied) seal the unions; apply O-rings in the groove on the manifold assembly end.</li>
+        <li>The factory flow direction is: water enters LEFT side, exits RIGHT side. If the site pipe layout requires reversed flow, rotate the flow switch 180 degrees (half turn). Do not lift the flow switch paddle more than 5mm from its housing or force it.</li>
+        <li>After cementing, allow full cure time before pressurising (per cement manufacturer – typically 15 minutes minimum for pressure, 24 hours for full cure).</li>
+      </ol>
+
+      <div class="sec-h3">6.4.3 &nbsp;Electrical Connection</div>
+      <ol class="step-list">
+        <li>The UV-C 01 must be connected by a licensed electrician. Install a 30mA RCD on the supply circuit. Earth/ground the unit as required.</li>
+        <li>Do NOT run the unit dry (without water flow). The flow switch included will shut the unit off if there is no flow. Confirm the flow switch is correctly installed and the paddle moves freely.</li>
+        <li>Do not cover the UV-C unit in operation. The unit must have free air circulation around it.</li>
+      </ol>
+
+      <div class="sec-h2">6.5 &nbsp;Chlorine Feeder Installation (CF-01-IDP &amp; CF-02-CPC — Hayward CL200)</div>
+      <div class="note note-warn"><span class="tag">DANGER:</span>Never use fast-dissolving tablets. ONLY slow-dissolving 3" Trichlor tablets (99% Trichlor-s triazinetrione). NEVER install directly into copper plumbing. If brass or bronze valves are present in the system, consult a specialist before connecting chlorine feeders.</div>
+
+      <div class="sec-h3">6.5.1 &nbsp;Installation Position</div>
+      <ol class="step-list">
+        <li>CF-01-IDP (Indoor Pool): Install in the return line AFTER the heater (EWH-INP-01) or after the filter if no heater is installed. This feeder is also downstream of UV-C 01.</li>
+        <li>CF-02-CPC (Cold Plunge Pool): Install in the return line AFTER the cold plunge chiller (CPC-01) and downstream of UV-C 01.</li>
+        <li>NSF-50 requires a flow indication device upstream of both CL200 feeders. Confirm flow indicator (flow sight glass or flow switch) is installed before the feeder inlet.</li>
+      </ol>
+
+      <div class="sec-h3">6.5.2 &nbsp;Plumbing Connection</div>
+      <ol class="step-list">
+        <li>Both CL200 feeders have 1.5" female NPT connections (inlet and outlet). Connect using 1.5" male union connectors. Thread connections hand tight plus 1 to 1.5 turns only – do not over-tighten. Use only Teflon tape or Hayward-approved pipe sealant formulated for ABS plastic.</li>
+        <li>Install a corrosion-resistant in-line check valve at the feeder outlet to prevent backflow of chlorine gas when the system shuts off.</li>
+        <li>Install a flow control valve (supplied with CL200 or installed separately) to adjust chlorine output rate.</li>
+        <li>Verify the return line from the feeder back to the pool is unrestricted – never isolate the outlet line while the pump is running.</li>
+        <li>After completing connections, restart the pump and check all connections for leaks. Re-tighten as required.</li>
+      </ol>
+
+      <div class="sec-h3">6.5.3 &nbsp;First Loading with Trichlor Tablets</div>
+      <ol class="step-list">
+        <li>Before loading any chemicals, confirm the pool water has been balanced (pH 7.2–7.8, alkalinity 80–120 ppm, chlorine 1.0–1.5 ppm).</li>
+        <li>With pump OFF and flow control valve set to ZERO: remove feeder cover. Load slow-dissolving 3" Trichlor tablets. Secure cover firmly.</li>
+        <li>Start the pump. Set the flow control valve to the desired dosing rate per the chemical supplier's recommendation for the pool volume. Check residual chlorine daily and adjust the valve accordingly.</li>
+      </ol>
+
+      <div class="sec-h2">6.6 &nbsp;Chemical Dosing Pump Installation (CDP-01 &amp; CDP-02 — PULSAFEEDER Series 100)</div>
+
+      <div class="sec-h3">6.6.1 &nbsp;Positioning</div>
+      <ol class="step-list">
+        <li>Position CDP-01 and CDP-02 close to their respective chemical storage tanks. Mount securely on the wall or on a shelf rated for the weight and chemical environment.</li>
+        <li>If the injection point in the pipe is LOWER than the chemical storage tank, an anti-siphon valve must be installed in the discharge line to prevent uncontrolled siphoning of chemicals into the pool.</li>
+      </ol>
+
+      <div class="sec-h3">6.6.2 &nbsp;Suction and Discharge Connections</div>
+      <ol class="step-list">
+        <li>Install the suction tube (polyethylene tubing) from the pump inlet into the chemical storage tank, weighting the suction end with the strainer assembly (supplied). The strainer assembly must be fully submerged in the chemical solution.</li>
+        <li>Verify the arrow on the pump head and on the injection fitting both point upward. This is the correct orientation for the check valves inside the pump to work correctly. If the arrows point downward, the pump is mounted upside-down – reposition.</li>
+        <li>Install the discharge tube from the pump outlet to the injection point on the return pipe. The injection fitting must be installed in a pressurised section of the return pipe. Drill and tap the injection port as required, or use an injection saddle fitting.</li>
+        <li>Hand-tighten all plastic connections. Do NOT use a wrench on plastic tubing connectors.</li>
+        <li>Remove all protective fitting caps from the tubing fittings before installing tubing.</li>
+      </ol>
+
+      <div class="sec-h3">6.6.3 &nbsp;Electrical Connection</div>
+      <ol class="step-list">
+        <li>CDP-01 and CDP-02 use standard 3-prong grounded plugs (230V/1PH). Plug into GFCI-protected outlets. If hard-wiring, engage a licensed electrician.</li>
+        <li>Verify the supply voltage matches the pump nameplate: 230V/1PH/60Hz. If the voltage does not match, do not energize the pump.</li>
+      </ol>
+
+      <div class="sec-h3">6.6.4 &nbsp;Calibration</div>
+      <ol class="step-list">
+        <li>Before injecting chemicals, calibrate each pump under actual operating conditions: fill the suction tube with the actual chemical, run the pump for a measured time, collect and measure the output volume. Adjust the output dial on the pump face to achieve the required dosing rate. Record calibration data.</li>
+      </ol>
+
+      <div class="sec-h2">6.7 &nbsp;pH/ORP Controller Installation (PHC — Hayward HCC2000)</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>The HCC2000 controller must be connected to a dedicated GFI-protected circuit. The manufacturer requires a 15A maximum breaker or fuse. NEVER use an extension cord.</div>
+
+      <div class="sec-h3">6.7.1 &nbsp;Controller Mounting</div>
+      <ol class="step-list">
+        <li>Mount the HCC2000 controller on a vertical wall at an easily accessible height (1200–1500mm from floor). Select a location: minimum 10 feet (3.0m) from the pool edge; away from corrosive chemical storage; near a GFI-protected power source; facilitating a maximum combined tubing run of 9m (30 feet) to the flow cell location.</li>
+        <li>Securely mount the PVC backboard (supplied) on the wall with appropriate anchors. Fasten the controller unit to the backboard.</li>
+      </ol>
+
+      <div class="sec-h3">6.7.2 &nbsp;Flow Cell Installation</div>
+      <ol class="step-list">
+        <li>The flow cell must be installed downstream of the sand filter but UPSTREAM of all chemical injection points (before UV-C 01, before CL200 feeders, before CDP dosing injection). This allows the controller to measure untreated water.</li>
+        <li>Drill and tap a 1/4" NPT port at the influent location (downstream of filter, upstream of UV). Install a 1/4" NPT × 3/8" True-Seal tubing connector (supplied). Run 3/8" OD poly tubing to the influent flow cell port (labelled on flow cell).</li>
+        <li>Drill and tap a second 1/4" NPT port at a location subject to vacuum or reduced pressure (typically on the suction side of the pump or at a lower pressure point). Install the second tubing connector. Run tubing to the effluent flow cell port.</li>
+        <li>Cut a 75–150mm (3–6 inch) length of flex tubing and insert into the sample stream port on the flow cell.</li>
+      </ol>
+
+      <div class="sec-h3">6.7.3 &nbsp;Sensor Installation</div>
+      <ol class="step-list">
+        <li>Remove pH and ORP sensors from their plastic storage bottles. Save the bottles and storage fluid for future use when sensors need to be removed for cleaning or storage.</li>
+        <li>Thread the pH sensor and ORP sensor into the designated ports on the flow cell. Hand-tighten.</li>
+        <li>Remove BNC connector protective covers from the left side of the HCC2000 controller (save for future transport). Connect the pH sensor cable to the pH BNC input, ORP sensor cable to the ORP BNC input, and flow sensor cable to the flow sensor input – all as labelled. Sensor cables are specialized – NEVER cut or splice.</li>
+      </ol>
+
+      <div class="sec-h3">6.7.4 &nbsp;Chemical Feeder Connections to Controller</div>
+      <ol class="step-list">
+        <li>Connect CDP-01 power output from the HCC2000 pH Feed output (120/240VAC, 4A) to control CDP-01 operation. When the controller senses pH is out of setpoint range, it will activate CDP-01 to dose the pH adjustment chemical.</li>
+        <li>Connect the ORP/chlorine feeder control from the HCC2000 Chem Feed Dry Contact (5VDC, 1A Max) to CDP-02 or the chlorine feeder control relay as required by the project controls design.</li>
+        <li>Check all connections are secure and no cables are under tension or in contact with water.</li>
+      </ol>
+
+      <div class="sec-h2">6.8 &nbsp;System Pre-Commissioning</div>
+      <ol class="step-list">
+        <li>With all equipment installed but pumps OFF: open all isolation valves on the chemical treatment system piping. Verify no valves are closed that should be open in normal operation.</li>
+        <li>Start the main circulation pump (at low speed if VFD). Check all new connections for leaks: UV-C unions, CL200 connections, dosing pump injection fittings, and flow cell tubing connections. Allow 10 minutes and re-inspect. Tighten any leaking fittings.</li>
+        <li>Verify the UV-C flow switch operates: with flow running, the UV-C should power on. With flow stopped (pump off), confirm UV-C shuts down via the flow switch interlock.</li>
+        <li>Confirm HCC2000 display powers on and shows pH and ORP readings. Initial readings will be arbitrary until water chemistry is stable.</li>
+        <li>Test the HCC2000 flow sensor: with circulation running, the controller should show "FLOW" indicated. With pump off, the controller should stop all chemical dosing automatically.</li>
+        <li>Do NOT load chlorine tablets or any chemicals into feeders until water chemistry has been manually balanced and tested.</li>
+      </ol>
+
+      <div class="sec-h2">6.9 &nbsp;Water Chemistry Balancing &amp; First Start-Up</div>
+      <div class="note note-caut"><span class="tag">CAUTION:</span>Manual water testing with an accurate test kit is required before and during commissioning. Automated controllers (HCC2000) are an aid to maintaining chemistry, NOT a substitute for manual testing. Always take and record manual readings in accordance with health authority requirements.</div>
+      <ol class="step-list">
+        <li>Before activating the chemical dosing systems, manually test and adjust the pool water chemistry to bring it within the following ranges: pH 7.4–7.6; Free Chlorine 1.0–1.5 ppm; Total Alkalinity 80–120 ppm; Calcium Hardness (pool-specific, consult water specialist); Cyanuric Acid 0–100 ppm.</li>
+        <li>Power on the HCC2000 controller. Allow the pH and ORP sensors to stabilize in the water flow for a minimum of 15–30 minutes before reading values. Initial readings may drift while sensors equilibrate.</li>
+        <li>Calibrate the pH sensor per the HCC2000 manual calibration procedure using the calibration buffer solutions. Record the calibration values.</li>
+        <li>Set the HCC2000 pH setpoint to 7.5 (factory default) and ORP setpoint to 650 mV (factory default). Confirm these with the consultant or pool operator before activating automatic dosing mode.</li>
+        <li>Activate the HCC2000 in AUTO mode. Monitor for the first 30 minutes: confirm the pH reading on the controller matches a manual test kit reading (within 0.1 pH). If they do not agree, recalibrate the pH sensor.</li>
+        <li>Load Trichlor tablets into CF-01-IDP and CF-02-CPC as described in Section 6.5.3. Set the flow control valve to a low initial setting. Monitor chlorine residual daily for the first week and adjust.</li>
+        <li>Do NOT allow bathers into any pool until: water chemistry is confirmed in range by both controller and manual test kit; all chemical dosing equipment has been checked for correct operation; and the IHCC Sr. Mechanical Engineer has signed off the commissioning data sheet.</li>
+      </ol>
+    </section>
+
+    <!-- SECTION 7 -->
+    <section id="sec7">
+      <div class="sec-h1">7. &nbsp;QUALITY CONTROL CHECKLIST</div>
+
+      <div class="sec-h2">7.1 &nbsp;Pre-Installation Checks</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Check Item</th><th style="text-align:center;width:60px;">✓</th><th style="width:120px;">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>UV-C 01 nameplate verified: Model HRP-110, S/N 283234, 240V/1PH, 120W (2×55W)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">2</td><td>CF-01-IDP nameplate verified: Hayward CL200, S/N 21212204264912000, NSF listed</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>CF-02-CPC nameplate verified: Hayward CL200, S/N 21212204264912053, NSF listed</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">4</td><td>CDP-01 nameplate verified: PULSAFEEDER Series 100, S/N 892419, 230V, 30 GPD</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">5</td><td>CDP-02 nameplate verified: PULSAFEEDER Series 100, S/N 892417, 230V, 30 GPD</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">6</td><td>PHC nameplate verified: Hayward HCC2000, S/N 1W23205-2256669, 120/240VAC, NSF50</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">7</td><td>ROT-01 nameplate verified: TankPAC TP-19P, CE 0035, 100 PSI max</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">8</td><td>MIR submitted and approved by consultant for all chemical treatment equipment</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">9</td><td>Approved shop drawing SB-ASB-SD-ME-008-R1 confirms sequence: Pump → Filter → UV → Chlorine Feeder → Dosing → Return</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">10</td><td>Circulation pumps and sand filters confirmed installed and tested (MS-PUMP-SPA-01 &amp; MS-FILTER-SPA-02 complete)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">11</td><td>GFCI/RCD protected electrical circuits available at UV-C, PHC, CDP-01, CDP-02 locations</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">12</td><td>Chemical storage room confirmed: separate ventilated room, locked, MSDS posted, eyewash within 10 seconds</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">7.2 &nbsp;Mechanical / Plumbing Installation Checks</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Check Item</th><th style="text-align:center;width:60px;">✓</th><th style="width:120px;">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>VT-01 (4,000L tank): level base, entire base ring on flat pad, no beam support</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">2</td><td>ROT-01: RO system connection only, factory pre-charge 7 PSI not disturbed</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>UV-C 01: mounted horizontal or vertical on solid wall with all 4 fixings tightened</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">4</td><td>UV-C 01: 1m service clearance maintained on lamp/sleeve access side</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">5</td><td>UV-C 01: ABS or Transition cement used (NOT PTFE tape) on union connections</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">6</td><td>UV-C 01: O-rings fitted in manifold grooves; no PTFE tape on unions</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">7</td><td>UV-C 01: installed UPSTREAM (before) of ALL chemical injection points</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">8</td><td>UV-C 01: flow switch functional – UV shuts off when flow stops</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">9</td><td>CF-01-IDP: installed AFTER heater (EWH-INP-01) on Indoor Pool return line</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">10</td><td>CF-02-CPC: installed AFTER UV-C 01 on Cold Plunge return line</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">11</td><td>CL200 feeders: check valve at outlet of each feeder (anti-backflow)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">12</td><td>CL200 feeders: flow indicator installed upstream of each feeder (NSF-50 requirement)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">13</td><td>CL200 feeders: return line from feeder to pool is UNRESTRICTED (no isolation valve downstream)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">14</td><td>CL200 feeders: connections hand tight + max 1.5 turns only – not over-tightened</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">15</td><td>CDP-01 &amp; CDP-02: pump head arrows pointing UPWARD</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">16</td><td>CDP-01 &amp; CDP-02: anti-siphon valve installed if injection point is below chemical tank</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">17</td><td>CDP-01 &amp; CDP-02: all plastic connections hand-tightened only – no wrench used</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">18</td><td>CDP-01 &amp; CDP-02: suction strainer fully submerged in chemical solution</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">19</td><td>HCC2000: mounted minimum 3.0m (10 ft) from pool edge</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">20</td><td>HCC2000 flow cell: installed downstream of filter, UPSTREAM of all chemical injection</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">21</td><td>HCC2000 flow cell: influent and effluent tubing connectors (1/4" NPT) installed correctly</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">22</td><td>HCC2000 sensors: pH and ORP sensors threaded into flow cell</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">23</td><td>HCC2000 sensor cables: connected to correct labeled BNC inputs on controller</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">24</td><td>HCC2000 sensor cables: not cut, spliced, or extended</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">7.3 &nbsp;Electrical Checks</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Check Item</th><th style="text-align:center;width:60px;">✓</th><th style="width:120px;">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>UV-C 01: 30mA RCD installed on supply circuit, tested before energizing</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">2</td><td>UV-C 01: unit earthed/grounded as required</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>PHC (HCC2000): connected to dedicated GFI circuit, 15A maximum breaker</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">4</td><td>CDP-01 &amp; CDP-02: GFCI-protected outlets. Voltage confirmed 230V/1PH/60Hz before plugging in</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">5</td><td>All GFCI/RCD breakers tested (push test button – trips; push reset – restores power)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">6</td><td>No extension cords used for any permanent chemical equipment connection</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">7.4 &nbsp;Commissioning Checks</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Check Item</th><th style="text-align:center;width:60px;">✓</th><th style="width:120px;">Result</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>System circulation running with no leaks at all new chemical treatment connections</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">2</td><td>UV-C 01 operational: green lamp life indicator confirmed, UV running under flow</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">3</td><td>HCC2000 display powers on, pH and ORP readings visible</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">4</td><td>HCC2000 flow sensor: dosing output confirmed inactive when circulation pump is OFF</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">5</td><td>Manual water chemistry test completed: pH, free chlorine, alkalinity in range before chemical dosing activated</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">6</td><td>HCC2000 pH sensor calibrated with buffer solution. Calibration value recorded.</td><td class="chk">☐</td><td class="rec">Record</td></tr>
+          <tr><td class="num">7</td><td>HCC2000 pH reading cross-checked against manual test kit (within 0.1 pH)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">8</td><td>CL200 feeders loaded with slow-dissolving Trichlor tablets (3", 99% Trichlor)</td><td class="chk">☐</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">9</td><td>CDP-01 calibration completed – output rate measured and adjusted</td><td class="chk">☐</td><td class="rec">___ ml/min</td></tr>
+          <tr><td class="num">10</td><td>CDP-02 calibration completed – output rate measured and adjusted</td><td class="chk">☐</td><td class="rec">___ ml/min</td></tr>
+          <tr><td class="num">11</td><td>No bathers in any pool until commissioning sign-off by IHCC Sr. Mechanical Engineer</td><td class="chk">☐</td><td class="rec">Confirmed</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 8 -->
+    <section id="sec8">
+      <div class="sec-h1">8. &nbsp;TESTING &amp; COMMISSIONING RECORDS</div>
+
+      <div class="sec-h2">8.1 &nbsp;Leak Test</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>Test / Activity</th><th>Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Pressure test all new chemical treatment pipe connections (UV-C unions, CL200 connections, dosing pump injection points, flow cell tubing) under normal system operating pressure with circulation running.</td><td>No visible leaks at any connection after 30 minutes of normal circulation. Re-check all fittings after 24 hours.</td><td class="rec"></td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">8.2 &nbsp;UV-C Sterilizer (UV-C 01) Functional Tests</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>Test / Activity</th><th>Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Start circulation pump. Verify UV-C 01 powers on and lamp life indicator LED shows GREEN (new lamps: 9,000-hour timer started).</td><td>Green LED on UV-C unit. Unit is operational.</td><td class="rec">Pass / Fail</td></tr>
+          <tr><td class="num">2</td><td>Stop circulation pump. Verify UV-C 01 shuts off via flow switch interlock within 30 seconds of flow stopping.</td><td>UV-C unit shuts off automatically when flow stops. Flow switch interlock confirmed.</td><td class="rec">Pass / Fail &nbsp;|&nbsp; ___s</td></tr>
+          <tr><td class="num">3</td><td>Visually inspect all union connections for leaks with system at operating pressure.</td><td>No leaks at either UV-C union connection.</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">8.3 &nbsp;Chemical Dosing Pumps (CDP-01 &amp; CDP-02) Calibration</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>Test / Activity</th><th>Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Run CDP-01 for 1 minute at the set dial position. Collect and measure output volume.</td><td>Target: ~78 ml/min (4.7 LPH) at full dial.</td><td class="rec">CDP-01: ___ml/min at dial ___</td></tr>
+          <tr><td class="num">2</td><td>Run CDP-02 for 1 minute at the set dial position. Collect and measure output volume.</td><td>Target: ~78 ml/min (4.7 LPH) at full dial.</td><td class="rec">CDP-02: ___ml/min at dial ___</td></tr>
+          <tr><td class="num">3</td><td>Verify CDP-01 activates and deactivates via HCC2000 pH feed output control signal.</td><td>CDP-01 starts when HCC2000 pH control output is active. Stops when output deactivates.</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">8.4 &nbsp;HCC2000 pH/ORP Controller Functional Tests</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>Test / Activity</th><th>Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Allow HCC2000 sensors to stabilize for 30 minutes in flowing water. Take pH reading from HCC2000 display.</td><td>HCC2000 pH vs. manual test kit difference must be less than 0.1 pH. If greater, recalibrate.</td><td class="rec">HCC2000: ___pH<br>Manual kit: ___pH</td></tr>
+          <tr><td class="num">2</td><td>HCC2000 ORP reading at steady state circulation.</td><td>Acceptable range: &gt;650 mV for safe pool water.</td><td class="rec">ORP: ___ mV</td></tr>
+          <tr><td class="num">3</td><td>Test HCC2000 flow interlock: stop circulation pump. Confirm dosing outputs automatically deactivate within 30 seconds.</td><td>HCC2000 shows "NO FLOW" or equivalent alarm. All chemical dosing outputs off.</td><td class="rec">Pass / Fail &nbsp;|&nbsp; ___s</td></tr>
+          <tr><td class="num">4</td><td>Test HCC2000 alarm: manually set pH setpoint outside current water pH range. Confirm alarm activates.</td><td>Alarm activates within 2 minutes. Restore setpoint after test.</td><td class="rec">Pass / Fail</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="sec-h2">8.5 &nbsp;Water Chemistry Acceptance</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>#</th><th>Test / Activity</th><th>Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Manual water chemistry test at commissioning (record all values).</td><td>pH 7.4–7.6 | Free Chlorine 1.0–3.0 ppm | Total Alkalinity 80–120 ppm. Confirmed by pool specialist.</td><td class="rec">pH: ___<br>Cl: ___ ppm<br>Alk: ___ ppm</td></tr>
+          <tr><td class="num">2</td><td>Repeat water chemistry test 24 hours after first loading of Trichlor tablets.</td><td>All parameters within acceptable range. HCC2000 readings match manual test kit readings.</td><td class="rec">pH: ___<br>Cl: ___ ppm<br>ORP: ___ mV</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SECTION 9 -->
+    <section id="sec9">
+      <div class="sec-h1">9. &nbsp;DOCUMENTATION &amp; HANDOVER</div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th style="width:36px;">#</th><th>Document</th><th>Remarks</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Approved Method Statement MS-CHEM-SPA-05 (this document)</td><td>Signed IHCC &amp; Consultant approval</td></tr>
+          <tr><td class="num">2</td><td>MIR for all chemical treatment equipment (UV-C 01, CF-01, CF-02, CDP-01, CDP-02, PHC, ROT-01)</td><td>Separate MIR per equipment. Consultant approval required.</td></tr>
+          <tr><td class="num">3</td><td>QC Checklist Section 7 – Pre-installation, Mechanical, Electrical, Commissioning</td><td>Signed by Site Engineer &amp; QA/QC Engineer</td></tr>
+          <tr><td class="num">4</td><td>CDP-01 &amp; CDP-02 Calibration Records</td><td>Pump output rate vs dial setting. Signed by Mechanical Engineer.</td></tr>
+          <tr><td class="num">5</td><td>HCC2000 pH Sensor Calibration Record</td><td>Calibration buffer values, pH offset, date. Signed.</td></tr>
+          <tr><td class="num">6</td><td>Water Chemistry Test Report (pre-commissioning and 24-hour)</td><td>pH, free chlorine, alkalinity, ORP values. Signed by pool chemical specialist.</td></tr>
+          <tr><td class="num">7</td><td>Work Inspection Request (WIR) – Chemical Treatment</td><td style="color:var(--red);">Submit to consultant. Approval required before bathers allowed in pool.</td></tr>
+          <tr><td class="num">8</td><td>As-Built Drawing (if any deviation from SB-ASB-SD-ME-008-R1)</td><td>Approved by IHCC Sr. Mechanical Engineer</td></tr>
+          <tr><td class="num">9</td><td>PULSAFEEDER Series 100 IOM (P/N 32040)</td><td>For O&amp;M package</td></tr>
+          <tr><td class="num">10</td><td>Hayward CL200 Owner's Manual (ISCLSERIES RevD)</td><td>For O&amp;M package</td></tr>
+          <tr><td class="num">11</td><td>Hayward HCC2000 Owner's Manual (092460 RevG)</td><td>For O&amp;M package</td></tr>
+          <tr><td class="num">12</td><td>Elecro H.R. UV-C Installation &amp; Operating Manual</td><td>For O&amp;M package</td></tr>
+          <tr><td class="num">13</td><td>TankPAC TP-19P Data Sheet</td><td>For O&amp;M package</td></tr>
+          <tr><td class="num">14</td><td>MSDS for all pool chemicals (Trichlor, pH adjuster, ORP adjuster)</td><td>Posted in chemical storage room AND copy in O&amp;M folder</td></tr>
+          <tr><td class="num">15</td><td>Chemical Dosing Log (manual) – first 30 days</td><td>Daily pH and chlorine readings, adjustments made. Signed by pool operator.</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- SIGNATURES -->
+    <section id="signatures">
+      <div class="sec-h1">DOCUMENT APPROVAL &amp; SIGNATURES</div>
+      <p class="body">By signing below, each party confirms they have reviewed this Method Statement. No chemical treatment equipment may be installed, connected, or filled with chemicals until written approval is received from the IHCC Senior Mechanical Engineer. No bathers are permitted in any pool until the commissioning data sheet is signed.</p>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Role</th><th>Name</th><th>Signature</th><th>Date</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;">Prepared By (Aseeb Contracting Co.)</td><td>Adil Magdy – Mechanical Engineer</td><td style="height:50px;vertical-align:bottom;">&nbsp;</td><td style="height:50px;vertical-align:bottom;">&nbsp;</td></tr>
+          <tr><td style="font-weight:700;">Reviewed By (IHCC)</td><td>Saqib Manzoor – Sr. Mechanical Engineer</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td style="font-weight:700;">Approved By (IHCC – Management)</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td style="font-weight:700;">Consultant Approval (3C Engineering)</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note note-note" style="margin-top:20px;"><span class="tag">NOTE:</span>Prepared by Aseeb Contracting Company. Submitted to IHCC and 3C Engineering for review and approval. All chemical handling personnel must receive a site-specific chemical safety toolbox talk before work commences.</div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <span>CEO Villa — SPA &amp; Pool Facility &nbsp;|&nbsp; MS-CHEM-SPA-05 &nbsp;|&nbsp; Rev. 00 &nbsp;|&nbsp; IHCC / Aseeb Contracting Co.</span>
+  <a href="#top" class="btn-up"><i class="fa-solid fa-arrow-up"></i></a>
+</footer>
+
+<script>
+const sections=document.querySelectorAll('section[id]');
+const navItems=document.querySelectorAll('.nav-item');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navItems.forEach(n=>n.classList.remove('active'));
+      const a=document.querySelector('.nav-item[href="#'+e.target.id+'"]');
+      if(a)a.classList.add('active');
+    }
+  });
+},{rootMargin:'-60px 0px -60% 0px'});
+sections.forEach(s=>observer.observe(s));
+
+function downloadPDF() {
+  const fn = (location.pathname.split('/').pop() || 'method-statement.html').replace('.html', '.pdf');
+  const css = [
+    'main{background:#fff!important;margin:0!important;margin-top:0!important;padding:20px 24px!important;max-width:100%!important;width:100%!important}',
+    'main *{background-color:transparent!important;color:#1a1a1a!important;box-shadow:none!important;text-shadow:none!important;border-color:#ccc!important}',
+    'main .cover{background:#eef2f7!important;border:2px solid #1a3a5c!important;border-radius:8px!important}',
+    'main .cover::before,main .cover::after{display:none!important}',
+    'main .cover-title{color:#1a3a5c!important;font-size:22px!important}',
+    'main .cover-project{color:#2471a3!important}',
+    'main .cover-ms-label{color:#2471a3!important}',
+    'main .cover-divider{background:#1a3a5c!important;height:2px!important}',
+    'main .cover-meta-label{color:#555!important}',
+    'main .cover-meta-value{color:#111!important}',
+    'main .sec-h1{background:#1a3a5c!important;color:#fff!important;border-radius:4px!important}',
+    'main .sec-h1 *{color:#fff!important}',
+    'main .sec-h2{color:#1a3a5c!important;background:transparent!important;border-left:4px solid #1a3a5c!important}',
+    'main .sec-h3{color:#2471a3!important;background:transparent!important}',
+    'main table{border-collapse:collapse!important}',
+    'main th{background:#1a3a5c!important;color:#fff!important;border:1px solid #999!important}',
+    'main th *{color:#fff!important}',
+    'main td{background:#fff!important;border:1px solid #bbb!important;color:#111!important}',
+    'main tr:nth-child(even) td{background:#f5f7fa!important}',
+    'main .note-warn{border-left:4px solid #c0392b!important;background:#fff8f8!important}',
+    'main .note-warn *{color:#7b241c!important}',
+    'main .note-warn .tag{color:#c0392b!important}',
+    'main .note-note{border-left:4px solid #2471a3!important;background:#f0f8ff!important}',
+    'main .note-note *{color:#1a3a5c!important}',
+    'main .note-caut{border-left:4px solid #d4870a!important;background:#fffaf0!important}',
+    'main .note-caut *{color:#7d5000!important}',
+    'main .bul-list li{background:#f5f7fa!important;border:1px solid #ddd!important}',
+    'main .bul-list li::before{background:#1a3a5c!important}',
+    'main .step-list li{background:#f5f7fa!important;border:1px solid #ddd!important}',
+    'main .step-list li::before{background:#1a3a5c!important;color:#fff!important}',
+    'main p.body,main .body{color:#111!important}',
+  ].join('');
+  const mainEl  = document.querySelector('main');
+  const sidebar = document.querySelector('.sidebar');
+  const hdr     = document.querySelector('header');
+  const ftr     = document.querySelector('footer');
+  const origMainStyle = mainEl.getAttribute('style') || '';
+  const origSidebar   = sidebar ? sidebar.style.display : '';
+  const origHdr       = hdr     ? hdr.style.display     : '';
+  const origFtr       = ftr     ? ftr.style.display     : '';
+  if (sidebar) sidebar.style.display = 'none';
+  if (hdr)     hdr.style.display     = 'none';
+  if (ftr)     ftr.style.display     = 'none';
+  mainEl.setAttribute('style','position:fixed;left:0;top:0;margin:0;padding:20px 24px;width:794px;max-width:794px;background:#fff;display:block;box-sizing:border-box;z-index:99999;');
+  void mainEl.getBoundingClientRect();
+  const style = document.createElement('style');
+  style.id = '__pdf_override__';
+  style.textContent = css;
+  document.head.appendChild(style);
+  setTimeout(() => {
+    html2pdf().set({
+      margin: [10, 10, 10, 10],
+      filename: fn,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, backgroundColor: '#ffffff', windowWidth: 794, logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(mainEl).save().then(() => {
+      mainEl.removeAttribute('style');
+      if (sidebar) sidebar.style.display = origSidebar;
+      if (hdr)     hdr.style.display     = origHdr;
+      if (ftr)     ftr.style.display     = origFtr;
+      const s = document.getElementById('__pdf_override__');
+      if (s) s.remove();
+    });
+  }, 200);
+}
+</script>
+</body>
+</html>

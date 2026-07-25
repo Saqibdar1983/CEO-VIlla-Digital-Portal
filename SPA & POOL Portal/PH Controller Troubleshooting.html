@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PH Controller Troubleshooting | SSB Villa O&amp;M Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--gold:#D4AF37;--gold-light:#f0d060}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#0d1829;display:flex;flex-direction:column;min-height:100vh;font-family:'Aptos Display','Segoe UI',sans-serif}
+header{background:rgba(5,10,20,0.95);border-bottom:2px solid rgba(212,175,55,0.45);padding:0 24px;height:72px;display:flex;align-items:center;position:fixed;top:0;width:100%;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.hl{flex:1;display:flex;align-items:center}
+.hc{flex:2;text-align:center;line-height:1.4}
+.hc .l1{font-size:10px;font-weight:600;color:rgba(212,175,55,0.6);text-transform:uppercase;letter-spacing:2.5px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hc .l2{font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hrr{flex:1;display:flex;justify-content:flex-end;align-items:center}
+.btn-back,.btn-home{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);padding:8px 16px;border-radius:4px;cursor:pointer;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;transition:background 0.3s}
+.btn-back:hover,.btn-home:hover{background:rgba(212,175,55,0.28)}
+main{margin-top:72px;margin-bottom:60px;padding:26px 28px;max-width:1500px;width:100%;margin-left:auto;margin-right:auto;flex:1}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.3);color:rgba(212,175,55,0.7);padding:8px 22px;border-radius:4px;cursor:pointer;font-size:13px;transition:all 0.2s}
+.tab-btn.active,.tab-btn:hover{background:rgba(212,175,55,0.18);border-color:rgba(212,175,55,0.7);color:var(--gold)}
+.tbl-wrap{overflow-x:auto}
+.ts{width:100%;border-collapse:collapse;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;min-width:600px}
+.ts thead tr th{background:rgba(212,175,55,0.22);color:#f5edd5;padding:11px 13px;text-align:left;border:1px solid rgba(212,175,55,0.38);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
+.ts tbody tr:nth-child(odd) td{background:rgba(255,255,255,0.04)}
+.ts tbody tr:nth-child(even) td{background:rgba(255,255,255,0.07)}
+.ts tbody tr:hover td{background:rgba(212,175,55,0.09)}
+.ts tbody td{padding:10px 13px;vertical-align:top;border:1px solid rgba(255,255,255,0.07);color:#e0d8c8;line-height:1.6;font-size:13px}
+.ts tbody td.fc{color:#f5e9c4;font-weight:700;border-right:2px solid rgba(212,175,55,0.35);background:rgba(212,175,55,0.07)!important;min-width:140px}
+footer{background:rgba(5,10,20,0.95);border-top:2px solid rgba(212,175,55,0.45);padding:14px 30px;display:flex;align-items:center;justify-content:space-between;position:fixed;bottom:0;width:100%;font-size:13px;color:rgba(212,175,55,0.75);z-index:1000;font-family:'Aptos Display','Segoe UI',sans-serif}
+.btn-up{background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.3s}
+.btn-up:hover{background:rgba(212,175,55,0.35)}
+</style>
+</head>
+<body id="top">
+<header>
+  <div class="hl"><a href="Error Codes &amp; Troubleshooting Register.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a></div>
+  <div class="hc"><span class="l1">SPA &amp; POOL FACILITY</span><span class="l2">PH Controller Troubleshooting</span></div>
+  <div class="hrr"><a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a></div>
+</header>
+<main>
+<div style="background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.38);border-radius:6px;padding:9px 18px;margin-bottom:16px;color:#f0dfa0;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.8px;text-align:center;">HAYWARD PH CONTROLLER HCC 2000 TROUBLESHOOTING</div>
+<div class="tbl-wrap"><table class="ts">
+<thead><tr><th>Symptom / Operational Condition</th><th>Potential Root Cause Analysis</th><th>Corrective Action / Engineering Remedy</th></tr></thead><tbody>
+<tr><td class="fc">No lights are illuminated when controller is powered ON.</td><td>1. Upstream circuit breaker tripped or wall receptacle failed.<br>2. Power cord or terminal connection interface damaged.</td><td>1. Reset circuit breaker or inspect receptacle utility power. Ensure connection to a grounded-type GFCI protected source.<br>2. Verify cord integrity and replace if damage is detected.</td></tr>
+<tr><td class="fc">Alarm light(s) and audible tone are active.</td><td>1. Main filtration system loop failure or low flow.<br>2. Sensors or main power cables uncoupled.<br>3. Chemical dosing feeder mechanical failure.<br>4. Flow safety switch failed or uncoupled.</td><td>1. Verify filtration pump operation, ensure proper flow rates, and re-balance water chemistry baseline.<br>2. Check and secure all cable connectors.<br>3. Verify operational readiness of chemical feeders.<br>4. Check flow sensor seating.</td></tr>
+<tr><td class="fc">Both pH and ORP digital readouts display illogical / erratic values.</td><td>1. Sensor signal cables crossed or reversed.<br>2. Filtration system looping incorrectly or water balance skewed.</td><td>1. Ensure sensor lines are safely linked to their respective exact BNC ports on the controller casing.<br>2. Verify uniform hydraulic flow through the testing block.</td></tr>
+<tr><td class="fc">ORP chemical feeder does not activate as expected.</td><td>1. Unit set to wrong control mode.<br>2. Programmed setpoint limit variance.</td><td>1. Verify and select 'AUTO' ORP feed mode.<br>2. Review and adjust ORP mV setpoints to meet standard code demands.</td></tr>
+<tr><td class="fc">pH chemical feeder does not activate as expected.</td><td>1. Feed orientation parameter incorrect.<br>2. Unit set to wrong control mode.<br>3. Programmed setpoint limit variance.</td><td>1. Adjust acid/base feed configuration parameter to match chemical feed layout specifications.<br>2. Select 'AUTO' pH feed mode.<br>3. Review and adjust targeted pH setpoints.</td></tr>
+<tr><td class="fc">Pool/Spa chlorine or bromine residual is too high or too low.</td><td>1. Interferences from pH fluctuations, elevated cyanuric acid levels, or High Total Dissolved Solids (TDS).<br>2. Erroneous target setpoint setup.</td><td>1. Assess chemical impact of any recent manual chemical balancing adjustments. Re-verify free sanitizer residuals vs ORP values.<br>2. Recalibrate and optimize the master ORP setpoint.</td></tr>
+<tr><td class="fc">pH requires overly frequent calibration / unstable readings.</td><td>1. Reference junction contamination or oil blinding.<br>2. Sensor reached end of life cycle.</td><td>1. Execute the toothbrush-toothpaste sensor cleaning protocol.<br>2. If cleaning fails to stabilize values or response remains sluggish, replace with genuine HCC Professional Series sensors (PRO15-2 / PRO25-2).</td></tr>
+<tr><td colspan="3" class="fc">HAYWARD SENSOR MAINTENANCE &amp; OPERATION GUIDE</td></tr>
+<tr><td colspan="3" class="fc">1. Sensor Cleaning Protocol</td></tr>
+<tr><td class="fc">Task Phase</td><td colspan="2">Operational Requirements &amp; Engineering Instructions</td></tr>
+<tr><td class="fc">Frequency Indications</td><td colspan="2">Clean weekly or monthly depending on bather load. Immediate indicators for cleaning include: slow response times, an increased need for frequent pH calibration, and inconsistent or unstable readings.</td></tr>
+<tr><td class="fc">Dismantling</td><td colspan="2">Disconnect sensors from the controller panel and carefully extract them from the flow cell assembly.</td></tr>
+<tr><td class="fc">Reference Junction Cleaning</td><td colspan="2">Clean the reference junction (the white Teflon ring located at the bottom of the sensor body) using a soft toothbrush and regular toothpaste.</td></tr>
+<tr><td class="fc">Oil/Grease Removal</td><td colspan="2">Utilize a household liquid dishwashing detergent to safely break down and remove any surface oils or body grease.</td></tr>
+<tr><td class="fc">Reinstallation</td><td colspan="2">Rinse meticulously with fresh water. Replace the Teflon thread-seal tape on the threads. Reinstall sensors by hand-tightening ONLY. Do not use tools.</td></tr>
+<tr><td class="fc">CRITICAL WARNING</td><td colspan="2">NEVER allow a pH or ORP sensor tip to dry out completely. Complete drying permanently damages the reference junction and completely voids the manufacturer's warranty.</td></tr>
+<tr><td colspan="3" class="fc">2. Asset Storage &amp; Winterization Protocols</td></tr>
+<tr><td class="fc">System Component</td><td colspan="2">Mandatory Technical Storage Specifications</td></tr>
+<tr><td class="fc">Sensor Storage Caps</td><td colspan="2">Always store sensor tips inside their provided soaking caps if removed for longer than 1 hour. Fill caps with original storage solution or clean water. Alternatively, submerge tips individually in small glass/plastic containers of clean water.</td></tr>
+<tr><td class="fc">Sensor Thermal Protection</td><td colspan="2">Hayward sensors are freeze-resistant but must be protected from freezing environments during seasonal non-use intervals.</td></tr>
+<tr><td class="fc">Controller Panel Protection</td><td colspan="2">The controller board is highly vulnerable to Electrostatic Discharge (ESD) when sensor cables are uncoupled. Always reinstall the BNC protective covers prior to transport or storage.</td></tr>
+<tr><td class="fc">Hydraulic Loop Winterization</td><td colspan="2">The acrylic flow cell block and all integrated poly connection tubing must be completely drained prior to freezing ambient conditions. Purge all internal moisture using compressed air, or thoroughly drain via open valve ports and disconnected tube unions.</td></tr>
+</tbody>
+</table></div>
+</main>
+<footer>
+  <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+  <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steam Generator K3 Error Codes &amp; Troubleshooting | SSB Villa O&amp;M Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--gold:#D4AF37;--gold-light:#f0d060}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#0d1829;display:flex;flex-direction:column;min-height:100vh;font-family:'Aptos Display','Segoe UI',sans-serif}
+header{background:rgba(5,10,20,0.95);border-bottom:2px solid rgba(212,175,55,0.45);padding:0 24px;height:72px;display:flex;align-items:center;position:fixed;top:0;width:100%;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.hl{flex:1;display:flex;align-items:center}
+.hc{flex:2;text-align:center;line-height:1.4}
+.hc .l1{font-size:10px;font-weight:600;color:rgba(212,175,55,0.6);text-transform:uppercase;letter-spacing:2.5px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hc .l2{font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hrr{flex:1;display:flex;justify-content:flex-end;align-items:center}
+.btn-back,.btn-home{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);padding:8px 16px;border-radius:4px;cursor:pointer;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;transition:background 0.3s}
+.btn-back:hover,.btn-home:hover{background:rgba(212,175,55,0.28)}
+main{margin-top:72px;margin-bottom:60px;padding:26px 28px;max-width:1500px;width:100%;margin-left:auto;margin-right:auto;flex:1}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.3);color:rgba(212,175,55,0.7);padding:8px 22px;border-radius:4px;cursor:pointer;font-size:13px;transition:all 0.2s}
+.tab-btn.active,.tab-btn:hover{background:rgba(212,175,55,0.18);border-color:rgba(212,175,55,0.7);color:var(--gold)}
+.tbl-wrap{overflow-x:auto}
+.ts{width:100%;border-collapse:collapse;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;min-width:600px}
+.ts thead tr th{background:rgba(212,175,55,0.22);color:#f5edd5;padding:11px 13px;text-align:left;border:1px solid rgba(212,175,55,0.38);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
+.ts tbody tr:nth-child(odd) td{background:rgba(255,255,255,0.04)}
+.ts tbody tr:nth-child(even) td{background:rgba(255,255,255,0.07)}
+.ts tbody tr:hover td{background:rgba(212,175,55,0.09)}
+.ts tbody td{padding:10px 13px;vertical-align:top;border:1px solid rgba(255,255,255,0.07);color:#e0d8c8;line-height:1.6;font-size:13px}
+.ts tbody td.fc{color:#f5e9c4;font-weight:700;border-right:2px solid rgba(212,175,55,0.35);background:rgba(212,175,55,0.07)!important;min-width:140px}
+footer{background:rgba(5,10,20,0.95);border-top:2px solid rgba(212,175,55,0.45);padding:14px 30px;display:flex;align-items:center;justify-content:space-between;position:fixed;bottom:0;width:100%;font-size:13px;color:rgba(212,175,55,0.75);z-index:1000;font-family:'Aptos Display','Segoe UI',sans-serif}
+.btn-up{background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.3s}
+.btn-up:hover{background:rgba(212,175,55,0.35)}
+</style>
+</head>
+<body id="top">
+<header>
+  <div class="hl"><a href="Error Codes &amp; Troubleshooting Register.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a></div>
+  <div class="hc"><span class="l1">SPA &amp; POOL FACILITY</span><span class="l2">Steam Generator K3 Error Codes &amp; Troubleshooting</span></div>
+  <div class="hrr"><a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a></div>
+</header>
+<main>
+<div class="tabs"><button class="tab-btn active" onclick="showTab(0,this)">Troubleshooting Guide</button><button class="tab-btn" onclick="showTab(1,this)">Source</button><button class="tab-btn" onclick="showTab(2,this)">Quick Site Checklist</button></div><div class="sp" id="sp0" style="display:"><div class="tbl-wrap"><table class="ts">
+<thead><tr><th>Symptoms</th><th>Probable Causes</th><th>Action to be Taken</th><th>Priority / Safety Note</th></tr></thead><tbody>
+<tr><td class="fc">Control won't turn ON (Display is Off)</td><td>Improper or no power supplied<br>or<br>Control improperly connected<br>or<br>Control cable faulty<br>or<br>Control is faulty</td><td>1.a. Make sure circuit breaker for generator is on.<br>1.b. Use a voltmeter to check the voltage across the two fuses on the Printed Circuit Assembly (PCA) in the generator.<br>1.c. Check fuses; if a fuse is blown, replace. If the fuse blows again, contact Support.<br>2. Check that controls are installed per installation instructions.<br>3. Replace control cable. Contact Support.<br>4. Replace control. Contact Support.</td><td>Electrical checks by qualified person only.</td></tr>
+<tr><td class="fc">Control OFF (Unit still makes steam)</td><td>Generator faulty</td><td>Turn off the circuit breaker then contact Support.</td><td>Urgent: isolate power.</td></tr>
+<tr><td class="fc">Water runs out of steamhead</td><td>Generator faulty</td><td>1. Turn off the breaker.<br>2. Turn off the water supply.<br>3. Contact Support.</td><td>Urgent: isolate power and water.</td></tr>
+<tr><td class="fc">Steam room too hot or cold</td><td>Temperature setting needs changing</td><td>1. See Section 3: Setting Time and Temp.<br>2. Contact Support.</td><td>Check settings before service call.</td></tr>
+<tr><td class="fc">Control ON, Displays &gt;&gt;&gt;°</td><td>Steambath temperature over 132°F (55°C)<br>or<br>Sensor faulty</td><td>1. If the bath is too hot, turn off the circuit breaker and contact Support.<br>2. Treat as E002.</td><td>High temperature alarm.</td></tr>
+<tr><td class="fc">Control won't turn OFF (Display is ON)</td><td>Control faulty</td><td>Replace the control. Contact Support.</td><td>Do not leave unit unattended.</td></tr>
+<tr><td class="fc">Control ON (Display ON) (Time &amp; Temp display properly) Unit Won't steam</td><td>Unit has not filled completely<br>or<br>Generator is faulty</td><td>1. Wait at least 10 minutes after turning on the control.<br>2. Contact Support.</td><td>Allow filling time first.</td></tr>
+<tr><td class="fc">Unable to adjust TIME or TEMP</td><td>Control faulty<br>or<br>Generator faulty</td><td>1. Replace control. Contact Support.<br>2. Replace generator's PCA. Contact Support.</td><td>Requires qualified service.</td></tr>
+<tr><td class="fc">Sudden increases in rate water sputters out of steam head</td><td>Contaminants in the water supply causing foaming</td><td>Flush tank at least 3 times - refer to Section 5: Maintenance.</td><td>Water quality / foaming issue.</td></tr>
+<tr><td class="fc">Control displays E001</td><td>Steam room temperature error code</td><td>Open sensor or sensor cable. Contact Support.</td><td>Sensor circuit fault.</td></tr>
+<tr><td class="fc">Control displays E002</td><td>Steam room temperature error code</td><td>Shorted sensor or sensor cable. Contact Support.</td><td>Sensor circuit fault.</td></tr>
+<tr><td class="fc">Control displays E055</td><td>Steam room temperature error code</td><td>Room too hot. Contact Support.</td><td>High temperature alarm.</td></tr>
+</tbody>
+</table></div></div><div class="sp" id="sp1" style="display:none"><div class="tbl-wrap"><table class="ts">
+<thead><tr><th>Document</th><th>Page / Section</th><th>Notes</th></tr></thead><tbody>
+<tr><td class="fc">Steam Generator K3 Error Codes &amp; Troubleshooting.pdf</td><td>Page 5 - Section 5: Trouble Shooting Guide</td><td>K3 and KT3 Owner's Manual, Amerec; document ref 4209-42 dated 08/06/21.</td></tr>
+<tr><td class="fc">Technical Support</td><td>Header/Footer</td><td>1-320-286-3500 / 1-800-363-0251 / support@amerec.com</td></tr>
+</tbody>
+</table></div></div><div class="sp" id="sp2" style="display:none"><div class="tbl-wrap"><table class="ts">
+<thead><tr><th>No.</th><th>Site Check</th><th>Required Action / Acceptance</th></tr></thead><tbody>
+<tr><td class="fc">1</td><td>Power supply / breaker</td><td>Confirm generator breaker is ON before further checks.</td></tr>
+<tr><td class="fc">2</td><td>Voltage across PCA fuses</td><td>Qualified electrician to check voltage across the two fuses on PCA.</td></tr>
+<tr><td class="fc">3</td><td>Fuses</td><td>Replace blown fuse once. If it blows again, stop and contact support.</td></tr>
+<tr><td class="fc">4</td><td>Control cable / connection</td><td>Confirm control is installed as per installation instructions.</td></tr>
+<tr><td class="fc">5</td><td>Unit still steaming while OFF</td><td>Turn off circuit breaker immediately and contact support.</td></tr>
+<tr><td class="fc">6</td><td>Water from steamhead</td><td>Turn off breaker and water supply; contact support.</td></tr>
+<tr><td class="fc">7</td><td>No steam with display ON</td><td>Wait at least 10 minutes after switching ON before escalation.</td></tr>
+<tr><td class="fc">8</td><td>Water sputtering from steamhead</td><td>Flush tank at least 3 times.</td></tr>
+<tr><td class="fc">9</td><td>Error E001</td><td>Open sensor or sensor cable; contact support.</td></tr>
+<tr><td class="fc">10</td><td>Error E002</td><td>Shorted sensor or sensor cable; contact support.</td></tr>
+<tr><td class="fc">11</td><td>Error E055</td><td>Room too hot; contact support.</td></tr>
+</tbody>
+</table></div></div>
+</main>
+<footer>
+  <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+  <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+</footer>
+<script>
+function showTab(idx,btn){
+  document.querySelectorAll('.sp').forEach(function(p){p.style.display='none'});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  document.getElementById('sp'+idx).style.display='block';
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

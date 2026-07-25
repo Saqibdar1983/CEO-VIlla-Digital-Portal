@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sharky RO Troubleshooting | SSB Villa O&amp;M Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--gold:#D4AF37;--gold-light:#f0d060}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#0d1829;display:flex;flex-direction:column;min-height:100vh;font-family:'Aptos Display','Segoe UI',sans-serif}
+header{background:rgba(5,10,20,0.95);border-bottom:2px solid rgba(212,175,55,0.45);padding:0 24px;height:72px;display:flex;align-items:center;position:fixed;top:0;width:100%;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.hl{flex:1;display:flex;align-items:center}
+.hc{flex:2;text-align:center;line-height:1.4}
+.hc .l1{font-size:10px;font-weight:600;color:rgba(212,175,55,0.6);text-transform:uppercase;letter-spacing:2.5px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hc .l2{font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hrr{flex:1;display:flex;justify-content:flex-end;align-items:center}
+.btn-back,.btn-home{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);padding:8px 16px;border-radius:4px;cursor:pointer;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;transition:background 0.3s}
+.btn-back:hover,.btn-home:hover{background:rgba(212,175,55,0.28)}
+main{margin-top:72px;margin-bottom:60px;padding:26px 28px;max-width:1500px;width:100%;margin-left:auto;margin-right:auto;flex:1}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.3);color:rgba(212,175,55,0.7);padding:8px 22px;border-radius:4px;cursor:pointer;font-size:13px;transition:all 0.2s}
+.tab-btn.active,.tab-btn:hover{background:rgba(212,175,55,0.18);border-color:rgba(212,175,55,0.7);color:var(--gold)}
+.tbl-wrap{overflow-x:auto}
+.ts{width:100%;border-collapse:collapse;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;min-width:600px}
+.ts thead tr th{background:rgba(212,175,55,0.22);color:#f5edd5;padding:11px 13px;text-align:left;border:1px solid rgba(212,175,55,0.38);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
+.ts tbody tr:nth-child(odd) td{background:rgba(255,255,255,0.04)}
+.ts tbody tr:nth-child(even) td{background:rgba(255,255,255,0.07)}
+.ts tbody tr:hover td{background:rgba(212,175,55,0.09)}
+.ts tbody td{padding:10px 13px;vertical-align:top;border:1px solid rgba(255,255,255,0.07);color:#e0d8c8;line-height:1.6;font-size:13px}
+.ts tbody td.fc{color:#f5e9c4;font-weight:700;border-right:2px solid rgba(212,175,55,0.35);background:rgba(212,175,55,0.07)!important;min-width:140px}
+footer{background:rgba(5,10,20,0.95);border-top:2px solid rgba(212,175,55,0.45);padding:14px 30px;display:flex;align-items:center;justify-content:space-between;position:fixed;bottom:0;width:100%;font-size:13px;color:rgba(212,175,55,0.75);z-index:1000;font-family:'Aptos Display','Segoe UI',sans-serif}
+.btn-up{background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.3s}
+.btn-up:hover{background:rgba(212,175,55,0.35)}
+</style>
+</head>
+<body id="top">
+<header>
+  <div class="hl"><a href="Error Codes &amp; Troubleshooting Register.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a></div>
+  <div class="hc"><span class="l1">SPA &amp; POOL FACILITY</span><span class="l2">Sharky RO Troubleshooting</span></div>
+  <div class="hrr"><a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a></div>
+</header>
+<main>
+<div style="background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.38);border-radius:6px;padding:9px 18px;margin-bottom:16px;color:#f0dfa0;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.8px;text-align:center;">Sharky-Select RO System - Troubleshooting Guide</div>
+<div class="tbl-wrap"><table class="ts">
+<thead><tr><th>Problem / Symptom</th><th>Potential Cause</th><th>Inspection &amp; Checking Steps</th><th>Corrective Action / Solution</th></tr></thead><tbody>
+<tr><td class="fc">No water or very slow water flow from the faucet</td><td>Feed water valve closed or low incoming pressure.</td><td>Check the main feed water valve connection and measure municipal line pressure.</td><td>Fully open the feed water valve. Ensure supply pressure meets minimum requirements.</td></tr>
+<tr><td class="fc">No water or very slow water flow from the faucet</td><td>Storage tank has lost its internal air pre-charge.</td><td>Lift the tank. If it is heavy but empty of usable water, check the air valve pressure.</td><td>Shut off system, drain tank, and use a bicycle pump to restore pressure to 7-8 PSI.</td></tr>
+<tr><td class="fc">No water or very slow water flow from the faucet</td><td>Stage 1, 2, or 3 pre-filters are severely clogged.</td><td>Check the installation date or inspect the clear Stage 1 housing for heavy sediment accumulation.</td><td>Replace pre-filters immediately (recommended maintenance cycle is every 6-12 months).</td></tr>
+<tr><td class="fc">Booster pump runs continuously without stopping</td><td>Fouled or degraded Stage 4 RO Membrane.</td><td>Check if pure water production has dropped while wastewater continuously flows to the drain.</td><td>Replace the Stage 4 High-Rejection RO Membrane.</td></tr>
+<tr><td class="fc">Booster pump runs continuously without stopping</td><td>Defective high-pressure switch or leaking check valve.</td><td>Check if the pump shuts off when the tank valve is manually closed. Inspect the membrane check valve.</td><td>Replace the faulty high-pressure switch or the inline one-way check valve.</td></tr>
+<tr><td class="fc">Water leaks from tubing or quick-connect joints</td><td>Tubing not fully seated or cut at an uneven angle.</td><td>Inspect the joint. Check if the plastic tubing is scratched or cut diagonally.</td><td>Turn off water, depress the fitting collet, pull tube out, make a clean square cut, and reinsert firmly.</td></tr>
+<tr><td class="fc">Off-taste, flat, or metallic odor in drinking water</td><td>Depleted Stage 5 Inline Post-Carbon Polish Filter.</td><td>Check the age of the yellow-top inline post-carbon filter.</td><td>Replace the Stage 5 polish filter to restore crisp taste.</td></tr>
+<tr><td class="fc">Off-taste, flat, or metallic odor in drinking water</td><td>Exhausted Stage 2 &amp; 3 carbon blocks letting chlorine pass.</td><td>Test for chlorine breakthroughs or check filter service logs.</td><td>Replace Stage 2 and 3 carbon filters to protect the RO membrane from chlorine damage.</td></tr>
+<tr><td class="fc">Excessive noise or heavy system vibration</td><td>Air bubbles trapped inside the system housings/lines.</td><td>Listen for sputtering at the faucet or visible air gaps in the tubing lines.</td><td>Run the faucet for a few minutes continuously to completely flush out trapped air.</td></tr>
+<tr><td class="fc">Excessive noise or heavy system vibration</td><td>LogiC booster pump vibrating against the cabinet base.</td><td>Check the mounting of the pump assembly and ensure rubber feet are isolation-aligned.</td><td>Securely mount the pump and ensure it does not directly contact hard cabinet walls.</td></tr>
+</tbody>
+</table></div>
+</main>
+<footer>
+  <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+  <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+</footer>
+
+</body>
+</html>

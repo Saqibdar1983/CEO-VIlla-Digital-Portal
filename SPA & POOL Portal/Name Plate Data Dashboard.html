@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Plate Details SPA &amp; POOL Facility Equipment - O&M Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #0b4f6c;
+            --water-blue: #01baef;
+            --gold: #D4AF37;
+            --gold-light: #f0d060;
+            --dark-text: #2b2d42;
+            --white: #ffffff;
+            --hover-blue: #1e3a8a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+        body {
+            background-image: url("Name Plate Data Background.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 10, 20, 0.52);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Header */
+        header {
+            background: rgba(3,9,20,0.97);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            color: var(--white);
+            padding: 13px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 28px rgba(0,0,0,0.70);
+            border-bottom: 1px solid rgba(212,175,55,0.28);
+        }
+        .header-left { display: flex; align-items: center; gap: 18px; }
+        .btn-back {
+            background: rgba(212,175,55,0.09); color: var(--gold);
+            border: 1px solid rgba(212,175,55,0.38); padding: 7px 15px; border-radius: 5px; cursor: pointer;
+            transition: all 0.25s; display: flex; align-items: center;
+            gap: 7px; text-decoration: none; font-size: 13px; font-weight: 600;
+        }
+        .btn-back:hover { background: rgba(212,175,55,0.22); border-color: var(--gold); }
+        header h1 { font-size: 16px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); text-shadow: 0 0 16px rgba(212,175,55,0.40); }
+        .header-right { display: flex; align-items: center; gap: 14px; }
+        .search-container { position: relative; }
+        .search-container input {
+            padding: 7px 12px; padding-right: 34px; border-radius: 20px;
+            border: 1px solid rgba(212,175,55,0.32);
+            background: rgba(255,255,255,0.06); color: var(--white);
+            outline: none; width: 200px; transition: all 0.3s; font-size: 13px;
+        }
+        .search-container input::placeholder { color: rgba(212,175,55,0.45); }
+        .search-container input:focus { background: rgba(255,255,255,0.10); border-color: var(--gold); width: 240px; }
+        .search-container i { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); color: rgba(212,175,55,0.55); }
+        .btn-home {
+            background: rgba(212,175,55,0.09); color: var(--gold);
+            border: 1px solid rgba(212,175,55,0.38);
+            width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+            font-size: 15px; transition: all 0.25s; text-decoration: none;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .btn-home:hover { background: rgba(212,175,55,0.22); border-color: var(--gold); }
+
+        /* Main */
+        main {
+            position: relative; z-index: 1;
+            margin-top: 76px; margin-bottom: 62px;
+            padding: 28px 20px; max-width: 1440px;
+            width: 100%; margin-left: auto; margin-right: auto; flex: 1;
+        }
+
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 800;
+            font-family: 'Aptos Display', sans-serif;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 26px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+
+        /* Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
+        }
+
+        /* Cards */
+        .portal-card {
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            border-bottom: 3px solid var(--gold);
+            border-radius: 8px;
+            padding: 16px 14px;
+            text-align: center;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.30);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            height: 112px;
+            overflow: hidden;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            color: var(--white);
+        }
+        .portal-card-tall {
+            height: 140px;
+            overflow: visible;
+        }
+        .portal-card:hover {
+            background: rgba(212, 175, 55, 0.18);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(212,175,55,0.30);
+            border-color: var(--gold-light);
+        }
+        .portal-card i {
+            font-size: 28px; color: var(--gold);
+            margin-bottom: 10px; transition: color 0.3s;
+        }
+        .portal-card:hover i { color: var(--gold-light); }
+        .portal-card h3 { font-size: 13px; font-weight: 600; line-height: 1.45; color: #ffffff; }
+        .card-tag {
+            display: inline-block; margin-top: 7px;
+            font-size: 11px; font-weight: 700;
+            color: var(--gold); letter-spacing: 0.5px;
+            background: rgba(212,175,55,0.15);
+            padding: 2px 8px; border-radius: 10px;
+        }
+        .card-model { font-size: 10px; color: rgba(255,255,255,0.72); margin: 3px 0 4px 0; line-height: 1.4; letter-spacing: 0.3px; }
+
+        /* Footer */
+        footer {
+            background: rgba(3,9,20,0.97);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            color: rgba(212,175,55,0.75); padding: 13px 30px;
+            display: flex; align-items: center; justify-content: space-between;
+            position: fixed; bottom: 0; width: 100%;
+            font-size: 13px; border-top: 1px solid rgba(212,175,55,0.28);
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.50);
+            z-index: 999;
+        }
+        .footer-text { letter-spacing: 0.5px; }
+        .btn-up {
+            background: rgba(212,175,55,0.10); color: var(--gold);
+            border: 1px solid rgba(212,175,55,0.35);
+            width: 33px; height: 33px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.25s; text-decoration: none;
+        }
+        .btn-up:hover { background: rgba(212,175,55,0.24); border-color: var(--gold); }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.75); z-index: 2000;
+            align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+
+        /* Modal Box - Single */
+        .modal-box {
+            background: linear-gradient(145deg, #0d2137, #0a1c2e);
+            border: 1px solid rgba(212,175,55,0.5);
+            border-top: 3px solid var(--gold);
+            border-radius: 10px;
+            max-width: 720px; width: 100%;
+            max-height: 88vh; overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+            animation: modalIn 0.25s ease;
+        }
+
+        /* Modal Box - Dual Pump (wider) */
+        .modal-box.dual {
+            max-width: 1000px;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.97); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            padding: 18px 22px 14px;
+            border-bottom: 1px solid rgba(212,175,55,0.30);
+            display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+        }
+        .modal-header-info {}
+        .modal-header h2 {
+            font-size: 16px; font-weight: 700;
+            color: var(--gold); text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 3px;
+        }
+        .modal-header p { font-size: 12px; color: rgba(255,255,255,0.65); }
+        .modal-close {
+            background: rgba(255,255,255,0.10); border: none; color: rgba(255,255,255,0.8);
+            width: 30px; height: 30px; border-radius: 50%; font-size: 16px;
+            cursor: pointer; flex-shrink: 0; transition: background 0.2s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .modal-close:hover { background: rgba(212,175,55,0.4); color: white; }
+
+        .modal-body { padding: 18px 22px 22px; }
+
+        /* Tables inside modal */
+        .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .data-table th, .data-table td {
+            padding: 7px 11px; text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .data-table th {
+            background: rgba(212,175,55,0.18); color: var(--gold);
+            font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .data-table td { color: rgba(255,255,255,0.88); }
+        .data-table tr:hover td { background: rgba(255,255,255,0.04); }
+        .data-table td:first-child { color: rgba(255,255,255,0.58); font-size: 12px; width: 40%; }
+
+        /* Dual pump column headers */
+        .dual-col-header {
+            text-align: center !important;
+            background: rgba(1,186,239,0.18) !important;
+            color: var(--water-blue) !important;
+            font-weight: 700 !important;
+        }
+        .data-table td.pump-val { color: rgba(255,255,255,0.88); }
+
+        /* Section separator */
+        .section-title {
+            color: var(--gold); font-size: 12px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px;
+            padding: 10px 0 4px; border-bottom: 1px solid rgba(212,175,55,0.25);
+            margin-bottom: 6px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        @media (max-width: 1100px) { .grid-container { grid-template-columns: repeat(4, 1fr); } }
+        @media (max-width: 768px) {
+            .grid-container { grid-template-columns: repeat(2, 1fr); }
+            header { flex-direction: column; gap: 8px; position: relative; }
+            main { margin-top: 10px; margin-bottom: 80px; }
+            footer { flex-direction: column; gap: 8px; text-align: center; position: relative; margin-top: auto; }
+        }
+    </style>
+</head>
+<body id="top">
+
+<!-- HEADER -->
+<header>
+    <div class="header-left">
+        <a href="Main Dashboard SPA & Pool Facility.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+        <h1 style="font-family:'Aptos Display','Segoe UI',sans-serif;font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--gold);text-shadow:0 0 16px rgba(212,175,55,0.40);">SPA &amp; POOL FACILITY &nbsp;&nbsp;|&nbsp;&nbsp; Equipment Name Plate Details</h1>
+    </div>
+    <div class="header-right">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search equipment..." onkeyup="filterCards()">
+            <i class="fas fa-search"></i>
+        </div>
+        <a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a>
+    </div>
+</header>
+
+<!-- MAIN -->
+<main>
+    <div class="grid-container" id="cardGrid">
+
+
+        <!-- Card 9: Indoor Pool Water Heater -->
+        <div class="portal-card portal-card-tall" onclick="openModal('modal-heater-indoor')">
+            <i class="fas fa-fire"></i>
+            <h3>Indoor Pool Water Heater (Jacuzzi)</h3>
+            <span class="card-model">Model: E2-3-18-380</span>
+            <span class="card-tag">E2-3-18-380</span>
+        </div>
+
+
+        <!-- Card 13: Cold Plunge Pumps 01 & 02 -->
+        <div class="portal-card portal-card-tall" onclick="openModal('modal-fp-cp')">
+            <i class="fas fa-water"></i>
+            <h3>Cold Plunge Filtration &amp; Circulation Pumps 01 &amp; 02</h3>
+            <span class="card-model">Model: WhisperFlo P-WFL-801 2HP</span>
+            <span class="card-tag">FP-CP-01 / 02</span>
+        </div>
+
+
+        <!-- Card 14: Indoor Pool Filtration Pumps 01 & 02 -->
+        <div class="portal-card portal-card-tall" onclick="openModal('modal-fp-idp')">
+            <i class="fas fa-swimming-pool"></i>
+            <h3>Indoor Pool Filtration Pumps 01 &amp; 02</h3>
+            <span class="card-model">Model: P-WFL-801 2HP / P-WFL-751</span>
+            <span class="card-tag">FP-01-IDP / FP-02-IDP</span>
+        </div>
+
+
+        <!-- Card 15: Outdoor Fall & Nozzle Pumps 01 & 02 -->
+        <div class="portal-card portal-card-tall" onclick="openModal('modal-wfp-odp')">
+            <i class="fas fa-water"></i>
+            <h3>Outdoor Pool Water Fall &amp; Jet Nozzle Pumps 01 &amp; 02</h3>
+            <span class="card-model">Model: WhisperFlo P-WFL-901</span>
+            <span class="card-tag">WFP-ODP / NP-ODP</span>
+        </div>
+
+
+        <!-- Card 16: Outdoor Pool Filtration Pumps 01 & 02 -->
+        <div class="portal-card portal-card-tall" onclick="openModal('modal-fp-odp')">
+            <i class="fas fa-swimming-pool"></i>
+            <h3>Outdoor Pool Filtration &amp; Nozzle Pumps 01 &amp; 02</h3>
+            <span class="card-model">Model: WhisperFlo P-WFL-901</span>
+            <span class="card-tag">FP-ODP / NP-ODP</span>
+        </div>
+
+
+        <!-- Card 25: Water Feature Pumps -->
+        <div class="portal-card portal-card-tall" onclick="openModal('modal-wfp')">
+            <i class="fas fa-water"></i>
+            <h3>Feature Wall Submersible Pumps 01 &amp; 02</h3>
+            <span class="card-model">Model: PEDROLLO TOP3</span>
+            <span class="card-tag">FWSP-01 / FWSP-02</span>
+        </div>
+
+
+        <!-- Card 1: Sand Filter Valve-01 -->
+        <div class="portal-card" onclick="openModal('modal-sfv01')">
+            <i class="fas fa-filter"></i>
+            <h3>6-Position Sand Filter Valve-01</h3>
+            <span class="card-model">Model: V6 / 6-Way Backwash Valve</span>
+            <span class="card-tag">SFV-01</span>
+        </div>
+
+        <!-- Card 2: Sand Filter Valve-02 -->
+        <div class="portal-card" onclick="openModal('modal-sfv02')">
+            <i class="fas fa-filter"></i>
+            <h3>6-Position Sand Filter Valve-02</h3>
+            <span class="card-model">Model: V6 / 6-Way Backwash Valve</span>
+            <span class="card-tag">SFV-02</span>
+        </div>
+
+        <!-- Card 3: Sand Filter Valve-03 -->
+        <div class="portal-card" onclick="openModal('modal-sfv03')">
+            <i class="fas fa-filter"></i>
+            <h3>6-Position Sand Filter Valve-03</h3>
+            <span class="card-model">Model: V6 / 6-Way Backwash Valve</span>
+            <span class="card-tag">SFV-03</span>
+        </div>
+
+        <!-- Card 4: Chemical Dosing Pump-01 -->
+        <div class="portal-card" onclick="openModal('modal-cdp01')">
+            <i class="fas fa-tint"></i>
+            <h3>Chemical Dosing Pump-01</h3>
+            <span class="card-model">Model: X030-XC-AAAAASASO</span>
+            <span class="card-tag">CDP-01</span>
+        </div>
+
+        <!-- Card 5: Chemical Dosing Pump-02 -->
+        <div class="portal-card" onclick="openModal('modal-cdp02')">
+            <i class="fas fa-tint"></i>
+            <h3>Chemical Dosing Pump-02</h3>
+            <span class="card-model">Model: X030-XC-AAAAASASO</span>
+            <span class="card-tag">CDP-02</span>
+        </div>
+
+        <!-- Card 6: Chlorine Feeder-01 -->
+        <div class="portal-card" onclick="openModal('modal-cf01')">
+            <i class="fas fa-flask"></i>
+            <h3>Chlorine Feeder-01</h3>
+            <span class="card-model">Model: CL200</span>
+            <span class="card-tag">CF-01</span>
+        </div>
+
+        <!-- Card 7: Chlorine Feeder-02 -->
+        <div class="portal-card" onclick="openModal('modal-cf02')">
+            <i class="fas fa-flask"></i>
+            <h3>Chlorine Feeder-02</h3>
+            <span class="card-model">Model: CL200</span>
+            <span class="card-tag">CF-02</span>
+        </div>
+
+        <!-- Card 8: Cold Plunge Chiller -->
+        <div class="portal-card" onclick="openModal('modal-chiller')">
+            <i class="fas fa-snowflake"></i>
+            <h3>Cold Plunge Chiller</h3>
+            <span class="card-model">Model: CZCHCPI103T</span>
+            <span class="card-tag">Heat Pump</span>
+        </div>
+
+        <!-- Card 10: Outdoor Pool Water Heater -->
+        <div class="portal-card" onclick="openModal('modal-heater-outdoor')">
+            <i class="fas fa-fire-alt"></i>
+            <h3>Outdoor Pool Water Heater</h3>
+            <span class="card-model">Model: SFSD-45-380</span>
+            <span class="card-tag">SFSD-45-380</span>
+        </div>
+
+        <!-- Card 11: pH Controller -->
+        <div class="portal-card" onclick="openModal('modal-phc')">
+            <i class="fas fa-sliders-h"></i>
+            <h3>pH Controller</h3>
+            <span class="card-model">Model: HCC2000</span>
+            <span class="card-tag">PHC</span>
+        </div>
+
+        <!-- Card 12: Indoor Pool Jet Nozzle Pump -->
+        <div class="portal-card" onclick="openModal('modal-np-idp')">
+            <i class="fas fa-pump-medical"></i>
+            <h3>Indoor Pool Jet Nozzle Pump-01</h3>
+            <span class="card-model">Model: WhisperFlo P-WFL-901 3HP</span>
+            <span class="card-tag">NP-IDP</span>
+        </div>
+
+        <!-- Card 17: RO System Tank -->
+        <div class="portal-card" onclick="openModal('modal-ro')">
+            <i class="fas fa-database"></i>
+            <h3>RO System Water Storage Tank</h3>
+            <span class="card-model">Model: TP-19P</span>
+            <span class="card-tag">TP-19P</span>
+        </div>
+
+        <!-- Card 18: Sand Filter-01 -->
+        <div class="portal-card" onclick="openModal('modal-sf01')">
+            <i class="fas fa-layer-group"></i>
+            <h3>Sand Filter-01</h3>
+            <span class="card-model">Model: TR140</span>
+            <span class="card-tag">SF-01</span>
+        </div>
+
+        <!-- Card 19: Sand Filter-02 -->
+        <div class="portal-card" onclick="openModal('modal-sf02')">
+            <i class="fas fa-layer-group"></i>
+            <h3>Sand Filter-02</h3>
+            <span class="card-model">Model: TA 40</span>
+            <span class="card-tag">SF-02</span>
+        </div>
+
+        <!-- Card 20: Sand Filter-03 -->
+        <div class="portal-card" onclick="openModal('modal-sf03')">
+            <i class="fas fa-layer-group"></i>
+            <h3>Sand Filter-03</h3>
+            <span class="card-model">Model: TA 40</span>
+            <span class="card-tag">SF-03</span>
+        </div>
+
+        <!-- Card 21: Silencer Air Blower -->
+        <div class="portal-card" onclick="openModal('modal-blower')">
+            <i class="fas fa-wind"></i>
+            <h3>Silencer Air Blower</h3>
+            <span class="card-model">Model: 1-6320220F</span>
+            <span class="card-tag">1-6320220F</span>
+        </div>
+
+        <!-- Card 22: Steam Generator -->
+        <div class="portal-card" onclick="openModal('modal-sg01')">
+            <i class="fas fa-cloud"></i>
+            <h3>Steam Generator</h3>
+            <span class="card-model">Model: AK14</span>
+            <span class="card-tag">SG-01</span>
+        </div>
+
+        <!-- Card 23: Submersible Pump -->
+        <div class="portal-card" onclick="openModal('modal-sp01')">
+            <i class="fas fa-arrow-circle-down"></i>
+            <h3>Submersible Pump</h3>
+            <span class="card-model">Model: TOP 4N</span>
+            <span class="card-tag">SP-01</span>
+        </div>
+
+        <!-- Card 24: UV Lamp -->
+        <div class="portal-card" onclick="openModal('modal-uv')">
+            <i class="fas fa-sun"></i>
+            <h3>UV Lamp</h3>
+            <span class="card-model">Model: HRP-110</span>
+            <span class="card-tag">HRP-110</span>
+        </div>
+
+
+        <!-- Card 26: Sauna Heater -->
+        <div class="portal-card" onclick="openModal('modal-sauna')">
+            <i class="fas fa-fire"></i>
+            <h3>Sauna Heater</h3>
+            <span class="card-model">Model: ZL16.2</span>
+            <span class="card-tag">SH-01</span>
+        </div>
+
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-text">SSB Villa O &amp; M Portal &nbsp;|&nbsp; Project Code 10144 &nbsp;|&nbsp; Handing over Documents</div>
+    <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+</footer>
+
+<!-- ===================== MODALS ===================== -->
+
+<!-- Modal Overlay -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+
+    <!-- MODAL: SFV-01 -->
+    <div class="modal-box" id="modal-sfv01">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-filter"></i> 6-Position Sand Filter Valve-01</h2>
+                <p>Six-Way Top Mount Multiport Valve &nbsp;|&nbsp; Tag: SFV-01 &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-sfv01')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment Name</td><td>6-Way Multiport / Backwash Valve</td></tr>
+                <tr><td>Manufacturer</td><td>Praher Plastics</td></tr>
+                <tr><td>Country of Origin</td><td>Austria</td></tr>
+                <tr><td>Tag</td><td>SFV-01</td></tr>
+                <tr><td>Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Valve Type</td><td>Manual 6-Way Backwash / Multiport Valve</td></tr>
+                <tr><td>Model / Series</td><td>V6 / 6-Way Backwash Valve</td></tr>
+                <tr><td>Operation Positions</td><td>Filter, Backwash, Rinse, Waste, Recirculation, Closed, Winter Position</td></tr>
+                <tr><td>Application / Service</td><td>Pool / Spa Filtration System</td></tr>
+                <tr><td>Material</td><td>Plastic Valve Body</td></tr>
+                <tr><td>Connection Size</td><td>(Not specified on name plate)</td></tr>
+                <tr><td>Pressure Rating</td><td>(Not specified on name plate)</td></tr>
+                <tr><td>Part No. / Article No.</td><td>(Not specified on name plate)</td></tr>
+                <tr><td>Handle Instruction</td><td>Stop pump before changing handle position</td></tr>
+                <tr><td>Asset Tag No.</td><td>SFV-01</td></tr>
+                <tr><td>Prepared Date</td><td>2026-07-06</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: SFV-02 -->
+    <div class="modal-box" id="modal-sfv02">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-filter"></i> 6-Position Sand Filter Valve-02</h2>
+                <p>Hi Flow™ Six-Way 1-1/2 Inch Top Mount Valve &nbsp;|&nbsp; Tag: SFV-02 &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-sfv02')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment Name</td><td>Hi Flow™ Six-Way 1-1/2 Inch Top Mount Valve</td></tr>
+                <tr><td>Equipment Type</td><td>Six-Way Top Mount Multiport Valve</td></tr>
+                <tr><td>Manufacturer</td><td>Pentair / Pentair Water Pool and Spa, Inc.</td></tr>
+                <tr><td>Brand / Product Line</td><td>Hi Flow™</td></tr>
+                <tr><td>Tag</td><td>SFV-02</td></tr>
+                <tr><td>Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Part No. / P/N</td><td>272526</td></tr>
+                <tr><td>Serial No. / S/N</td><td>0518 17220176T</td></tr>
+                <tr><td>Manufacturing / Label Date</td><td>04/27/2022</td></tr>
+                <tr><td>Valve Size</td><td>1-1/2 inch</td></tr>
+                <tr><td>VLV</td><td>19/22.</td></tr>
+                <tr><td>Sell</td><td>262506</td></tr>
+                <tr><td>Valve Positions</td><td>Filter, Backwash, Rinse, Waste, Closed, Recirculate; Winterize Position</td></tr>
+                <tr><td>Connection / Mounting Style</td><td>Top mount; clamp-style or threaded-style depending on filter/valve type</td></tr>
+                <tr><td>Maximum Operating Pressure</td><td>50 psi</td></tr>
+                <tr><td>Pressure Gauge Port</td><td>1/4 in. NPT port directly across from pump port</td></tr>
+                <tr><td>Main Ports</td><td>Pump, Waste, Return</td></tr>
+                <tr><td>External Air Bleeder</td><td>Yes</td></tr>
+                <tr><td>Material / Construction</td><td>High-quality corrosion-resistant materials</td></tr>
+                <tr><td>Application</td><td>Pool / Spa Sand Filter System</td></tr>
+                <tr><td>Manufacturer Address 1</td><td>1620 Hawkins Ave., Sanford, NC 27330</td></tr>
+                <tr><td>Manufacturer Phone 1</td><td>(919) 566-8000</td></tr>
+                <tr><td>Manufacturer Address 2</td><td>10951 West Los Angeles Ave., Moorpark, CA 93021</td></tr>
+                <tr><td>Manufacturer Phone 2</td><td>(805) 553-5000</td></tr>
+                <tr><td>Website</td><td>www.pentairpool.com</td></tr>
+                <tr><td>Important Note</td><td>Pump must be OFF before changing valve positions; do not operate pump with valve in CLOSED position.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: SFV-03 -->
+    <div class="modal-box" id="modal-sfv03">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-filter"></i> 6-Position Sand Filter Valve-03</h2>
+                <p>Hi Flow™ Six-Way 1-1/2 Inch Top Mount Valve &nbsp;|&nbsp; Tag: SFV-03 &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-sfv03')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment Name</td><td>Hi Flow™ Six-Way 1-1/2 Inch Top Mount Valve</td></tr>
+                <tr><td>Equipment Type</td><td>Six-Way Top Mount Multiport Valve</td></tr>
+                <tr><td>Manufacturer</td><td>Pentair / Pentair Water Pool and Spa, Inc.</td></tr>
+                <tr><td>Brand / Product Line</td><td>Hi Flow™</td></tr>
+                <tr><td>Tag</td><td>SFV-03</td></tr>
+                <tr><td>Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Part No. / P/N</td><td>272526</td></tr>
+                <tr><td>Serial No. / S/N</td><td>0518 17220225P</td></tr>
+                <tr><td>Manufacturing / Label Date</td><td>04/27/2022</td></tr>
+                <tr><td>Valve Size</td><td>1-1/2 inch</td></tr>
+                <tr><td>VLV</td><td>19/22.</td></tr>
+                <tr><td>Sell</td><td>262506</td></tr>
+                <tr><td>Valve Positions</td><td>Filter, Backwash, Rinse, Waste, Closed, Recirculate; Winterize Position</td></tr>
+                <tr><td>Connection / Mounting Style</td><td>Top mount; clamp-style or threaded-style depending on filter/valve type</td></tr>
+                <tr><td>Maximum Operating Pressure</td><td>50 psi</td></tr>
+                <tr><td>Pressure Gauge Port</td><td>1/4 in. NPT port directly across from pump port</td></tr>
+                <tr><td>Main Ports</td><td>Pump, Waste, Return</td></tr>
+                <tr><td>External Air Bleeder</td><td>Yes</td></tr>
+                <tr><td>Material / Construction</td><td>High-quality corrosion-resistant materials</td></tr>
+                <tr><td>Application</td><td>Pool / Spa Sand Filter System</td></tr>
+                <tr><td>Manufacturer Address 1</td><td>1620 Hawkins Ave., Sanford, NC 27330</td></tr>
+                <tr><td>Manufacturer Phone 1</td><td>(919) 566-8000</td></tr>
+                <tr><td>Manufacturer Address 2</td><td>10951 West Los Angeles Ave., Moorpark, CA 93021</td></tr>
+                <tr><td>Manufacturer Phone 2</td><td>(805) 553-5000</td></tr>
+                <tr><td>Website</td><td>www.pentairpool.com</td></tr>
+                <tr><td>Important Note</td><td>Pump must be OFF before changing valve positions; do not operate pump with valve in CLOSED position.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: CDP-01 -->
+    <div class="modal-box" id="modal-cdp01">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-tint"></i> Chemical Dosing Pump-01</h2>
+                <p>CHEM-TECH / PULSAFEEDER &nbsp;|&nbsp; Tag: CDP-01 &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-cdp01')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment Name</td><td>Chemical Dosing Pump</td></tr>
+                <tr><td>Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Asset Tag</td><td>CDP-01</td></tr>
+                <tr><td>Brand</td><td>CHEM-TECH</td></tr>
+                <tr><td>Manufacturer</td><td>PULSAFEEDER</td></tr>
+                <tr><td>Series</td><td>100</td></tr>
+                <tr><td>Model No.</td><td>X030-XC-AAAAASASO</td></tr>
+                <tr><td>KOPKIT No.</td><td>KX100-AAAA</td></tr>
+                <tr><td>Date / Serial No.</td><td>07/18.892419</td></tr>
+                <tr><td>Voltage</td><td>230 V</td></tr>
+                <tr><td>Current</td><td>0.38 A</td></tr>
+                <tr><td>Frequency</td><td>60 Hz</td></tr>
+                <tr><td>Phase</td><td>1</td></tr>
+                <tr><td>Nominal Output</td><td>30 GPD / 4.7 LPH</td></tr>
+                <tr><td>Maximum Pressure</td><td>100 PSI / 7 BAR</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: CDP-02 -->
+    <div class="modal-box" id="modal-cdp02">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-tint"></i> Chemical Dosing Pump-02</h2>
+                <p>CHEM-TECH / PULSAFEEDER &nbsp;|&nbsp; Tag: CDP-02 &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-cdp02')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment Name</td><td>Chemical Dosing Pump</td></tr>
+                <tr><td>Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Asset Tag</td><td>CDP-02</td></tr>
+                <tr><td>Brand</td><td>CHEM-TECH</td></tr>
+                <tr><td>Manufacturer</td><td>PULSAFEEDER</td></tr>
+                <tr><td>Series</td><td>100</td></tr>
+                <tr><td>Model No.</td><td>X030-XC-AAAAASASO</td></tr>
+                <tr><td>KOPKIT No.</td><td>KX100-AAAA</td></tr>
+                <tr><td>Date / Serial No.</td><td>07/18.892417</td></tr>
+                <tr><td>Voltage</td><td>230 V</td></tr>
+                <tr><td>Current</td><td>0.38 A</td></tr>
+                <tr><td>Frequency</td><td>60 Hz</td></tr>
+                <tr><td>Phase</td><td>1</td></tr>
+                <tr><td>Nominal Output</td><td>30 GPD / 4.7 LPH</td></tr>
+                <tr><td>Maximum Pressure</td><td>100 PSI / 7 BAR</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: CF-01 -->
+    <div class="modal-box" id="modal-cf01">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-flask"></i> Chlorine Feeder-01</h2>
+                <p>HAYWARD CL200 &nbsp;|&nbsp; Tag: CF-01 &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-cf01')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment Type</td><td>Chemical Feeder / Chlorine Feeder</td></tr>
+                <tr><td>Equipment Tag</td><td>CF-01</td></tr>
+                <tr><td>Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Brand / Manufacturer</td><td>HAYWARD</td></tr>
+                <tr><td>Manufacturer Name</td><td>Hayward Industries Inc.</td></tr>
+                <tr><td>Product Line / Description</td><td>HAYWARD Chlorine Feeder</td></tr>
+                <tr><td>Model No.</td><td>CL200</td></tr>
+                <tr><td>Serial No.</td><td>SR: 21212204264912000</td></tr>
+                <tr><td>Additional Marking</td><td>CL220MY21 Rev C</td></tr>
+                <tr><td>Capacity</td><td>Large Capacity</td></tr>
+                <tr><td>Operating Pressure</td><td>50 PSI</td></tr>
+                <tr><td>Maximum Output (Pool)</td><td>2.3 LBS/DAY</td></tr>
+                <tr><td>Maximum Output (SPA)</td><td>4.6 LBS/DAY</td></tr>
+                <tr><td>Certification / Listing</td><td>NSF</td></tr>
+                <tr><td>Manufacturer Address</td><td>Elizabeth, New Jersey 07207</td></tr>
+                <tr><td>Website</td><td>hayward.com</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: CF-02 -->
+    <div class="modal-box" id="modal-cf02">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-flask"></i> Chlorine Feeder-02</h2>
+                <p>HAYWARD CL200 &nbsp;|&nbsp; Tag: CF-02 &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-cf02')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment Type</td><td>Chemical Feeder / Chlorine Feeder</td></tr>
+                <tr><td>Equipment Tag</td><td>CF-02</td></tr>
+                <tr><td>Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Brand / Manufacturer</td><td>HAYWARD</td></tr>
+                <tr><td>Manufacturer Name</td><td>Hayward Industries Inc.</td></tr>
+                <tr><td>Product Line / Description</td><td>HAYWARD Chlorine Feeder</td></tr>
+                <tr><td>Model No.</td><td>CL200</td></tr>
+                <tr><td>Serial No.</td><td>SR: 21212204264912053</td></tr>
+                <tr><td>Additional Marking</td><td>CL220MY21 Rev C</td></tr>
+                <tr><td>Capacity</td><td>Large Capacity</td></tr>
+                <tr><td>Operating Pressure</td><td>50 PSI</td></tr>
+                <tr><td>Maximum Output (Pool)</td><td>2.3 LBS/DAY</td></tr>
+                <tr><td>Maximum Output (SPA)</td><td>4.6 LBS/DAY</td></tr>
+                <tr><td>Certification / Listing</td><td>NSF</td></tr>
+                <tr><td>Manufacturer Address</td><td>Elizabeth, New Jersey 07207</td></tr>
+                <tr><td>Website</td><td>hayward.com</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Cold Plunge Chiller -->
+    <div class="modal-box" id="modal-chiller">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-snowflake"></i> Cold Plunge Chiller</h2>
+                <p>Full Inverter Swimming Pool Heat Pump &nbsp;|&nbsp; Model: CZCHCPI103T</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-chiller')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment Description</td><td>Full Inverter Swimming Pool Heat Pump</td></tr>
+                <tr><td>Application</td><td>Cold Plunge Chiller</td></tr>
+                <tr><td>Model</td><td>CZCHCPI103T</td></tr>
+                <tr><td>Barcode / Serial No.</td><td>8D00240407003C10</td></tr>
+                <tr><td>Rated Voltage / Frequency</td><td>380V/3N /60Hz</td></tr>
+                <tr><td>Rated Current / Power</td><td>27.0A/15.0 kW</td></tr>
+                <tr><td>Heating Capacity</td><td>103 ~ 24.8 kW</td></tr>
+                <tr><td>Cooling Capacity</td><td>58 ~ 14.1 kW</td></tr>
+                <tr><td>COP</td><td>16.09 ~ 6.96</td></tr>
+                <tr><td>EER</td><td>6.68 ~ 3.65</td></tr>
+                <tr><td>Circulating Flow</td><td>30 m³/h</td></tr>
+                <tr><td>Refrigerant</td><td>R410A</td></tr>
+                <tr><td>Electric Shock Protection Class</td><td>I / IPX4</td></tr>
+                <tr><td>Unit Noise</td><td>62 dB(A)</td></tr>
+                <tr><td>Net Weight</td><td>420 kg</td></tr>
+                <tr><td>Max Operating Pressure</td><td>4.4 MPa</td></tr>
+                <tr><td>Heat Exchanger Max Operating Pressure</td><td>4.4/2.5 MPa</td></tr>
+                <tr><td>Compressor Max Operating Pressure</td><td>4.4/2.5 MPa</td></tr>
+                <tr><td>Max Pressure of Water Side</td><td>0.55 MPa</td></tr>
+                <tr><td>Pressure Loss of Water Side</td><td>40 kPa</td></tr>
+                <tr><td>Water Pipe</td><td>Dn63</td></tr>
+                <tr><td>Products Dimensions</td><td>1250*1080*1870 mm</td></tr>
+                <tr><td>Working Temperature</td><td>-15 ~ 52°C</td></tr>
+                <tr><td>Heating Capacity Test Condition</td><td>Air 26°C, Water 26°C, Hygro 80%</td></tr>
+                <tr><td>Cooling Capacity Test Condition</td><td>Air 35°C, Water 27°C</td></tr>
+                <tr><td>Certification Marking</td><td>CE, RoHS</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Indoor Pool Water Heater -->
+    <div class="modal-box" id="modal-heater-indoor">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-fire"></i> Indoor Pool Water Heater (Jacuzzi)</h2>
+                <p>Elecro Engineering Ltd &nbsp;|&nbsp; Code: E2-3-18-380 &nbsp;|&nbsp; S/N: 300822</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-heater-indoor')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="section-title">Project Information</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Project Name</td><td>CEO Villa</td></tr>
+                <tr><td>Project Code</td><td>10144</td></tr>
+                <tr><td>System / Scope</td><td>SPA and Swimming Pool Works</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">Nameplate Data</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>CODE (Product Model)</td><td>E2-3-18-380</td></tr>
+                <tr><td>SERIAL No.</td><td>300822</td></tr>
+                <tr><td>Power Rating</td><td>18 kW</td></tr>
+                <tr><td>Voltage</td><td>380 V</td></tr>
+                <tr><td>Amperage</td><td>28 A</td></tr>
+                <tr><td>Phase</td><td>3</td></tr>
+                <tr><td>Frequency</td><td>50 / 60 Hz</td></tr>
+                <tr><td>IP Rating</td><td>IP44</td></tr>
+                <tr><td>Max Pressure</td><td>4 Bar / 400,000 Pascals</td></tr>
+                <tr><td>Manufacturer</td><td>Elecro Engineering Ltd</td></tr>
+                <tr><td>Website</td><td>elecro.co.uk</td></tr>
+                <tr><td>Country of Origin</td><td>Made in England</td></tr>
+                <tr><td>Regulatory Marks</td><td>CE, UKCA, EAC</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Outdoor Pool Water Heater -->
+    <div class="modal-box" id="modal-heater-outdoor">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-fire-alt"></i> Outdoor Pool Water Heater</h2>
+                <p>Elecro Engineering Ltd &nbsp;|&nbsp; Code: SFSD-45-380 &nbsp;|&nbsp; S/N: 300876</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-heater-outdoor')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="section-title">Project Information</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Project Name</td><td>CEO Villa</td></tr>
+                <tr><td>Project Code</td><td>10144</td></tr>
+                <tr><td>System / Scope</td><td>SPA and Swimming Pool Works</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">Nameplate Data</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment Type</td><td>Elecro Pool Heater</td></tr>
+                <tr><td>Manufacturer / Brand</td><td>Elecro Engineering Ltd</td></tr>
+                <tr><td>Website</td><td>elecro.co.uk</td></tr>
+                <tr><td>Product Code</td><td>SFSD-45-380</td></tr>
+                <tr><td>Serial Number</td><td>300876</td></tr>
+                <tr><td>Power Rating</td><td>45 kW</td></tr>
+                <tr><td>Voltage Rating</td><td>380 V</td></tr>
+                <tr><td>Frequency Rating</td><td>50 / 60 Hz</td></tr>
+                <tr><td>Current Rating (Amperage)</td><td>69 A</td></tr>
+                <tr><td>Phase Configuration</td><td>3 Phase</td></tr>
+                <tr><td>Minimum Flow Rate</td><td>8,000 Ltr/hour</td></tr>
+                <tr><td>Maximum Flow Rate</td><td>15,000 Ltr/hour</td></tr>
+                <tr><td>Maximum Operating Pressure (Bar)</td><td>4 Bar</td></tr>
+                <tr><td>Maximum Operating Pressure (Pascals)</td><td>400,000 Pascals</td></tr>
+                <tr><td>IP Rating</td><td>IP44</td></tr>
+                <tr><td>Country of Origin</td><td>Made in England</td></tr>
+                <tr><td>Compliance Certifications</td><td>UKCA, CE, EAC, WEEE Symbol</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: pH Controller -->
+    <div class="modal-box" id="modal-phc">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-sliders-h"></i> pH Controller</h2>
+                <p>Hayward HCC2000 &nbsp;|&nbsp; Tag: PHC &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-phc')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment / Device</td><td>pH/ORP Controller</td></tr>
+                <tr><td>Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Tag</td><td>PHC</td></tr>
+                <tr><td>Brand / Manufacturer</td><td>Hayward</td></tr>
+                <tr><td>Manufacturer Full Name</td><td>Hayward Industries Inc.</td></tr>
+                <tr><td>Manufacturer Address</td><td>61 Whitecap Drive, North Kingstown, RI 02852</td></tr>
+                <tr><td>Model</td><td>HCC2000</td></tr>
+                <tr><td>Function</td><td>Automated Water Chemistry Controller</td></tr>
+                <tr><td>Serial / Barcode No.</td><td>1W23205-2256669</td></tr>
+                <tr><td>Input Voltage</td><td>120 / 240 VAC</td></tr>
+                <tr><td>Input Current</td><td>10 A</td></tr>
+                <tr><td>Frequency</td><td>60 Hz</td></tr>
+                <tr><td>Minimum Supply Conductors</td><td>14 AWG, 2 wires plus ground</td></tr>
+                <tr><td>Fuse / Circuit Breaker Rating</td><td>15 A Max</td></tr>
+                <tr><td>Output Rating - pH Feed</td><td>120/240 VAC, 4A, 60Hz</td></tr>
+                <tr><td>Chem Feed Dry Contact</td><td>5 VDC, 1A Max</td></tr>
+                <tr><td>Alarm Dry Contact</td><td>5 VDC, 1A Max</td></tr>
+                <tr><td>Sensor Requirement - pH</td><td>60 mV &lt; 1 pA</td></tr>
+                <tr><td>Sensor Requirement - ORP</td><td>800 mV &lt; 1 pA</td></tr>
+                <tr><td>Certifications / Listings</td><td>CSA c/us, NSF/ANSI Standard 50</td></tr>
+                <tr><td>Protection / Enclosure</td><td>Not mentioned</td></tr>
+                <tr><td>Caution Note 1</td><td>Connect only to a circuit protected by a Class A Ground Fault Circuit Interrupter.</td></tr>
+                <tr><td>Caution Note 2</td><td>Connect only to a branch circuit having over-current protection rated 15A, or less.</td></tr>
+                <tr><td>Caution Note 3</td><td>Risk of electric shock. Disconnect from all sources of electric power before servicing.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Indoor Pool Jet Nozzle Pump -->
+    <div class="modal-box" id="modal-np-idp">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-pump-medical"></i> Indoor Pool Jet Nozzle Pump-01</h2>
+                <p>Pentair WhisperFlo P-WFL-901 3HP &nbsp;|&nbsp; Tag: NP-IDP &nbsp;|&nbsp; SPA &amp; POOL Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-np-idp')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="section-title">Project Information</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Project Name</td><td>CEO Villa</td></tr>
+                <tr><td>Project Code</td><td>10144</td></tr>
+                <tr><td>System / Scope</td><td>SPA and Swimming Pool Works</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">Nameplate Data</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Location</td><td>SPA &amp; POOL Pump Room</td></tr>
+                <tr><td>Service</td><td>Indoor Pool Jet Nozzle Pump</td></tr>
+                <tr><td>Tag</td><td>NP-IDP</td></tr>
+                <tr><td>Equipment Model No.</td><td>WhisperFlo P-WFL-901 3HP</td></tr>
+                <tr><td>Manufacturer / Brand</td><td>Pentair International LLC</td></tr>
+                <tr><td>Full Serial Number</td><td>7630046629014-A0319-250924</td></tr>
+                <tr><td>Manufacturing Date</td><td>Sep-2025</td></tr>
+                <tr><td>Country of Origin</td><td>Made in Italy</td></tr>
+                <tr><td>Nominal Power Output</td><td>2.2 kW</td></tr>
+                <tr><td>Input Power P1</td><td>2.3 kW</td></tr>
+                <tr><td>Voltage Rating</td><td>230 V ~ (1 Ph)</td></tr>
+                <tr><td>Frequency Rating</td><td>60 Hz</td></tr>
+                <tr><td>Full Load Current</td><td>10.7 A</td></tr>
+                <tr><td>Rated Motor Speed</td><td>3450 rpm</td></tr>
+                <tr><td>Maximum Pump Head (Hmax)</td><td>27 m</td></tr>
+                <tr><td>Insulation Class</td><td>Cl. F</td></tr>
+                <tr><td>Capacitor Rating</td><td>31.5 µF</td></tr>
+                <tr><td>Ingress Protection Rating</td><td>IP X5</td></tr>
+                <tr><td>Duty Cycle Type</td><td>Continuous Duty</td></tr>
+                <tr><td>Max Liquid Temperature</td><td>50°C max</td></tr>
+                <tr><td>Max Ambient Air Temp.</td><td>40°C max</td></tr>
+                <tr><td>Thermal Protection</td><td>Thermally Protected</td></tr>
+                <tr><td>Product Internal Code</td><td>9N054300</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Cold Plunge Pumps 01 & 02 (DUAL) -->
+    <div class="modal-box dual" id="modal-fp-cp">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-water"></i> Cold Plunge Filtration &amp; Circulation Pumps 01 &amp; 02</h2>
+                <p>Pentair WhisperFlo P-WFL-801 2HP &nbsp;|&nbsp; Tags: FP-CP-01 &amp; FP-CP-02 &nbsp;|&nbsp; SPA &amp; POOL Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-fp-cp')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="section-title">Project Information</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Project Name</td><td>CEO Villa</td></tr>
+                <tr><td>Project Code</td><td>10144</td></tr>
+                <tr><td>System / Scope</td><td>SPA and Swimming Pool Works</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">Nameplate Data</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th class="dual-col-header">Pump 01</th><th class="dual-col-header">Pump 02</th></tr>
+                <tr><td>Location</td><td class="pump-val">SPA &amp; POOL Pump Room</td><td class="pump-val">SPA &amp; POOL Pump Room</td></tr>
+                <tr><td>Service</td><td class="pump-val">Cold Plunge Filtration &amp; Circulation Pump</td><td class="pump-val">Cold Plunge Filtration &amp; Circulation Pump</td></tr>
+                <tr><td>Tag</td><td class="pump-val">FP-CP-01</td><td class="pump-val">FP-CP-01</td></tr>
+                <tr><td>Equipment Model No.</td><td class="pump-val">WhisperFlo P-WFL-801 2HP</td><td class="pump-val">WhisperFlo P-WFL-801 2HP</td></tr>
+                <tr><td>Manufacturer / Brand</td><td class="pump-val">Pentair International LLC</td><td class="pump-val">Pentair International LLC</td></tr>
+                <tr><td>Full Serial Number</td><td class="pump-val">7630046629007-A0939-250605</td><td class="pump-val">7630046629007-A0932-250605</td></tr>
+                <tr><td>Manufacturing Date</td><td class="pump-val">Jun-2025</td><td class="pump-val">Jun-2025</td></tr>
+                <tr><td>Country of Origin</td><td class="pump-val">Made in Italy</td><td class="pump-val">Made in Italy</td></tr>
+                <tr><td>Nominal Power Output</td><td class="pump-val">1.5 kW</td><td class="pump-val">1.5 kW</td></tr>
+                <tr><td>Input Power P1</td><td class="pump-val">2.1 kW</td><td class="pump-val">2.1 kW</td></tr>
+                <tr><td>Voltage Rating</td><td class="pump-val">230 V - 1PH</td><td class="pump-val">230 V - 1PH</td></tr>
+                <tr><td>Frequency Rating</td><td class="pump-val">60 Hz</td><td class="pump-val">60 Hz</td></tr>
+                <tr><td>Full Load Current</td><td class="pump-val">9.7 A</td><td class="pump-val">9.7 A</td></tr>
+                <tr><td>Rated Motor Speed</td><td class="pump-val">3450 rpm</td><td class="pump-val">3450 rpm</td></tr>
+                <tr><td>Maximum Pump Head (Hmax)</td><td class="pump-val">27 m</td><td class="pump-val">27 m</td></tr>
+                <tr><td>Insulation Class</td><td class="pump-val">Cl. F</td><td class="pump-val">Cl. F</td></tr>
+                <tr><td>Capacitor Rating</td><td class="pump-val">31.5 µF</td><td class="pump-val">31.5 µF</td></tr>
+                <tr><td>Ingress Protection Rating</td><td class="pump-val">IP X5</td><td class="pump-val">IP X5</td></tr>
+                <tr><td>Duty Cycle Type</td><td class="pump-val">Continuous Duty</td><td class="pump-val">Continuous Duty</td></tr>
+                <tr><td>Max Liquid Temperature</td><td class="pump-val">50°C max</td><td class="pump-val">50°C max</td></tr>
+                <tr><td>Max Ambient Air Temp.</td><td class="pump-val">40°C max</td><td class="pump-val">40°C max</td></tr>
+                <tr><td>Thermal Protection</td><td class="pump-val">Thermally Protected</td><td class="pump-val">Thermally Protected</td></tr>
+                <tr><td>Product Internal Code</td><td class="pump-val">9N054290</td><td class="pump-val">9N054290</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Indoor Pool Filtration Pumps 01 & 02 (DUAL) -->
+    <div class="modal-box dual" id="modal-fp-idp">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-swimming-pool"></i> Indoor Pool Filtration Pumps 01 &amp; 02</h2>
+                <p>Pentair &nbsp;|&nbsp; Tags: FP-01-IDP &amp; FP-02-IDP &nbsp;|&nbsp; SPA &amp; Pool Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-fp-idp')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="section-title">Project Information</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Project Name</td><td>CEO Villa</td></tr>
+                <tr><td>Project Code</td><td>10144</td></tr>
+                <tr><td>System / Scope</td><td>SPA and Swimming Pool Works</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">Nameplate Data</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th class="dual-col-header">PUMP-01</th><th class="dual-col-header">PUMP-02</th></tr>
+                <tr><td>Location</td><td class="pump-val">SPA &amp; Pool Pump Room</td><td class="pump-val">SPA &amp; Pool Pump Room</td></tr>
+                <tr><td>Service</td><td class="pump-val">Indoor Pool Filtration Pump</td><td class="pump-val">Indoor Pool Filtration Pump</td></tr>
+                <tr><td>Tag</td><td class="pump-val">FP-01-IDP</td><td class="pump-val">FP-02-IDP</td></tr>
+                <tr><td>Manufacturer / Brand</td><td class="pump-val">Pentair</td><td class="pump-val">Pentair</td></tr>
+                <tr><td>Motor Model Number</td><td class="pump-val">354821</td><td class="pump-val">354821</td></tr>
+                <tr><td>Pump Part Model</td><td class="pump-val">SF-N1-1 1FET</td><td class="pump-val">SF-N1-1 1FET</td></tr>
+                <tr><td>Pump Part Number</td><td class="pump-val">348206 - INT</td><td class="pump-val">848206 - INT</td></tr>
+                <tr><td>Motor Number</td><td class="pump-val">56PP100PSC102</td><td class="pump-val">56PP100PSC102</td></tr>
+                <tr><td>Motor Frame</td><td class="pump-val">56Y</td><td class="pump-val">56Y</td></tr>
+                <tr><td>Motor Warranty / Serial Number</td><td class="pump-val">354821W20923CZ0100218U</td><td class="pump-val">354821W20923CZ0100219U</td></tr>
+                <tr><td>Nominal Power (HP)</td><td class="pump-val">1.0 HP</td><td class="pump-val">1.0 HP</td></tr>
+                <tr><td>Total Horsepower (THP)</td><td class="pump-val">1.65 THP</td><td class="pump-val">1.65 THP</td></tr>
+                <tr><td>Voltage Rating</td><td class="pump-val">115 / 208-230 V</td><td class="pump-val">115 / 208-230 V</td></tr>
+                <tr><td>Frequency</td><td class="pump-val">60 Hz</td><td class="pump-val">60 Hz</td></tr>
+                <tr><td>Rated Speed</td><td class="pump-val">3450 rpm</td><td class="pump-val">3450 rpm</td></tr>
+                <tr><td>Maximum Amperage (MaxAmps)</td><td class="pump-val">SF 15.1 / 8.5-7.7 A</td><td class="pump-val">SF 15.1 / 8.5-7.7 A</td></tr>
+                <tr><td>Insulation Class</td><td class="pump-val">Class F (Insul.Class F)</td><td class="pump-val">Class F (Insul.Class F)</td></tr>
+                <tr><td>Max Ambient Temperature</td><td class="pump-val">50°C</td><td class="pump-val">50°C</td></tr>
+                <tr><td>Ingress Protection Rating</td><td class="pump-val">IPX6</td><td class="pump-val">IPX6</td></tr>
+                <tr><td>Max Working &amp; Hydrostatic Test Pressure</td><td class="pump-val">36 PSI at 104°F</td><td class="pump-val">36 PSI at 104°F</td></tr>
+                <tr><td>Self-Priming Capability</td><td class="pump-val">Self-Priming Pump 10'</td><td class="pump-val">Self-Priming Pump 10'</td></tr>
+                <tr><td>Thermal Protection</td><td class="pump-val">Thermally Protected</td><td class="pump-val">Thermally Protected</td></tr>
+                <tr><td>Certifications</td><td class="pump-val">UL, NSF (NSF/ANSI/CAN 50)</td><td class="pump-val">UL, NSF (NSF/ANSI/CAN 50)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Outdoor Fall & Nozzle Pumps 01 & 02 (DUAL) -->
+    <div class="modal-box dual" id="modal-wfp-odp">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-water"></i> Outdoor Pool Water Fall &amp; Jet Nozzle Pumps 01 &amp; 02</h2>
+                <p>Pentair WhisperFlo &nbsp;|&nbsp; Tags: WFP-ODP &amp; NP-ODP &nbsp;|&nbsp; SPA &amp; POOL Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-wfp-odp')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="section-title">Project Information</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Project Name</td><td>CEO Villa</td></tr>
+                <tr><td>Project Code</td><td>10144</td></tr>
+                <tr><td>System / Scope</td><td>SPA and Swimming Pool Works</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">Nameplate Data</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th class="dual-col-header">PUMP-1 (WFP-ODP)</th><th class="dual-col-header">PUMP-2 (NP-ODP)</th></tr>
+                <tr><td>Location</td><td class="pump-val">SPA &amp; POOL Pump Room</td><td class="pump-val">SPA &amp; POOL Pump Room</td></tr>
+                <tr><td>Service</td><td class="pump-val">Outdoor Pool Water Fall Pump</td><td class="pump-val">Outdoor Pool Jet Nozzle Pump</td></tr>
+                <tr><td>Tag</td><td class="pump-val">WFP-ODP</td><td class="pump-val">NP-ODP</td></tr>
+                <tr><td>Equipment Model No.</td><td class="pump-val">WhisperFlo P-WFL-801 2HP</td><td class="pump-val">WhisperFlo P-WFL-751</td></tr>
+                <tr><td>Manufacturer / Brand</td><td class="pump-val">Pentair International LLC</td><td class="pump-val">Pentair International LLC</td></tr>
+                <tr><td>Full Serial Number</td><td class="pump-val">7630046629007-A0938-250605</td><td class="pump-val">7630046628994-A0292-250710</td></tr>
+                <tr><td>Manufacturing Date</td><td class="pump-val">Jun-2025</td><td class="pump-val">Jul-2025</td></tr>
+                <tr><td>Country of Origin</td><td class="pump-val">Made in Italy</td><td class="pump-val">Made in Italy</td></tr>
+                <tr><td>Nominal Power (kW)</td><td class="pump-val">1.5 kW</td><td class="pump-val">1.1 kW</td></tr>
+                <tr><td>Input Power P1</td><td class="pump-val">2.1 kW</td><td class="pump-val">1.9 kW</td></tr>
+                <tr><td>Voltage Rating</td><td class="pump-val">230 V ~ (1 Ph)</td><td class="pump-val">230 V ~ (1 Ph)</td></tr>
+                <tr><td>Frequency Rating</td><td class="pump-val">60 Hz</td><td class="pump-val">60 Hz</td></tr>
+                <tr><td>Full Load Current</td><td class="pump-val">9.7 A</td><td class="pump-val">8.6 A</td></tr>
+                <tr><td>Rated Motor Speed</td><td class="pump-val">3450 rpm</td><td class="pump-val">3450 rpm</td></tr>
+                <tr><td>Maximum Pump Head (Hmax)</td><td class="pump-val">27 m</td><td class="pump-val">26 m</td></tr>
+                <tr><td>Insulation Class</td><td class="pump-val">Cl. F</td><td class="pump-val">Cl. F</td></tr>
+                <tr><td>Capacitor Rating</td><td class="pump-val">31,5 µF</td><td class="pump-val">31,5 µF</td></tr>
+                <tr><td>Ingress Protection Rating</td><td class="pump-val">IP X5</td><td class="pump-val">IP X5</td></tr>
+                <tr><td>Duty Cycle Type</td><td class="pump-val">Continuous Duty</td><td class="pump-val">Continuous Duty</td></tr>
+                <tr><td>Max Liquid Temperature</td><td class="pump-val">50°C max</td><td class="pump-val">50°C max</td></tr>
+                <tr><td>Max Ambient Air Temp.</td><td class="pump-val">40°C max</td><td class="pump-val">40°C max</td></tr>
+                <tr><td>Thermal Protection</td><td class="pump-val">Thermally Protected</td><td class="pump-val">Thermally Protected</td></tr>
+                <tr><td>Product Internal Code</td><td class="pump-val">9N054290</td><td class="pump-val">9N054280</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Outdoor Pool Filtration Pumps 01 & 02 (DUAL) -->
+    <div class="modal-box dual" id="modal-fp-odp">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-swimming-pool"></i> Outdoor Pool Filtration &amp; Nozzle Pumps 01 &amp; 02</h2>
+                <p>Pentair WhisperFlo P-WFL-901 &nbsp;|&nbsp; Tags: FP-ODP &amp; NP-ODP &nbsp;|&nbsp; SPA &amp; POOL Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-fp-odp')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="section-title">Project Information</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Project Name</td><td>CEO Villa</td></tr>
+                <tr><td>Project Code</td><td>10144</td></tr>
+                <tr><td>System / Scope</td><td>SPA and Pool Facilities</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">Nameplate Data</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th class="dual-col-header">PUMP-1 (FP-ODP)</th><th class="dual-col-header">PUMP-2 (NP-ODP)</th></tr>
+                <tr><td>Location</td><td class="pump-val">SPA &amp; POOL Pump Room</td><td class="pump-val">SPA &amp; POOL Pump Room</td></tr>
+                <tr><td>Service</td><td class="pump-val">Outdoor Pool Filtration Pump</td><td class="pump-val">Outdoor Pool Jet Nozzle Pump</td></tr>
+                <tr><td>Tag</td><td class="pump-val">FP-ODP</td><td class="pump-val">NP-ODP</td></tr>
+                <tr><td>Pump Model</td><td class="pump-val">WhisperFlo P-WFL-901</td><td class="pump-val">WhisperFlo P-WFL-901</td></tr>
+                <tr><td>Manufacturer</td><td class="pump-val">Pentair International S.a.r.l.</td><td class="pump-val">Pentair International S.a.r.l.</td></tr>
+                <tr><td>Manufacturer Address</td><td class="pump-val">Voie du Chariot 3, 1003 Lausanne, Switzerland</td><td class="pump-val">Voie du Chariot 3, 1003 Lausanne, Switzerland</td></tr>
+                <tr><td>Full Serial Number</td><td class="pump-val">7630046629014-A0353-250924</td><td class="pump-val">7630046629014-A0322-250924</td></tr>
+                <tr><td>Manufacturing Date</td><td class="pump-val">Sep-2025</td><td class="pump-val">Sep-2025</td></tr>
+                <tr><td>Country of Origin</td><td class="pump-val">Made in Italy</td><td class="pump-val">Made in Italy</td></tr>
+                <tr><td>Nominal Power (Output)</td><td class="pump-val">2.2 / 3.0 kW / HP</td><td class="pump-val">2.2 / 3.0 kW / HP</td></tr>
+                <tr><td>Input Power (P1)</td><td class="pump-val">2.3 kW</td><td class="pump-val">2.3 kW</td></tr>
+                <tr><td>Voltage Rating</td><td class="pump-val">230 V (1~ AC)</td><td class="pump-val">230 V (1~ AC)</td></tr>
+                <tr><td>Frequency</td><td class="pump-val">60 Hz</td><td class="pump-val">60 Hz</td></tr>
+                <tr><td>Full Load Current</td><td class="pump-val">10.7 A</td><td class="pump-val">10.7 A</td></tr>
+                <tr><td>Rated Speed</td><td class="pump-val">3450 rpm</td><td class="pump-val">3450 rpm</td></tr>
+                <tr><td>Maximum Head (Hmax)</td><td class="pump-val">27 m</td><td class="pump-val">27 m</td></tr>
+                <tr><td>Insulation Class</td><td class="pump-val">Cl. F</td><td class="pump-val">Cl. F</td></tr>
+                <tr><td>Capacitor Rating</td><td class="pump-val">31.5 µF</td><td class="pump-val">31.5 µF</td></tr>
+                <tr><td>Ingress Protection Rating</td><td class="pump-val">IP X5</td><td class="pump-val">IP X5</td></tr>
+                <tr><td>Duty Cycle</td><td class="pump-val">Continuous Duty</td><td class="pump-val">Continuous Duty</td></tr>
+                <tr><td>Max Liquid Temperature</td><td class="pump-val">50°C</td><td class="pump-val">50°C</td></tr>
+                <tr><td>Max Ambient Air Temp.</td><td class="pump-val">40°C</td><td class="pump-val">40°C</td></tr>
+                <tr><td>Thermal Protection</td><td class="pump-val">Thermally Protected</td><td class="pump-val">Thermally Protected</td></tr>
+                <tr><td>Product Code / Internal No.</td><td class="pump-val">9N054300</td><td class="pump-val">9N054300</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: RO System Tank -->
+    <div class="modal-box" id="modal-ro">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-database"></i> RO System Water Storage Tank</h2>
+                <p>TankPAC TP-19P &nbsp;|&nbsp; S/N: 2019/0417346 &nbsp;|&nbsp; Taiwan</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-ro')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="section-title">1. General Identification</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Manufacturer</td><td>TankPAC</td></tr>
+                <tr><td>Model Number</td><td>TP-19P</td></tr>
+                <tr><td>Equipment Type</td><td>Reverse Osmosis Water Storage Tank</td></tr>
+                <tr><td>Country of Origin</td><td>Taiwan</td></tr>
+                <tr><td>Serial / Lot No.</td><td>2019/0417346</td></tr>
+                <tr><td>Certification</td><td>CE 0035</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">2. Technical Operational Specifications</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Factory Pre-charge Pressure</td><td>7 psi</td></tr>
+                <tr><td>Max. Working Pressure</td><td>100 psi</td></tr>
+                <tr><td>Max. Operating Temperature</td><td>60°C</td></tr>
+                <tr><td>Application</td><td>RO Systems Only</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">3. Safety &amp; Maintenance Guidelines</p>
+            <table class="data-table">
+                <tr><th>#</th><th>Guideline</th></tr>
+                <tr><td>1</td><td>Maximum working pressure: 100 psi; Maximum temperature: 60 centigrade.</td></tr>
+                <tr><td>2</td><td>This is a water storage tank for use in RO systems; do not use this tank in other applications.</td></tr>
+                <tr><td>3</td><td>Remove this tank from system if this tank appears corroded.</td></tr>
+                <tr><td>4</td><td>This tank should be inspected regularly, but only by qualified service personnel.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Sand Filter-01 -->
+    <div class="modal-box" id="modal-sf01">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-layer-group"></i> Sand Filter-01</h2>
+                <p>Pentair Triton® II TR140 &nbsp;|&nbsp; Tag: SF-01 &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-sf01')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="section-title">1. Serial Tag Identification</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Manufacturer</td><td>Pentair</td></tr>
+                <tr><td>Product Line</td><td>Triton® II High Rate Sand Filter</td></tr>
+                <tr><td>Part Number (P/N)</td><td>140222</td></tr>
+                <tr><td>Description</td><td>FLT TR140 ALMOND EX</td></tr>
+                <tr><td>Serial Number (S/N)</td><td>0102186180026P</td></tr>
+                <tr><td>Manufacture Date</td><td>2018-07-05</td></tr>
+                <tr><td>Container ID</td><td>SITE E</td></tr>
+                <tr><td>Base Revision Code</td><td>P/N 154589 REV. T 1/16</td></tr>
+                <tr><td>Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Tag</td><td>SF-01</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">2. Technical Sizing &amp; Operational Limits</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Model Number</td><td>TR140</td></tr>
+                <tr><td>Filter Area</td><td>7.06 sq ft</td></tr>
+                <tr><td>Tank Diameter</td><td>36 in</td></tr>
+                <tr><td>Flow Rate (Commercial / Max)</td><td>106 GPM / 141 GPM</td></tr>
+                <tr><td>Maximum Working Pressure</td><td>50 psi</td></tr>
+                <tr><td>Maximum Water Temperature</td><td>122°F</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">3. Filter Media Requirements</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Primary Media Required</td><td>#20 Silica Sand</td></tr>
+                <tr><td>Required Sand Weight</td><td>925 lbs</td></tr>
+                <tr><td>Media Size Spectrum</td><td>0.018 to 0.022 in</td></tr>
+                <tr><td>Required Pea Gravel Support</td><td>9 lbs (1/8" to 1/4")</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">4. Standards Compliance</p>
+            <table class="data-table">
+                <tr><th>Standard</th><th>Details</th></tr>
+                <tr><td>NSF / ANSI Standard 50</td><td>Certified for Swimming Pools, Spas, Hot Tubs, or Public/Residential Use</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Sand Filter-02 -->
+    <div class="modal-box" id="modal-sf02">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-layer-group"></i> Sand Filter-02</h2>
+                <p>Pentair Tagelus TA-40 &nbsp;|&nbsp; Tag: SF-02 &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-sf02')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="section-title">1. Serial Tag &amp; Factory Tracking</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Manufacturer</td><td>Pentair</td></tr>
+                <tr><td>Series</td><td>PENTAIR TAGELUS</td></tr>
+                <tr><td>Item Description</td><td>Sand Filter</td></tr>
+                <tr><td>P/N (Part Number)</td><td>140219</td></tr>
+                <tr><td>Model Code</td><td>TA 40</td></tr>
+                <tr><td>S/N (Serial Number)</td><td>0106152220024X</td></tr>
+                <tr><td>Filter Designation</td><td>FIL TA40 EX</td></tr>
+                <tr><td>Production Date</td><td>06/01/2022</td></tr>
+                <tr><td>Manufacturing Location</td><td>SITE E</td></tr>
+                <tr><td>Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Tag</td><td>SF-02</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">2. Operational Specifications (TA-40)</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Design Flow Rate</td><td>40 gpm (9.1 m³/h)</td></tr>
+                <tr><td>Max Working Pressure</td><td>50 psi (3.4 bar)</td></tr>
+                <tr><td>Media Required</td><td>#20 Silica Sand</td></tr>
+                <tr><td>Media Size Range</td><td>0.018 to 0.022 in. (.45-.55 mm)</td></tr>
+                <tr><td>Sand Weight Required</td><td>175 lbs (79 kg)</td></tr>
+                <tr><td>Application Rating</td><td>Residential / Public Swimming Pools</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">3. Installation Clearance Footprint</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Vertical Clearance</td><td>47 in. (119.4 cm)</td></tr>
+                <tr><td>Horizontal Clearance</td><td>37 in. (94 cm)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Sand Filter-03 -->
+    <div class="modal-box" id="modal-sf03">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-layer-group"></i> Sand Filter-03</h2>
+                <p>Pentair Tagelus TA-40 &nbsp;|&nbsp; Tag: SF-03 &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-sf03')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="section-title">1. Serial Tag &amp; Factory Tracking</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Manufacturer</td><td>Pentair</td></tr>
+                <tr><td>Series</td><td>PENTAIR TAGELUS</td></tr>
+                <tr><td>Item Description</td><td>Sand Filter</td></tr>
+                <tr><td>P/N (Part Number)</td><td>140219</td></tr>
+                <tr><td>Model Code</td><td>TA 40</td></tr>
+                <tr><td>S/N (Serial Number)</td><td>SR: 1061522200293</td></tr>
+                <tr><td>Filter Designation</td><td>FIL TA40 EX</td></tr>
+                <tr><td>Production Date</td><td>06/01/2022</td></tr>
+                <tr><td>Manufacturing Location</td><td>SITE E</td></tr>
+                <tr><td>Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Tag</td><td>SF-03</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">2. Operational Specifications (TA-40)</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Design Flow Rate</td><td>40 gpm (9.1 m³/h)</td></tr>
+                <tr><td>Max Working Pressure</td><td>50 psi (3.4 bar)</td></tr>
+                <tr><td>Media Required</td><td>#20 Silica Sand</td></tr>
+                <tr><td>Media Size Range</td><td>0.018 to 0.022 in. (.45-.55 mm)</td></tr>
+                <tr><td>Sand Weight Required</td><td>175 lbs (79 kg)</td></tr>
+                <tr><td>Application Rating</td><td>Residential / Public Swimming Pools</td></tr>
+            </table>
+            <p class="section-title" style="margin-top:14px">3. Installation Clearance Footprint</p>
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Vertical Clearance</td><td>47 in. (119.4 cm)</td></tr>
+                <tr><td>Horizontal Clearance</td><td>37 in. (94 cm)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Silencer Air Blower -->
+    <div class="modal-box" id="modal-blower">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-wind"></i> Silencer Air Blower</h2>
+                <p>Air Supply of The Future Inc. &nbsp;|&nbsp; Model: 1-6320220F &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-blower')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment Name</td><td>Silencer Air Blower</td></tr>
+                <tr><td>Equipment Tag</td><td>Silencer Air Blower</td></tr>
+                <tr><td>Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Manufacturer</td><td>Air Supply of The Future Inc.</td></tr>
+                <tr><td>Manufacturer Location</td><td>Pompano Beach, Florida</td></tr>
+                <tr><td>Model Number</td><td>1-6320220F</td></tr>
+                <tr><td>Power</td><td>2.0 HP</td></tr>
+                <tr><td>Voltage</td><td>240 Volt</td></tr>
+                <tr><td>Current</td><td>5.5 Amps</td></tr>
+                <tr><td>Frequency</td><td>50/60 Cycle</td></tr>
+                <tr><td>Open Flow</td><td>105 CFM</td></tr>
+                <tr><td>Sealed Pressure</td><td>130 in. H2O</td></tr>
+                <tr><td>Use / Application</td><td>Outdoor Use</td></tr>
+                <tr><td>Date of Manufacturing</td><td>07/17</td></tr>
+                <tr><td>Certification / Listing</td><td>UL Listed</td></tr>
+                <tr><td>Listing Category</td><td>SPA Blower</td></tr>
+                <tr><td>UL Listing Reference</td><td>23E1</td></tr>
+                <tr><td>Warning / Note</td><td>This blower is equipped with a resettable thermal switch. If blower shuts off: disconnect power and allow 1 hr. for motor to cool before attempting to service.</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Steam Generator -->
+    <div class="modal-box" id="modal-sg01">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-cloud"></i> Steam Generator</h2>
+                <p>Amerec AK14 &nbsp;|&nbsp; Tag: SG-01 &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-sg01')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment Name</td><td>Steam Generator / Heater</td></tr>
+                <tr><td>Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Tag</td><td>SG-01</td></tr>
+                <tr><td>Brand / Manufacturer</td><td>Amerec</td></tr>
+                <tr><td>Manufacturer Location</td><td>Cokato, Minnesota</td></tr>
+                <tr><td>Country of Origin</td><td>Made in USA</td></tr>
+                <tr><td>Model</td><td>AK14</td></tr>
+                <tr><td>Code / Serial No.</td><td>10413683318</td></tr>
+                <tr><td>Voltage</td><td>208–240 V / 400–415 V</td></tr>
+                <tr><td>Frequency</td><td>50/60 Hz</td></tr>
+                <tr><td>Power Rating</td><td>10.5 / 14.0 kW</td></tr>
+                <tr><td>Phase</td><td>1 / 3</td></tr>
+                <tr><td>Protection Rating</td><td>IP20</td></tr>
+                <tr><td>Wire Requirement</td><td>Minimum 75°C copper wire only</td></tr>
+                <tr><td>Pressure Relief Valve</td><td>Install 10 PSI [38 kPa] valve provided</td></tr>
+                <tr><td>Certification / Listing</td><td>ETL Listed</td></tr>
+                <tr><td>Intertek Number</td><td>3141369</td></tr>
+                <tr><td>Standard Compliance 1</td><td>Conforms to ANSI/UL STD 499</td></tr>
+                <tr><td>Standard Compliance 2</td><td>Certified to CAN/CSA STD C22.2 No. 64</td></tr>
+                <tr><td>Marks / Approvals</td><td>UKCA, CE, ETL</td></tr>
+                <tr><td>Application Note</td><td>Not for space heating purposes</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Submersible Pump -->
+    <div class="modal-box" id="modal-sp01">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-arrow-circle-down"></i> Submersible Pump</h2>
+                <p>PEDROLLO TOP 4N &nbsp;|&nbsp; Tag: SP-01 &nbsp;|&nbsp; SPA &amp; Pool Pump Room Sump-Pit</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-sp01')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Manufacturer / Brand</td><td>PEDROLLO</td></tr>
+                <tr><td>Equipment Type</td><td>Pump</td></tr>
+                <tr><td>Model</td><td>TOP 4N</td></tr>
+                <tr><td>Tag</td><td>SP-01</td></tr>
+                <tr><td>Location</td><td>SPA &amp; Pool Pump Room Sump-Pit</td></tr>
+                <tr><td>Serial / Code</td><td>2599U1132365</td></tr>
+                <tr><td>Flow Rate (Q)</td><td>20 - 320 l/min</td></tr>
+                <tr><td>Head (H)</td><td>12.5 - 2 m</td></tr>
+                <tr><td>Minimum Head (Hmin)</td><td>2 m</td></tr>
+                <tr><td>Voltage</td><td>220 V</td></tr>
+                <tr><td>Frequency</td><td>60 Hz</td></tr>
+                <tr><td>Speed</td><td>3450 rpm</td></tr>
+                <tr><td>Output Power (P2)</td><td>0.75 kW / 1 HP</td></tr>
+                <tr><td>Input Power (P1)</td><td>1100 W</td></tr>
+                <tr><td>Rated Current (In)</td><td>5 A</td></tr>
+                <tr><td>Capacitor</td><td>16 µF</td></tr>
+                <tr><td>Capacitor Voltage (VL)</td><td>450 V</td></tr>
+                <tr><td>Insulation Class</td><td>F</td></tr>
+                <tr><td>Protection Class</td><td>IP X8</td></tr>
+                <tr><td>Duty</td><td>Continuous Duty</td></tr>
+                <tr><td>Maximum Immersion Depth</td><td>5 m</td></tr>
+                <tr><td>Max Liquid Temperature</td><td>40°C</td></tr>
+                <tr><td>Certifications / Marks</td><td>EAC, UKCA, CE, WEEE</td></tr>
+                <tr><td>Country of Origin</td><td>Made in Italy</td></tr>
+                <tr><td>Manufacturer Location</td><td>San Bonifacio (Verona), ITALY</td></tr>
+                <tr><td>Telephone</td><td>+39 045 6136311</td></tr>
+                <tr><td>Fax</td><td>045 7614663</td></tr>
+                <tr><td>Website</td><td>www.pedrollo.com</td></tr>
+                <tr><td>Rotation Direction</td><td>As per arrow direction</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: UV Lamp -->
+    <div class="modal-box" id="modal-uv">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-sun"></i> UV Lamp</h2>
+                <p>ELECRO H.R. UV-C PRO &nbsp;|&nbsp; Model: HRP-110 &nbsp;|&nbsp; Pool &amp; SPA Pump Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-uv')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment Name</td><td>UV-C Pool Sanitising System / UV Sterilizer</td></tr>
+                <tr><td>Brand / Manufacturer</td><td>ELECRO Engineering</td></tr>
+                <tr><td>Product Series</td><td>H.R. UV-C PRO</td></tr>
+                <tr><td>Model</td><td>HRP-110</td></tr>
+                <tr><td>Asset Tag / Code</td><td>UV Lamp</td></tr>
+                <tr><td>Asset Location</td><td>Pool &amp; SPA Pump Room</td></tr>
+                <tr><td>Unit Power</td><td>120 W</td></tr>
+                <tr><td>UV Lamp Rating</td><td>2 x 55 W</td></tr>
+                <tr><td>UV Type</td><td>UV-C</td></tr>
+                <tr><td>Replacement UV Lamp Code</td><td>SP-UV-LAMP-EL</td></tr>
+                <tr><td>Version Compatibility</td>Refer to product documentation</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- MODAL: Sauna Heater -->
+    <div class="modal-box" id="modal-sauna">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-fire"></i> Sauna Heater</h2>
+                <p>Sauna Heater &nbsp;|&nbsp; Model: ZL16.2 &nbsp;|&nbsp; Sauna Room</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-sauna')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>Value</th></tr>
+                <tr><td>Equipment Type</td><td>Sauna Heater</td></tr>
+                <tr><td>Tag</td><td>SH-01</td></tr>
+                <tr><td>Location</td><td>Sauna Room</td></tr>
+                <tr><td>Model</td><td>ZL16.2</td></tr>
+                <tr><td>Power</td><td>16.2 KW</td></tr>
+                <tr><td>Voltage</td><td>400 VAC</td></tr>
+                <tr><td>Phase</td><td>3N</td></tr>
+                <tr><td>Frequency</td><td>50/60 Hz</td></tr>
+                <tr><td>IP Rating</td><td>IPX4</td></tr>
+                <tr><td>Serial No.</td><td>26010294</td></tr>
+                <tr><td>Certifications</td><td>CE, UKCA, UKNI, RoHS</td></tr>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- MODAL: Feature Wall Submersible Pumps 01 & 02 -->
+    <div class="modal-box" id="modal-wfp">
+        <div class="modal-header">
+            <div class="modal-header-info">
+                <h2><i class="fas fa-water"></i> Feature Wall Pumps 01 &amp; 02</h2>
+                <p>PEDROLLO TOP3 &nbsp;|&nbsp; WFSP-01 / WFSP-02 &nbsp;|&nbsp; Feature Wall Showers</p>
+            </div>
+            <button class="modal-close" onclick="closeModalById('modal-wfp')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <table class="data-table">
+                <tr><th>Parameter</th><th>WFSP-01</th><th>WFSP-02</th></tr>
+                <tr><td>Asset Name</td><td>Feature Wall Submersible Pump-01</td><td>Feature Wall Submersible Pump-02</td></tr>
+                <tr><td>Location</td><td>Feature Wall Shower-01</td><td>Feature Wall Shower-02</td></tr>
+                <tr><td>Tag</td><td>WFSP-01</td><td>WFSP-02</td></tr>
+                <tr><td>Serial / Code</td><td>24909A2015670</td><td>24909A2015680</td></tr>
+                <tr><td>Manufacturer / Brand</td><td>PEDROLLO</td><td>PEDROLLO</td></tr>
+                <tr><td>Pump Model</td><td>TOP3</td><td>TOP3</td></tr>
+                <tr><td>Country of Origin</td><td>Made in Italy</td><td>Made in Italy</td></tr>
+                <tr><td>Flow Rate (Q)</td><td>20 – 260 l/min</td><td>20 – 260 l/min</td></tr>
+                <tr><td>Head (H)</td><td>10 – 2 m</td><td>10 – 2 m</td></tr>
+                <tr><td>Min. Head (Hmin)</td><td>2 m</td><td>2 m</td></tr>
+                <tr><td>Max Liquid Temp.</td><td>40 °C</td><td>40 °C</td></tr>
+                <tr><td>Power Supply</td><td>220 V ~</td><td>220 V ~</td></tr>
+                <tr><td>Frequency</td><td>60 Hz</td><td>60 Hz</td></tr>
+                <tr><td>Speed</td><td>3450 min⁻¹</td><td>3450 min⁻¹</td></tr>
+                <tr><td>Output Power (P2)</td><td>0.55 kW / 0.75 HP</td><td>0.55 kW / 0.75 HP</td></tr>
+                <tr><td>Rated Current (In)</td><td>3.7 A</td><td>3.7 A</td></tr>
+                <tr><td>Input Power (P1)</td><td>780 W</td><td>780 W</td></tr>
+                <tr><td>Capacitor</td><td>14 µF / 450 V</td><td>14 µF / 450 V</td></tr>
+                <tr><td>Insulation Class</td><td>F</td><td>F</td></tr>
+                <tr><td>IP Rating</td><td>X8</td><td>X8</td></tr>
+                <tr><td>Duty</td><td>Thermally protected continuous duty</td><td>Thermally protected continuous duty</td></tr>
+                <tr><td>Certifications</td><td>EAC, UKCA, CE, WEEE</td><td>EAC, UKCA, CE, WEEE</td></tr>
+            </table>
+        </div>
+    </div>
+
+
+<script>
+  function openModal(id) {
+    // Hide all modal boxes first
+    document.querySelectorAll('.modal-box').forEach(function(m) {
+      m.style.display = 'none';
+    });
+    // Show the target modal
+    var target = document.getElementById(id);
+    if (target) { target.style.display = 'block'; }
+    // Activate the overlay
+    document.getElementById('modalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(event) {
+    // Only close if clicking the overlay backdrop (not the modal box itself)
+    if (event.target === document.getElementById('modalOverlay')) {
+      _hideOverlay();
+    }
+  }
+
+  function closeModalById(id) {
+    _hideOverlay();
+  }
+
+  function _hideOverlay() {
+    document.getElementById('modalOverlay').classList.remove('active');
+    document.querySelectorAll('.modal-box').forEach(function(m) {
+      m.style.display = 'none';
+    });
+    document.body.style.overflow = '';
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { _hideOverlay(); }
+  });

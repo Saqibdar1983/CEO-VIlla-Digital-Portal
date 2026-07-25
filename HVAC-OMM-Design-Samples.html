@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HVAC O&amp;M Manuals — Design Samples</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#060a12;--panel:#0c121c;--surface:#111827;--border:#1e2a3a;
+  --text:#e8edf5;--muted:#7a8fa8;--dim:#4a5f78;
+  --gold:#c9a84c;--blue:#4aa8d4;--green:#2abf8f;--red:#e07070;
+}
+html,body{height:100%;background:#030508;color:var(--text);font-family:'Exo 2',sans-serif}
+
+/* ── Sample picker bar ── */
+.picker{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  padding:10px 16px;background:#0a0e16;border-bottom:1px solid var(--border);
+}
+.picker-label{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+.picker-btn{
+  padding:8px 18px;border-radius:6px;border:1px solid var(--border);
+  background:var(--surface);color:var(--muted);
+  font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;cursor:pointer;transition:all .15s;
+}
+.picker-btn:hover{border-color:var(--blue);color:var(--text)}
+.picker-btn.active{background:rgba(74,168,212,.12);border-color:var(--blue);color:var(--blue)}
+.picker-note{margin-left:8px;font-size:11px;color:var(--dim);font-family:'Share Tech Mono',monospace}
+
+.sample{display:none;height:100vh;padding-top:52px;flex-direction:column;overflow:hidden}
+.sample.active{display:flex}
+
+/* ═══════════════════════════════════════════
+   DESIGN A — Document Library Table
+   Full-width grouped table, scan & find fast
+   ═══════════════════════════════════════════ */
+.a-top{
+  display:flex;align-items:center;gap:12px;padding:12px 20px;
+  background:var(--panel);border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.a-nav{width:32px;height:32px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;display:grid;place-items:center;font-size:16px}
+.a-top-mid{flex:1}
+.a-crumb{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.25em;color:var(--dim);text-transform:uppercase}
+.a-title{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;letter-spacing:.06em;color:var(--text);margin-top:2px}
+.a-stats{display:flex;gap:20px;flex-shrink:0}
+.a-stat{text-align:right}
+.a-stat b{display:block;font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--gold);line-height:1}
+.a-stat span{font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:.15em;color:var(--dim);text-transform:uppercase}
+
+.a-toolbar{
+  display:flex;align-items:center;gap:12px;padding:10px 20px;
+  background:rgba(8,12,20,.95);border-bottom:1px solid var(--border);flex-shrink:0;flex-wrap:wrap;
+}
+.a-search{
+  flex:1;min-width:200px;display:flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 12px;
+}
+.a-search input{flex:1;background:transparent;border:none;outline:none;color:var(--text);font-size:13px;font-family:'Exo 2',sans-serif}
+.a-search input::placeholder{color:var(--dim)}
+.a-filters{display:flex;gap:6px;flex-wrap:wrap}
+.a-filter{
+  padding:6px 12px;border-radius:4px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);font-family:'Rajdhani',sans-serif;
+  font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;
+}
+.a-filter.on{background:rgba(74,168,212,.1);border-color:rgba(74,168,212,.4);color:var(--blue)}
+
+.a-body{flex:1;min-height:0;overflow-y:auto;padding:0 0 40px}
+
+.a-group{border-bottom:1px solid var(--border)}
+.a-group-hdr{
+  display:flex;align-items:center;gap:10px;padding:10px 20px;
+  background:rgba(12,18,28,.98);position:sticky;top:0;z-index:2;
+  border-bottom:1px solid var(--border);
+}
+.a-group-num{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--blue);letter-spacing:.2em;background:rgba(74,168,212,.08);border:1px solid rgba(74,168,212,.25);padding:2px 7px;border-radius:3px}
+.a-group-name{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase}
+.a-group-cnt{margin-left:auto;font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim)}
+
+.a-table{width:100%;border-collapse:collapse}
+.a-table th{
+  text-align:left;padding:7px 20px;font-family:'Share Tech Mono',monospace;
+  font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);
+  background:rgba(6,10,16,.6);border-bottom:1px solid var(--border);font-weight:400;
+}
+.a-table th:last-child,.a-table td:last-child{text-align:right;width:80px}
+.a-table td{padding:10px 20px;border-bottom:1px solid rgba(30,42,58,.5);vertical-align:middle;font-size:13px;line-height:1.4}
+.a-table tr:hover td{background:rgba(74,168,212,.04)}
+.a-eq{color:var(--text);font-weight:500;white-space:nowrap;width:180px}
+.a-type{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:.08em;width:48px}
+.a-doc{color:#b8c8dc}
+.a-open{
+  display:inline-block;padding:5px 12px;border-radius:4px;
+  border:1px solid rgba(74,168,212,.35);background:rgba(74,168,212,.08);
+  color:var(--blue);font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;text-decoration:none;
+}
+.a-open:hover{background:rgba(74,168,212,.18)}
+.a-pend{color:var(--red);font-style:italic;font-size:12px}
+
+/* ═══════════════════════════════════════════
+   DESIGN B — Master / Detail Split
+   Equipment list left, documents right
+   ═══════════════════════════════════════════ */
+.b-top{
+  display:flex;align-items:center;gap:12px;padding:12px 20px;
+  background:var(--panel);border-bottom:1px solid var(--border);flex-shrink:0;
+}
+.b-top-mid{flex:1}
+.b-title{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;letter-spacing:.05em}
+.b-sub{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:.18em;margin-top:2px;text-transform:uppercase}
+.b-pills{display:flex;gap:8px;flex-shrink:0}
+.b-pill{
+  padding:5px 10px;border-radius:4px;border:1px solid var(--border);
+  font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--muted);
+}
+.b-pill b{color:var(--gold);font-weight:700}
+
+.b-main{flex:1;min-height:0;display:flex;overflow:hidden}
+
+.b-sidebar{
+  width:300px;flex-shrink:0;border-right:1px solid var(--border);
+  display:flex;flex-direction:column;background:rgba(8,12,18,.98);
+}
+.b-sb-search{padding:10px 12px;border-bottom:1px solid var(--border);flex-shrink:0}
+.b-sb-search input{
+  width:100%;background:var(--surface);border:1px solid var(--border);border-radius:6px;
+  padding:8px 10px;color:var(--text);font-size:12px;outline:none;font-family:'Exo 2',sans-serif;
+}
+.b-sb-search input::placeholder{color:var(--dim)}
+.b-sb-list{flex:1;overflow-y:auto;padding:6px 0 20px}
+
+.b-sys-label{
+  padding:8px 14px 4px;font-family:'Share Tech Mono',monospace;
+  font-size:8px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase;
+}
+.b-eq-item{
+  display:flex;align-items:center;gap:10px;padding:9px 14px;cursor:pointer;
+  border-left:3px solid transparent;transition:background .12s;
+}
+.b-eq-item:hover{background:rgba(255,255,255,.03)}
+.b-eq-item.sel{background:rgba(74,168,212,.08);border-left-color:var(--blue)}
+.b-eq-num{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);width:22px;flex-shrink:0}
+.b-eq-info{flex:1;min-width:0}
+.b-eq-name{font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;color:var(--text);line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.b-eq-meta{font-size:10px;color:var(--dim);margin-top:1px}
+.b-eq-badge{
+  flex-shrink:0;font-family:'Share Tech Mono',monospace;font-size:9px;
+  color:var(--blue);background:rgba(74,168,212,.1);border:1px solid rgba(74,168,212,.2);
+  padding:2px 6px;border-radius:3px;
+}
+
+.b-detail{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--bg)}
+.b-detail-hdr{
+  padding:16px 24px;border-bottom:1px solid var(--border);flex-shrink:0;
+  background:rgba(10,14,22,.8);
+}
+.b-detail-sys{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--blue);text-transform:uppercase;margin-bottom:4px}
+.b-detail-name{font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;color:var(--text);line-height:1.15}
+.b-detail-note{font-size:12px;color:var(--muted);margin-top:6px}
+.b-detail-body{flex:1;overflow-y:auto;padding:16px 24px 40px}
+
+.b-doc-row{
+  display:flex;align-items:flex-start;gap:14px;padding:14px 16px;
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  margin-bottom:8px;transition:border-color .12s;
+}
+.b-doc-row:hover{border-color:rgba(74,168,212,.35)}
+.b-doc-type{
+  flex-shrink:0;width:44px;text-align:center;padding:6px 0;border-radius:5px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.06em;
+  background:rgba(74,168,212,.1);color:var(--blue);border:1px solid rgba(74,168,212,.2);
+}
+.b-doc-info{flex:1;min-width:0}
+.b-doc-title{font-size:14px;color:var(--text);line-height:1.45;font-weight:400}
+.b-doc-sub{font-size:11px;color:var(--dim);margin-top:3px;font-family:'Share Tech Mono',monospace;letter-spacing:.04em}
+.b-doc-btn{
+  flex-shrink:0;align-self:center;padding:8px 16px;border-radius:5px;
+  border:1px solid var(--gold);background:rgba(201,168,76,.1);color:var(--gold);
+  font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;text-decoration:none;white-space:nowrap;
+}
+.b-doc-btn:hover{background:rgba(201,168,76,.2)}
+.b-empty-detail{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  color:var(--dim);font-size:14px;font-family:'Share Tech Mono',monospace;letter-spacing:.08em;
+}
+
+@media(max-width:700px){
+  .b-main{flex-direction:column}
+  .b-sidebar{width:100%;max-height:40vh;border-right:none;border-bottom:1px solid var(--border)}
+  .a-stats{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="picker">
+  <span class="picker-label">Choose a design</span>
+  <button class="picker-btn active" onclick="showSample('a',this)">Sample A — Document Table</button>
+  <button class="picker-btn" onclick="showSample('b',this)">Sample B — Master / Detail</button>
+  <span class="picker-note">Preview only · approve one, then we implement in EVA-HVAC-09.html</span>
+</div>
+
+<!-- ═══ SAMPLE A ═══ -->
+<div class="sample active" id="sample-a">
+  <div class="a-top">
+    <button class="a-nav" title="Back">←</button>
+    <div class="a-top-mid">
+      <div class="a-crumb">HVAC · Section 03 · O&amp;M Manuals</div>
+      <div class="a-title">Operation &amp; Maintenance Manuals</div>
+    </div>
+    <div class="a-stats">
+      <div class="a-stat"><b>43</b><span>Documents</span></div>
+      <div class="a-stat"><b>16</b><span>Equipment</span></div>
+      <div class="a-stat"><b>1</b><span>Pending</span></div>
+    </div>
+    <button class="a-nav" title="Home">⌂</button>
+  </div>
+  <div class="a-toolbar">
+    <div class="a-search">
+      <span style="color:var(--dim);font-size:14px">⌕</span>
+      <input type="search" placeholder="Search equipment or document name…">
+    </div>
+    <div class="a-filters">
+      <button class="a-filter on">All</button>
+      <button class="a-filter">VRF</button>
+      <button class="a-filter">Air Handling</button>
+      <button class="a-filter">Package</button>
+      <button class="a-filter">Ventilation</button>
+      <button class="a-filter">Controls</button>
+    </div>
+  </div>
+  <div class="a-body">
+
+    <div class="a-group">
+      <div class="a-group-hdr">
+        <span class="a-group-num">SYS 01</span>
+        <span class="a-group-name">VRF System</span>
+        <span class="a-group-cnt">12 documents · 3 equipment</span>
+      </div>
+      <table class="a-table">
+        <thead><tr><th>Equipment</th><th>Type</th><th>Document</th><th></th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="a-eq">VRF Outdoor Unit</td>
+            <td class="a-type">IOM</td>
+            <td class="a-doc">Installation, Operation &amp; Maintenance Manual — Daikin VRV IV-S Series</td>
+            <td><a class="a-open" href="#">Open</a></td>
+          </tr>
+          <tr>
+            <td class="a-eq">VRF Outdoor Unit</td>
+            <td class="a-type">CAT</td>
+            <td class="a-doc">General Catalogue — Daikin VRV IV-S Series</td>
+            <td><a class="a-open" href="#">Open</a></td>
+          </tr>
+          <tr>
+            <td class="a-eq">VRF Indoor — Cassette</td>
+            <td class="a-type">IOM</td>
+            <td class="a-doc">Cassette Type Indoor Unit Installation, Operation &amp; Maintenance Manual</td>
+            <td><a class="a-open" href="#">Open</a></td>
+          </tr>
+          <tr>
+            <td class="a-eq">ID Touch Manager</td>
+            <td class="a-type">USR</td>
+            <td class="a-doc">VRF ID Touch Manager User Manual — Daikin</td>
+            <td><a class="a-open" href="#">Open</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="a-group">
+      <div class="a-group-hdr">
+        <span class="a-group-num">SYS 02</span>
+        <span class="a-group-name">Air Handling</span>
+        <span class="a-group-cnt">5 documents · 2 equipment</span>
+      </div>
+      <table class="a-table">
+        <thead><tr><th>Equipment</th><th>Type</th><th>Document</th><th></th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="a-eq">FAHU</td>
+            <td class="a-type">IOM</td>
+            <td class="a-doc">Installation, Operation &amp; Maintenance Manual — D-AHU Fresh Air Handling Unit</td>
+            <td><a class="a-open" href="#">Open</a></td>
+          </tr>
+          <tr>
+            <td class="a-eq">FAHU</td>
+            <td class="a-type">BMS</td>
+            <td class="a-doc">Controller Operation — FAHU</td>
+            <td><a class="a-open" href="#">Open</a></td>
+          </tr>
+          <tr>
+            <td class="a-eq">HMU</td>
+            <td class="a-type">—</td>
+            <td class="a-doc a-pend">Documents pending — not yet uploaded</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="a-group">
+      <div class="a-group-hdr">
+        <span class="a-group-num">SYS 03</span>
+        <span class="a-group-name">Ventilation</span>
+        <span class="a-group-cnt">11 documents · 4 equipment</span>
+      </div>
+      <table class="a-table">
+        <thead><tr><th>Equipment</th><th>Type</th><th>Document</th><th></th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="a-eq">Exhaust Fan — Family Kitchen</td>
+            <td class="a-type">IOM</td>
+            <td class="a-doc">Installation, Operation &amp; Maintenance Manual — K 160 XL</td>
+            <td><a class="a-open" href="#">Open</a></td>
+          </tr>
+          <tr>
+            <td class="a-eq">Exhaust Fan — Kitchen BKF</td>
+            <td class="a-type">TCH</td>
+            <td class="a-doc">Technical Catalogue — Kitchen Smoke Extract BKF</td>
+            <td><a class="a-open" href="#">Open</a></td>
+          </tr>
+          <tr>
+            <td class="a-eq">Exhaust Fans — CIS</td>
+            <td class="a-type">SEL</td>
+            <td class="a-doc">Exhaust Fan Selection — CIS Model Services Areas</td>
+            <td><a class="a-open" href="#">Open</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="a-group">
+      <div class="a-group-hdr">
+        <span class="a-group-num">SYS 04</span>
+        <span class="a-group-name">Package Units</span>
+        <span class="a-group-cnt">4 documents · 1 equipment</span>
+      </div>
+      <table class="a-table">
+        <thead><tr><th>Equipment</th><th>Type</th><th>Document</th><th></th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="a-eq">Package AC — Daikin</td>
+            <td class="a-type">IOM</td>
+            <td class="a-doc">Package Air Conditioner Installation, Operation &amp; Maintenance Manual</td>
+            <td><a class="a-open" href="#">Open</a></td>
+          </tr>
+          <tr>
+            <td class="a-eq">Package AC — Daikin</td>
+            <td class="a-type">CAT</td>
+            <td class="a-doc">Package AC General Catalogue — Daikin R410A Series</td>
+            <td><a class="a-open" href="#">Open</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ SAMPLE B ═══ -->
+<div class="sample" id="sample-b">
+  <div class="b-top">
+    <button class="a-nav" title="Back">←</button>
+    <div class="b-top-mid">
+      <div class="b-title">Operation &amp; Maintenance Manuals</div>
+      <div class="b-sub">CEO Villa · IHCC · Mechanical HVAC · Section 03</div>
+    </div>
+    <div class="b-pills">
+      <span class="b-pill"><b>43</b> DOCS</span>
+      <span class="b-pill"><b>16</b> EQUIP</span>
+      <span class="b-pill" style="color:var(--red)"><b>1</b> PENDING</span>
+    </div>
+    <button class="a-nav" title="Home">⌂</button>
+  </div>
+  <div class="b-main">
+    <aside class="b-sidebar">
+      <div class="b-sb-search">
+        <input type="search" placeholder="Filter equipment…">
+      </div>
+      <div class="b-sb-list">
+        <div class="b-sys-label">VRF System</div>
+        <div class="b-eq-item" onclick="selectEq(this,'vrf-outdoor')">
+          <span class="b-eq-num">01</span>
+          <div class="b-eq-info">
+            <div class="b-eq-name">VRF Outdoor Unit</div>
+            <div class="b-eq-meta">Daikin VRV IV-S</div>
+          </div>
+          <span class="b-eq-badge">4</span>
+        </div>
+        <div class="b-eq-item" onclick="selectEq(this,'vrf-indoor')">
+          <span class="b-eq-num">02</span>
+          <div class="b-eq-info">
+            <div class="b-eq-name">VRF Indoor — Cassette</div>
+            <div class="b-eq-meta">Multiple zones</div>
+          </div>
+          <span class="b-eq-badge">3</span>
+        </div>
+        <div class="b-eq-item sel" onclick="selectEq(this,'id-touch')">
+          <span class="b-eq-num">03</span>
+          <div class="b-eq-info">
+            <div class="b-eq-name">ID Touch Manager</div>
+            <div class="b-eq-meta">VRF Controller</div>
+          </div>
+          <span class="b-eq-badge">4</span>
+        </div>
+
+        <div class="b-sys-label">Air Handling</div>
+        <div class="b-eq-item" onclick="selectEq(this,'fahu')">
+          <span class="b-eq-num">04</span>
+          <div class="b-eq-info">
+            <div class="b-eq-name">FAHU</div>
+            <div class="b-eq-meta">Fresh Air Handling Unit</div>
+          </div>
+          <span class="b-eq-badge">5</span>
+        </div>
+        <div class="b-eq-item" onclick="selectEq(this,'hmu')">
+          <span class="b-eq-num">05</span>
+          <div class="b-eq-info">
+            <div class="b-eq-name">HMU</div>
+            <div class="b-eq-meta">Heat Make-Up Unit</div>
+          </div>
+          <span class="b-eq-badge" style="color:var(--red);border-color:rgba(224,112,112,.3);background:rgba(224,112,112,.08)">!</span>
+        </div>
+
+        <div class="b-sys-label">Ventilation</div>
+        <div class="b-eq-item" onclick="selectEq(this,'ex-kitchen')">
+          <span class="b-eq-num">06</span>
+          <div class="b-eq-info">
+            <div class="b-eq-name">Exhaust Fan — Family Kitchen</div>
+            <div class="b-eq-meta">K 160 XL</div>
+          </div>
+          <span class="b-eq-badge">5</span>
+        </div>
+        <div class="b-eq-item" onclick="selectEq(this,'ex-bkf')">
+          <span class="b-eq-num">07</span>
+          <div class="b-eq-info">
+            <div class="b-eq-name">Exhaust Fan — Kitchen BKF</div>
+            <div class="b-eq-meta">Smoke extract</div>
+          </div>
+          <span class="b-eq-badge">3</span>
+        </div>
+
+        <div class="b-sys-label">Package Units</div>
+        <div class="b-eq-item" onclick="selectEq(this,'pkg')">
+          <span class="b-eq-num">08</span>
+          <div class="b-eq-info">
+            <div class="b-eq-name">Package AC — Daikin</div>
+            <div class="b-eq-meta">R410A Series</div>
+          </div>
+          <span class="b-eq-badge">4</span>
+        </div>
+      </div>
+    </aside>
+
+    <section class="b-detail" id="b-detail">
+      <div class="b-detail-hdr">
+        <div class="b-detail-sys">VRF System · Equipment 03</div>
+        <div class="b-detail-name">ID Touch Manager — VRF Controller</div>
+        <div class="b-detail-note">4 documents · Daikin · Tap OPEN to view in Google Drive</div>
+      </div>
+      <div class="b-detail-body">
+        <div class="b-doc-row">
+          <div class="b-doc-type">CAT</div>
+          <div class="b-doc-info">
+            <div class="b-doc-title">VRF ID Touch Manager General Catalogue — Daikin</div>
+            <div class="b-doc-sub">Catalogue · Manufacturer document</div>
+          </div>
+          <a class="b-doc-btn" href="#">Open</a>
+        </div>
+        <div class="b-doc-row">
+          <div class="b-doc-type">INS</div>
+          <div class="b-doc-info">
+            <div class="b-doc-title">VRF ID Touch Manager Installation Manual — Daikin</div>
+            <div class="b-doc-sub">Installation · Step-by-step setup guide</div>
+          </div>
+          <a class="b-doc-btn" href="#">Open</a>
+        </div>
+        <div class="b-doc-row">
+          <div class="b-doc-type">USR</div>
+          <div class="b-doc-info">
+            <div class="b-doc-title">VRF ID Touch Manager User Manual — Daikin</div>
+            <div class="b-doc-sub">User guide · Daily operation &amp; settings</div>
+          </div>
+          <a class="b-doc-btn" href="#">Open</a>
+        </div>
+        <div class="b-doc-row">
+          <div class="b-doc-type">TDS</div>
+          <div class="b-doc-info">
+            <div class="b-doc-title">VRF ID Touch Technical Data — Daikin</div>
+            <div class="b-doc-sub">Technical data sheet · Specifications</div>
+          </div>
+          <a class="b-doc-btn" href="#">Open</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+function showSample(id, btn) {
+  document.querySelectorAll('.sample').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.picker-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('sample-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+var DETAIL = {
+  'vrf-outdoor': {
+    sys:'VRF System · Equipment 01', name:'VRF Outdoor Unit', note:'4 documents · Daikin VRV IV-S Series',
+    docs:[
+      {t:'IOM', title:'Installation, Operation & Maintenance Manual — Daikin VRV IV-S', sub:'IOM · Full lifecycle manual'},
+      {t:'CAT', title:'General Catalogue — Daikin VRV IV-S Series', sub:'Catalogue · Product range'},
+      {t:'TDS', title:'Technical Data Sheet — VRV IV-S Outdoor Unit', sub:'Technical · Specifications'},
+      {t:'SEL', title:'VRF System Selection Report — CEO Villa', sub:'Selection · Project specific'},
+    ]
+  },
+  'fahu': {
+    sys:'Air Handling · Equipment 04', name:'FAHU — Fresh Air Handling Unit', note:'5 documents · D-AHU Series',
+    docs:[
+      {t:'IOM', title:'Installation, Operation & Maintenance Manual — D-AHU FAHU', sub:'IOM · Full lifecycle manual'},
+      {t:'BMS', title:'Controller Operation — FAHU', sub:'BMS · Control sequence'},
+      {t:'CAT', title:'General Catalogue — FAHU', sub:'Catalogue · Product range'},
+      {t:'INS', title:'Installation of Copper Kit with Condensing Unit — FAHU', sub:'Installation · Piping kit'},
+      {t:'SEL', title:'Selection of FAHU D-AHU', sub:'Selection · Project specific'},
+    ]
+  },
+  'hmu': {
+    sys:'Air Handling · Equipment 05', name:'HMU — Heat Make-Up Unit', note:'Documents pending upload',
+    docs:[], pending:true
+  },
+  'id-touch': {
+    sys:'VRF System · Equipment 03', name:'ID Touch Manager — VRF Controller', note:'4 documents · Daikin',
+    docs:[
+      {t:'CAT', title:'VRF ID Touch Manager General Catalogue — Daikin', sub:'Catalogue · Manufacturer document'},
+      {t:'INS', title:'VRF ID Touch Manager Installation Manual — Daikin', sub:'Installation · Step-by-step setup'},
+      {t:'USR', title:'VRF ID Touch Manager User Manual — Daikin', sub:'User guide · Daily operation'},
+      {t:'TDS', title:'VRF ID Touch Technical Data — Daikin', sub:'Technical data sheet · Specifications'},
+    ]
+  }
+};
+
+function selectEq(el, key) {
+  document.querySelectorAll('.b-eq-item').forEach(function(i){ i.classList.remove('sel'); });
+  el.classList.add('sel');
+  var d = DETAIL[key];
+  if (!d) return;
+  var hdr = document.querySelector('#b-detail .b-detail-hdr');
+  hdr.innerHTML = '<div class="b-detail-sys">' + d.sys + '</div>'
+    + '<div class="b-detail-name">' + d.name + '</div>'
+    + '<div class="b-detail-note">' + d.note + '</div>';
+  var body = document.querySelector('#b-detail .b-detail-body');
+  if (d.pending || !d.docs.length) {
+    body.innerHTML = '<p style="color:var(--red);font-style:italic;padding:20px 0">Documents not yet uploaded — will be linked when available</p>';
+    return;
+  }
+  body.innerHTML = d.docs.map(function(doc){
+    return '<div class="b-doc-row"><div class="b-doc-type">' + doc.t + '</div>'
+      + '<div class="b-doc-info"><div class="b-doc-title">' + doc.title + '</div>'
+      + '<div class="b-doc-sub">' + doc.sub + '</div></div>'
+      + '<a class="b-doc-btn" href="#">Open</a></div>';
+  }).join('');
+}
+</script>
+</body>
+</html>

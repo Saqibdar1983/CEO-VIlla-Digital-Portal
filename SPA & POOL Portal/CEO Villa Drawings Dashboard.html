@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO Villa — Drawings | SSB Villa O&M Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #f0d060;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: #0d1829;
+            background-image: url("SPA & Pool Drawings Dashboard BG.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #f0e8d0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 10, 20, 0.72);
+            z-index: 0;
+        }
+
+        /* ── HEADER ── */
+        header {
+            background: rgba(5, 10, 20, 0.88);
+            border-bottom: 2px solid rgba(212, 175, 55, 0.45);
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-left {
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-center {
+            flex: 2;
+            text-align: center;
+        }
+
+        .header-center h1 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .header-right {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .btn-back, .btn-home {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .btn-back:hover, .btn-home:hover {
+            background: rgba(212, 175, 55, 0.28);
+        }
+
+        /* ── MAIN ── */
+        main {
+            margin-top: 64px;
+            margin-bottom: 60px;
+            padding: 60px 30px;
+            max-width: 960px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 800;
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 44px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        /* ── CARDS ── */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px;
+            width: 100%;
+        }
+
+        .portal-card {
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            border-bottom: 3px solid var(--gold);
+            border-radius: 8px;
+            padding: 53px 24px;
+            text-align: center;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 228px;
+            text-decoration: none;
+            color: #f5f0e0;
+            transition: all 0.3s ease;
+        }
+
+        .portal-card:hover {
+            background: rgba(212, 175, 55, 0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 28px rgba(212, 175, 55, 0.22);
+            border-color: rgba(212, 175, 55, 0.85);
+        }
+
+        .portal-card i {
+            font-size: 50px;
+            color: var(--gold);
+            margin-bottom: 18px;
+            transition: color 0.3s;
+        }
+
+        .portal-card:hover i {
+            color: var(--gold-light);
+        }
+
+        .portal-card h3 {
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #f5f0e0;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: rgba(5, 10, 20, 0.90);
+            border-top: 2px solid rgba(212, 175, 55, 0.45);
+            padding: 14px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 13px;
+            color: rgba(212, 175, 55, 0.75);
+            z-index: 1000;
+        }
+
+        .btn-up {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn-up:hover {
+            background: rgba(212, 175, 55, 0.35);
+        }
+    </style>
+</head>
+<body id="top">
+
+    <header>
+        <div class="header-left">
+            <a href="Main Dashboard SPA & Pool Facility.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+        </div>
+        <div class="header-center">
+            <h1>SPA &amp; POOL FACILITIES</h1>
+        </div>
+        <div class="header-right">
+            <a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a>
+        </div>
+    </header>
+
+    <main>
+        <div class="grid-container">
+
+            <a href="Shop Drawings Dashboard.html" class="portal-card">
+                <i class="fas fa-drafting-compass"></i>
+                <h3>Shop Drawings</h3>
+            </a>
+
+            <a href="#" class="portal-card">
+                <i class="fas fa-building"></i>
+                <h3>As-Built Drawings</h3>
+            </a>
+
+            <a href="#" class="portal-card">
+                <i class="fas fa-project-diagram"></i>
+                <h3>Single Line Diagram</h3>
+            </a>
+
+            <a href="#" class="portal-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Power &amp; Control</h3>
+            </a>
+
+        </div>
+    </main>
+
+    <footer>
+        <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+        <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+    </footer>
+
+</body>
+</html>

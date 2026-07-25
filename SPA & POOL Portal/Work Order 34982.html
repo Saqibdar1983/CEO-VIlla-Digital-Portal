@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Order 34982 | SSB Villa O&amp;M Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --gold: #D4AF37; --gold-light: #f0d060; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: #0d1829;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: Calibri, Arial, sans-serif;
+        }
+
+        /* ── HEADER ── */
+        header {
+            background: rgba(5, 10, 20, 0.90);
+            border-bottom: 2px solid rgba(212,175,55,0.45);
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+        }
+        .header-left  { flex: 1; display: flex; align-items: center; }
+        .header-center { flex: 2; text-align: center; }
+        .header-center h1 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .header-right { flex: 1; display: flex; justify-content: flex-end; align-items: center; }
+
+        .btn-back, .btn-home {
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+            background: rgba(212,175,55,0.12);
+            color: var(--gold);
+            border: 1px solid rgba(212,175,55,0.45);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        .btn-back:hover, .btn-home:hover { background: rgba(212,175,55,0.28); }
+
+        /* ── MAIN ── */
+        main {
+            margin-top: 64px;
+            margin-bottom: 60px;
+            padding: 28px 22px;
+            max-width: 1250px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── WO DOCUMENT ── */
+        .wo-doc {
+            background: rgba(255,255,255,0.97);
+            border: 1px solid rgba(212,175,55,0.5);
+            border-radius: 8px;
+            padding: 32px 38px;
+            color: #1a1a1a;
+            font-family: Calibri, Arial, sans-serif;
+            font-size: 13.5px;
+        }
+
+        .wo-top-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 18px;
+        }
+
+        .btn-download {
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+            background: var(--gold);
+            color: #1a1000;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13.5px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .btn-download:hover { background: var(--gold-light); }
+
+        .wo-title {
+            text-align: center;
+            font-size: 17px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: #1a1a1a;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #D4AF37;
+            font-family: Calibri, Arial, sans-serif;
+        }
+
+        /* ── INFO TABLE ── */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 18px;
+            font-size: 13px;
+        }
+        .info-table td {
+            padding: 6px 10px;
+            border: 1px solid #c8b45a;
+        }
+        .info-table .lbl {
+            font-weight: 700;
+            background: #f5e98a;
+            color: #3a2800;
+            width: 17%;
+        }
+        .info-table .val {
+            background: #fffef5;
+            width: 28%;
+        }
+        .info-table .val.total {
+            font-weight: 700;
+            font-size: 14px;
+            color: #1a4000;
+        }
+
+        /* ── PAYMENT TERMS BAR ── */
+        .pt-label {
+            font-weight: 700;
+            font-size: 12.5px;
+            background: #3c2e00;
+            color: #f5e170;
+            padding: 6px 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid #6b5200;
+            border-bottom: none;
+        }
+        .pt-value {
+            border: 1px solid #c8b45a;
+            padding: 8px 10px;
+            background: #fffef5;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        /* ── BOQ TABLE ── */
+        .boq-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+            margin-bottom: 0;
+        }
+        .boq-table th {
+            background: #3c2e00;
+            color: #f5e170;
+            padding: 8px 7px;
+            text-align: center;
+            border: 1px solid #6b5200;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        .boq-table .sec td {
+            background: #f0e070;
+            font-weight: 700;
+            color: #2a1e00;
+            border: 1px solid #c8b45a;
+            padding: 7px 8px;
+            font-size: 13px;
+        }
+        .boq-table .item td {
+            background: #fffef5;
+            border: 1px solid #e0d5a0;
+            padding: 5px 8px;
+            color: #333;
+            vertical-align: top;
+            line-height: 1.4;
+        }
+        .boq-table .item:nth-child(even) td { background: #fafaed; }
+        .boq-table .total-row td {
+            background: #3c2e00;
+            color: #f5e170;
+            font-weight: 700;
+            border: 1px solid #6b5200;
+            padding: 8px 8px;
+            font-size: 13px;
+        }
+        .tc  { text-align: center; }
+        .tr  { text-align: right; }
+        .tl  { text-align: left; }
+        .desc { width: 46%; }
+        .narr { width: 8%; }
+
+        /* ── OTHER INFO ── */
+        .oi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+        .oi-table td {
+            border: 1px solid #c8b45a;
+            padding: 7px 10px;
+            vertical-align: top;
+        }
+        .oi-table .lbl {
+            font-weight: 700;
+            background: #f5e98a;
+            color: #3a2800;
+            width: 17%;
+            white-space: nowrap;
+        }
+        .oi-table .val {
+            background: #fffef5;
+            line-height: 1.55;
+        }
+
+        /* ── CONDITIONS ── */
+        .cond-bar {
+            margin-top: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #3c2e00;
+            padding: 11px 16px;
+            border-radius: 4px 4px 0 0;
+        }
+        .cond-bar-title {
+            color: #f5e170;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .btn-expand {
+            background: var(--gold);
+            color: #1a1000;
+            border: none;
+            padding: 7px 18px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: Calibri, Arial, sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+        .btn-expand:hover { background: var(--gold-light); }
+
+        .cond-body {
+            display: none;
+            border: 1px solid #c8b45a;
+            border-top: none;
+            background: #fffef5;
+            border-radius: 0 0 4px 4px;
+        }
+        .cond-body.open { display: block; }
+
+        .cond-row {
+            display: flex;
+            gap: 12px;
+            padding: 9px 14px;
+            border-bottom: 1px solid #e8d88a;
+            font-size: 12.5px;
+            line-height: 1.55;
+            align-items: flex-start;
+        }
+        .cond-row:last-child { border-bottom: none; }
+        .cond-num {
+            min-width: 24px;
+            font-weight: 700;
+            color: #3a2800;
+            padding-top: 1px;
+        }
+        .cond-text { color: #2a2a2a; white-space: pre-wrap; }
+
+        /* ── FOOTER ── */
+        footer {
+            background: rgba(5, 10, 20, 0.90);
+            border-top: 2px solid rgba(212,175,55,0.45);
+            padding: 14px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 13px;
+            color: rgba(212,175,55,0.75);
+            z-index: 1000;
+            font-family: 'Aptos Display', 'Segoe UI', sans-serif;
+        }
+        .btn-up {
+            background: rgba(212,175,55,0.12);
+            color: var(--gold);
+            border: 1px solid rgba(212,175,55,0.45);
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .btn-up:hover { background: rgba(212,175,55,0.35); }
+    </style>
+</head>
+<body id="top">
+
+<header>
+    <div class="header-left">
+        <a href="../EVA-CORE.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+    <div class="header-center">
+        <h1>SPA &amp; POOL FACILITY WORK ORDER 34982</h1>
+    </div>
+    <div class="header-right">
+        <a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a>
+    </div>
+</header>
+
+<main>
+<div class="wo-doc">
+
+    <!-- Download Button -->
+    <div class="wo-top-bar">
+        <a href="#" class="btn-download"><i class="fas fa-file-pdf"></i> Download Signed WO</a>
+    </div>
+
+    <!-- WO Title -->
+    <div class="wo-title">WORK ORDER &nbsp;—&nbsp; SPA &amp; POOL FACILITIES</div>
+
+    <!-- Header Info -->
+    <table class="info-table">
+        <tr>
+            <td class="lbl">Work Order No.</td>
+            <td class="val">34982</td>
+            <td class="lbl">Date</td>
+            <td class="val">15-Apr-25</td>
+        </tr>
+        <tr>
+            <td class="lbl">Change Order No.</td>
+            <td class="val">1</td>
+            <td class="lbl">Date Approved</td>
+            <td class="val">16-Apr-25</td>
+        </tr>
+        <tr>
+            <td class="lbl">TO</td>
+            <td class="val">ASEEB CONTRACTING COMPANY</td>
+            <td class="lbl">P.O. Box</td>
+            <td class="val">12385 ARRIADH - RIYADH-</td>
+        </tr>
+        <tr>
+            <td class="lbl">Project</td>
+            <td class="val">ENG SULTAN BATT VILLA ALMURJAN</td>
+            <td class="lbl">Location</td>
+            <td class="val">SSB VILLA</td>
+        </tr>
+        <tr>
+            <td class="lbl">Initiator / Contact</td>
+            <td class="val">Christian Samson</td>
+            <td class="lbl">Brief Title of Work</td>
+            <td class="val">Water Feature Systems for SSB Villa</td>
+        </tr>
+        <tr>
+            <td class="lbl">Order Total</td>
+            <td class="val total">SAR &nbsp;695,750</td>
+            <td class="lbl">Currency</td>
+            <td class="val">SAR</td>
+        </tr>
+    </table>
+
+    <!-- Payment Terms (Top) -->
+    <div class="pt-label">PAYMENT TERMS</div>
+    <div class="pt-value">10% Advance Against COC Letter; 30% After Testing First Fix, 30% Upon Material Readiness, 20% After Delivery, 5% After Installation, 5% After T&amp;C</div>
+
+    <!-- BOQ TABLE -->
+    <table class="boq-table">
+        <thead>
+            <tr>
+                <th class="narr">Location</th>
+                <th class="narr">Cost Code</th>
+                <th class="desc">Description</th>
+                <th>Unit</th>
+                <th>Qty</th>
+                <th>Rate (SAR)</th>
+                <th>Tax (SAR)</th>
+                <th>Amount (SAR)</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <!-- ── SECTION 1: OUTDOOR SWIMMING POOL ── -->
+            <tr class="sec">
+                <td class="tc">10144</td>
+                <td class="tc">13-01-020</td>
+                <td>Supply, Installation, Testing and Commissioning of Outdoor Swimming Pool with Water Fall &amp; Fountain as per below Details,</td>
+                <td class="tc">Lumsum</td>
+                <td class="tc">1</td>
+                <td class="tr">254,000</td>
+                <td class="tr">38,100</td>
+                <td class="tr">292,100</td>
+            </tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Sand filter TR 140, 36" (Make: Pentair).</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; installation of Filtration Pump 3 hp (Make: Pentair) (Dual, Duty + Standby-),</td><td class="tc">Numbers</td><td class="tc">2</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Submersible pump for pump room 1 hp (Make: Pedrollo),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Wall inlet 2". SS 316 (Make: ASTRAL),</td><td class="tc">Numbers</td><td class="tc">6</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Main drain SS 316: 300*300 mm (Make: ASTRAL),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Vacuum Adaptor 2" SS 316 (Make: ASTRAL),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Gutter Drain 2" ABS Plastic (Make: AKUA4CE),</td><td class="tc">Numbers</td><td class="tc">8</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Float Switch inside Balance Tank (Make: Local),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Fountain Pump 1.5 HP (Make: Pentair),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Waterfall SS 3161. Gutter (custom made) (Make: Local),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Waterfall Pump 2 HP (Make: Pentair),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of RGB Light 12W SS316 (Make: UNONOVESTTE/Italy),</td><td class="tc">Numbers</td><td class="tc">5</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Strip Light (Make: UNONOVESTTE/Italy).</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Light Controller (Make: Local),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Deck Box SS (Make: ASTRAL),</td><td class="tc">Numbers</td><td class="tc">15</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Dosing System (tanks and controller only) using liquid chlorine (Make: Pulsafeeder/Hayward),</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of UV Generator 110 GPM (Make: Elecro).,</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Cleaning Kit (brush, telescopic pole, test kit, vacuum hose, head, leaf skimmer) (Make: AKUA4CE),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Electric Water Heater 45 kW with Titanium Elements (Make: ELECRO/UK),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Mechanical Hardware using CPVC SCH 80 items (Make: Local),</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Electrical Hardware incl. switches for fountain &amp; waterfall (Make: Local),</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Electrical Control Panel (Make: ALFANAR),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Testing &amp; Commissioning Charges,</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Wall Washer Light for the Waterfall (Make: China),</td><td class="tc">Numbers</td><td class="tc">5</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SWIMMING POOL, Supply &amp; Installation of Fountain Standing Light (Make: LINEA/Italy).</td><td class="tc">Numbers</td><td class="tc">4</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+
+            <!-- ── SECTION 2: WALL WATER FEATURES ── -->
+            <tr class="sec">
+                <td class="tc">10144</td>
+                <td class="tc">13-01-020</td>
+                <td>Supply, Installation, Testing and Commissioning of Wall Water Features (2 No's.) as per below Details,</td>
+                <td class="tc">Lumsum</td>
+                <td class="tc">1</td>
+                <td class="tr">40,000</td>
+                <td class="tr">6,000</td>
+                <td class="tr">46,000</td>
+            </tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>WALL WATER FEATURE, Supply &amp; Installation of Deck Box SS (Make: ASTRAL),</td><td class="tc">Numbers</td><td class="tc">2</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>WALL WATER FEATURE, Supply &amp; Installation of Electrical Hardware (Make: Local),</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>WALL WATER FEATURE, Supply &amp; Installation of Light Controller (Make: Local),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>WALL WATER FEATURE, Supply &amp; Installation of Mechanical Hardware using CPVC SCH 80 items (Make Local),</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>WALL WATER FEATURE, Supply &amp; Installation of Wall Washer 1 m (Make: China),</td><td class="tc">Numbers</td><td class="tc">2</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>WALL WATER FEATURE, Supply &amp; Installation of Waterfall Pump, Submersible Pump? HP (Make: Pedrollo),</td><td class="tc">Numbers</td><td class="tc">2</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>WALL WATER FEATURE, Supply Testing &amp; Commissioning Charges.,</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+
+            <!-- ── SECTION 3: SAUNA ROOM ── -->
+            <tr class="sec">
+                <td class="tc">10144</td>
+                <td class="tc">13-01-020</td>
+                <td>Supply, Installation, Testing and Commissioning of Sauna Room as per below Details,</td>
+                <td class="tc">Lumsum</td>
+                <td class="tc">1</td>
+                <td class="tr">110,000</td>
+                <td class="tr">16,500</td>
+                <td class="tr">126,500</td>
+            </tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SAUNA, Supply &amp; Installation of Sauna Room 3.5 x 2.3x 2.4 m (custom fabrication), Beech Wood (Germany origin), 2-layer with thermal insulation,</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SAUNA, Supply &amp; Installation of Sauna Heater 14.4 kW (Make: Amerec),</td><td class="tc">Numbers</td><td class="tc">2</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SAUNA, Supply &amp; Installation of Sauna Lights (Make: Phillips),</td><td class="tc">Numbers</td><td class="tc">2</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SAUNA, Supply &amp; Installation of Sauna Controller using T1 with Touch Screen (Make: Amerec),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SAUNA, Supply &amp; Installation of Sauna Accessories (stone, lampshade, ladle, bucket, and thermometer.) (Make: Amerec),</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SAUNA, Supply &amp; Installation of Electrical Hardware (Make: Local),</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>SAUNA, Testing &amp; Commissioning Charges.</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+
+            <!-- ── SECTION 4: STEAM ROOM ── -->
+            <tr class="sec">
+                <td class="tc">10144</td>
+                <td class="tc">13-01-020</td>
+                <td>Supply, Installation, Testing and Commissioning of Steam Room as per below Details,</td>
+                <td class="tc">Lumsum</td>
+                <td class="tc">1</td>
+                <td class="tr">23,000</td>
+                <td class="tr">3,450</td>
+                <td class="tr">26,450</td>
+            </tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>STEAM ROOM, Supply &amp; Installation of Steam Generator 14 kW with Auto Drain Valve (Make: Amerec),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>STEAM ROOM, Supply &amp; Installation of Steam Head 3/4" (Make: Amerec),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>STEAM ROOM, Supply &amp; Installation of Steam Light (Make: Phillips),</td><td class="tc">Numbers</td><td class="tc">2</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>STEAM ROOM, Supply &amp; Installation of Steam Controller /Digital (Make: Amerec),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>STEAM ROOM, Supply &amp; Installation of Fragrance Dosing Pump (Make: Amerec),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>STEAM ROOM, Supply &amp; Installation of Electrical and Mechanical Hardware (Make: Local),</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>STEAM ROOM, Testing &amp; Commissioning Charges.,</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+
+            <!-- ── SECTION 5: INDOOR POOL (JACUZZI) ── -->
+            <tr class="sec">
+                <td class="tc">10144</td>
+                <td class="tc">13-01-020</td>
+                <td>Supply, Installation, Testing and Commissioning of Indoor Pool (Jacuzi) as per below Details,</td>
+                <td class="tc">Lumsum</td>
+                <td class="tc">1</td>
+                <td class="tr">104,000</td>
+                <td class="tr">15,600</td>
+                <td class="tr">119,600</td>
+            </tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of 450 mm Sand Filter with Manual Multiport Valve (Make: Pentair/USA),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Filtration Pump 1 HP (Make: Pentair / USA),</td><td class="tc">Numbers</td><td class="tc">2</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Jets Pump 3 HP (Make: Pentair / USA),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Gutter Drain (Make: Pentair),</td><td class="tc">Numbers</td><td class="tc">8</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Float Valve (Make: Local),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Hydro Massage Jets (Make: Astral / Spain),</td><td class="tc">Numbers</td><td class="tc">8</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Air Inlets (Make Astral/Spain),</td><td class="tc">Numbers</td><td class="tc">16</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Anti-Vortex Drain (Make: Astral/Spain),</td><td class="tc">Numbers</td><td class="tc">2</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Wall Inlets 1.5" (Make: Astral/Spain),</td><td class="tc">Numbers</td><td class="tc">2</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Plumbing Hardware using CPVC SCH 80 iterns (Make: Local),</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Electrical Cables and Hardware (Make: Local),</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Underwater Lights 6W, 12 VAC (Make: UNONOVESTTE/Italy).</td><td class="tc">Numbers</td><td class="tc">2</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Lighting Driver 100 VA, 220/12VAC (Make: Meanwell),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Strip Light (Make: UNONOVESTTE/Italy).</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of SS 316-Deck Box (Make: Astral/Spain).</td><td class="tc">Numbers</td><td class="tc">6</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Electrical Control Panel (Make: Local).</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Chlorine Feeder (Make: Pentair),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Supply &amp; Installation of Electrical Jacuzzi Heater 18 KW with Titanium Elements (Make: ELECRO/UK),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>INDOOR POOL, Testing &amp; Commissioning Charges.</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+
+            <!-- ── SECTION 6: COLD PLUNGE POOL ── -->
+            <tr class="sec">
+                <td class="tc">10144</td>
+                <td class="tc">13-01-020</td>
+                <td>Supply, Installation, Testing and Commissioning of Cold Plunge Pool as per below Details,</td>
+                <td class="tc">Lumsum</td>
+                <td class="tc">1</td>
+                <td class="tr">74,000</td>
+                <td class="tr">11,100</td>
+                <td class="tr">85,100</td>
+            </tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>COLD PLUNGE, Supply &amp; Installation of 450 mm Sand Filter (Make: Pentair / USA),</td><td class="tc">Numbers</td><td class="tc">2</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>COLD PLUNGE, Supply &amp; Installation of Filtration Pump 2 HP (Make: Pentair / USA),</td><td class="tc">Numbers</td><td class="tc">2</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>COLD PLUNGE, Supply &amp; Installation of Wall Inlet 1.5" SS 316 (Make: Astral),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>COLD PLUNGE, Supply &amp; Installation of Anti-Vortex Drain SS 316 (Make: Astral).</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>COLD PLUNGE, Supply &amp; Installation of Electrical Control Panel (Make: ALFANAR),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>COLD PLUNGE, Supply &amp; Installation of Chlorine Feeder (Make: Pentair),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>COLD PLUNGE, Supply &amp; Installation of Cold Plunge Pool Heat Chill Pump 17 KW Cooling (Make: Coatzone),</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>COLD PLUNGE, Supply &amp; Installation of Temperature Controller (Make: Delta).</td><td class="tc">Numbers</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>COLD PLUNGE, Supply &amp; Installation of Plumbing Hardware using CPVC SCH 80 items (Make: Local),</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>COLD PLUNGE, Supply &amp; Installation of Electrical Cables and Hardware (Make: Local),</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+            <tr class="item"><td class="tc">10144</td><td class="tc">22-01-010</td><td>COLD PLUNGE, Testing &amp; Commissioning Charges..</td><td class="tc">Lumsum</td><td class="tc">1</td><td class="tr">0</td><td class="tr">0</td><td class="tr">0</td></tr>
+
+            <!-- TOTAL -->
+            <tr class="total-row">
+                <td colspan="7" style="text-align:right; font-size:14px; letter-spacing:0.5px;">Total Summary Value (Inclusive of Tax)</td>
+                <td class="tr" style="font-size:15px;">695,750</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Other Info -->
+    <table class="oi-table">
+        <tr>
+            <td class="lbl">Payment Terms</td>
+            <td class="val">10% Advance Against COC Letter; 30% After Testing First Fix, 30% Upon Material Readiness, 20% After Delivery, 5% After Installation, 5% After T&amp;C</td>
+        </tr>
+        <tr>
+            <td class="lbl">Completion Period</td>
+            <td class="val">As per Project Site Schedule</td>
+        </tr>
+        <tr>
+            <td class="lbl">Invoice Instructions</td>
+            <td class="val">Original invoice must be supported with supplier's delivery note and IHCC warehouse Goods Receipt Note &amp; P.O. At the time of delivery, the Supplier will be responsible to take approval / verification from the concerned engineer. Withholding Tax is applicable as per KSA Tax Laws for all Non Residents and deductible from Beneficiary at the time of payment.</td>
+        </tr>
+        <tr>
+            <td class="lbl">Attachments</td>
+            <td class="val">1. Specifications<br>2. Drawings<br>3. General Terms and Conditions</td>
+        </tr>
+    </table>
+
+    <!-- CONDITIONS — Expand/Collapse -->
+    <div class="cond-bar">
+        <span class="cond-bar-title"><i class="fas fa-list-ol" style="margin-right:8px;"></i>Conditions of Work Order &nbsp;(31 Conditions)</span>
+        <button class="btn-expand" onclick="toggleConditions(this)">
+            <i class="fas fa-chevron-down" id="cond-icon"></i> Expand Conditions
+        </button>
+    </div>
+    <div class="cond-body" id="condBody">
+
+        <div class="cond-row"><div class="cond-num">1</div><div class="cond-text">The acceptance confirmation of this order shall be in writing/mail which shall constitute a contract. The confirmation shall be communicated within 4 days of receipt of this order. If the Purchase order is not accepted within 4 days from the date of receipt by the supplier, the company shall be at liberty to cancel the same without incurring any liability whatsoever / if the order is executed by supplier / subcontractor without acknowledgment / acceptance, It will be deemed as accepted by the supplier/subcontractor including scope and all terms and conditions mentioned in the order.</div></div>
+
+        <div class="cond-row"><div class="cond-num">2</div><div class="cond-text">The company declines all responsibilities of payment where proof of delivery effected cannot be given satisfactorily.</div></div>
+
+        <div class="cond-row"><div class="cond-num">3</div><div class="cond-text">The delivery of goods by the supplier to the company will not constitute acceptance by the company of the said goods. Only after inspection and satisfactory test by company acceptance of the goods will be communicated to the supplier and till such time, the goods shall remain with the company on suppliers account on approval basis only.</div></div>
+
+        <div class="cond-row"><div class="cond-num">4</div><div class="cond-text">All goods accepted are subject to final approval of the company's Inspection team regarding quality, quantity and specification. The company reserves the right to reject if further defects are noticed while assembling or processing, even if in the first instance the goods have been accepted by the company and are paid for. Company's decision about such rejections at whatever time made shall be final and binding upon the supplier and the supplier shall not object to it in any manner what so ever. All packing, freight and handling cost or any other cost of such rejected material will be borne by the supplier.</div></div>
+
+        <div class="cond-row"><div class="cond-num">5</div><div class="cond-text">The Supplier shall replace the rejected material within 3days from the date of receipt of company's report of rejection at the place of supply specified by the company.</div></div>
+
+        <div class="cond-row"><div class="cond-num">6</div><div class="cond-text">Goods supplied must be according to the sample previously approved by the company. The company shall be entitled to reject the goods which in their opinion are not according to the sample. If the goods are not approved, the company shall not be liable to pay any sum on account of such rejected goods.</div></div>
+
+        <div class="cond-row"><div class="cond-num">7</div><div class="cond-text">The company reserves the right to cancel or amend this order or any part thereof for the following reasons.
+a. Irregularities in supplies
+b. Rejections and non compliance to approved specification / sample
+c. Escalation in price
+
+Without assigning the reason and without in any manner incurring any liability company's decision will be final in disputes arising out of Purchase orders. Money due to the company either as damages or any other, orders may be adjusted when settling payment against this order.</div></div>
+
+        <div class="cond-row"><div class="cond-num">8</div><div class="cond-text">The company assumes no obligation to goods delivered on excess of those specifically ordered. PO number should be stated in challan as otherwise material will not be accepted.</div></div>
+
+        <div class="cond-row"><div class="cond-num">9</div><div class="cond-text">In case the company decides to terminate this agreement after signing it and before the first supply/service date the supplier shall return the received advances to the company.</div></div>
+
+        <div class="cond-row"><div class="cond-num">10</div><div class="cond-text">In case the company decides to terminate this agreement after the first supply than the company shall pay the supplier only the value of supplied goods and no payment shall be given for unsupplied goods.</div></div>
+
+        <div class="cond-row"><div class="cond-num">11</div><div class="cond-text">All the material of this order should be supplied as per the schedule and within the time specified therein.</div></div>
+
+        <div class="cond-row"><div class="cond-num">12</div><div class="cond-text">Purchase Order No. date and supplier's delivery note number must appear on all Invoices submitted for payment.</div></div>
+
+        <div class="cond-row"><div class="cond-num">13</div><div class="cond-text">If this order is not executed within the specified period, it will be treated as cancelled and the material will be bought in the open market and the supplier has to make good the loss or damage suffered.</div></div>
+
+        <div class="cond-row"><div class="cond-num">14</div><div class="cond-text">The company is not responsible for any order placed by unauthorized persons.</div></div>
+
+        <div class="cond-row"><div class="cond-num">15</div><div class="cond-text">The designs, drawings and samples and any other technical information given by the company for fabrication of goods ordered should not be disclosed to any other party and should not be utilized for manufacturing same or similar goods for any party other than the company and should be returned to the company on demand.</div></div>
+
+        <div class="cond-row"><div class="cond-num">16</div><div class="cond-text">Company extends warranty for all its products and any claims accepted by the company arising from defects in material supplied by the supplier will be passed on to the Supplier for similar acceptance. Company's decision in this matter will be final and binding on the supplier.</div></div>
+
+        <div class="cond-row"><div class="cond-num">17</div><div class="cond-text">The price, terms &amp; conditions mentioned in the order will be taken as firm and can't be changed till the obligations under this contract are duly fulfilled.</div></div>
+
+        <div class="cond-row"><div class="cond-num">18</div><div class="cond-text">Any advance shall be paid against Bank Guarantee only.</div></div>
+
+        <div class="cond-row"><div class="cond-num">19</div><div class="cond-text">Packing, forwarding charges and freight charges will be borne by the Supplier unless otherwise stipulated in the purchase order.</div></div>
+
+        <div class="cond-row"><div class="cond-num">20</div><div class="cond-text">All bank charges etc. if any shall be borne by the Supplier if payment is required through bank.</div></div>
+
+        <div class="cond-row"><div class="cond-num">21</div><div class="cond-text">This contract shall be deemed to have been entered in to at Jeddah and only courts at Jeddah have jurisdiction in all matters arising out of this order.</div></div>
+
+        <div class="cond-row"><div class="cond-num">22</div><div class="cond-text">Supplier/Subcontractor is committed to strictly follow the HSE (Health, Safety &amp; Environment) requirements and penalties according to HSE internal regulation which will be acknowledged and signed by the Supplier/sub-contractor after site handing over.</div></div>
+
+        <div class="cond-row"><div class="cond-num">23</div><div class="cond-text">Sub-contractor is committed to provide safety PPE's to his manpower, which includes safety shoes, helmets, gloves, uniform and safety belt and the vest will be provided by IHCC.</div></div>
+
+        <div class="cond-row"><div class="cond-num">24</div><div class="cond-text">RETENTION CLAUSE: 5% RETENTION AMOUNT SHALL BE DEDUCTED FROM THE RUNNING BILL AND SHALL BE CLEARED UPON FINAL ACCEPTANCE/APPROVAL OF WORK FROM PM.</div></div>
+
+        <div class="cond-row"><div class="cond-num">25</div><div class="cond-text">PENALTY CLAUSE: IF THE SUB-CONTRACTOR SHALL FAIL TO COMPLETE THE WORK WITHIN THE TIME AS AGREED, HE SHALL PAY TO THE IHCC SUM OF 1% OF THE W.O.VALUE AS PENALTY PER WEEK FOR THE DELAYED PERIOD, BUT NOT EXCEEDING 5% OF THE W.O.VALUE</div></div>
+
+        <div class="cond-row"><div class="cond-num">26</div><div class="cond-text">COMPLETION PERIOD CLAUSE: AS PER IHCC-PM SCHEDULE.</div></div>
+
+        <div class="cond-row"><div class="cond-num">27</div><div class="cond-text">All Items before delivery its suppliers responsibility to verify that these items are as per the approved technical submittal which was approved by IHCC Engineering / Design team. Further the items which are not fabricated upon order and are stock items shall be of the same year of manufacturing as that of the order, in noncompliance to either of the mentioned scenario the material shall be rejected.</div></div>
+
+        <div class="cond-row"><div class="cond-num">28</div><div class="cond-text">That they (contractors/sub-contractors/vendors or suppliers) will provide the security department a list of their manpower through email as well as a hardcopy on their letterhead with stamp, proper signatures, and date. This will include the following information:
+a) Name of the individual
+b) Iqama Number (the contractor is responsible to submit the copies of the Iqama of the individuals, or the identity issued by the relevant government)
+c) Photograph (Passport Size)
+d) Profession
+e) Designation
+f) Individual's valid cell number
+g) Such list will also include the details of the responsible supervisor(s)/representative(s), as well as the contact details of the contractor including his office email and cell numbers, etc</div></div>
+
+        <div class="cond-row"><div class="cond-num">29</div><div class="cond-text">Despite the provision of the above details, the concerned supervisor/representative is responsible to be available with the on duty security guard to recognize his personnel on daily basis before beginning of their shift; no one will be allowed inside the premises without his in-person recognition:
+a. No person will be granted access to the sites without showing their own original valid Iqama or identity card issued by the relevant government. No other photo IDs will be accepted. The Profession mentioned in Iqama should not be Individual Profession and worker must be legally authorized to work as per KSA laws.
+b. In case of new addition of any personnel, the security department will allow access to the site on the request by the nominated supervisor/representative of the contractor (Including sub-contractors/vendors/suppliers). But the concerned is responsible to provide the details of such individuals to the security department as prescribed above within next two days (maximum); such individuals will only be provided two consecutive days access (maximum) on such verbal requests.
+c. If an individual provided access on verbal request for one/two day(s) and then the individual does not turn up for work, even then the concerned is responsible to provide his details as prescribed above. If not provided, it will be considered violation of IHCC policy and will be dealt accordingly.
+d. In case the same contractor gets another contract after conclusion of his previous one, the old list provided will be considered cancelled and a new list with latest date on it to be provided (as prescribed above) to the security department otherwise same individuals' access will be denied who were allowed on previous contract.
+e. E-mail containing the details of the personnel without a hardcopy as prescribed above will not be acceptable and vice versa</div></div>
+
+        <div class="cond-row"><div class="cond-num">30</div><div class="cond-text">Setting-Off Clause for Incorporation in All Future PO/WO &amp; Subcontracts:
+In addition to any rights and remedies available to IHCC provided hereunder or by law, upon the occurrence and during the continuance of any event of default of the Supplier / Subcontractor under this Purchase Order / Work Order / Subcontract Agreement, the Supplier / Subcontractor irrevocably agree that IHCC at any time, without prior notice to the Supplier / Subcontractor, any such requirement of notice being waived by the Supplier / Subcontractor to the fullest extent permitted by law, to set-off and apply any and all damages, additional incurred costs and/or incurring costs (direct or indirect, general or special, time or demand, provisional or final) at any time from any due payments under any other agreement/contract/purchase order/work order, either with IHCC or any of its affiliates or its group companies. IHCC agrees to promptly notify the Supplier / Subcontractor after any such set-off made by IHCC; provided, that the failure to give such notice shall not affect the validity of such set-off and application</div></div>
+
+        <div class="cond-row"><div class="cond-num">31</div><div class="cond-text">Any modification of these above 30 conditions must be in writing and mutually accepted</div></div>
+
+    </div><!-- end cond-body -->
+
+</div><!-- end wo-doc -->
+</main>
+
+<footer>
+    <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+    <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+</footer>
+
+<script>
+    function toggleConditions(btn) {
+        var body = document.getElementById('condBody');
+        var icon = document.getElementById('cond-icon');
+        var isOpen = body.classList.toggle('open');
+        if (isOpen) {
+            btn.innerHTML = '<i class="fas fa-chevron-up" id="cond-icon"></i> Collapse Conditions';
+        } else {
+            btn.innerHTML = '<i class="fas fa-chevron-down" id="cond-icon"></i> Expand Conditions';
+        }
+    }
+</script>
+
+</body>
+</html>

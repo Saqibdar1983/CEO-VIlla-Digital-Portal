@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <meta name="theme-color" content="#FFC107">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVA APPLICATION DIVISION | CEO Villa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0a0a0c;
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* 1. Video Background Container */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        .video-background iframe,
+        .video-background video {
+            width: 100vw;
+            height: 56.25vw; /* Given 16:9 aspect ratio */
+            min-height: 100vh;
+            min-width: 177.77vh; /* Given 16:9 aspect ratio */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            pointer-events: none;
+            transition: opacity 1.5s ease;
+            image-rendering: high-quality;
+        }
+
+        /* Dark Overlay to make text perfectly readable */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 10, 12, 0.45) 0%, rgba(20, 18, 15, 0.38) 100%);
+            z-index: -1;
+        }
+
+
+        /* 2. Header / Top Navigation Bar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 10, 12, 0.6);
+            backdrop-filter: blur(10px);
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+        .app-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            letter-spacing: 2px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .nav-right {
+            display: flex;
+            gap: 15px;
+        }
+        .action-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 8px 20px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .action-btn:hover {
+            border-color: #d4af37;
+            color: #d4af37;
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        /* 3. Main Content Portal Layout */
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: calc(100vh - 80px);
+            padding: 40px 20px;
+        }
+        .sub-header-tag {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .villa-gold {
+            color: #d4af37;
+        }
+        .owner-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.65);
+            margin-bottom: 20px;
+        }
+        .portal-subtitle {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 50px;
+            position: relative;
+            text-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+        }
+        .portal-subtitle::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 1px;
+            background: #d4af37;
+            margin: 15px auto 0 auto;
+        }
+
+        /* 4. Profile Section */
+        .profile-container {
+            background: rgba(255, 255, 255, 0.00648);
+            border: 1px solid rgba(255, 255, 255, 0.0567);
+            padding: 30px 50px;
+            border-radius: 12px;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1458);
+            max-width: 650px;
+            width: 100%;
+            margin-top: 35px;
+        }
+        .engineer-name {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+        .engineer-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 30px;
+        }
+
+        /* 5. LEED Credentials Badges Styling */
+        .leed-badge-wrapper {
+            margin-bottom: 25px;
+        }
+        .leed-main-badge {
+            background: #135237; /* Clean, bold LEED Green */
+            color: #fff;
+            display: inline-block;
+            padding: 8px 20px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(19, 82, 55, 0.3);
+        }
+        .leed-grid {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .leed-item {
+            padding: 6px 12px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #fff;
+            border-radius: 3px;
+            text-transform: uppercase;
+            min-width: 65px;
+        }
+        /* Color matching your exact credential blocks */
+        .leed-bdc  { background-color: #7fa03c; }
+        .leed-om   { background-color: #498169; }
+        .leed-idc  { background-color: #e59f26; }
+        .leed-nd   { background-color: #1f7fa1; }
+        .leed-home { background-color: #d15a28; }
+
+        .leed-footer-text {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #d4af37;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        .leed-sub-list {
+            font-size: 11px;
+            color: #d4af37;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+        .ihcc-logo {
+            display: block;
+            margin: 25px auto 0;
+            max-width: 70px;
+            width: 100%;
+        }
+    </style>
+    <script src="eva-nav-bridge.js"></script>
+</head>
+<body>
+
+    <div class="video-background">
+        <video autoplay muted playsinline id="bgVideo">
+            <source src="ABB Video.mp4" type="video/mp4">
+        </video>
+
+        </div>
+
+    <div class="video-overlay"></div>
+
+    <header>
+        <div class="nav-left">
+            <span class="app-title">EVA APPLICATION DIVISION</span>
+        </div>
+        <div class="nav-right">
+            <button class="action-btn">Home</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="sub-header-tag">Operation & Maintenance Manual</div>
+        <h1 class="main-title">Sultan Sobhi Batterjee <span class="villa-gold">Villa</span></h1>
+        <div class="owner-title">Chairman and CEO, IHCC</div>
+        <div class="portal-subtitle">MEP Systems Documentation Portal</div>
+
+        <div class="profile-container">
+            <h2 class="engineer-name">Saqib Manzoor</h2>
+            <p class="engineer-title">Senior Mechanical Engineer</p>
+
+            <div class="leed-badge-wrapper">
+                <div class="leed-main-badge">LEED GREEN ASSOCIATE</div>
+                
+                <div class="leed-grid">
+                    <div class="leed-item leed-bdc">LEED AP BD+C</div>
+                    <div class="leed-item leed-om">LEED AP O+M</div>
+                    <div class="leed-item leed-idc">LEED AP ID+C</div>
+                    <div class="leed-item leed-nd">LEED AP ND</div>
+                    <div class="leed-item leed-home">LEED AP HOMES</div>
+                </div>
+            </div>
+
+            <div class="leed-footer-text">LEED Accredited Professional</div>
+            <div class="leed-sub-list">BD+C &nbsp;|&nbsp; O+M &nbsp;|&nbsp; HOMES &nbsp;|&nbsp; ID+C &nbsp;|&nbsp; ND &nbsp;|&nbsp; GREEN ASSOCIATE</div>
+            <img class="ihcc-logo" src="IHCC_LOGO_transparent.png" alt="IHCC Logo">
+        </div>
+    </main>
+
+    <script>
+        const video = document.getElementById('bgVideo');
+        video.playbackRate = 0.81;
+
+        // Soft crossfade on loop
+        video.addEventListener('timeupdate', function () {
+            const timeLeft = video.duration - video.currentTime;
+            if (timeLeft <= 1.5) {
+                video.style.opacity = Math.max(0, timeLeft / 1.5);
+            } else if (video.currentTime < 1.5) {
+                video.style.opacity = Math.min(1, video.currentTime / 1.5);
+            } else {
+                video.style.opacity = 1;
+            }
+        });
+
+        video.addEventListener('ended', function () {
+            video.currentTime = 0;
+            video.play();
+        });
+
+        // EVA entry — dashboard after 12s (do not alter portal layout above)
+        (function () {
+            function evaEnterDashboard() {
+                if (typeof evaCrossFileGo === 'function') {
+                    evaCrossFileGo('EVA-CORE.html#pg3');
+                } else {
+                    window.location.href = 'EVA-CORE.html#pg3';
+                }
+            }
+            window.evaEnterDashboard = evaEnterDashboard;
+            setTimeout(evaEnterDashboard, 12000);
+            var homeBtn = document.querySelector('header .action-btn');
+            if (homeBtn) homeBtn.addEventListener('click', evaEnterDashboard);
+        })();
+
+    </script>
+</body>
+</html>

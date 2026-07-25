@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufacturer Directory — SPA & POOL O&M Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --blue:       #38bdf8;
+            --blue-light: #7dd3fc;
+            --blue-mid:   #0ea5e9;
+            --gold:       #D4AF37;
+            --gold-light: #f0d060;
+            --gold-dim:   rgba(212,175,55,0.60);
+            --dark:       #04101f;
+            --card-bg:    rgba(5,16,38,0.88);
+            --text:       #dff0fb;
+            --text-muted: rgba(224,242,254,0.55);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            background: var(--dark);
+            color: var(--text);
+            font-family: 'Aptos Display','Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background:
+                radial-gradient(ellipse at 10% 15%, rgba(212,175,55,0.05) 0%, transparent 40%),
+                radial-gradient(ellipse at 90% 85%, rgba(14,165,233,0.07) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, #050f20 0%, #04101f 100%);
+            z-index: -1;
+        }
+
+        /* ── HEADER ── */
+        header {
+            background: rgba(3,9,20,0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(212,175,55,0.22);
+            padding: 10px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed; top:0; width:100%;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.7);
+        }
+
+        .header-left { display:flex; align-items:center; gap:14px; }
+        header h1 {
+            font-size: 19px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 2.5px;
+            color: var(--gold-light);
+            text-shadow: 0 0 24px rgba(212,175,55,0.35);
+        }
+
+        .btn-nav {
+            background: rgba(56,189,248,0.08);
+            color: var(--blue);
+            border: 1px solid rgba(56,189,248,0.28);
+            padding: 7px 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex; align-items:center; gap:7px;
+            text-decoration: none;
+            font-size: 12.5px; font-weight: 500;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .btn-nav:hover {
+            background: rgba(56,189,248,0.17);
+            border-color: var(--blue);
+            box-shadow: 0 0 12px rgba(56,189,248,0.14);
+        }
+
+        /* ── MAIN ── */
+        main {
+            padding: 40px 30px 100px;
+            max-width: 1320px;
+            margin: 75px auto 0;
+        }
+
+        /* ── PAGE TITLE ── */
+        .page-title {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .page-title .subtitle {
+            font-size: 11px;
+            color: rgba(56,189,248,0.45);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 9px;
+        }
+        .page-title h2 {
+            font-size: 27px; font-weight: 800;
+            color: var(--gold-light);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 35px rgba(212,175,55,0.28);
+            margin-bottom: 12px;
+        }
+        .title-divider {
+            display: flex; align-items:center; justify-content:center; gap:12px;
+        }
+        .title-divider .line-gold {
+            display:block; height:1px; width:80px;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.5));
+        }
+        .title-divider .line-blue {
+            display:block; height:1px; width:80px;
+            background: linear-gradient(90deg, rgba(56,189,248,0.5), transparent);
+        }
+        .title-divider i { color: var(--gold-dim); font-size:12px; }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background: rgba(4,16,38,0.70);
+            border: 1px solid rgba(56,189,248,0.12);
+            border-radius: 12px;
+            padding: 0;
+            margin-bottom: 26px;
+            overflow: hidden;
+        }
+        .stat-item {
+            flex: 1;
+            padding: 16px 20px;
+            text-align: center;
+            border-right: 1px solid rgba(56,189,248,0.09);
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-num {
+            font-size: 24px; font-weight: 800;
+            color: var(--gold-light);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 10px;
+            color: rgba(56,189,248,0.48);
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        /* ── SEARCH BAR ── */
+        .search-section {
+            margin-bottom: 24px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .search-wrap {
+            position: relative;
+            flex: 1;
+        }
+        .search-wrap input {
+            width: 100%;
+            padding: 12px 18px 12px 44px;
+            background: rgba(56,189,248,0.05);
+            border: 1px solid rgba(56,189,248,0.22);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .search-wrap input::placeholder { color: rgba(56,189,248,0.32); }
+        .search-wrap input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(56,189,248,0.08); }
+        .search-wrap i {
+            position: absolute; left:15px; top:50%;
+            transform: translateY(-50%);
+            color: rgba(56,189,248,0.40); font-size:15px;
+        }
+        .clear-btn {
+            background: rgba(212,175,55,0.08);
+            color: var(--gold-dim);
+            border: 1px solid rgba(212,175,55,0.22);
+            padding: 12px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 12.5px;
+            font-family: inherit;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .clear-btn:hover {
+            background: rgba(212,175,55,0.16);
+            color: var(--gold-light);
+            border-color: var(--gold-dim);
+        }
+
+        /* ── RESULT COUNT ── */
+        .result-count {
+            font-size: 11.5px;
+            color: rgba(56,189,248,0.45);
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+        .result-count span { color: var(--gold-light); font-weight: 700; }
+
+        /* ── GRID ── */
+        .mfr-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        /* ── CARD ── */
+        .mfr-card {
+            background: rgba(4,12,30,0.85);
+            border: 1px solid rgba(56,189,248,0.10);
+            border-top: 3px solid rgba(212,175,55,0.28);
+            border-radius: 12px;
+            padding: 20px 18px 18px;
+            transition: all 0.35s;
+            position: relative;
+            overflow: hidden;
+        }
+        .mfr-card::before {
+            content: '';
+            position: absolute;
+            top:0; left:-100%;
+            width:100%; height:3px;
+            background: linear-gradient(90deg, transparent, var(--gold), var(--blue), transparent);
+            transition: left 0.7s ease;
+        }
+        .mfr-card:hover {
+            border-color: rgba(56,189,248,0.28);
+            border-top-color: var(--gold);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,175,55,0.10);
+            transform: translateY(-3px);
+            background: rgba(5,16,42,0.92);
+        }
+        .mfr-card:hover::before { left:100%; }
+        .mfr-card.mfr-hidden { display: none; }
+
+        /* Card top row */
+        .mfr-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding-right: 44px;
+        }
+
+        /* Manufacturer name */
+        .mfr-name {
+            font-size: 14.5px;
+            font-weight: 800;
+            color: var(--gold-light);
+            line-height: 1.3;
+            letter-spacing: 0.3px;
+        }
+
+        /* Country badge */
+        .mfr-country {
+            font-size: 9.5px;
+            color: rgba(56,189,248,0.60);
+            background: rgba(56,189,248,0.06);
+            border: 1px solid rgba(56,189,248,0.16);
+            padding: 3px 9px;
+            border-radius: 20px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* Equipment section */
+        .mfr-equip-title {
+            font-size: 9px;
+            color: rgba(212,175,55,0.45);
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mfr-equip-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 14px;
+        }
+
+        .mfr-equip-badge {
+            font-size: 10.5px;
+            color: var(--blue);
+            background: rgba(56,189,248,0.07);
+            border: 1px solid rgba(56,189,248,0.18);
+            padding: 4px 10px;
+            border-radius: 20px;
+            line-height: 1.35;
+        }
+
+        /* Divider */
+        .mfr-divider {
+            border: none;
+            border-top: 1px solid rgba(56,189,248,0.08);
+            margin: 12px 0;
+        }
+
+        /* Contact rows */
+        .mfr-contact-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            margin-bottom: 7px;
+            font-size: 12px;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+        .mfr-contact-row:last-child { margin-bottom: 0; }
+        .mfr-contact-row i {
+            color: rgba(56,189,248,0.42);
+            font-size: 11px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            width: 14px;
+            text-align: center;
+        }
+        .mfr-contact-row a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+        .mfr-contact-row a:hover { text-decoration: underline; }
+        .mfr-na {
+            color: rgba(224,242,254,0.22);
+            font-style: italic;
+            font-size: 11.5px;
+        }
+
+        /* Serial number badge */
+        .mfr-serial {
+            position: absolute;
+            top: 14px; right: 14px;
+            font-size: 10px;
+            font-weight: 700;
+            color: rgba(212,175,55,0.30);
+            background: rgba(212,175,55,0.05);
+            border: 1px solid rgba(212,175,55,0.12);
+            border-radius: 50%;
+            width: 26px; height: 26px;
+            display: flex; align-items:center; justify-content:center;
+        }
+
+        /* No results */
+        .no-results {
+            display: none;
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(224,242,254,0.24);
+        }
+        .no-results i { font-size: 44px; margin-bottom:16px; display:block; color:rgba(56,189,248,0.18); }
+        .no-results p { font-size:14px; }
+
+        /* ── SOURCE NOTE ── */
+        .source-note {
+            margin-top: 36px;
+            padding: 14px 18px;
+            background: rgba(56,189,248,0.03);
+            border: 1px solid rgba(56,189,248,0.10);
+            border-radius: 9px;
+            font-size: 11.5px;
+            color: rgba(224,242,254,0.38);
+            line-height: 1.7;
+        }
+        .source-note i { color: rgba(56,189,248,0.40); margin-right: 7px; }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 28px;
+            border-top: 1px solid rgba(212,175,55,0.12);
+            color: rgba(224,242,254,0.22);
+            font-size: 11.5px;
+            letter-spacing: 0.5px;
+        }
+        .footer-gold { color: var(--gold-dim); }
+
+        .btn-up {
+            display: inline-flex; align-items:center; justify-content:center;
+            width: 36px; height: 36px;
+            background: rgba(56,189,248,0.07);
+            border: 1px solid rgba(56,189,248,0.20);
+            border-radius: 50%;
+            color: var(--blue);
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.3s;
+            margin-left: 10px;
+        }
+        .btn-up:hover { background: rgba(56,189,248,0.18); border-color: var(--blue); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(56,189,248,0.03); }
+        ::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.22); border-radius: 3px; }
+
+        @media (max-width: 1100px) { .mfr-grid { grid-template-columns: repeat(2,1fr); } }
+        @media (max-width: 700px)  { .mfr-grid { grid-template-columns: 1fr; } .stats-bar { flex-wrap: wrap; } }
+    </style>
+</head>
+<body id="top">
+
+    <header>
+        <div class="header-left">
+            <a href="Supplier Contact.html" class="btn-nav"><i class="fas fa-arrow-left"></i> Contacts</a>
+            <h1>Manufacturer Directory</h1>
+        </div>
+        <a href="../EVA-CORE.html" class="btn-nav"><i class="fas fa-home"></i> Home</a>
+    </header>
+
+    <main>
+
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <p class="subtitle">SPA &amp; POOL Facilities — CEO Villa — IHCC — Jeddah</p>
+            <h2>Equipment Manufacturer Directory</h2>
+            <div class="title-divider">
+                <span class="line-gold"></span>
+                <i class="fas fa-industry"></i>
+                <span class="line-blue"></span>
+            </div>
+        </div>
+
+        <!-- STATS BAR -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-num">25</div>
+                <div class="stat-label">Manufacturers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">53</div>
+                <div class="stat-label">Equipment Items</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">12</div>
+                <div class="stat-label">Countries</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">6</div>
+                <div class="stat-label">Systems Covered</div>
+            </div>
+            <div class="stat-item" style="flex:2;">
+                <div style="font-size:10.5px;color:rgba(224,242,254,0.38);line-height:1.6;">
+                    HVAC &bull; Filtration &bull; Chemical Treatment &bull; Lighting &bull; Sauna &amp; Steam &bull; Valves
+                </div>
+                <div class="stat-label" style="margin-top:4px;">Mechanical Systems</div>
+            </div>
+        </div>
+
+        <!-- SEARCH -->
+        <div class="search-section">
+            <div class="search-wrap">
+                <i class="fas fa-search"></i>
+                <input type="text" id="mfr-search"
+                       placeholder="Search by manufacturer name, equipment, or country…"
+                       oninput="filterMfr()">
+            </div>
+            <button class="clear-btn" onclick="clearSearch()"><i class="fas fa-times" style="margin-right:6px;"></i>Clear</button>
+        </div>
+
+        <div class="result-count" id="result-count">Showing <span id="visible-count">25</span> of 25 manufacturers</div>
+
+        <!-- MANUFACTURER GRID -->
+        <div class="mfr-grid" id="mfr-grid">
+
+            <!-- ══ 1. Elecro Engineering Ltd ══ -->
+            <div class="mfr-card" data-search="elecro engineering united kingdom uv disinfection heater hvac uvc pool spa">
+                <div class="mfr-serial">1</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">Elecro Engineering Ltd</div>
+                    <span class="mfr-country">🇬🇧 United Kingdom</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">HR-UVC Water Disinfection System</span>
+                    <span class="mfr-equip-badge">Outdoor Pool Water Heater 45kW (SFS Joey)</span>
+                    <span class="mfr-equip-badge">Indoor / Spa Heater 18kW (Evolution 2)</span>
+                    <span class="mfr-equip-badge">UV Lamp (HRP-110)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>Unit 11, Gunnels Wood Park, Gunnels Wood Road, Stevenage, Hertfordshire SG1 2BH, United Kingdom</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:sales@elecro.co.uk">sales@elecro.co.uk</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+44 (0) 1438 749474</span></div>
+            </div>
+
+            <!-- ══ 2. Pentair ══ -->
+            <div class="mfr-card" data-search="pentair usa pool pump sand filter whisperlo superflo tagelus triton">
+                <div class="mfr-serial">2</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">Pentair</div>
+                    <span class="mfr-country">🇺🇸 United States</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Sand Filter Tagelus TA40 (Outdoor Pool)</span>
+                    <span class="mfr-equip-badge">Sand Filter Triton II TR140 (Indoor Pool)</span>
+                    <span class="mfr-equip-badge">6-Position Sand Filter Valve Hi Flow</span>
+                    <span class="mfr-equip-badge">Pool Pump WhisperFlo 3HP (PWFL-901)</span>
+                    <span class="mfr-equip-badge">Pool Pump WhisperFlo 2HP (PWFL-801)</span>
+                    <span class="mfr-equip-badge">Pool Pump WhisperFlo 1.5HP (PWFL-751)</span>
+                    <span class="mfr-equip-badge">Pool Pump SuperFlo 1.0HP</span>
+                    <span class="mfr-equip-badge">Indoor Pool Jet Nozzle Pump 3HP</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:supplierinquiry@pentair.com">supplierinquiry@pentair.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+1 (919) 566-8000</span></div>
+            </div>
+
+            <!-- ══ 3. Hayward ══ -->
+            <div class="mfr-card" data-search="hayward usa orp ph chemical controller chlorine feeder">
+                <div class="mfr-serial">3</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">Hayward Industries Inc.</div>
+                    <span class="mfr-country">🇺🇸 United States</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">ORP / pH Chemical Controller HCC2000</span>
+                    <span class="mfr-equip-badge">Chlorine Tablet Feeder CL200</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>61 Whitecap Drive, North Kingstown, RI 02852, USA</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:hfcsales@hayward.com">hfcsales@hayward.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>1-908-355-7995</span></div>
+            </div>
+
+            <!-- ══ 4. Amerec ══ -->
+            <div class="mfr-card" data-search="amerec sauna360 usa steam generator sauna heater controller drain valve steamhead accessories">
+                <div class="mfr-serial">4</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">Amerec / Sauna360 Inc.</div>
+                    <span class="mfr-country">🇺🇸 United States</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Steam Generator AK14 14kW</span>
+                    <span class="mfr-equip-badge">Auto Drain Valve 3/4" (Steam Generator)</span>
+                    <span class="mfr-equip-badge">Digital K3-CP Steamhead Chrome</span>
+                    <span class="mfr-equip-badge">Sauna Heater 14.4kW</span>
+                    <span class="mfr-equip-badge">Sauna Controller T1 Touch Screen</span>
+                    <span class="mfr-equip-badge">Steam Controller / Digital</span>
+                    <span class="mfr-equip-badge">Fragrance Dosing Pump</span>
+                    <span class="mfr-equip-badge">Sauna Accessories (Stone, Ladle, Bucket)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>575 Cokato Street East, Cokato, MN 55321, USA</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:support@amerec.com">support@amerec.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>1-800-331-0349</span></div>
+            </div>
+
+            <!-- ══ 5. Astral Pool ══ -->
+            <div class="mfr-card" data-search="astral pool spain fluidra wall inlet main drain vacuum adaptor deck box hydro massage jets anti vortex">
+                <div class="mfr-serial">5</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">Astral Pool <span style="font-size:11.5px;font-weight:400;color:rgba(212,175,55,0.45);">(Fluidra Group)</span></div>
+                    <span class="mfr-country">🇪🇸 Spain</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Wall Inlet 2" SS316 (Outdoor Pool)</span>
+                    <span class="mfr-equip-badge">Main Drain SS316 300×300mm</span>
+                    <span class="mfr-equip-badge">Vacuum Adaptor 2" SS316</span>
+                    <span class="mfr-equip-badge">Deck Box SS316</span>
+                    <span class="mfr-equip-badge">Hydro Massage Jets (Indoor Jacuzzi)</span>
+                    <span class="mfr-equip-badge">Air Inlets (Indoor Jacuzzi)</span>
+                    <span class="mfr-equip-badge">Anti-Vortex Drain SS316</span>
+                    <span class="mfr-equip-badge">Wall Inlet 1.5" SS316</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>Avda. Francesc Macià 60, Planta 20, 08208 Sabadell (Barcelona), Spain</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:info@astralpool.com">info@astralpool.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+34 93 713 63 44</span></div>
+            </div>
+
+            <!-- ══ 6. ATECPOOL ══ -->
+            <div class="mfr-card" data-search="atecpool spain uwl rgb light strip lights fountain ring light underwater led">
+                <div class="mfr-serial">6</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">ATECPOOL</div>
+                    <span class="mfr-country">🇪🇸 Spain</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">UWL-RGB Light SS AISI 316 (Outdoor Pool)</span>
+                    <span class="mfr-equip-badge">Strip Lights 3000K IP68 with Accessories</span>
+                    <span class="mfr-equip-badge">GB Fountain Ring Light with Remote Control</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>World Trade Centre, 2ª Planta, Muelle de Barcelona, E-08039 Barcelona, Spain</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:info@atecpool.com">info@atecpool.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+34 93 344 3358</span></div>
+            </div>
+
+            <!-- ══ 7. Praher Plastics ══ -->
+            <div class="mfr-card" data-search="praher plastics austria sand filter valve backwash side mount upvc">
+                <div class="mfr-serial">7</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">Praher Plastics Austria GmbH</div>
+                    <span class="mfr-country">🇦🇹 Austria</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">6-Position Sand Filter Valve V6</span>
+                    <span class="mfr-equip-badge">Backwash Valve Side Mount 2"</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>Poneggenstraße 5, 4311 Schwertberg, Austria</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:sales@praherplastics.com">sales@praherplastics.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+43 7262 61178-0</span></div>
+            </div>
+
+            <!-- ══ 8. PEDROLLO ══ -->
+            <div class="mfr-card" data-search="pedrollo italy submersible pump waterfall water feature top3 top4">
+                <div class="mfr-serial">8</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">PEDROLLO</div>
+                    <span class="mfr-country">🇮🇹 Italy</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Submersible Pump TOP3 0.75HP (Water Feature)</span>
+                    <span class="mfr-equip-badge">Submersible Pump TOP4 1HP (Waterfall)</span>
+                    <span class="mfr-equip-badge">Wall Water Feature Submersible Pump</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>San Bonifacio (Verona), Italy</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:info@pedrollo.com">info@pedrollo.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+39 045 6136311</span></div>
+            </div>
+
+            <!-- ══ 9. AQUA S.p.A. ══ -->
+            <div class="mfr-card" data-search="aqua spa industrial italy wall washer rgb remote control light">
+                <div class="mfr-serial">9</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">AQUA S.p.A. Industrial Group</div>
+                    <span class="mfr-country">🇮🇹 Italy</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Wall Washer RGB with Remote Control</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>Via Bersella, 3 — 42018 San Martino in Rio (RE), Italy</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:aqua@aqua.it">aqua@aqua.it</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+39 0522 695805</span></div>
+            </div>
+
+            <!-- ══ 10. LINEA Light ══ -->
+            <div class="mfr-card" data-search="linea light italy fountain standing light outdoor pool">
+                <div class="mfr-serial">10</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">LINEA Light Group</div>
+                    <span class="mfr-country">🇮🇹 Italy</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Fountain Standing Light (Outdoor Pool)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>Via Europa 14, 31028 Vazzola (TV), Italy</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:info@linealight.com">info@linealight.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+39 0423 7868</span></div>
+            </div>
+
+            <!-- ══ 11. UNONOVESTTE ══ -->
+            <div class="mfr-card" data-search="unonovestte italy rgb light strip underwater lights pool indoor outdoor 119">
+                <div class="mfr-serial">11</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">UNONOVESTTE</div>
+                    <span class="mfr-country">🇮🇹 Italy</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">RGB Light 12W SS316 (Outdoor Pool)</span>
+                    <span class="mfr-equip-badge">Strip Light (Outdoor &amp; Indoor Pool)</span>
+                    <span class="mfr-equip-badge">Underwater Lights 6W 12VAC (Indoor Pool)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span class="mfr-na">Contact details not available — confirm with Aseeb</span></div>
+            </div>
+
+            <!-- ══ 12. Aquatherm ══ -->
+            <div class="mfr-card" data-search="aquatherm germany ppr ball valve water supply pipe polypropylene">
+                <div class="mfr-serial">12</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">Aquatherm</div>
+                    <span class="mfr-country">🇩🇪 Germany</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">PPR Ball Valve (Water Supply Line)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>Biggen 5, D-57439 Attendorn, Germany</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:info@aquatherm.de">info@aquatherm.de</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+49 (0) 2722 950-0</span></div>
+            </div>
+
+            <!-- ══ 13. WATTS ══ -->
+            <div class="mfr-card" data-search="watts germany water technologies brass swing check valve r5003">
+                <div class="mfr-serial">13</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">WATTS Water Technologies</div>
+                    <span class="mfr-country">🇩🇪 Germany</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Brass Swing Type Check Valve (R5003 GT)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>Godramsteiner Hauptstr. 167, 76829 Landau, Germany</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:wide@wattswater.com">wide@wattswater.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+49 (0) 6341 9656 0</span></div>
+            </div>
+
+            <!-- ══ 14. PIMTAS ══ -->
+            <div class="mfr-card" data-search="pimtas turkey upvc double union ball valve pvc fitting">
+                <div class="mfr-serial">14</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">PIMTAS</div>
+                    <span class="mfr-country">🇹🇷 Turkey</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">UPVC Double Union Ball Valve 2" &amp; 1"</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>Gebze Plastikçiler OSB, Cumhuriyet Cd. No:52, Turkey</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:pimtas@pimtas.com">pimtas@pimtas.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+90 262 751 24 24</span></div>
+            </div>
+
+            <!-- ══ 15. Solar East / Coatzone ══ -->
+            <div class="mfr-card" data-search="solar east coatzone china heat pump chiller cold plunge czhcpi103t">
+                <div class="mfr-serial">15</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">Solar East Heat Pump / Coatzone</div>
+                    <span class="mfr-country">🇨🇳 China</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Heat / Chill Pump CZHCPI103T (Cold Plunge Chiller)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>No.73 Defu Road, Xingtan Town, Shunde District, Foshan City, Guangdong Province, 528325, China</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:heatpump@solareast.com">heatpump@solareast.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+86 757 2938 0616</span></div>
+            </div>
+
+            <!-- ══ 16. PULSAFEEDER ══ -->
+            <div class="mfr-card" data-search="pulsafeeder chem-tech usa chemical dosing pump idex">
+                <div class="mfr-serial">16</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">PULSAFEEDER <span style="font-size:11px;font-weight:400;color:rgba(212,175,55,0.45);">(Brand: CHEM-TECH)</span></div>
+                    <span class="mfr-country">🇺🇸 United States</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Chemical Dosing Pump (Dosing System)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>27101 Airport Rd, Punta Gorda, FL 33982, USA</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:ppgpulsaspo.cs@idexcorp.com">ppgpulsaspo.cs@idexcorp.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+1 (800) 333-6677</span></div>
+            </div>
+
+            <!-- ══ 17. Air Supply ══ -->
+            <div class="mfr-card" data-search="air supply future usa silencer air blower florida spa jacuzzi">
+                <div class="mfr-serial">17</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">Air Supply of The Future Inc.</div>
+                    <span class="mfr-country">🇺🇸 United States</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Silencer Air Blower (Indoor Jacuzzi)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>1950 NW 15th St, Pompano Beach, FL 33069, USA</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:info@airsupplyflorida.com">info@airsupplyflorida.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+1 (800) 848-3077</span></div>
+            </div>
+
+            <!-- ══ 18. ALFANAR ══ -->
+            <div class="mfr-card" data-search="alfanar saudi arabia electrical control panel outdoor pool cold plunge riyadh">
+                <div class="mfr-serial">18</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">ALFANAR</div>
+                    <span class="mfr-country">🇸🇦 Saudi Arabia</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Electrical Control Panel (Outdoor Pool)</span>
+                    <span class="mfr-equip-badge">Electrical Control Panel (Cold Plunge Pool)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>Alfanar Building, New Al Kharj Road, Riyadh 11411, Saudi Arabia</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:info@alfanar.com">info@alfanar.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+966 11 864 4000</span></div>
+            </div>
+
+            <!-- ══ 19. Philips / Signify ══ -->
+            <div class="mfr-card" data-search="philips signify netherlands sauna steam room lights eindhoven lighting">
+                <div class="mfr-serial">19</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">Philips <span style="font-size:11px;font-weight:400;color:rgba(212,175,55,0.45);">(Signify)</span></div>
+                    <span class="mfr-country">🇳🇱 Netherlands</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Sauna Room Lights</span>
+                    <span class="mfr-equip-badge">Steam Room Light</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>High Tech Campus 7, 5656 AE Eindhoven, The Netherlands</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+31 40 2784672</span></div>
+            </div>
+
+            <!-- ══ 20. MEAN WELL ══ -->
+            <div class="mfr-card" data-search="meanwell mean well taiwan lighting driver 100va indoor pool power supply transformer">
+                <div class="mfr-serial">20</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">MEAN WELL Enterprises Co., Ltd.</div>
+                    <span class="mfr-country">🇹🇼 Taiwan</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Lighting Driver 100VA 220/12VAC (Indoor Pool)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>No.28, Wuquan 3rd Rd., Wugu Dist., New Taipei City 24891, Taiwan (R.O.C.)</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:info@meanwell.com">info@meanwell.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+886-2-2299-6100</span></div>
+            </div>
+
+            <!-- ══ 21. TankPAC ══ -->
+            <div class="mfr-card" data-search="tankpac taiwan ro system storage tank tp-19p reverse osmosis">
+                <div class="mfr-serial">21</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">TankPAC</div>
+                    <span class="mfr-country">🇹🇼 Taiwan</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">RO System Storage Tank (TP-19P)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>No.553, Zhongshan Rd., Taichung City 43643, Taiwan</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:tankpac@seed.net.tw">tankpac@seed.net.tw</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+886-4-26220078</span></div>
+            </div>
+
+            <!-- ══ 22. Delta Electronics ══ -->
+            <div class="mfr-card" data-search="delta electronics taiwan temperature controller cold plunge pool neihu taipei">
+                <div class="mfr-serial">22</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">Delta Electronics, Inc.</div>
+                    <span class="mfr-country">🇹🇼 Taiwan</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Temperature Controller (Cold Plunge Pool)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>No.186, Ruey Kuang Road, Neihu District, Taipei City 114501, Taiwan</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+886-2-8797-2088</span></div>
+            </div>
+
+            <!-- ══ 23. Thermory ══ -->
+            <div class="mfr-card" data-search="thermory estonia sauna wood wall panel alder stp timber lining">
+                <div class="mfr-serial">23</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">Thermory SA</div>
+                    <span class="mfr-country">🇪🇪 Estonia</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Sauna Wood Wall Panel (Alder STP)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span>Lõõtsa 1a, 11415 Tallinn, Estonia</span></div>
+                <div class="mfr-contact-row"><i class="fas fa-envelope"></i><a href="mailto:info@thermory.com">info@thermory.com</a></div>
+                <div class="mfr-contact-row"><i class="fas fa-phone-alt"></i><span>+372 606 2903</span></div>
+            </div>
+
+            <!-- ══ 24. GATA ══ -->
+            <div class="mfr-card" data-search="gata malaysia upvc double union ball valve gt-211 plastic fitting">
+                <div class="mfr-serial">24</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">GATA</div>
+                    <span class="mfr-country">🇲🇾 Malaysia</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">UPVC Double Union Ball Valve (GT-211-050 / GT-211-040)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span class="mfr-na">Contact details not available — confirm with Aseeb</span></div>
+            </div>
+
+            <!-- ══ 25. AKUA4CE ══ -->
+            <div class="mfr-card" data-search="akua4ce gutter drain abs plastic cleaning kit brush pole vacuum hose leaf skimmer pool maintenance">
+                <div class="mfr-serial">25</div>
+                <div class="mfr-card-top">
+                    <div class="mfr-name">AKUA4CE</div>
+                    <span class="mfr-country" style="background:rgba(224,242,254,0.04);color:rgba(224,242,254,0.30);border-color:rgba(224,242,254,0.10);">— Origin Unknown</span>
+                </div>
+                <div class="mfr-equip-title"><i class="fas fa-boxes"></i> Equipment Supplied</div>
+                <div class="mfr-equip-list">
+                    <span class="mfr-equip-badge">Gutter Drain 2" ABS Plastic</span>
+                    <span class="mfr-equip-badge">Cleaning Kit (Brush, Pole, Vacuum Hose, Head, Leaf Skimmer)</span>
+                </div>
+                <hr class="mfr-divider">
+                <div class="mfr-contact-row"><i class="fas fa-map-marker-alt"></i><span class="mfr-na">Contact details not available — confirm with Aseeb</span></div>
+            </div>
+
+            <!-- No-results message -->
+            <div class="no-results" id="no-results">
+                <i class="fas fa-search"></i>
+                <p>No manufacturers found matching your search.</p>
+            </div>
+
+        </div><!-- /mfr-grid -->
+
+        <!-- SOURCE NOTE -->
+        <div class="source-note">
+            <i class="fas fa-info-circle"></i>
+            <strong style="color:rgba(212,175,55,0.55);">Data Sources:</strong>
+            CEO Villa SPA &amp; Pool Asset Register (Vendor/Manufacturer Updated),
+            VALVES.xlsx, Name Plate Data (24 files), and WO #34982 Water Feature System Extract.
+            Manufacturers without contact details (GATA, AKUA4CE, UNONOVESTTE) — please confirm details with Aseeb Contracting Company.
+            <br><br>
+            <i class="fas fa-hard-hat" style="color:rgba(56,189,248,0.30);margin-right:7px;"></i>
+            <strong style="color:rgba(212,175,55,0.55);">Project:</strong> CEO Villa SPA &amp; POOL — Project Code 10144 — IHCC, Jeddah, Saudi Arabia
+        </div>
+
+    </main>
+
+    <footer>
+        <span class="footer-gold">SPA &amp; POOL O&amp;M Portal</span>
+        &nbsp;·&nbsp; CEO Villa — Project 10144
+        &nbsp;·&nbsp; IHCC, Jeddah, Saudi Arabia
+        &nbsp;·&nbsp; Manufacturer Directory
+        <a href="#top" class="btn-up" title="Back to top"><i class="fas fa-arrow-up"></i></a>
+    </footer>
+
+    <script>
+        function filterMfr() {
+            var q = document.getElementById('mfr-search').value.toLowerCase().trim();
+            var cards = document.querySelectorAll('#mfr-grid .mfr-card:not(#no-results)');
+            var visible = 0;
+            cards.forEach(function(card) {
+                var text = (card.getAttribute('data-search') || '') + ' ' +
+                           card.innerText.toLowerCase();
+                if (!q || text.includes(q)) {
+                    card.classList.remove('mfr-hidden');
+                    visible++;
+                } else {
+                    card.classList.add('mfr-hidden');
+                }
+            });
+            document.getElementById('visible-count').textContent = visible;
+            var noRes = document.getElementById('no-results');
+            noRes.style.display = (visible === 0) ? 'block' : 'none';
+        }
+
+        function clearSearch() {
+            document.getElementById('mfr-search').value = '';
+            filterMfr();
+        }
+    </script>
+
+</body>
+</html>

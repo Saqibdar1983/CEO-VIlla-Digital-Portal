@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Sand Filters SF-02 &amp; SF-03 TA40 PM | CEO Villa SPA &amp; Pool</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050507;--deep:#0a0b10;--surface:#0f1117;--panel:#141720;
+  --border:#1e2330;--gold:#c9a84c;--text:#e8eaf0;--muted:#7a8099;--dim:#3a4055;
+  --green:#2abf8f;--cyan:#22d3ee;--blue:#4a9eff;--orange:#e87a4a;--purple:#b06fd4;
+}
+html,body{width:100%;background:var(--bg);font-family:'Exo 2',sans-serif;color:var(--text);-webkit-text-size-adjust:100%}
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.55rem 1rem;background:rgba(10,11,16,.96);border-bottom:1px solid rgba(201,168,76,.2);backdrop-filter:blur(8px);gap:.75rem}
+.topbar-left{display:flex;align-items:center;gap:.75rem}
+.tb-icon-btn{width:30px;height:30px;border-radius:5px;background:transparent;border:1px solid rgba(255,255,255,.15);color:#adb4cc;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;flex-shrink:0;text-decoration:none}
+.tb-icon-btn:hover{border-color:var(--gold);color:var(--gold)}
+.tb-icon-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.app-name{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--cyan);letter-spacing:.05em}
+.breadcrumb{font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.07em;color:var(--muted)}
+.breadcrumb span{color:var(--cyan)}
+.title-section{padding:.75rem 1.2rem .6rem;background:linear-gradient(135deg,rgba(34,211,238,.07),transparent);border-bottom:1px solid rgba(255,255,255,.05)}
+.equip-title{font-family:'Rajdhani',sans-serif;font-size:clamp(1.3rem,4vw,1.7rem);font-weight:700;color:#fff;letter-spacing:.04em;line-height:1.1}
+.equip-title span{color:var(--cyan)}
+.equip-sub{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.07em;color:var(--muted);margin-top:.3rem}
+.tabs{display:flex;background:#090b12;border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:49px;z-index:99;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{flex:1;min-width:90px;padding:.6rem .5rem;background:transparent;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:all .2s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.15rem}
+.tab-btn .tab-label{font-family:'Share Tech Mono',monospace;font-size:.78rem;font-weight:700;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.tab-btn .tab-count{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--muted)}
+.tab-btn .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tab-btn.daily .dot{background:var(--green);box-shadow:0 0 5px var(--green)}
+.tab-btn.weekly .dot{background:var(--blue);box-shadow:0 0 5px var(--blue)}
+.tab-btn.monthly3 .dot{background:var(--gold);box-shadow:0 0 5px var(--gold)}
+.tab-btn.monthly6 .dot{background:var(--purple);box-shadow:0 0 5px var(--purple)}
+.tab-btn.daily.active{background:rgba(42,191,143,.12);border-bottom-color:var(--green)}
+.tab-btn.daily.active .tab-label{color:var(--green)}.tab-btn.daily.active .tab-count{color:var(--green)}
+.tab-btn.weekly.active{background:rgba(74,158,255,.12);border-bottom-color:var(--blue)}
+.tab-btn.weekly.active .tab-label{color:var(--blue)}.tab-btn.weekly.active .tab-count{color:var(--blue)}
+.tab-btn.monthly3.active{background:rgba(201,168,76,.12);border-bottom-color:var(--gold)}
+.tab-btn.monthly3.active .tab-label{color:var(--gold)}.tab-btn.monthly3.active .tab-count{color:var(--gold)}
+.tab-btn.monthly6.active{background:rgba(176,111,212,.12);border-bottom-color:var(--purple)}
+.tab-btn.monthly6.active .tab-label{color:var(--purple)}.tab-btn.monthly6.active .tab-count{color:var(--purple)}
+.panel{display:none;padding:1rem 1.2rem 4rem}.panel.active{display:block}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem;padding:.6rem .9rem;background:rgba(201,168,76,.08);border-radius:8px;border-left:3px solid var(--cyan);flex-wrap:wrap;gap:.5rem}
+.panel-title{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--cyan);letter-spacing:.04em}
+.panel-badge{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--gold);background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);padding:.2rem .6rem;border-radius:4px;white-space:nowrap}
+.dl-btn{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:.9rem;padding:.5rem 1.1rem;background:var(--gold);border-radius:7px;text-decoration:none;font-family:'Share Tech Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.08em;color:#000;transition:background .2s,transform .15s}
+.dl-btn:hover{background:#e0b85c;transform:translateY(-1px)}
+.dl-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+table{width:100%;border-collapse:collapse;min-width:520px}
+thead tr{background:#0f1220}
+th{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--cyan);padding:.55rem .6rem;letter-spacing:.06em;border-bottom:1px solid rgba(34,211,238,.15);white-space:nowrap}
+th:nth-child(1){text-align:center;width:42px}
+th:nth-child(3),th:nth-child(4){text-align:center}
+th:nth-child(3){color:var(--green)}th:nth-child(4){color:#ff6b6b}
+.sec-row td{background:rgba(201,168,76,.15);color:#fff;font-family:'Share Tech Mono',monospace;font-size:.76rem;font-weight:700;letter-spacing:.08em;padding:.5rem .8rem;border-bottom:1px solid rgba(201,168,76,.2)}
+tbody tr.data-row{border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s}
+tbody tr.data-row:hover{background:rgba(201,168,76,.04)}
+.num-cell{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--muted);text-align:center;padding:.5rem .4rem;white-space:nowrap;vertical-align:top;padding-top:.75rem}
+.chk-cell{font-family:'Exo 2',sans-serif;font-size:.83rem;color:#dce0f2;padding:.5rem .7rem;line-height:1.55;vertical-align:top}
+.box-cell{text-align:center;padding:.45rem .4rem;vertical-align:top;padding-top:.65rem}
+.ck{width:20px;height:20px;border-radius:4px;margin:0 auto;cursor:pointer;appearance:none;-webkit-appearance:none;border:2px solid;background:transparent;transition:background .15s;display:block}
+.ck.ok{border-color:var(--green)}.ck.ok:checked{background:var(--green)}
+.ck.nok{border-color:#ff6b6b}.ck.nok:checked{background:#ff6b6b}
+.rem-cell{font-family:'Exo 2',sans-serif;font-size:.72rem;color:var(--muted);padding:.4rem .5rem;vertical-align:top;min-width:90px}
+.signoff{margin-top:1.4rem;padding:1rem 1.2rem;background:var(--panel);border:1px solid var(--border);border-radius:10px;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between}
+.signoff-item{flex:1;min-width:160px}
+.signoff-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--muted);margin-bottom:.3rem}
+.signoff-line{border-bottom:1px solid var(--dim);height:24px}
+@media(max-width:600px){.tabs{top:48px}.panel{padding:.8rem .8rem 3rem}.tab-btn{min-width:75px;padding:.5rem .2rem}.tab-btn .tab-label{font-size:.7rem}.chk-cell{font-size:.8rem}}
+@media print{.topbar,.tabs{position:static}.dl-btn{display:none}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="tb-icon-btn" onclick="history.back()" title="Back">
+      <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+    </button>
+    <span class="app-name">EVA-APP</span>
+    <span class="breadcrumb">PPM &rsaquo; <span>SAND FILTERS SF-02 &amp; SF-03 TA40</span></span>
+  </div>
+  <a href="../EVA-CORE.html" class="tb-icon-btn" title="Home">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+  </a>
+</div>
+
+<div class="title-section">
+  <div class="equip-title">SAND FILTERS <span>SF-02 &amp; SF-03 TA40</span></div>
+  <div class="equip-sub">Pentair Tagelus® TA40 · Tags: SF-02 &amp; SF-03 · Pool Mechanical Room · CEO Villa</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn daily active" onclick="switchTab('daily')">
+    <div class="tab-label"><span class="dot"></span>DAILY</div>
+    <div class="tab-count">15 ITEMS</div>
+  </button>
+  <button class="tab-btn weekly" onclick="switchTab('weekly')">
+    <div class="tab-label"><span class="dot"></span>WEEKLY</div>
+    <div class="tab-count">28 ITEMS</div>
+  </button>
+  <button class="tab-btn monthly3" onclick="switchTab('monthly3')">
+    <div class="tab-label"><span class="dot"></span>3-MONTHLY</div>
+    <div class="tab-count">26 ITEMS</div>
+  </button>
+  <button class="tab-btn monthly6" onclick="switchTab('monthly6')">
+    <div class="tab-label"><span class="dot"></span>6-MONTHLY</div>
+    <div class="tab-count">35 ITEMS</div>
+  </button>
+</div>
+
+<!-- ═══ DAILY ═══ -->
+<div class="panel active" id="panel-daily">
+  <div class="panel-header"><div class="panel-title">DAILY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">15 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Sand Filter TR40 Preventive Maintenance Checklists/SF-02 &amp; SF-03 TA40 - Daily PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">A.&nbsp; VISUAL INSPECTION (SF-02 &amp; SF-03)</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Inspect SF-02 filter tank exterior for cracks, deformation, or visible physical damage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Inspect SF-03 filter tank exterior for cracks, deformation, or visible physical damage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Check all pipe connections and fittings on both filters for leaks or seepage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Verify top-mounted valve on SF-02 — confirm it is set to FILTER position</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Verify top-mounted valve on SF-03 — confirm it is set to FILTER position</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Inspect valve clamp on SF-02 — secure, no cracks or leakage at valve/tank interface</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Inspect valve clamp on SF-03 — secure, no cracks or leakage at valve/tank interface</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">B.&nbsp; PRESSURE &amp; FLOW CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Read and record SF-02 pressure gauge reading: _________ PSI</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Read and record SF-03 pressure gauge reading: _________ PSI</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Compare both readings to respective baseline clean filter pressures — note any difference</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Assess backwash requirement on either unit — 10 PSI rise above clean baseline = initiate backwash</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Verify water return flow to pool from both filters is adequate and unobstructed</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Confirm both units running smoothly — no unusual noise or vibration</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">C.&nbsp; GENERAL OBSERVATIONS</td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Observe pool water clarity — record as: Clear / Cloudy / Discoloured</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Inspect equipment room — no flooding, chemical spills, or unusual odors near either filter</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<!-- ═══ WEEKLY ═══ -->
+<div class="panel" id="panel-weekly">
+  <div class="panel-header"><div class="panel-title">WEEKLY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">28 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Sand Filter TR40 Preventive Maintenance Checklists/SF-02 &amp; SF-03 TA40 - Weekly PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">A.&nbsp; VISUAL INSPECTION (BOTH UNITS)</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Inspect full exterior of SF-02 filter tank — cracks, UV discoloration, or surface damage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Inspect full exterior of SF-03 filter tank — cracks, UV discoloration, or surface damage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Check all piping and fittings on both filters — no drips, staining, or seepage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Inspect top-mounted valve body on SF-02 — no cracks, deterioration, or leakage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Inspect top-mounted valve body on SF-03 — no cracks, deterioration, or leakage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Verify clamp tightness on SF-02 — no loosening detected; tighten if required</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Verify clamp tightness on SF-03 — no loosening detected; tighten if required</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Inspect pressure gauge on SF-02 — glass not cracked, needle not stuck</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Inspect pressure gauge on SF-03 — glass not cracked, needle not stuck</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">B.&nbsp; BACKWASH &amp; RINSE — SF-02</td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Assess SF-02 pressure vs. clean baseline — initiate backwash if risen 10 PSI or more</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Turn pump OFF — set valve on SF-02 to BACKWASH position</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Stand clear of filter — start pump — backwash SF-02 for 3–5 minutes or until effluent runs clear</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Stop pump — set valve to RINSE — start pump — rinse for 30 seconds</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Stop pump — set valve to FILTER position</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Open manual air bleeder on SF-02 valve — restart pump — close bleeder when steady flow appears</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Record post-backwash pressure on SF-02: _________ PSI</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">C.&nbsp; BACKWASH &amp; RINSE — SF-03</td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Assess SF-03 pressure vs. clean baseline — initiate backwash if risen 10 PSI or more</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Turn pump OFF — set valve on SF-03 to BACKWASH position</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">Stand clear of filter — start pump — backwash SF-03 for 3–5 minutes or until effluent runs clear</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Stop pump — set valve to RINSE — start pump — rinse for 30 seconds</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Stop pump — set valve to FILTER position</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Open manual air bleeder on SF-03 valve — restart pump — close bleeder when steady flow appears</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Record post-backwash pressure on SF-03: _________ PSI</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">D.&nbsp; OPERATIONAL CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Inspect backwash discharge line — no blockage, discharge water clear on both units</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">25</td><td class="chk-cell">Check drain spigot on bottom of SF-02 — secure, not leaking</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">26</td><td class="chk-cell">Check drain spigot on bottom of SF-03 — secure, not leaking</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">27</td><td class="chk-cell">Verify all suction and return lines fully open</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">28</td><td class="chk-cell">Confirm pool water return flow from both filters is normal</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<!-- ═══ 3-MONTHLY ═══ -->
+<div class="panel" id="panel-monthly3">
+  <div class="panel-header"><div class="panel-title">3-MONTHLY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">26 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Sand Filter TR40 Preventive Maintenance Checklists/SF-02 &amp; SF-03 TA40 - 3-Monthly PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">A.&nbsp; VISUAL INSPECTION (BOTH UNITS)</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Full exterior inspection of SF-02 — tank body, foot/base, paint and surface condition</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Full exterior inspection of SF-03 — tank body, foot/base, paint and surface condition</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Inspect all piping, brackets, and supports around both filters — no corrosion or movement</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Inspect top-mounted valve body on SF-02 — no cracks, UV degradation, or corrosion</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Inspect top-mounted valve body on SF-03 — no cracks, UV degradation, or corrosion</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Verify valve clamp tightness on SF-02 — tighten if any looseness detected</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Verify valve clamp tightness on SF-03 — tighten if any looseness detected</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Inspect valve O-ring at valve/tank interface on SF-02 — no extrusion or deterioration</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Inspect valve O-ring at valve/tank interface on SF-03 — no extrusion or deterioration</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Check pressure gauges on both units — not cracked, reading correctly</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Inspect air bleeder on each valve — no corrosion, threads intact, no leakage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">B.&nbsp; MECHANICAL SERVICE</td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Lubricate valve O-ring/quad ring on SF-02 with approved silicone lubricant</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Lubricate valve O-ring/quad ring on SF-03 with approved silicone lubricant</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Test all six valve positions on SF-02: Filter, Backwash, Rinse, Waste, Recirculate, Winterize</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Test all six valve positions on SF-03 — confirm each position clicks into place and holds</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Clean pump strainer baskets for both filters — clear of all debris and hair</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">C.&nbsp; FILTER PERFORMANCE</td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Record clean filter pressure (post-backwash) on SF-02 — compare to previous quarter: _________ PSI</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Record clean filter pressure (post-backwash) on SF-03 — compare to previous quarter: _________ PSI</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">If post-backwash pressure on either unit is 4–6 PSI above normal — initiate chemical cleaning</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Check pool flow rates — both filters contributing to design flow (40 GPM each per TA40 spec)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">D.&nbsp; MEDIA CHECK (EXTERNAL)</td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Check backwash discharge on both units — no sand particles visible (indicates broken lateral)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Verify no unusual reduction in sand level on either unit</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Confirm freeboard of 7.75 inches maintained on SF-02 and SF-03</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">E.&nbsp; SAFETY &amp; COMPLIANCE</td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Confirm operating pressure on both units does not exceed 50 PSI maximum</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">25</td><td class="chk-cell">Ensure no pool chemicals stored within 10 feet of either filter</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">26</td><td class="chk-cell">Update maintenance log with all readings and observations for both units this period</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<!-- ═══ 6-MONTHLY ═══ -->
+<div class="panel" id="panel-monthly6">
+  <div class="panel-header"><div class="panel-title">6-MONTHLY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">35 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Sand Filter TR40 Preventive Maintenance Checklists/SF-02 &amp; SF-03 TA40 - 6-Monthly PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">A.&nbsp; VISUAL INSPECTION (BOTH UNITS)</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Thorough inspection of SF-02 tank body — UV degradation, surface fogginess, or rough texture</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Thorough inspection of SF-03 tank body — UV degradation, surface fogginess, or rough texture</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Inspect tank foot/base of SF-02 — mounting tape secure, no movement or cracking</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Inspect tank foot/base of SF-03 — mounting tape secure, no movement or cracking</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Inspect drain spigot and all fittings on SF-02 — no seepage, cracks, or corrosion</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Inspect drain spigot and all fittings on SF-03 — no seepage, cracks, or corrosion</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Inspect all external piping on both units — brackets secure, no stress on filter connections</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">B.&nbsp; VALVE REMOVAL &amp; INSPECTION — SF-02</td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Shut down pump for SF-02 — relieve all pressure — open air bleeder until fully depressurized</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Loosen and remove clamp on SF-02 — remove top-mounted valve per valve manual instructions</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Inspect valve O-ring and quad ring on SF-02 — replace if deteriorated; lubricate replacement with silicone</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Inspect internal components (spider gasket, diverter) on SF-02 valve — no splitting or deformation</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Reinstall valve on SF-02 — secure clamp (hand tight + 1/4 turn minimum as per specification)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Open air bleeder on SF-02 valve — restart pump — close bleeder when steady water stream appears</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">C.&nbsp; VALVE REMOVAL &amp; INSPECTION — SF-03</td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Shut down pump for SF-03 — relieve all pressure — open air bleeder until fully depressurized</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Loosen and remove clamp on SF-03 — remove top-mounted valve per valve manual instructions</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Inspect valve O-ring and quad ring on SF-03 — replace if deteriorated; lubricate replacement with silicone</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Inspect internal components (spider gasket, diverter) on SF-03 valve — no splitting or deformation</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Reinstall valve on SF-03 — secure clamp (hand tight + 1/4 turn minimum as per specification)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">Open air bleeder on SF-03 valve — restart pump — close bleeder when steady water stream appears</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">D.&nbsp; INTERNAL FILTER INSPECTION (BOTH UNITS)</td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Inspect laterals on SF-02 (visible after valve removal) — no broken or cracked laterals (6 req.)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Inspect laterals on SF-03 (visible after valve removal) — no broken or cracked laterals (6 req.)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Measure sand freeboard on SF-02 — must be 7.75 in.; top up with No. 20 Standard Silica if low</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Measure sand freeboard on SF-03 — must be 7.75 in.; top up with No. 20 Standard Silica if low</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Assess sand media condition on SF-02 — check for mud balls, channeling, or clumping</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">25</td><td class="chk-cell">Assess sand media condition on SF-03 — check for mud balls, channeling, or clumping</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">E.&nbsp; CHEMICAL CLEANING (IF REQUIRED)</td></tr>
+      <tr class="data-row"><td class="num-cell">26</td><td class="chk-cell">If starting pressure on SF-02 remains 4–6 PSI above normal — perform chemical cleaning per O&amp;M manual</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">27</td><td class="chk-cell">If starting pressure on SF-03 remains 4–6 PSI above normal — perform chemical cleaning per O&amp;M manual</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">28</td><td class="chk-cell">After soaking, backwash both units — verify post-cleaning pressure returns to normal baseline</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">F.&nbsp; PERFORMANCE TEST &amp; SAFETY</td></tr>
+      <tr class="data-row"><td class="num-cell">29</td><td class="chk-cell">Record clean filter operating pressure on SF-02 — compare to commissioning baseline: _________ PSI</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">30</td><td class="chk-cell">Record clean filter operating pressure on SF-03 — compare to commissioning baseline: _________ PSI</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">31</td><td class="chk-cell">Design flow rate: 40 GPM per unit — observe pool return fittings for adequate flow</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">32</td><td class="chk-cell">Check pressure gauges on both units — replace if reading is inaccurate or glass is damaged</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">33</td><td class="chk-cell">Confirm 50 PSI maximum operating pressure not exceeded on either unit</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">34</td><td class="chk-cell">Inspect equipment room — adequate ventilation, no chemicals within 10 ft of either filter</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">35</td><td class="chk-cell">Update full maintenance record — all findings, parts replaced, next scheduled service date</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<script>
+function switchTab(tab){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('panel-'+tab).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  document.querySelector('.tab-btn.'+tab).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

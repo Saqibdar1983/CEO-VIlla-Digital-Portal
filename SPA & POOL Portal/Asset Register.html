@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asset Register – CEO Villa SPA & POOL | O&M Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --gold:     #D4AF37;
+  --gold-lt:  #f0d060;
+  --gold-dim: rgba(212,175,55,0.55);
+  --blue:     #38bdf8;
+  --dark:     #03090f;
+  --text:     #dff0fb;
+  --muted:    rgba(224,242,254,0.50);
+  --border:   rgba(212,175,55,0.22);
+  --green:    #22c55e;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+
+body {
+  background: var(--dark);
+  background-image: url("Asset Register Background Page/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: 'Aptos Display','Segoe UI',Tahoma,sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background:
+    linear-gradient(180deg, rgba(3,9,15,0.90) 0%, rgba(3,9,15,0.76) 100%),
+    radial-gradient(ellipse at 15% 20%, rgba(212,175,55,0.05) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 80%, rgba(56,189,248,0.05) 0%, transparent 45%);
+  z-index:0; pointer-events:none;
+}
+
+/* ── HEADER ── */
+header {
+  background: rgba(3,9,20,0.97);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 26px;
+  height: 60px;
+  display:flex; align-items:center;
+  position:fixed; top:0; width:100%;
+  z-index:900;
+  box-shadow: 0 4px 28px rgba(0,0,0,0.7);
+}
+.hdr-left  { display:flex; align-items:center; gap:14px; flex:1; }
+.hdr-mid   { flex:2; text-align:center; }
+.hdr-mid h1{ font-size:14px; font-weight:800; color:var(--gold); text-transform:uppercase; letter-spacing:2px; }
+.hdr-right { flex:1; display:flex; justify-content:flex-end; align-items:center; gap:10px; }
+
+.btn-nav {
+  background: rgba(212,175,55,0.09);
+  color: var(--gold);
+  border: 1px solid rgba(212,175,55,0.35);
+  padding: 7px 15px; border-radius:5px;
+  cursor:pointer; font-size:13px;
+  text-decoration:none; display:flex; align-items:center; gap:7px;
+  transition:all 0.25s; white-space:nowrap;
+}
+.btn-nav:hover { background:rgba(212,175,55,0.22); border-color:var(--gold); }
+
+.search-wrap { position:relative; }
+.search-wrap input {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(212,175,55,0.28);
+  color: var(--text);
+  padding: 7px 34px 7px 12px;
+  border-radius:20px; font-size:13px; width:200px;
+  outline:none; transition:all 0.3s;
+}
+.search-wrap input::placeholder { color:rgba(224,242,254,0.38); }
+.search-wrap input:focus { width:240px; background:rgba(255,255,255,0.10); border-color:var(--gold); }
+.search-wrap i { position:absolute; right:10px; top:50%; transform:translateY(-50%); color:var(--gold-dim); font-size:12px; pointer-events:none; }
+
+/* ── MAIN ── */
+main {
+  position:relative; z-index:1;
+  margin-top:60px; margin-bottom:52px;
+  padding: 18px 14px;
+  width:100%; max-width:1600px;
+  margin-left:auto; margin-right:auto;
+}
+
+/* PAGE TITLE */
+.page-title { text-align:center; margin-bottom:14px; }
+.page-title .eyebrow {
+  font-size:10px; color:rgba(56,189,248,0.5);
+  letter-spacing:4px; text-transform:uppercase; margin-bottom:6px;
+}
+.page-title h2 {
+  font-size:22px; font-weight:800; text-transform:uppercase;
+  letter-spacing:3px; color:var(--gold-lt);
+  text-shadow:0 0 30px rgba(212,175,55,0.22);
+}
+.divider-line { display:flex; align-items:center; justify-content:center; gap:12px; margin-top:8px; }
+.divider-line .line { height:1px; width:80px; }
+.divider-line .lg { background:linear-gradient(90deg,transparent,rgba(212,175,55,0.5)); }
+.divider-line .lb { background:linear-gradient(90deg,rgba(56,189,248,0.5),transparent); }
+.divider-line i { color:var(--gold-dim); font-size:11px; }
+
+/* STATS BAR */
+.stats-bar { display:flex; gap:10px; margin-bottom:12px; flex-wrap:wrap; }
+.stat-pill {
+  background: rgba(8,20,40,0.75);
+  border:1px solid var(--border);
+  border-radius:20px; padding:4px 13px;
+  font-size:12px; color:var(--text);
+  display:flex; align-items:center; gap:7px;
+  backdrop-filter:blur(6px);
+}
+.stat-pill span { color:var(--gold); font-weight:700; }
+.stat-pill i { color:var(--blue); font-size:11px; }
+
+/* FILTER TABS */
+.filter-tabs { display:flex; gap:7px; margin-bottom:12px; flex-wrap:wrap; }
+.ftab {
+  background: rgba(8,20,40,0.65);
+  border: 1px solid rgba(212,175,55,0.18);
+  color: rgba(224,242,254,0.60);
+  padding: 4px 12px; border-radius:14px;
+  font-size:12px; cursor:pointer; transition:all 0.22s; white-space:nowrap;
+}
+.ftab:hover { border-color:var(--gold); color:var(--gold); }
+.ftab.active {
+  background: rgba(212,175,55,0.16);
+  border-color: var(--gold);
+  color: var(--gold-lt);
+  font-weight:600;
+}
+
+/* ── TABLE — sits directly on the page, no inner card ── */
+.table-wrap {
+  overflow-x: auto;
+  border-top: 2px solid rgba(212,175,55,0.35);
+  border-radius: 8px 8px 0 0;
+}
+
+.asset-table {
+  width:100%; border-collapse:collapse; font-size:13px;
+  min-width:820px;
+}
+
+/* Section rows */
+.asset-table tr.sec-hdr td {
+  background: linear-gradient(90deg, rgba(212,175,55,0.16) 0%, rgba(212,175,55,0.04) 100%);
+  color: var(--gold-lt);
+  font-size:13px; font-weight:700;
+  text-transform:uppercase; letter-spacing:2.5px;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(212,175,55,0.25);
+  border-top: 1px solid rgba(212,175,55,0.12);
+  text-align:center;
+}
+.asset-table tr.sec-hdr td i { color:var(--gold); margin-right:10px; font-size:13px; }
+
+/* Column headers */
+.asset-table thead tr.col-hdr th {
+  background: rgba(4,12,28,0.97);
+  color: var(--gold);
+  font-size:11px; font-weight:700;
+  text-transform:uppercase; letter-spacing:1.2px;
+  padding: 11px 12px;
+  white-space:nowrap;
+  border-bottom: 2px solid rgba(212,175,55,0.35);
+  position:sticky; top:0; z-index:10;
+  cursor:pointer; user-select:none;
+  transition:background 0.2s;
+}
+.asset-table thead tr.col-hdr th:hover { background:rgba(212,175,55,0.08); }
+.asset-table thead tr.col-hdr th .sort-icon { margin-left:4px; opacity:0.35; font-size:10px; }
+.asset-table thead tr.col-hdr th.sorted .sort-icon { opacity:1; color:var(--gold-lt); }
+.asset-table thead tr.col-hdr th:first-child { width:48px; text-align:center; }
+
+/* Data rows */
+.asset-table tbody tr.asset-row {
+  cursor:pointer;
+  border-bottom: 1px solid rgba(212,175,55,0.07);
+  transition:background 0.18s;
+}
+.asset-table tbody tr.asset-row:hover { background:rgba(212,175,55,0.10) !important; }
+.asset-table tbody tr.asset-row:nth-child(even) { background:rgba(255,255,255,0.022); }
+
+.asset-table tbody td {
+  padding: 9px 12px;
+  vertical-align:middle;
+  color: var(--text);
+  white-space:nowrap;
+  overflow:hidden; text-overflow:ellipsis;
+  max-width:210px;
+}
+.asset-table tbody td:first-child { text-align:center; color:var(--gold); font-weight:700; }
+.asset-table tbody td.name-cell   { font-weight:600; color:#fff; max-width:230px; }
+.asset-table tbody td.tag-cell    { font-family:monospace; font-size:12px; color:var(--blue); }
+.asset-table tbody td.model-cell  { color:rgba(224,242,254,0.85); }
+.asset-table tbody td.brand-cell  { color:var(--gold-lt); font-weight:600; }
+.asset-table tbody td.co-cell     { color:rgba(224,242,254,0.68); font-size:12px; }
+.asset-table tbody td.wo-cell     { color:var(--green); font-weight:600; font-size:12px; }
+
+/* No results */
+.no-results { text-align:center; padding:50px 20px; color:var(--muted); font-size:15px; }
+.no-results i { font-size:36px; color:rgba(212,175,55,0.18); display:block; margin-bottom:12px; }
+.hidden { display:none !important; }
+
+/* ── MODAL ── */
+.modal-overlay {
+  display:none; position:fixed; inset:0;
+  background:rgba(0,0,0,0.78);
+  z-index:2000; align-items:center; justify-content:center;
+  padding:16px; backdrop-filter:blur(5px);
+}
+.modal-overlay.active { display:flex; animation:fadeIn 0.16s ease; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+.modal-box {
+  background: #ffffff;
+  border: 1px solid #d0d7e0;
+  border-top: 4px solid var(--gold);
+  border-radius:12px;
+  width:100%; max-width:780px;
+  max-height:90vh; overflow:hidden;
+  display:flex; flex-direction:column;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+  animation: slideUp 0.22s ease;
+}
+@keyframes slideUp { from{transform:translateY(28px);opacity:0} to{transform:translateY(0);opacity:1} }
+
+/* Modal header — dark navy, white bold heading */
+.modal-header {
+  background: #0d2340;
+  border-bottom: 3px solid var(--gold);
+  padding: 18px 22px;
+  display:flex; align-items:flex-start; justify-content:space-between;
+  flex-shrink:0;
+}
+.modal-asset-no {
+  font-size:9.5px; color:rgba(212,175,55,0.75);
+  letter-spacing:2px; text-transform:uppercase; margin-bottom:5px;
+}
+.modal-asset-name {
+  font-size:20px; font-weight:900;
+  color:#ffffff; letter-spacing:0.3px; line-height:1.3;
+  max-width:600px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+.modal-close {
+  background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25);
+  color:#ffffff; width:32px; height:32px; border-radius:50%;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  font-size:15px; flex-shrink:0; margin-left:12px; transition:all 0.2s;
+}
+.modal-close:hover { background:rgba(210,40,40,0.65); border-color:rgba(210,40,40,0.8); }
+
+/* Modal body — white */
+.modal-body {
+  flex:1; overflow-y:auto; padding:20px;
+  background:#ffffff;
+  scrollbar-width:thin; scrollbar-color:#b8c0cc #f1f1f1;
+}
+.modal-body::-webkit-scrollbar{width:5px}
+.modal-body::-webkit-scrollbar-track{background:#f1f1f1}
+.modal-body::-webkit-scrollbar-thumb{background:#b8c0cc;border-radius:3px}
+
+.detail-section { margin-bottom:18px; }
+.detail-section-title {
+  font-size:10px; color:#0d2340;
+  letter-spacing:2.5px; text-transform:uppercase; font-weight:800;
+  padding-bottom:6px; margin-bottom:10px;
+  border-bottom:2px solid rgba(212,175,55,0.5);
+  display:flex; align-items:center; gap:8px;
+}
+.detail-section-title i { font-size:11px; color:var(--gold); }
+
+.detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.detail-item {
+  background:#f8f9fb; border:1px solid #e4e7ec;
+  border-radius:6px; padding:9px 12px;
+}
+.detail-item.full-width { grid-column:1/-1; }
+.detail-label {
+  font-size:9.5px; text-transform:uppercase; letter-spacing:1.5px;
+  color:#374151; margin-bottom:4px; font-weight:700;
+}
+.detail-value {
+  font-size:13px; color:#1a1a2e; font-weight:500; line-height:1.4;
+  word-break:break-word;
+}
+.detail-value.gold  { color:#8b6914; font-weight:700; }
+.detail-value.blue  { color:#0369a1; font-family:monospace; }
+.detail-value.green { color:#166534; font-weight:700; }
+.detail-value.empty { color:#9ca3af; font-style:italic; font-size:12px; }
+
+/* Modal footer — light grey */
+.modal-footer {
+  background:#f3f4f6; border-top:1px solid #e4e7ec;
+  padding:13px 20px;
+  display:flex; gap:10px; align-items:center;
+  flex-shrink:0; flex-wrap:wrap;
+}
+.mf-label { font-size:10px; color:#6b7280; letter-spacing:1.5px; text-transform:uppercase; }
+.btn-ref {
+  display:inline-flex; align-items:center; gap:7px;
+  padding:8px 16px; border-radius:6px;
+  font-size:12.5px; font-weight:700;
+  text-decoration:none; cursor:pointer; border:none;
+  transition:all 0.22s; text-transform:uppercase; letter-spacing:0.5px;
+}
+.btn-wo   { background:#dcfce7; color:#15803d; border:1px solid #86efac; }
+.btn-wo:hover   { background:#bbf7d0; transform:translateY(-1px); }
+.btn-dwg  { background:#e0f2fe; color:#0369a1; border:1px solid #7dd3fc; opacity:0.6; cursor:not-allowed; }
+.btn-dwg:hover  { background:#e0f2fe; opacity:0.6; transform:none; }
+.btn-appr { background:#fefce8; color:#854d0e; border:1px solid #fde047; }
+.btn-appr:hover { background:#fef9c3; transform:translateY(-1px); }
+
+/* ── FOOTER ── */
+footer {
+  position:fixed; bottom:0; width:100%;
+  background: rgba(3,9,20,0.97);
+  border-top:1px solid var(--border);
+  padding:0 26px; height:48px;
+  display:flex; align-items:center; justify-content:space-between;
+  font-size:12px; color:var(--muted);
+  z-index:800; backdrop-filter:blur(14px);
+}
+.count-badge {
+  background:rgba(212,175,55,0.12); border:1px solid var(--border);
+  color:var(--gold); padding:3px 10px; border-radius:10px;
+  font-size:11px; font-weight:700;
+}
+
+@media(max-width:768px){
+  .hdr-mid h1{font-size:12px;}
+  .search-wrap input{width:140px;}
+  .detail-grid{grid-template-columns:1fr;}
+  .modal-box{max-height:95vh;}
+  .filter-tabs{display:none;}
+  .stats-bar .stat-pill:nth-child(n+3){display:none;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-left">
+    <a href="../EVA-CORE.html" class="btn-nav"><i class="fas fa-arrow-left"></i> Back</a>
+  </div>
+  <div class="hdr-mid">
+    <h1><i class="fas fa-clipboard-list" style="color:var(--gold);margin-right:8px;opacity:0.85;"></i>CEO Villa – SPA &amp; Pool | Asset Register</h1>
+  </div>
+  <div class="hdr-right">
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="Search assets…" oninput="doSearch()">
+      <i class="fas fa-search"></i>
+    </div>
+    <a href="../EVA-CORE.html" class="btn-nav"><i class="fas fa-home"></i></a>
+  </div>
+</header>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeBg(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div>
+        <div class="modal-asset-no" id="mNo"></div>
+        <div class="modal-asset-name" id="mName"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+    <div class="modal-footer">
+      <span class="mf-label"><i class="fas fa-link" style="margin-right:4px;"></i>Quick Links</span>
+      <a id="btnWO"   href="Work Order 34982.html" class="btn-ref btn-wo"   target="_blank"><i class="fas fa-file-alt"></i> <span id="lblWO">WO # 34982</span></a>
+      <a id="btnDwg"  href="#"                     class="btn-ref btn-dwg"  title="Drawing link coming soon"><i class="fas fa-drafting-compass"></i> <span id="lblDwg">Drawing</span></a>
+      <a id="btnAppr" href="Approval Compliance.html" class="btn-ref btn-appr" target="_blank"><i class="fas fa-stamp"></i> <span id="lblAppr">Approval</span></a>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="page-title">
+    <div class="eyebrow">CEO Villa, Jeddah &nbsp;|&nbsp; WO # 34982 &nbsp;|&nbsp; ASEEB CONTRACTING COMPANY</div>
+    <h2><i class="fas fa-database" style="font-size:19px;margin-right:10px;opacity:0.65;"></i>Complete Asset Register</h2>
+    <div class="divider-line">
+      <span class="line lg"></span><i class="fas fa-circle"></i><span class="line lb"></span>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-pill"><i class="fas fa-boxes"></i> Total: <span id="totalCount">58</span></div>
+    <div class="stat-pill"><i class="fas fa-eye"></i> Showing: <span id="showCount">58</span></div>
+    <div class="stat-pill"><i class="fas fa-map-marker-alt"></i> Location: <span>Basement – SPA & Pool Pump Room</span></div>
+    <div class="stat-pill"><i class="fas fa-calendar-alt"></i> <span>July 2026</span></div>
+  </div>
+
+  <div class="filter-tabs">
+    <button class="ftab active" data-sec="ALL" onclick="setSection('ALL',this)">All</button>
+    <button class="ftab" data-sec="OUTDOOR POOL SYSTEM" onclick="setSection('OUTDOOR POOL SYSTEM',this)"><i class="fas fa-water" style="margin-right:4px;"></i>Outdoor Pool</button>
+    <button class="ftab" data-sec="INDOOR POOL SYSTEM (JACUZZI)" onclick="setSection('INDOOR POOL SYSTEM (JACUZZI)',this)"><i class="fas fa-swimming-pool" style="margin-right:4px;"></i>Indoor Pool</button>
+    <button class="ftab" data-sec="COLD PLUNGE / SPA" onclick="setSection('COLD PLUNGE / SPA',this)"><i class="fas fa-snowflake" style="margin-right:4px;"></i>Cold Plunge</button>
+    <button class="ftab" data-sec="SAUNA ROOM" onclick="setSection('SAUNA ROOM',this)"><i class="fas fa-fire" style="margin-right:4px;"></i>Sauna</button>
+    <button class="ftab" data-sec="STEAM ROOM" onclick="setSection('STEAM ROOM',this)"><i class="fas fa-cloud" style="margin-right:4px;"></i>Steam Room</button>
+    <button class="ftab" data-sec="COMMON SERVICES / PUMP ROOM" onclick="setSection('COMMON SERVICES / PUMP ROOM',this)"><i class="fas fa-cogs" style="margin-right:4px;"></i>Common Services</button>
+    <button class="ftab" data-sec="MAINTENANCE TOOLS & CONSUMABLES" onclick="setSection('MAINTENANCE TOOLS & CONSUMABLES',this)"><i class="fas fa-tools" style="margin-right:4px;"></i>Maintenance</button>
+  </div>
+
+  <div class="table-wrap">
+    <table class="asset-table" id="assetTable">
+      <thead>
+        <tr class="col-hdr">
+          <th onclick="doSort(0)">No.<span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="doSort(1)" style="min-width:200px">Asset Name<span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="doSort(2)">Equip. Tag<span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="doSort(3)" style="min-width:140px">Model<span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="doSort(4)">Serial No.<span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="doSort(5)" style="min-width:180px">Location<span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="doSort(6)">Manufacturer<span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="doSort(7)">Country<span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+          <th onclick="doSort(8)">WO #<span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="no-results hidden" id="noResults"><i class="fas fa-search"></i>No assets match your search.</div>
+  </div>
+</main>
+
+<footer>
+  <span>CEO Villa – SPA &amp; POOL | Asset Register | WO# 34982 | ASEEB CONTRACTING COMPANY</span>
+  <div style="display:flex;gap:14px;align-items:center;">
+    <span class="count-badge" id="footBadge">58 Assets</span>
+    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="color:var(--gold);font-size:13px;text-decoration:none;"><i class="fas fa-arrow-up"></i></a>
+  </div>
+</footer>
+
+<script>
+/* ── DATA ── */
+const ASSETS = [{"no":1,"name":"Outdoor Pool Sand Filter","category":"Equipment","type":"Sand Filter","system":"Outdoor Pool – Filtration","function":"Pool water filtration","tag":"SF-01-ODP","model":"Triton II TR140","part_no":"140222 (P/N)","serial":"0102186180026P","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Max 141 GPM / 32 m³/h","flow":"106 GPM / 24 m³/h","head":"50 PSI max (3.4 bar)","ip":"N/A","connection":"N/A","material":"Fiberglass-reinforced tank","country":"United States","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Vertical)","maintenance":"Daily / Weekly / 3-Monthly / 6-Monthly","spare_parts":"#20 Silica Sand (925 lbs / 419 kg), Pea Gravel 9 lbs, Pressure gauge, Multiport valve o-ring kit","section":"OUTDOOR POOL SYSTEM"},{"no":2,"name":"Outdoor Pool 6-Way Backwash Valve","category":"Equipment","type":"6-Way Multiport / Backwash Valve","system":"Outdoor Pool – Filtration","function":"Sand filter backwash and multiport control","tag":"SFV-ODP-01","model":"V6 – 6-Way Multiport Valve","part_no":"V6","serial":"N/A","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Praher Plastics","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Filter / Backwash / Rinse / Waste / Recirc. / Closed / Winter","flow":"N/A","head":"3.5 Bar max","ip":"N/A","connection":"2\"","material":"Plastic valve body","country":"Austria","mfr_address":"Praher Plastics Austria GmbH, Poneggenstrasse 5, 4311 Schwertberg, Austria","mfr_phone":"Ph: +43 7262 61178-0","mfr_email":"sales@praherplastics.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Top-mount on TR140 filter tank","maintenance":"Weekly / Monthly / Annual","spare_parts":"Valve spider gasket, o-ring kit, handle assembly, valve seat","section":"OUTDOOR POOL SYSTEM"},{"no":3,"name":"Outdoor Pool Filtration Pump-01","category":"Equipment","type":"Pool Circulation Pump","system":"Outdoor Pool – Filtration","function":"Pool water filtration and circulation","tag":"FP-ODP-01","model":"WhisperFlo P-WFL-901","part_no":"7630046629014","serial":"7630046629014-A0353-250924","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair International","power":"2.2 kW (3.0 HP)","voltage":"230 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Max Head: 27 m | Full Load Current: 10.7 A","flow":"Variable (Hmax curve)","head":"27 m (Hmax)","ip":"IP X5","connection":"N/A","material":"High-performance hydraulics / thermoplastic body","country":"Italy","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Self-priming)","maintenance":"Daily / Weekly / Monthly / 6-Monthly","spare_parts":"Mechanical seal, pump basket, impeller, shaft seal o-ring, motor capacitor (31.5 µF)","section":"OUTDOOR POOL SYSTEM"},{"no":4,"name":"Outdoor Pool Filtration Pump-02","category":"Equipment","type":"Pool Circulation Pump","system":"Outdoor Pool – Filtration","function":"Pool water filtration and circulation","tag":"FP-ODP-02","model":"WhisperFlo P-WFL-901","part_no":"7630046629014","serial":"7630046629014-A0322-250924","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair International","power":"2.2 kW (3.0 HP)","voltage":"230 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Max Head: 27 m | Full Load Current: 10.7 A","flow":"Variable (Hmax curve)","head":"27 m (Hmax)","ip":"IP X5","connection":"N/A","material":"High-performance hydraulics / thermoplastic body","country":"Italy","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Self-priming)","maintenance":"Daily / Weekly / Monthly / 6-Monthly","spare_parts":"Mechanical seal, pump basket, impeller, shaft seal o-ring, motor capacitor (31.5 µF)","section":"OUTDOOR POOL SYSTEM"},{"no":5,"name":"Outdoor Pool Waterfall Pump","category":"Equipment","type":"Pool Feature Pump","system":"Outdoor Pool – Water Feature","function":"Outdoor pool waterfall circulation pump","tag":"NP-ODP-01","model":"WhisperFlo P-WFL-801","part_no":"7630046629007","serial":"7630046629007-A0938-250605","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair International","power":"1.5 kW (2.0 HP)","voltage":"230 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Max Head: 27 m | Full Load Current: 9.7 A","flow":"Variable (Hmax curve)","head":"27 m (Hmax)","ip":"IP X5","connection":"N/A","material":"High-performance hydraulics / thermoplastic body","country":"Italy","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Self-priming)","maintenance":"Daily / Weekly / Monthly / 6-Monthly","spare_parts":"Mechanical seal, pump basket, impeller, shaft seal o-ring, motor capacitor (31.5 µF)","section":"OUTDOOR POOL SYSTEM"},{"no":6,"name":"Outdoor Pool Jet Nozzle Pump","category":"Equipment","type":"Pool Feature Pump","system":"Outdoor Pool – Water Feature","function":"Outdoor pool jet nozzle pump","tag":"WFP-ODP-01","model":"WhisperFlo P-WFL-751","part_no":"7630046628994","serial":"7630046628994-A0292-250710","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair International","power":"1.1 kW (1.5 HP)","voltage":"230 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Max Head: 26 m | Full Load Current: 8.6 A","flow":"Variable (Hmax curve)","head":"26 m (Hmax)","ip":"IP X5","connection":"N/A","material":"High-performance hydraulics / thermoplastic body","country":"Italy","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Self-priming)","maintenance":"Daily / Weekly / Monthly / 6-Monthly","spare_parts":"Mechanical seal, pump basket, impeller, shaft seal o-ring, motor capacitor (31.5 µF)","section":"OUTDOOR POOL SYSTEM"},{"no":7,"name":"Outdoor Pool Water Heater","category":"Equipment","type":"Electric Pool Heater","system":"Outdoor Pool – Heating","function":"Outdoor pool water heating","tag":"EWH-01-ODP","model":"SFSD-45-380","part_no":"N/A","serial":"300876","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Elecro Engineering Ltd","power":"45 kW","voltage":"380 V","phase":"3 Ph","frequency":"50/60 Hz","capacity":"Flow: 8,000–15,000 Ltr/hr | Current: 69 A","flow":"Min 8,000 / Max 15,000 Ltr/hr","head":"4 Bar max (400 kPa)","ip":"IP44","connection":"Inline (flow-through)","material":"Titanium heating element / titanium flow tube","country":"England","mfr_address":"Elecro Engineering Ltd, Unit 11, Gunnels Wood Park, Gunnels Wood Road, Stevenage, Hertfordshire SG1 2BH, United Kingdom","mfr_phone":"Ph: +44 (0) 1438 749474","mfr_email":"sales@elecro.co.uk","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Inline (floor-mounted)","maintenance":"Daily / Weekly / Monthly / 6-Monthly","spare_parts":"Titanium heating element, thermostat, pressure relief valve (safety), flow switch","section":"OUTDOOR POOL SYSTEM"},{"no":8,"name":"UV Disinfection System HRP-110","category":"Equipment","type":"UV Disinfection System","system":"Outdoor Pool – Water Treatment","function":"UV-C pool water sanitisation","tag":"UV-C 01","model":"H.R. UV-C PRO / HRP-110","part_no":"HRP-110","serial":"283234","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Elecro Engineering Ltd","power":"120 W","voltage":"240 V","phase":"1 Ph","frequency":"60 Hz","capacity":"2 × 55W UV-C lamps | Min 1°C / Max 45°C water temp","flow":"N/A","head":"N/A","ip":"N/A","connection":"Inline (in-pipe flow-through)","material":"Stainless steel housing","country":"England","mfr_address":"Elecro Engineering Ltd, Unit 11, Gunnels Wood Park, Gunnels Wood Road, Stevenage, Hertfordshire SG1 2BH, United Kingdom","mfr_phone":"Ph: +44 (0) 1438 749474","mfr_email":"sales@elecro.co.uk","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Inline (in-pipe)","maintenance":"Daily / Annual","spare_parts":"UV lamp (Ref: SP-UV-LAMP-EL), quartz sleeve, o-ring / gasket kit","section":"OUTDOOR POOL SYSTEM"},{"no":9,"name":"pH/ORP Chemical Controller","category":"Equipment","type":"Chemical Controller / Water Analyser","system":"Outdoor Pool – Water Treatment","function":"Automated ORP/pH water chemistry monitoring and dosing control","tag":"PHC-01","model":"HCC2000","part_no":"HCC2000","serial":"1W23205-2256669","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Hayward Industries Inc.","power":"N/A","voltage":"120 / 240 V","phase":"1 Ph","frequency":"60 Hz","capacity":"pH sensor: 60 mV <1pA | ORP sensor: 800 mV <1pA | Output: 4 A pH feed","flow":"N/A","head":"N/A","ip":"N/A","connection":"Panel-mounted","material":"Plastic enclosure – wall panel","country":"United States","mfr_address":"Hayward Industries Inc., 61 Whitecap Drive, North Kingstown, RI 02852, USA","mfr_phone":"Ph: 1-908-355-7995","mfr_email":"websupport@hayward.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Wall-mounted / Panel-mounted","maintenance":"Daily / Weekly / 3-Monthly","spare_parts":"pH probe, ORP probe, buffer solution pH 4 & 7, calibration solution, relay fuse","section":"OUTDOOR POOL SYSTEM"},{"no":10,"name":"Waterfall SS 316L Gutter – Custom Made","category":"Pool Fitting","type":"Custom Gutter / Water Feature\n4700 x 150 x 170 x 210","system":"Feature Wall – 2","function":"Stainless steel overflow waterfall gutter for Wall Feature","tag":"WFC-02","model":"Local","part_no":"Local","serial":"Local","location":"Outdoor Pool – CEO Villa","floor":"Ground Floor","drawing":"SB-ASB-SD-ME-003-R2","brand":"LOCAL","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"4700 L x 150 W x 170 H1 x 210 H2","flow":"As per Pump Flow","head":"Open Chennel","ip":"N/A","connection":"N/A","material":"Stainless Steel AISI 316L (custom fabricated)","country":"KSA","mfr_address":"Local Market","mfr_phone":"Local Market","mfr_email":"Local Market","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Integrated into pool edge / wall","maintenance":"Inspect Monthly / Annual","spare_parts":"N/A","section":"OUTDOOR POOL SYSTEM"},{"no":11,"name":"Main Drain 300×300mm","category":"Pool Fitting","type":"Main Drain / Floor Fitting","system":"Outdoor Pool –  Drainage","function":"Outdoo Pool Main Drain Grating","tag":"MD","model":"LOCAL","part_no":"N/A","serial":"N/A","location":"Pool Floor – CEO Villa","floor":"Ground Floor","drawing":"SB-ASB-SD-ME-003-R2","brand":"LOCAL","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"N/A","flow":"N/A","head":"N/A","ip":"N/A","connection":"N/A","material":"Stainless Steel AISI 316","country":"KSA","mfr_address":"Local Market","mfr_phone":"Local Market","mfr_email":"Local Market","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Embedded in pool floor (concrete)","maintenance":"Inspect Monthly","spare_parts":"Frame and grate set, fixing screws","section":"OUTDOOR POOL SYSTEM"},{"no":12,"name":"Gutter Drain 2\"×4\" AKUA4CE 1.5\"","category":"Accessory","type":"Gutter Drain","system":"Pool Drainage / Overflow","function":"Pool perimeter gutter drainage","tag":"GD","model":"1209010001","part_no":"N/A","serial":"N/A","location":"Outdoor Pool – CEO Villa","floor":"Ground Floor","drawing":"SB-ASB-SD-ME-003-R2","brand":"AKUA4CE","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Perimeter gutter overflow drainage","flow":"13.79 Gpm","head":"N/A","ip":"N/A","connection":"1.5\" connection","material":"ABS / stainless grate","country":"KSA","mfr_address":"Building No. 4410, Anas Ibn Malik Road, Al-Yasmeen District, Riyadh 13325, Saudi Arabia","mfr_phone":"Ph: +966 (0)11 248 4111","mfr_email":"bintaleb@bintaleb.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":8,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Integrated into pool wall / floor","maintenance":"Inspect Monthly","spare_parts":"Drain grate (stainless), o-ring seal","section":"OUTDOOR POOL SYSTEM"},{"no":13,"name":"Wall Inlet SS AISI 316","category":"Pool Fitting","type":"Return Inlet / Wall Fitting","system":"Pool Water Circulation","function":"Pool return water wall inlet fitting (Outdoor Pool ×6)","tag":"WI","model":"0592858-4","part_no":"N/A","serial":"N/A","location":"Pool Wall – CEO Villa","floor":"Ground Floor","drawing":"SB-ASB-SD-ME-003-R2","brand":"ATECPOOL","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Circulation of Water","flow":"4.5 m³/h per fitting","head":"N/A","ip":"N/A","connection":"2\" outer thread","material":"Stainless Steel AISI 316 (polished, brush finish)","country":"UAE","mfr_address":"A-Technologies FZCO, Jebel Ali Free Zone, P.O. Box 18400, Dubai, United Arab","mfr_phone":"Ph: +971 4 886 0880","mfr_email":"info@atecpoolme.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":6,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Embedded in pool wall (concrete)","maintenance":"Inspect Monthly / Annual","spare_parts":"Threaded cover / escutcheon plate","section":"OUTDOOR POOL SYSTEM"},{"no":14,"name":"Suction Inlet SS AISI 316","category":"Pool Fitting","type":"Suction Inlet / Pool Fitting","system":"Pool Water Circulation","function":"Pool suction inlet fitting (Outdoor Pool ×1)","tag":"VA","model":"0592860-1","part_no":"N/A","serial":"N/A","location":"Pool Wall – CEO Villa","floor":"Ground Floor","drawing":"SB-ASB-SD-ME-003-R2","brand":"ATECPOOL","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Circulation of Water","flow":"4.5 m³/h per fitting","head":"N/A","ip":"N/A","connection":"2\" outer thread","material":"Stainless Steel AISI 316 (polished)","country":"UAE","mfr_address":"A-Technologies FZCO, Jebel Ali Free Zone, P.O. Box 18400, Dubai, United Arab","mfr_phone":"Ph: +971 4 886 0880","mfr_email":"info@atecpoolme.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Embedded in pool wall (concrete)","maintenance":"Inspect Monthly / Annual","spare_parts":"Threaded cover","section":"OUTDOOR POOL SYSTEM"},{"no":15,"name":"Indoor Pool Sand Filter","category":"Equipment","type":"Sand Filter","system":"Indoor Pool – Filtration","function":"Indoor pool water filtration","tag":"SF-02-INP","model":"Tagelus TA-40","part_no":"140219 (P/N)","serial":"0106152220024X","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Design 40 GPM / 9.1 m³/h","flow":"40 GPM / 9.1 m³/h","head":"50 PSI max (3.4 bar)","ip":"N/A","connection":"N/A","material":"Fiberglass-reinforced tank","country":"United States","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Vertical)","maintenance":"Daily / Weekly / 3-Monthly / 6-Monthly","spare_parts":"#20 Silica Sand (175 lbs / 79 kg), o-ring kit, pressure gauge, sight glass","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":16,"name":"Indoor Pool 6-Way Multiport Valve","category":"Equipment","type":"6-Way Multiport Valve","system":"Indoor Pool – Filtration","function":"Sand filter backwash and multiport control","tag":"SFV-INP-02","model":"Hi-Flow™ Six-Way 1-1/2\" Top Mount","part_no":"272526","serial":"0518 17220176T","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Filter / Backwash / Rinse / Waste / Closed / Recirculate / Winterize","flow":"N/A","head":"50 PSI max","ip":"N/A","connection":"1-1/2\"","material":"High-quality corrosion-resistant materials","country":"United States","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Top-mount on TA-40 filter","maintenance":"Weekly / Monthly / Annual","spare_parts":"Spider gasket, o-ring kit, handle assembly, pressure gauge port plug","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":17,"name":"Indoor Pool Filtration Pump-01","category":"Equipment","type":"Pool Circulation & Filteration Pump","system":"Indoor Pool – Filtration","function":"Indoor pool water filtration and circulation","tag":"FP-IDP-01","model":"SuperFlo SF-N1-1 1FET","part_no":"348206-INT","serial":"354821W20923CZ0100218U","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair","power":"0.75 kW (1.0 HP / 1.65 THP)","voltage":"115 / 208-230 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Max 36 PSI at 104°F | Class F insulation | Self-priming 10 ft","flow":"Variable (head-flow curve)","head":"36 PSI at 104°F","ip":"IPX6","connection":"2'' Seuction, 2'' Discharge","material":"Thermoplastic body / stainless hardware","country":"United States","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Self-priming)","maintenance":"Daily / Weekly / Monthly / 6-Monthly","spare_parts":"Mechanical seal, pump basket, impeller, motor capacitor (UL/NSF)","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":18,"name":"Indoor Pool Filtration Pump-02","category":"Equipment","type":"Pool Circulation & Filteration Pump","system":"Indoor Pool – Filtration","function":"Indoor pool water filtration and circulation","tag":"FP-IDP-02","model":"SuperFlo SF-N1-1 1FET","part_no":"848206-INT","serial":"354821W20923CZ0100219U","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair","power":"0.75 kW (1.0 HP / 1.65 THP)","voltage":"115 / 208-230 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Max 36 PSI at 104°F | Class F insulation | Self-priming 10 ft","flow":"Variable (head-flow curve)","head":"36 PSI at 104°F","ip":"IPX6","connection":"2'' Seuction, 2'' Discharge","material":"Thermoplastic body / stainless hardware","country":"United States","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Self-priming)","maintenance":"Daily / Weekly / Monthly / 6-Monthly","spare_parts":"Mechanical seal, pump basket, impeller, motor capacitor (UL/NSF)","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":19,"name":"Indoor Pool Jet Nozzle Pump-01","category":"Equipment","type":"Pool Feature/Jet Nozzles Pump","system":"Indoor Pool – Water Feature","function":"Indoor pool jet nozzle / hydrotherapy pump","tag":"NP-IDP-01","model":"WhisperFlo P-WFL-901","part_no":"7630046629014","serial":"7630046629014-A0319-250924","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair International","power":"2.2 kW (3.0 HP / 2.3 kW P1)","voltage":"230 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Max Head: 27 m | Full Load Current: 10.7 A","flow":"Variable (Hmax curve)","head":"27 m (Hmax)","ip":"IP X5","connection":"2'' Seuction, 2'' Discharge","material":"High-performance hydraulics / thermoplastic body","country":"Italy","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Self-priming)","maintenance":"Daily / Weekly / Monthly / 6-Monthly","spare_parts":"Mechanical seal, pump basket, impeller, shaft seal o-ring, motor capacitor (31.5 µF)","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":20,"name":"Indoor Pool / Jacuzzi Water Heater","category":"Equipment","type":"Electric Heater","system":"Indoor Pool – Heating","function":"Jacuzzi / indoor pool water heating","tag":"EWH-02-IDP","model":"Evolution 2 / E2-3-18-380","part_no":"E2-3-18-380","serial":"300822","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Elecro Engineering Ltd","power":"18 kW","voltage":"380 V","phase":"3 Ph","frequency":"50/60 Hz","capacity":"Inline flow-through electric heater | Current: 28 A","flow":"N/A","head":"4 Bar max (400 kPa)","ip":"IP44","connection":"Inline (flow-through)","material":"Titanium heating element / flow tube","country":"England","mfr_address":"Elecro Engineering Ltd, Unit 11, Gunnels Wood Park, Gunnels Wood Road, Stevenage, Hertfordshire SG1 2BH, United Kingdom","mfr_phone":"Ph: +44 (0) 1438 749474","mfr_email":"sales@elecro.co.uk","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Inline (floor-mounted)","maintenance":"Daily / Weekly / Monthly / 6-Monthly","spare_parts":"Titanium heating element, thermostat, pressure relief valve, flow switch","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":21,"name":"Silencer Air Blower","category":"Equipment","type":"Air Blower / Spa Blower","system":"Indoor Pool – Hydrotherapy","function":"Jacuzzi / spa air injection blower","tag":"AB-01","model":"Silencer Blower 1-6320220F","part_no":"1-6320220F","serial":"07/17 (manufacture date)","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Air Supply of The Future Inc.","power":"2.0 HP / 1.5 kW","voltage":"240 V","phase":"1 Ph","frequency":"50/60 Hz","capacity":"Open Flow: 105 CFM | Sealed Pressure: 130 in. H₂O","flow":"105 CFM open flow","head":"130 in. H₂O (sealed pressure)","ip":"Outdoor Use (UL Listed)","connection":"1.5\" or 2\" air injection line","material":"Noise-attenuated housing (silencer type)","country":"United States","mfr_address":"Air Supply of The Future Inc., Pompano Beach, Florida, USA","mfr_phone":"Ph: 1-800-848-3077","mfr_email":"info@airsupplyflorida.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted / cabinet-mounted","maintenance":"Monthly / 6-Monthly","spare_parts":"Resettable thermal switch, motor blower cartridge, air line check valve","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":22,"name":"Chemical Dosing Pump-01","category":"Equipment","type":"Chemical Dosing Pump","system":"Indoor Pool – Water Treatment","function":"Automated chemical dosing (pH/ORP correction via HCC2000)","tag":"CDP-01","model":"X030-XC-AAAAASASO","part_no":"N/A","serial":"07/18.892419","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"CHEM-TECH / Pulsafeeder","power":"N/A","voltage":"230 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Output: 30 GPD / 4.7 LPH max | Max pressure: 100 PSI (7 bar)","flow":"30 GPD / 4.7 LPH","head":"100 PSI (7 bar) max","ip":"IP66","connection":"Chemical injection line (1/4\" or 3/8\")","material":"Chemical-resistant diaphragm body","country":"United States","mfr_address":"Pulsafeeder / IDEX Corp., 2883 Brighton-Henrietta Townline Rd, Rochester, NY 14623, USA","mfr_phone":"Ph: +1 (585) 292-8000","mfr_email":"pulsa@idexcorp.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Wall-mounted","maintenance":"Daily / Weekly / Monthly","spare_parts":"Diaphragm kit (KX100-AAAA), dosing tubing, injection valve, foot valve / strainer","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":23,"name":"Chemical Dosing Pump-02","category":"Equipment","type":"Chemical Dosing Pump","system":"Indoor Pool – Water Treatment","function":"Automated chemical dosing (pH/ORP correction via HCC2000)","tag":"CDP-02","model":"X030-XC-AAAAASASO","part_no":"N/A","serial":"07/18.892417","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"CHEM-TECH / Pulsafeeder","power":"N/A","voltage":"230 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Output: 30 GPD / 4.7 LPH max | Max pressure: 100 PSI (7 bar)","flow":"30 GPD / 4.7 LPH","head":"100 PSI (7 bar) max","ip":"IP66","connection":"Chemical injection line (1/4\" or 3/8\")","material":"Chemical-resistant diaphragm body","country":"United States","mfr_address":"Pulsafeeder / IDEX Corp., 2883 Brighton-Henrietta Townline Rd, Rochester, NY 14623, USA","mfr_phone":"Ph: +1 (585) 292-8000","mfr_email":"pulsa@idexcorp.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Wall-mounted","maintenance":"Daily / Weekly / Monthly","spare_parts":"Diaphragm kit (KX100-AAAA), dosing tubing, injection valve, foot valve / strainer","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":24,"name":"Chlorine Feeder-01 – Indoor Pool","category":"Equipment","type":"Chlorine Tablet Feeder","system":"Indoor Pool – Water Treatment","function":"Inline chlorine tablet dosing – Indoor Pool","tag":"CF-01-IDP","model":"CL200","part_no":"CL200 / CL220EF","serial":"SR: 21212204264912000","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Hayward Industries Inc.","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Max Output: 2.3 LBS/day (Pool) / 4.6 LBS/day (SPA)","flow":"Inline flow","head":"50 PSI max","ip":"NSF Certified","connection":"Inline (in-pipe)","material":"UV-stabilized polymer body","country":"United States","mfr_address":"Hayward Industries Inc., 61 Whitecap Drive, North Kingstown, RI 02852, USA","mfr_phone":"Ph: 1-908-355-7995","mfr_email":"websupport@hayward.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Inline (in-pipe)","maintenance":"Weekly / Monthly","spare_parts":"3-inch chlorine tablets, o-ring / gasket kit, flow control valve","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":25,"name":"Main Drain 300×300mm","category":"Pool Fitting","type":"Main Drain / Floor Fitting","system":"Indoor Pool – Drainage","function":"Main Drain Grating","tag":"MD","model":"300 x 300 SS Grating","part_no":"N/A","serial":"N/A","location":"Pool Floor – CEO Villa","floor":"Basement / Ground Floor","drawing":"SB-ASB-SD-ME-006-R2","brand":"LOCAL","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"43 m³/h max (at 0.5 m/s flow velocity)","flow":"N/A","head":"N/A","ip":"N/A","connection":"N/A","material":"Stainless Steel AISI 316","country":"Local Market","mfr_address":"Local Market","mfr_phone":"Local Market","mfr_email":"Local Market","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Embedded in pool floor (concrete)","maintenance":"Inspect Monthly","spare_parts":"Frame and grate set, fixing screws","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":26,"name":"Hydro Jet (Adjustable)","category":"Pool Fitting","type":"Hydrotherapy Jet / Water Jet","system":"Indoor Pool – Hydrotherapy","function":"Hydrotherapy water jet fitting for indoor pool","tag":"HJ","model":"Model: 00590059","part_no":"N/A","serial":"N/A","location":"Indoor Pool Wall – CEO Villa","floor":"Basement","drawing":"SB-ASB-SD-ME-006-R2","brand":"ATECPOOL","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"4 m³/h per jet","flow":"4 m³/h","head":"N/A","ip":"N/A","connection":"1.5\"","material":"Stainless Steel AISI 316 trim / ABS body","country":"UAE","mfr_address":"A-Technologies FZCO, Jebel Ali Free Zone, P.O. Box 18400, Dubai, United Arab","mfr_phone":"Ph: +971 4 886 0880","mfr_email":"info@atecpoolme.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":5,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Embedded in pool wall (concrete)","maintenance":"Inspect Monthly / Annual","spare_parts":"Jet nozzle, trim ring","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":27,"name":"Wall Inlet SS AISI 316","category":"Pool Fitting","type":"Return Inlet / Wall Fitting","system":"Indoor Pool – Pool Water Circulation","function":"Pool return water wall inlet fitting (Outdoor Pool ×6)","tag":"WI","model":"0592858-4","part_no":"N/A","serial":"N/A","location":"Indoor Pool Wall – CEO Villa","floor":"Basement","drawing":"SB-ASB-SD-ME-006-R2","brand":"ATECPOOL","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Circulation of Water","flow":"4.5 m³/h per fitting","head":"N/A","ip":"N/A","connection":"2\" outer thread","material":"Stainless Steel AISI 316 (polished, brush finish)","country":"UAE","mfr_address":"A-Technologies FZCO, Jebel Ali Free Zone, P.O. Box 18400, Dubai, United Arab","mfr_phone":"Ph: +971 4 886 0880","mfr_email":"info@atecpoolme.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":2,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Embedded in pool wall (concrete)","maintenance":"Inspect Monthly / Annual","spare_parts":"Threaded cover / escutcheon plate","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":28,"name":"Suction Inlet SS AISI 316","category":"Pool Fitting","type":"Suction Inlet / Pool Fitting","system":"Indoor Pool – Pool Water Circulation","function":"Pool suction inlet fitting (Outdoor Pool ×1)","tag":"VA","model":"0592860-1","part_no":"N/A","serial":"N/A","location":"Indoor Pool Wall – CEO Villa","floor":"Basement","drawing":"SB-ASB-SD-ME-006-R2","brand":"ATECPOOL","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Circulation of Water","flow":"4.5 m³/h per fitting","head":"N/A","ip":"N/A","connection":"2\" outer thread","material":"Stainless Steel AISI 316 (polished)","country":"UAE","mfr_address":"A-Technologies FZCO, Jebel Ali Free Zone, P.O. Box 18400, Dubai, United Arab","mfr_phone":"Ph: +971 4 886 0880","mfr_email":"info@atecpoolme.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Embedded in pool wall (concrete)","maintenance":"Inspect Monthly / Annual","spare_parts":"Threaded cover","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":29,"name":"Gutter Drain 2\"×4\" AKUA4CE 1.5\"","category":"Accessory","type":"Gutter Drain","system":"Pool Drainage / Overflow","function":"Pool perimeter gutter drainage","tag":"GD","model":"1209010001","part_no":"N/A","serial":"N/A","location":"Outdoor Pool – CEO Villa","floor":"Ground Floor","drawing":"SB-ASB-SD-ME-003-R2","brand":"AKUA4CE","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Perimeter gutter overflow drainage","flow":"13.79 Gpm","head":"N/A","ip":"N/A","connection":"1.5\" connection","material":"ABS / stainless grate","country":"KSA","mfr_address":"Building No. 4410, Anas Ibn Malik Road, Al-Yasmeen District, Riyadh 13325, Saudi Arabia","mfr_phone":"Ph: +966 (0)11 248 4111","mfr_email":"bintaleb@bintaleb.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":5,"wo":"34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Integrated into pool wall / floor","maintenance":"Inspect Monthly","spare_parts":"Drain grate (stainless), o-ring seal","section":"INDOOR POOL SYSTEM (JACUZZI)"},{"no":30,"name":"Cold Plunge Chiller / Heat Pump","category":"Equipment","type":"Inverter Heat / Chill Pump","system":"Cold Plunge – Heating & Cooling","function":"Cold plunge pool water chilling and heating (inverter)","tag":"CPC-01","model":"CZCHCPI103T","part_no":"BYC103 TA-1 CZCHCPI103T","serial":"8D00240407003C10","location":"Outdoor / Roof Area – CEO Villa","floor":"Basement & Roof","drawing":"SB-ASB-SD-ME-012-R0","brand":"Coatzone Technology","power":"15.0 kW (rated input) – Inverter","voltage":"380 V","phase":"3 Ph (3N)","frequency":"60 Hz","capacity":"Heating: 24.8–103 kW | Cooling: 14.1–58 kW | COP: 16.09–6.96","flow":"Circulating Flow: 30 m³/h","head":"Compressor Max: 4.4 MPa | Water side: 0.55 MPa","ip":"IPX4","connection":"DN 63 water pipe","material":"Stainless steel cabinet / Inverter rotary compressor","country":"China","mfr_address":"No.73 Defu Road. Xingtan Town, Shunde Foshan, Guangdong, China","mfr_phone":"Ph: +86 757 29380616","mfr_email":"sales1@solareast.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Outdoor)","maintenance":"Monthly / Annual","spare_parts":"R410A refrigerant, water strainer / filter, capacitor, refrigerant filter drier","section":"COLD PLUNGE / SPA"},{"no":31,"name":"Cold Plunge Filtration Pump-01 (WFL-801)","category":"Equipment","type":"Pool Circulation & Filtration Pump","system":"Cold Plunge – Filtration","function":"Cold plunge water filtration and circulation","tag":"FP-CPC-01","model":"WhisperFlo P-WFL-801","part_no":"7630046629007","serial":"7630046629007-A0939-250605","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair International","power":"1.5 kW (2.0 HP)","voltage":"230 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Max Head: 27 m | Full Load Current: 9.7 A","flow":"Variable (Hmax curve)","head":"27 m (Hmax)","ip":"IP X5","connection":"Suction 2'' x Discharge 2''","material":"High-performance hydraulics / thermoplastic body","country":"Italy","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Self-priming)","maintenance":"Daily / Weekly / Monthly / 6-Monthly","spare_parts":"Mechanical seal, pump basket, impeller, shaft seal o-ring, motor capacitor (31.5 µF)","section":"COLD PLUNGE / SPA"},{"no":32,"name":"Cold Plunge Filtration Pump-02 (WFL-801)","category":"Equipment","type":"Pool Circulation & Filtration Pump","system":"Cold Plunge – Filtration","function":"Cold plunge water filtration and circulation","tag":"FP-CPC-02","model":"WhisperFlo P-WFL-801","part_no":"7630046629007","serial":"7630046629007-A0932-250605","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair International","power":"1.5 kW (2.0 HP)","voltage":"230 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Max Head: 27 m | Full Load Current: 9.7 A","flow":"Variable (Hmax curve)","head":"27 m (Hmax)","ip":"IP X5","connection":"Suction 2'' x Discharge 2''","material":"High-performance hydraulics / thermoplastic body","country":"Italy","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Self-priming)","maintenance":"Daily / Weekly / Monthly / 6-Monthly","spare_parts":"Mechanical seal, pump basket, impeller, shaft seal o-ring, motor capacitor (31.5 µF)","section":"COLD PLUNGE / SPA"},{"no":33,"name":"Cold Plunge Sand Filter TA-40","category":"Equipment","type":"Sand Filter","system":"Cold Plunge – Filtration","function":"Cold plunge water filtration","tag":"SF-03-CPC","model":"Tagelus TA-40","part_no":"140219 (P/N)","serial":"SR: 1061522200293","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Design 40 GPM / 9.1 m³/h","flow":"40 GPM / 9.1 m³/h","head":"50 PSI max (3.4 bar)","ip":"N/A","connection":"1.5''","material":"Fiberglass-reinforced tank","country":"United States","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Vertical)","maintenance":"Daily / Weekly / 3-Monthly / 6-Monthly","spare_parts":"#20 Silica Sand (175 lbs / 79 kg), o-ring kit, pressure gauge, sight glass","section":"COLD PLUNGE / SPA"},{"no":34,"name":"Cold Plunge 6-Way Multiport Valve","category":"Equipment","type":"6-Way Multiport Valve","system":"Cold Plunge – Filtration","function":"Sand filter backwash and multiport control","tag":"SFV-CPC-03","model":"Hi-Flow™ Six-Way 1-1/2\" Top Mount","part_no":"272526","serial":"0518 17220225P","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Pentair","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Filter / Backwash / Rinse / Waste / Closed / Recirculate / Winterize","flow":"N/A","head":"50 PSI max","ip":"N/A","connection":"1-1/2\"","material":"High-quality corrosion-resistant materials","country":"United States","mfr_address":"Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, USA","mfr_phone":"Ph: +1 (919) 566-8000","mfr_email":"supplierinquiry@pentair.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Top-mount on TA-40 filter","maintenance":"Weekly / Monthly / Annual","spare_parts":"Spider gasket, o-ring kit, handle assembly","section":"COLD PLUNGE / SPA"},{"no":35,"name":"Chlorine Feeder-02 – Cold Plunge (CL200)","category":"Equipment","type":"Chlorine Tablet Feeder","system":"Cold Plunge – Water Treatment","function":"Inline chlorine tablet dosing – Cold Plunge","tag":"CF-02-CPC","model":"CL200","part_no":"N/A","serial":"SR: 21212204264912053","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Hayward Industries Inc.","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Max Output: 2.3 LBS/day (Pool)","flow":"Inline flow","head":"50 PSI max","ip":"NSF Certified","connection":"1-1/2\"","material":"UV-stabilized polymer body","country":"United States","mfr_address":"Hayward Industries Inc., 61 Whitecap Drive, North Kingstown, RI 02852, USA","mfr_phone":"Ph: 1-908-355-7995","mfr_email":"websupport@hayward.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Inline (in-pipe)","maintenance":"Weekly / Monthly","spare_parts":"3-inch chlorine tablets, o-ring / gasket kit, flow control valve","section":"COLD PLUNGE / SPA"},{"no":36,"name":"Wall Inlet SS AISI 316","category":"Pool Fitting","type":"Return Inlet / Floor","system":"Cold Plunge – Pool Water Circulation","function":"Pool return water wall inlet fitting (Outdoor Pool ×6)","tag":"WI","model":"0592858-4","part_no":"N/A","serial":"N/A","location":"Indoor Pool Wall – CEO Villa","floor":"Basement","drawing":"SB-ASB-SD-ME-006-R2","brand":"ATECPOOL","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Circulation of Water","flow":"4.5 m³/h per fitting","head":"N/A","ip":"N/A","connection":"2\" outer thread","material":"Stainless Steel AISI 316 (polished, brush finish)","country":"UAE","mfr_address":"A-Technologies FZCO, Jebel Ali Free Zone, P.O. Box 18400, Dubai, United Arab","mfr_phone":"Ph: +971 4 886 0880","mfr_email":"info@atecpoolme.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Embedded in pool wall (concrete)","maintenance":"Inspect Monthly / Annual","spare_parts":"Threaded cover / escutcheon plate","section":"COLD PLUNGE / SPA"},{"no":37,"name":"Sauna Heater AQUA ZL16.2","category":"Equipment","type":"Sauna Heater","system":"Sauna Room – Heating","function":"Sauna room dry heat generation","tag":"SH-01","model":"ZL16.2","part_no":"N/A","serial":"26010294","location":"Sauna Room – CEO Villa","floor":"Basement","drawing":"SB-ASB-SD-EL-003-R3","brand":"AQUA-OCEAN","power":"16.2 kW","voltage":"400 V","phase":"3 Ph (3N)","frequency":"50/60 Hz","capacity":"Dry heat sauna heater | Certifications: CE, UKCA, UKNI, RoHS","flow":"N/A","head":"N/A","ip":"IPX4","connection":"Hardwired (3N+PE)","material":"Steel body / cast-iron heating element with sauna stones","country":"Italy","mfr_address":"AQUA S.p.A\n42018 San Martino in Rio, Reggio Emilia \nItaly - Via Crotti, 1","mfr_phone":"Ph: +39 0522 695805/85","mfr_email":"aqua@aqua.it","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (Sauna Room)","maintenance":"Monthly / Annual","spare_parts":"Sauna kiuas stones (replacement set), heating element set, TCO thermal cut-out, element gasket","section":"SAUNA ROOM"},{"no":38,"name":"Thermostat Key Pad","category":"Equipment","type":"Key-Pad","system":"Sauna Room- Heating Control","function":"Sauna room temperature and time Setting & Control","tag":"KP","model":"OCS B","part_no":"KEYPAD-OCSB","serial":"N/A","location":"Sauna Room – CEO Villa","floor":"Basement","drawing":"SB-ASB-SD-EL-003-R3","brand":"AQUA-OCEAN","power":"2.5 - 20 KW","voltage":"5 V","phase":"1 Ph","frequency":"50/60 Hz","capacity":"Adjustable Temperature Range: 50°C to 110°C (122°F to 230°F).","flow":"N/A","head":"N/A","ip":"IP44","connection":"6-core DIN data cable Keypad-Control Box","material":"Plastic","country":"Italy","mfr_address":"AQUA S.p.A\n42018 San Martino in Rio, Reggio Emilia \nItaly - Via Crotti, 1","mfr_phone":"Ph:  +39 0522 695805/85","mfr_email":"aqua@aqua.it","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Wall-mounted (Sauna Room)","maintenance":"Monthly / Annual","spare_parts":"N/A","section":"SAUNA ROOM"},{"no":39,"name":"Control Box","category":"Equipment","type":"Control Box","system":"Sauna Room- Heating Control","function":"Controller Box","tag":"N/A","model":"OCS B","part_no":"N/A","serial":"N/A","location":"Sauna Room – CEO Villa","floor":"Basement","drawing":"SB-ASB-SD-EL-003-R3","brand":"AQUA-OCEAN","power":"2.5-9 KW","voltage":"400 V","phase":"3 Ph (3N)","frequency":"50/60 Hz","capacity":"N/A","flow":"N/A","head":"N/A","ip":"IP44","connection":"5 x 2.5 mm Sq.","material":"Steel","country":"Italy","mfr_address":"AQUA S.p.A\n42018 San Martino in Rio, Reggio Emilia \nItaly - Via Crotti, 1","mfr_phone":"Ph: +39 0522 695805/85","mfr_email":"aqua@aqua.it","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Wall-mounted (Sauna Room)","maintenance":"Monthly / Annual","spare_parts":"N/A","section":"SAUNA ROOM"},{"no":40,"name":"Temperature Sensor","category":"Accessory","type":"Seonsor","system":"Sauna Room- Heating Control","function":"Sauna accessories set","tag":"TS","model":"OC-S","part_no":"SENSOR-OC S","serial":"N/A","location":"Sauna Room – CEO Villa","floor":"Basement","drawing":"SB-ASB-SD-EL-003-R3","brand":"AQUA-OCEAN","power":"N/A","voltage":"N/A","phase":"","frequency":"50/60 Hz","capacity":"Operating Measurement Range: 0C  to 110C  (32F to 230F ), Limit Trip Point: 120C  (248F )","flow":"N/A","head":"N/A","ip":"IPX4","connection":"2-core low-voltage cable","material":"Pastic","country":"Italy","mfr_address":"AQUA S.p.A\n42018 San Martino in Rio, Reggio Emilia \nItaly - Via Crotti, 1","mfr_phone":"Ph: +39 0522 695805/85","mfr_email":"aqua@aqua.it","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"Set","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"In-room accessories","maintenance":"Monthly / Annual","spare_parts":"N/A","section":"SAUNA ROOM"},{"no":41,"name":"Steam Generator Amerec AK14","category":"Equipment","type":"Steam Generator","system":"Steam Room – Steam System","function":"Steam room steam generation","tag":"SG-01","model":"AK14","part_no":"N/A","serial":"10413683318","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Amerec / Sauna360 Inc.","power":"10.5 kW @ 208-240V / 14.0 kW @ 400-415V","voltage":"208-240 V / 400-415 V","phase":"1 Ph or 3 Ph","frequency":"50/60 Hz","capacity":"ETL Listed | Intertek No. 3141369 | Min 75°C copper wire","flow":"Steam to steam room","head":"10 PSI (38 kPa) pressure relief valve","ip":"IP20","connection":"3/4\" NPT steam outlet","material":"Powder-coated steel cabinet with stainless elements","country":"United States","mfr_address":"Amerec / Sauna360 Inc., 575 Cokato Street East, Cokato, MN 55321, USA","mfr_phone":"Ph: 1-800-331-0349","mfr_email":"us_techsupport@sauna360.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted","maintenance":"Daily / Weekly / 3-Monthly / 6-Monthly","spare_parts":"Heating element, gasket / o-ring set, auto drain valve, descaling agent (citric acid), pressure relief valve","section":"STEAM ROOM"},{"no":42,"name":"Steam Head K3-CP Chrome (Digital)","category":"Accessory","type":"Steam Head / Digital Controller","system":"Steam Room – Steam System","function":"Steam outlet and digital room controller","tag":"KP-SR","model":"K3-CP","part_no":"N/A","serial":"N/A","location":"Steam Room – CEO Villa","floor":"Basement","drawing":"SB-ASB-SD-ME-010-R2","brand":"Amerec / Sauna360 Inc.","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Digital steam control / chrome steam head combination","flow":"N/A","head":"N/A","ip":"N/A","connection":"Steam pipe connection","material":"Chrome-plated metal / ABS housing","country":"United States","mfr_address":"Amerec / Sauna360 Inc., 575 Cokato Street East, Cokato, MN 55321, USA","mfr_phone":"Ph: 1-800-331-0349","mfr_email":"us_techsupport@sauna360.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Wall-mounted (Steam Room)","maintenance":"Weekly / Monthly","spare_parts":"K3-CP repair kit, chrome face cover, steam jet orifice","section":"STEAM ROOM"},{"no":43,"name":"Auto Drain Valve 3/4\" (Amerec)","category":"Accessory","type":"Auto Drain Valve","system":"Steam Room – Steam System","function":"Automatic drain valve for steam generator (on shutdown)","tag":"DV","model":"N/A","part_no":"N/A","serial":"N/A","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Amerec / Sauna360 Inc.","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Auto drain on steam generator shutdown","flow":"N/A","head":"N/A","ip":"N/A","connection":"3/4\"","material":"Brass / solenoid valve body","country":"United States","mfr_address":"Amerec / Sauna360 Inc., 575 Cokato Street East, Cokato, MN 55321, USA","mfr_phone":"Ph: 1-800-331-0349","mfr_email":"us_techsupport@sauna360.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Inline on steam generator drain","maintenance":"Monthly / Annual","spare_parts":"Solenoid coil, valve seat, o-ring kit","section":"STEAM ROOM"},{"no":44,"name":"Fragrance Dosing Pump","category":"Equipment","type":"Fragrance Injector / Dosing Pump","system":"Steam Room – Steam System","function":"Aromatherapy fragrance injection into steam line (for Amerec AK14 steam generator)","tag":"N/A","model":"9223-228 Fragrance Injector Pump Kit","part_no":"9223-228","serial":"N/A","location":"SPA & Pool Pump Room – CEO Villa","floor":"Basement","drawing":"SB-ASB-SD-ME-010-R2","brand":"Amerec / Sauna360 Inc.","power":"N/A","voltage":"120V (24V via included power adapter)","phase":"1 Ph","frequency":"60 Hz","capacity":"N/A","flow":"N/A","head":"N/A","ip":"N/A","connection":"N/A","material":"N/A","country":"United States","mfr_address":"Amerec / Sauna360 Inc., 575 Cokato Street East, Cokato, MN 55321, USA","mfr_phone":"Ph: 1-800-331-0349","mfr_email":"us_techsupport@sauna360.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Inline on steam line / wall-mounted","maintenance":"Monthly / Annual","spare_parts":"Fragrance oil bottles, pump kit (9223-228), power adapter","section":"STEAM ROOM"},{"no":45,"name":"RO Water Storage Tank (TankPAC TP-19P)","category":"Equipment","type":"RO Pressure / Storage Tank","system":"Steam Room – Steam System","function":"RO system water pressure storage tank","tag":"ROT-01","model":"TP-19P","part_no":"N/A","serial":"2019/0417346","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"TankPAC","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Pre-charge pressure: 7 PSI | Max working: 100 PSI | Max temp: 60°C | CE 0035","flow":"N/A","head":"100 PSI max (6.9 bar)","ip":"N/A","connection":"Standard port (check unit)","material":"Pressure vessel – CE 0035 certified","country":"Taiwan","mfr_address":"No. 553, Zhongshan Rd., Qingshui Dist., Taichung City 43643, Taiwan (R.O.C.)","mfr_phone":"Ph: +886 4-2622-0078","mfr_email":"tankpacinquiry@gmail.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Floor-mounted (vertical)","maintenance":"Monthly / Annual","spare_parts":"Pre-charge valve (Schrader), tank air bladder (if internal), pressure gauge","section":"STEAM ROOM"},{"no":46,"name":"RO System 75 GPD (SHARKY LG-2)","category":"Equipment","type":"Reverse Osmosis System","system":"Steam Room – Steam System","function":"Make-up / service water RO treatment system","tag":"RO-01","model":"LG-2","part_no":"N/A","serial":"To be filled from unit nameplate","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"SHARKY","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Capacity: 75 GPD (284 LPD) max permeate production","flow":"75 GPD permeate output","head":"Reject / permeate per membrane spec","ip":"N/A","connection":"Standard tubing fittings","material":"Multi-stage membrane housing / fibreglass","country":"N/A","mfr_address":"553, Zhongshan Rd.\nXianan Vil., Qingshui District, Taichung City, Taiwan, 43633","mfr_phone":"Ph: +886 4 2622 3030","mfr_email":"info@globalwatersolutions.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Wall-mounted / cabinet","maintenance":"Monthly / Annual","spare_parts":"RO membranes, pre-filter cartridges (sediment + carbon), post-filter, pressure gauge","section":"STEAM ROOM"},{"no":47,"name":"Feature Wall Submersible Pump-01 (TOP3)","category":"Equipment","type":"Submersible Pump","system":"Feature Wall – Water Circulation","function":"Feature wall shower water circulation pump-01","tag":"WFSP-01","model":"TOP3","part_no":"N/A","serial":"24909A2015670","location":"Feature Wall Shower-01 – CEO Villa","floor":"Ground Floor","drawing":"SB-ASB-SD-ME-005-R2","brand":"PEDROLLO S.P.A.","power":"0.55 kW (0.75 HP)","voltage":"220 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Flow: 20–260 L/min | Head: 10–2 m | Speed: 3450 rpm | Current: 3.7 A","flow":"20–260 L/min","head":"10–2 m","ip":"IP X8","connection":"N/A","material":"Cast iron body / stainless steel impeller","country":"Italy","mfr_address":"PEDROLLO S.p.A., San Bonifacio (Verona), ITALY","mfr_phone":"Ph: +39 045 6136311","mfr_email":"info@pedrollo.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Submersible (in water feature)","maintenance":"Monthly / 6-Monthly","spare_parts":"Mechanical seal, motor capacitor (14 µF / 450V), impeller, thermal protector","section":"COMMON SERVICES / PUMP ROOM"},{"no":48,"name":"Waterfall SS 316L Gutter – Custom Made","category":"Pool Fitting","type":"Custom Gutter / Water Feature\n1250 x 150 x 170 x 210","system":"Feature Wall – 1","function":"Stainless steel overflow waterfall gutter for Wall Feature","tag":"WFC-01","model":"Local","part_no":"Local","serial":"Local","location":"Outdoor Pool – CEO Villa","floor":"Ground Floor","drawing":"SB-ASB-SD-ME-005-R2","brand":"LOCAL","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"1250 L x 150 W x 170 H1 x 210 H2","flow":"Open Flow\n20–260 L/min","head":"Open Chennel","ip":"N/A","connection":"N/A","material":"Stainless Steel AISI 316L (custom fabricated)","country":"KSA","mfr_address":"Local Market","mfr_phone":"Local Market","mfr_email":"Local Market","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Integrated into pool edge / wall","maintenance":"Inspect Monthly / Annual","spare_parts":"N/A","section":"COMMON SERVICES / PUMP ROOM"},{"no":49,"name":"Feature Wall Submersible Pump-02 (TOP3)","category":"Equipment","type":"Submersible Pump","system":"Feature Wall – Water Circulation","function":"Feature wall shower water circulation pump-02","tag":"WFSP-02","model":"TOP3","part_no":"N/A","serial":"24909A2015680","location":"Feature Wall Shower-02 – CEO Villa","floor":"Ground Floor","drawing":"SB-ASB-SD-ME-005-R2","brand":"PEDROLLO S.P.A.","power":"0.55 kW (0.75 HP)","voltage":"220 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Flow: 20-260 L/min | Head: 10-2 m | Speed: 3450 rpm | Current: 3.7 A","flow":"20-260 L/min","head":"10-2 m","ip":"IP X8","connection":"N/A","material":"Cast iron body / stainless steel impeller","country":"Italy","mfr_address":"PEDROLLO S.p.A., San Bonifacio (Verona), ITALY","mfr_phone":"Ph: +39 045 6136311","mfr_email":"info@pedrollo.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Submersible (in water feature)","maintenance":"Monthly / 6-Monthly","spare_parts":"Mechanical seal, motor capacitor (14 uF / 450V), impeller, thermal protector","section":"COMMON SERVICES / PUMP ROOM"},{"no":50,"name":"Waterfall SS 316L Gutter – Custom Made","category":"Pool Fitting","type":"Custom Gutter / Water Feature\n1250 x 150 x 170 x 210","system":"Feature Wall – 2","function":"Stainless steel overflow waterfall gutter for Wall Feature","tag":"WFC-02","model":"Local","part_no":"Local","serial":"Local","location":"Outdoor Pool – CEO Villa","floor":"Ground Floor","drawing":"SB-ASB-SD-ME-005-R2","brand":"LOCAL","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"1250 L x 150 W x 170 H1 x 210 H2","flow":"Open Flow\n20–260 L/min","head":"Open Chennel","ip":"N/A","connection":"N/A","material":"Stainless Steel AISI 316L (custom fabricated)","country":"KSA","mfr_address":"Local Market","mfr_phone":"Local Market","mfr_email":"Local Market","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Integrated into pool edge / wall","maintenance":"Inspect Monthly / Annual","spare_parts":"N/A","section":"COMMON SERVICES / PUMP ROOM"},{"no":51,"name":"Sump Pit Submersible Pump (TOP4N)","category":"Equipment","type":"Sump Submersible Pump","system":"Pump Room – Drainage","function":"Pump room sump pit drainage pump","tag":"SP-01","model":"TOP 4N","part_no":"N/A","serial":"2599U1132365","location":"Basement – SPA & Pool Pump Room Sump Pit","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"PEDROLLO S.P.A.","power":"0.75 kW (1.0 HP)","voltage":"220 V","phase":"1 Ph","frequency":"60 Hz","capacity":"Flow: 20–320 L/min | Head: 12.5–2 m | Speed: 3450 rpm | Current: 5 A | Max immersion: 5 m","flow":"20–320 L/min","head":"12.5–2 m","ip":"IP X8","connection":"N/A","material":"Cast iron body / stainless steel impeller","country":"Italy","mfr_address":"PEDROLLO S.p.A., San Bonifacio (Verona), ITALY","mfr_phone":"Ph: +39 045 6136311","mfr_email":"","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Submersible (sump pit)","maintenance":"Monthly / 6-Monthly","spare_parts":"Mechanical seal, motor capacitor (16 µF / 450V), impeller, float switch","section":"COMMON SERVICES / PUMP ROOM"},{"no":52,"name":"Filter Media Sand Fine 40 kg × 4 bags","category":"Consumable","type":"Filter Media – Fine Sand","system":"Outdoor Pool Filtration","function":"Filter sand media for TR140 sand filter (SF-01-ODP)","tag":"N/A","model":"N/A","part_no":"N/A","serial":"N/S","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Bin Talib Super","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"#20 Silica Sand 0.018–0.022 in (0.45–0.55 mm)","flow":"N/A","head":"N/A","ip":"N/A","connection":"N/A","material":"Fine silica sand","country":"KSA","mfr_address":"Kayes Tower, 3rd Floor, Office 34, Salah Al Din Al Ayobi Road, Al Malaz, P.O. Box 11672, Riyadh, Saudi Arabia","mfr_phone":"Ph: +966 11 220 5210","mfr_email":"info@bintalibco.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"Bag","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Loaded into TR140 filter vessel","maintenance":"Replace every 3–5 years (or when filter efficiency drops)","spare_parts":"N/A","section":"MAINTENANCE TOOLS & CONSUMABLES"},{"no":53,"name":"Filter Media Sand Fine 40 kg × 5 bags","category":"Consumable","type":"Filter Media – Fine Sand","system":"Indoor Pool & Cold Plunge Filtration","function":"Filter sand media for TA-40 sand filters (SF-02-INP & SF-03-CPC)","tag":"N/A","model":"N/A","part_no":"N/A","serial":"N/A","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Bin Talib Super","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"#20 Silica Sand 0.018–0.022 in (0.45–0.55 mm)","flow":"N/A","head":"N/A","ip":"N/A","connection":"N/A","material":"Fine silica sand","country":"KSA","mfr_address":"Kayes Tower, 3rd Floor, Office 34, Salah Al Din Al Ayobi Road, Al Malaz, P.O. Box 11672, Riyadh, Saudi Arabia","mfr_phone":"Ph: +966 11 220 5210","mfr_email":"info@bintalibco.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"Bag","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Loaded into TA-40 filter vessel","maintenance":"Replace every 3–5 years (or when filter efficiency drops)","spare_parts":"N/A","section":"MAINTENANCE TOOLS & CONSUMABLES"},{"no":54,"name":"Filter Media Gravel 40 kg × 3 bags","category":"Consumable","type":"Filter Media – Gravel","system":"Outdoor Pool Filtration","function":"Gravel support media for TR140 sand filter (SF-01-ODP)","tag":"N/A","model":"N/A","part_no":"N/A","serial":"N/A","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"SB-ASB-SD-ME-008-R1","brand":"Bin Talib Super","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Pea gravel 1/8\"–1/4\" support bed","flow":"N/A","head":"N/A","ip":"N/A","connection":"N/A","material":"Pea gravel","country":"KSA","mfr_address":"Kayes Tower, 3rd Floor, Office 34, Salah Al Din Al Ayobi Road, Al Malaz, P.O. Box 11672, Riyadh, Saudi Arabia","mfr_phone":"Ph: +966 11 220 5210","mfr_email":"info@bintalibco.com","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"Bag","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Base support layer in TR140 filter vessel","maintenance":"Replace every 5 years or on filter breakdown","spare_parts":"N/A","section":"MAINTENANCE TOOLS & CONSUMABLES"},{"no":55,"name":"Pool Vacuum Head 12\" Flex (AKUA4CE)","category":"Maintenance Tool","type":"Pool Vacuum Head","system":"Pool Cleaning","function":"Manual pool vacuuming","tag":"N/A","model":"N/A","part_no":"N/A","serial":"-","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"N/A","brand":"AKUA4CE","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"12\" flexible vacuum head for pool floor","flow":"N/A","head":"N/A","ip":"N/A","connection":"1.5\" hose connection","material":"ABS body / brush bristles","country":"KSA","mfr_address":"N/A","mfr_phone":"N/A","mfr_email":"N/A","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Handheld (manual)","maintenance":"Inspect Monthly / Replace on wear","spare_parts":"Replacement brush set, hose adapter","section":"MAINTENANCE TOOLS & CONSUMABLES"},{"no":56,"name":"Pool Vacuum Hose 1.5\"","category":"Maintenance Tool","type":"Vacuum Hose","system":"Pool Cleaning","function":"Manual pool vacuuming hose","tag":"N/A","model":"N/A","part_no":"N/A","serial":"N/A","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"N/A","brand":"N/A","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"1.5\" vacuum hose for pool cleaning","flow":"N/A","head":"N/A","ip":"N/A","connection":"1.5\"","material":"Flexible PVC hose","country":"KSA","mfr_address":"N/A","mfr_phone":"N/A","mfr_email":"N/A","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Handheld (manual)","maintenance":"Inspect Monthly / Replace on damage","spare_parts":"Hose swivel cuff, hose repair kit","section":"MAINTENANCE TOOLS & CONSUMABLES"},{"no":57,"name":"Pool Brush DLX 18\" Nylon Bristle","category":"Maintenance Tool","type":"Pool Brush","system":"Pool Cleaning","function":"Manual pool wall and floor scrubbing","tag":"N/A","model":"N/A","part_no":"N/A","serial":"N/A","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"N/A","brand":"N/A","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"18\" deluxe nylon bristle pool brush","flow":"N/A","head":"N/A","ip":"N/A","connection":"N/A","material":"Nylon bristle / aluminium back","country":"KSA","mfr_address":"N/A","mfr_phone":"N/A","mfr_email":"N/A","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Handheld (manual)","maintenance":"Inspect Monthly / Replace on wear","spare_parts":"Replacement brush set","section":"MAINTENANCE TOOLS & CONSUMABLES"},{"no":58,"name":"Pool Leaf Rake Deep (Rainbow)","category":"Maintenance Tool","type":"Leaf Rake","system":"Pool Cleaning","function":"Manual pool debris / leaf removal","tag":"N/A","model":"N/A","part_no":"N/A","serial":"N/A","location":"Basement – SPA & Pool Pump Room","floor":"Basement","drawing":"N/A","brand":"Rainbow","power":"N/A","voltage":"N/A","phase":"N/A","frequency":"N/A","capacity":"Deep-bag leaf rake for pool surface and floor","flow":"N/A","head":"N/A","ip":"N/A","connection":"N/A","material":"ABS frame / nylon net bag","country":"KSA","mfr_address":"N/A","mfr_phone":"N/A","mfr_email":"N/A","supplier":"Aseeb Contracting Company","sup_contact":"Ahmed Magdy","sup_phone":"Ph: +966533912146","sup_email":"info@aseeb.net","unit":"No.","qty":1,"wo":"WO # 34982","approval":"IHCC-HO-T-250-226-1-R1","install_type":"Handheld (manual)","maintenance":"Inspect Monthly / Replace net bag on damage","spare_parts":"Replacement net bag","section":"MAINTENANCE TOOLS & CONSUMABLES"}];
+ASSETS.forEach((a,i) => a._idx = i);   // store original index on each asset
+
+const SEC_ICONS = {
+  'OUTDOOR POOL SYSTEM':             'fa-water',
+  'INDOOR POOL SYSTEM (JACUZZI)':    'fa-swimming-pool',
+  'COLD PLUNGE / SPA':               'fa-snowflake',
+  'SAUNA ROOM':                      'fa-fire',
+  'STEAM ROOM':                      'fa-cloud',
+  'COMMON SERVICES / PUMP ROOM':     'fa-cogs',
+  'MAINTENANCE TOOLS & CONSUMABLES': 'fa-tools',
+};
+const COL_KEYS = ['no','name','tag','model','serial','location','brand','country','wo'];
+
+/* ── STATE ── */
+let activeSection = 'ALL';
+let searchTerm    = '';
+let sortCol       = -1;
+let sortDir       = 1;
+let displayList   = [...ASSETS];  // current ordered list
+
+/* ── SORT ── */
+function doSort(col) {
+  if(sortCol === col) sortDir *= -1;
+  else { sortCol = col; sortDir = 1; }
+
+  // Sort within each section group to keep logical grouping
+  const ORDER = [
+    'OUTDOOR POOL SYSTEM','INDOOR POOL SYSTEM (JACUZZI)','COLD PLUNGE / SPA',
+    'SAUNA ROOM','STEAM ROOM','COMMON SERVICES / PUMP ROOM','MAINTENANCE TOOLS & CONSUMABLES'
+  ];
+  const bySection = {};
+  ORDER.forEach(s => bySection[s] = []);
+  ASSETS.forEach(a => { if(bySection[a.section]) bySection[a.section].push(a); });
+
+  ORDER.forEach(sec => {
+    bySection[sec].sort((a,b) => {
+      if(col === 0) return ((parseInt(a.no)||0) - (parseInt(b.no)||0)) * sortDir;
+      const av = String(a[COL_KEYS[col]]||'').toLowerCase();
+      const bv = String(b[COL_KEYS[col]]||'').toLowerCase();
+      return av > bv ? sortDir : av < bv ? -sortDir : 0;
+    });
+  });
+
+  displayList = ORDER.flatMap(s => bySection[s]);
+
+  // Update sort icons on column headers
+  document.querySelectorAll('.col-hdr th').forEach((th,i) => {
+    th.classList.toggle('sorted', i === col);
+    const ic = th.querySelector('.sort-icon i');
+    if(ic) ic.className = (i===col)
+      ? (sortDir===1 ? 'fas fa-sort-up' : 'fas fa-sort-down')
+      : 'fas fa-sort';
+  });
+
+  render();
+}
+
+/* ── FILTER SECTION TAB ── */
+function setSection(sec, btn) {
+  activeSection = sec;
+  document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+/* ── SEARCH ── */
+function doSearch() {
+  searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  render();
+}
+
+/* ── RENDER TABLE ── */
+function render() {
+  const tbody = document.getElementById('tbody');
+  tbody.innerHTML = '';
+  let lastSec = null;
+  let visible = 0;
+
+  displayList.forEach(a => {
+    const secMatch  = (activeSection === 'ALL') || (a.section === activeSection);
+    const srchMatch = !searchTerm || [a.no,a.name,a.type,a.tag,a.model,a.serial,
+      a.location,a.brand,a.country,a.wo,a.system].join(' ').toLowerCase().includes(searchTerm);
+
+    if(!secMatch || !srchMatch) return;
+
+    // Section header row
+    if(a.section !== lastSec) {
+      lastSec = a.section;
+      const sr = document.createElement('tr');
+      sr.className = 'sec-hdr';
+      const ic = SEC_ICONS[a.section] || 'fa-circle';
+      sr.innerHTML = `<td colspan="9"><i class="fas ${ic}"></i>${a.section}</td>`;
+      tbody.appendChild(sr);
+    }
+
+    // Data row
+    const origIdx = a._idx;
+    const tr = document.createElement('tr');
+    tr.className = 'asset-row';
+    const tag = a.tag && a.tag !== 'N/A' && a.tag !== '-' ? a.tag : '—';
+    const mod = a.model && a.model !== 'N/A' ? a.model : '—';
+    const sn  = a.serial && a.serial !== 'N/A' && a.serial !== '-' ? a.serial : '—';
+    const co  = a.country && a.country !== '-' ? a.country : '—';
+    const wo  = normalizeWO(a.wo) || '—';
+    tr.innerHTML = `
+      <td>${a.no}</td>
+      <td class="name-cell" title="${a.name}">${a.name}</td>
+      <td class="tag-cell">${tag}</td>
+      <td class="model-cell" title="${mod}">${mod}</td>
+      <td style="font-family:monospace;font-size:11.5px;color:rgba(224,242,254,0.72)" title="${sn}">${sn}</td>
+      <td style="font-size:12px;color:rgba(224,242,254,0.78)" title="${a.location}">${a.location}</td>
+      <td class="brand-cell" title="${a.brand}">${a.brand}</td>
+      <td class="co-cell">${co}</td>
+      <td class="wo-cell">${wo}</td>`;
+    tr.addEventListener('click', () => openModal(origIdx));
+    tbody.appendChild(tr);
+    visible++;
+  });
+
+  document.getElementById('showCount').textContent  = visible;
+  document.getElementById('footBadge').textContent  = `${visible} of ${ASSETS.length} Assets`;
+  document.getElementById('noResults').classList.toggle('hidden', visible > 0);
+}
+
+/* ── MODAL ── */
+function v(x){
+  if(!x || x==='' || x==='N/A' || x==='-' || x==='—' || x==='None') return '';
+  return String(x).trim();
+}
+function normalizeWO(wo){
+  const s = v(wo);
+  if(!s) return '';
+  const num = s.replace(/^WO\s*#?\s*/i,'').trim();
+  return num ? 'WO # ' + num : '';
+}
+function fv(x, cls=''){
+  const s = v(x);
+  return s ? `<span class="detail-value ${cls}">${s}</span>`
+           : `<span class="detail-value empty">—</span>`;
+}
+function di(label, val, cls='', full=false){
+  return `<div class="detail-item${full?' full-width':''}">
+    <div class="detail-label">${label}</div>${fv(val,cls)}</div>`;
+}
+
+function openModal(idx){
+  const a = ASSETS[idx];
+  document.getElementById('mNo').textContent   = `Asset No. ${a.no}  ·  ${a.section}`;
+  document.getElementById('mName').textContent = a.name;
+  document.getElementById('lblWO').textContent   = normalizeWO(a.wo) || 'Work Order';
+  document.getElementById('lblDwg').textContent  = v(a.drawing) || 'Drawing';
+  document.getElementById('btnDwg').title        = v(a.drawing) ? `${a.drawing} — Link coming soon` : 'Drawing link coming soon';
+  document.getElementById('lblAppr').textContent = v(a.approval) || 'Approval';
+
+  let html = '';
+
+  // Identification
+  html += `<div class="detail-section">
+    <div class="detail-section-title"><i class="fas fa-id-card"></i>Identification & Classification</div>
+    <div class="detail-grid">
+      ${di('Asset Category', a.category)}
+      ${di('Asset Type', a.type, 'gold')}
+      ${di('System / Circuit', a.system, '', true)}
+      ${di('Service / Function', a.function, '', true)}
+      ${di('Equipment Tag', a.tag, 'blue')}
+      ${di('Unit', a.unit)}
+    </div></div>`;
+
+  // Nameplate
+  html += `<div class="detail-section">
+    <div class="detail-section-title"><i class="fas fa-tag"></i>Nameplate Data</div>
+    <div class="detail-grid">
+      ${di('Manufacturer / Brand', a.brand, 'gold')}
+      ${di('Country of Origin', a.country)}
+      ${di('Model / Reference', a.model)}
+      ${di('Serial No.', a.serial, 'blue')}
+      ${di('Item / Part No.', a.part_no)}
+      ${di('Installation Type', a.install_type)}
+    </div></div>`;
+
+  // Technical
+  const tech = [a.power,a.voltage,a.phase,a.frequency,a.capacity,a.flow,a.head,a.ip,a.connection,a.material].some(x=>v(x));
+  if(tech){
+    html += `<div class="detail-section">
+      <div class="detail-section-title"><i class="fas fa-bolt"></i>Technical / Electrical Specifications</div>
+      <div class="detail-grid">
+        ${v(a.power)?di('Power Rating',a.power):''}
+        ${v(a.voltage)?di('Voltage',a.voltage):''}
+        ${v(a.phase)?di('Phase',a.phase):''}
+        ${v(a.frequency)?di('Frequency',a.frequency):''}
+        ${v(a.capacity)?di('Capacity / Duty',a.capacity,'',true):''}
+        ${v(a.flow)?di('Flow Rate',a.flow):''}
+        ${v(a.head)?di('Head / Pressure',a.head):''}
+        ${v(a.ip)?di('IP Rating',a.ip):''}
+        ${v(a.connection)?di('Connection Size',a.connection):''}
+        ${v(a.material)?di('Material / Construction',a.material,'',true):''}
+      </div></div>`;
+  }
+
+  // Location & Documents
+  html += `<div class="detail-section">
+    <div class="detail-section-title"><i class="fas fa-map-marker-alt"></i>Location & Documentation</div>
+    <div class="detail-grid">
+      ${di('Location', a.location)}
+      ${di('Floor', a.floor)}
+      ${di('Drawing Number', a.drawing, 'blue')}
+      ${di('Approval Number', a.approval, 'gold')}
+      ${di('Work Order No.', a.wo, 'green')}
+      ${di('Physical Asset No.', a.qty)}
+    </div></div>`;
+
+  // Manufacturer Contact
+  if([a.mfr_address,a.mfr_phone,a.mfr_email].some(x=>v(x))){
+    html += `<div class="detail-section">
+      <div class="detail-section-title"><i class="fas fa-industry"></i>Manufacturer Contact</div>
+      <div class="detail-grid">
+        ${v(a.mfr_address)?di('Address',a.mfr_address,'',true):''}
+        ${v(a.mfr_phone)?di('Phone',a.mfr_phone):''}
+        ${v(a.mfr_email)?di('Email',a.mfr_email):''}
+      </div></div>`;
+  }
+
+  // Supplier
+  if([a.supplier,a.sup_contact,a.sup_phone,a.sup_email].some(x=>v(x))){
+    html += `<div class="detail-section">
+      <div class="detail-section-title"><i class="fas fa-handshake"></i>Supplier / Vendor</div>
+      <div class="detail-grid">
+        ${v(a.supplier)?di('Supplier Name',a.supplier,'gold',true):''}
+        ${v(a.sup_contact)?di('Contact Person',a.sup_contact):''}
+        ${v(a.sup_phone)?di('Phone',a.sup_phone):''}
+        ${v(a.sup_email)?di('Email',a.sup_email):''}
+      </div></div>`;
+  }
+
+  // Maintenance
+  if([a.maintenance,a.spare_parts].some(x=>v(x))){
+    html += `<div class="detail-section">
+      <div class="detail-section-title"><i class="fas fa-wrench"></i>Maintenance & Spare Parts</div>
+      <div class="detail-grid">
+        ${v(a.maintenance)?di('Maintenance Schedule',a.maintenance,'',true):''}
+        ${v(a.spare_parts)?di('Spare Parts / Consumables',a.spare_parts,'',true):''}
+      </div></div>`;
+  }
+
+  document.getElementById('mBody').innerHTML = html;
+  document.getElementById('mBody').scrollTop = 0;
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function closeBg(e){ if(e.target===document.getElementById('modalOverlay')) closeModal(); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+// Init
+document.getElementById('totalCount').textContent = ASSETS.length;
+render();
+</script>
+</body>
+</html>

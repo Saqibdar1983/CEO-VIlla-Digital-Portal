@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS-FILTER-SPA-02 — Installation of Pool Sand Filters</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root {
+  --aqua:      #17D4E8;
+  --aqua-l:    #67E8F9;
+  --gold:      #D4AF37;
+  --gold-l:    #f0d878;
+  --navy:      #040c18;
+  --navy2:     #0d2040;
+  --navy3:     #081830;
+  --teal:      #17C3D4;
+  --green:     #27AE60;
+  --red:       #C0392B;
+  --amber:     #EF9F27;
+  --blue:      #2471A3;
+  --text:      #dff4ff;
+  --text2:     rgba(223,244,255,0.65);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--navy);
+  color: var(--text);
+  display:flex; flex-direction:column; min-height:100vh;
+}
+.bg-wrap { position:fixed; inset:0; z-index:-1; }
+.bg-wrap::before {
+  content:''; position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 10% 40%, rgba(0,210,230,0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 20%, rgba(0,190,220,0.10) 0%, transparent 50%),
+    linear-gradient(180deg, #020a14 0%, #051828 100%);
+}
+.bg-wrap::after {
+  content:''; position:absolute; inset:0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(0,210,230,0.04) 80px),
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(0,210,230,0.04) 80px);
+}
+/* HEADER */
+header {
+  position:fixed; top:0; width:100%; z-index:1000;
+  background:rgba(3,10,20,0.95); backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(23,212,232,0.28);
+  padding:8px 24px;
+  display:flex; align-items:center; justify-content:space-between;
+  box-shadow:0 4px 24px rgba(0,0,0,0.60);
+}
+.hdr-left { display:flex; align-items:center; gap:16px; }
+.hdr-title h1 {
+  font-family:'Arial Narrow', Arial, sans-serif;
+  font-size:17px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; color:var(--gold);
+  text-shadow:0 0 16px rgba(212,175,55,0.45);
+}
+.hdr-title .sub { font-size:10px; color:rgba(23,212,232,0.55); letter-spacing:1.5px; text-transform:uppercase; margin-top:1px; }
+.hdr-right { display:flex; align-items:center; gap:10px; }
+.doc-badge {
+  font-size:11px; padding:4px 12px; border-radius:20px;
+  background:rgba(23,212,232,0.08); border:1px solid rgba(23,212,232,0.28);
+  color:rgba(23,212,232,0.75); letter-spacing:1px;
+}
+.btn-nav {
+  display:flex; align-items:center; gap:7px;
+  padding:6px 13px; border-radius:5px; border:1px solid rgba(212,175,55,0.45);
+  background:rgba(212,175,55,0.10); color:var(--gold);
+  font-size:12px; font-weight:600; text-decoration:none; transition:all 0.25s;
+}
+.btn-nav:hover { background:rgba(212,175,55,0.22); border-color:var(--gold); color:var(--gold-l); }
+.btn-download {
+  display:flex; align-items:center; gap:7px;
+  padding:6px 13px; border-radius:5px;
+  border:1px solid rgba(23,212,232,0.35);
+  background:rgba(23,212,232,0.08); color:var(--aqua);
+  font-size:12px; font-weight:600; cursor:pointer; transition:all 0.25s;
+}
+.btn-download:hover { background:rgba(23,212,232,0.20); border-color:var(--aqua); }
+/* LAYOUT */
+.layout { display:flex; padding-top:60px; }
+/* SIDEBAR */
+.sidebar {
+  width:240px; min-width:240px;
+  position:fixed; top:60px; left:0; bottom:0;
+  background:rgba(3,10,22,0.92);
+  border-right:1px solid rgba(23,212,232,0.15);
+  overflow-y:auto; padding:16px 0; z-index:100;
+}
+.sidebar::-webkit-scrollbar { width:4px; }
+.sidebar::-webkit-scrollbar-thumb { background:rgba(23,212,232,0.25); border-radius:2px; }
+.sidebar-title {
+  font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+  color:rgba(23,212,232,0.45); padding:0 16px 10px;
+  border-bottom:1px solid rgba(23,212,232,0.10); margin-bottom:8px;
+}
+.nav-item {
+  display:block; padding:7px 16px;
+  font-size:11px; color:rgba(223,244,255,0.55);
+  text-decoration:none; transition:all 0.2s;
+  border-left:2px solid transparent;
+}
+.nav-item:hover, .nav-item.active {
+  color:var(--aqua-l); border-left-color:var(--aqua);
+  background:rgba(23,212,232,0.06);
+}
+.nav-item .nav-num { color:var(--aqua); font-weight:700; margin-right:6px; }
+.nav-section { padding:8px 16px 4px; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:rgba(23,212,232,0.30); }
+/* MAIN */
+main { margin-left:240px; flex:1; padding:24px 32px 60px; max-width:calc(100% - 240px); }
+/* COVER */
+.cover {
+  position:relative; overflow:hidden;
+  border:1px solid rgba(23,212,232,0.35);
+  border-radius:16px; padding:40px 48px; margin-bottom:32px;
+  box-shadow:0 24px 56px rgba(0,0,0,0.75);
+}
+.cover::before{content:'';position:absolute;inset:0;background-image:url('MS-FILTER-SPA-021.jpg');background-size:cover;background-position:center 25%;z-index:0;}
+.cover::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(4,12,28,0.38) 0%,rgba(2,8,18,0.42) 100%);z-index:1;}
+.cover>*{position:relative;z-index:2;}
+.cover-project { font-size:13px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--aqua); margin-bottom:4px; }
+.cover-location { font-size:12px; color:var(--text2); margin-bottom:28px; }
+.cover-ms-label { font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(212,175,55,0.60); margin-bottom:8px; }
+.cover-title {
+  font-family:'Arial Narrow', Arial, sans-serif;
+  font-size:36px; font-weight:700; line-height:1.2;
+  color:var(--gold); letter-spacing:2px; text-transform:uppercase;
+  text-shadow:0 0 24px rgba(212,175,55,0.35); margin-bottom:24px;
+}
+.cover-divider { height:3px; background:linear-gradient(90deg,var(--gold),transparent); border-radius:2px; margin-bottom:24px; }
+.cover-meta { display:grid; grid-template-columns:1fr 1fr; gap:12px 32px; }
+.cover-meta-item { display:flex; flex-direction:column; gap:2px; }
+.cover-meta-label { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text2); }
+.cover-meta-value { font-size:13px; font-weight:600; color:var(--text); }
+/* SECTION HEADERS */
+.sec-h1 {
+  background:linear-gradient(90deg, #1A5276, #0a2a4a);
+  border-left:4px solid var(--aqua);
+  padding:12px 20px; margin:32px 0 16px;
+  border-radius:0 8px 8px 0;
+  font-size:14px; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; color:#fff;
+}
+.sec-h2 {
+  font-size:13px; font-weight:700; color:var(--aqua);
+  margin:24px 0 12px; padding-bottom:6px;
+  border-bottom:2px solid rgba(212,175,55,0.35);
+}
+.sec-h3 { font-size:12px; font-weight:700; color:var(--gold-l); margin:18px 0 8px; }
+/* TABLES */
+.tbl-wrap { overflow-x:auto; margin:12px 0 20px; }
+table { width:100%; border-collapse:collapse; font-size:12px; }
+th {
+  background:#1A5276; color:#fff;
+  padding:9px 12px; text-align:left; font-weight:700;
+  font-size:11px; letter-spacing:0.5px; white-space:nowrap;
+}
+td {
+  padding:8px 12px;
+  border-bottom:1px solid rgba(23,212,232,0.10);
+  color:var(--text); line-height:1.45;
+}
+tr:nth-child(even) td { background:rgba(13,32,64,0.50); }
+tr:nth-child(odd) td { background:rgba(8,24,48,0.40); }
+tr:hover td { background:rgba(23,212,232,0.07); }
+td.key { font-weight:700; color:var(--aqua-l); white-space:nowrap; width:35%; }
+td.tag { font-weight:700; color:var(--gold); font-size:11px; letter-spacing:0.5px; }
+td.num { text-align:center; color:var(--aqua); font-weight:700; width:36px; }
+/* QC TABLE */
+.qc-table td:nth-child(3) { text-align:center; font-size:18px; color:rgba(223,244,255,0.4); width:40px; }
+.qc-table td:nth-child(4) { color:var(--text2); font-size:11px; width:90px; }
+/* CTEST TABLE */
+.ctest-table td:last-child { color:rgba(212,175,55,0.65); font-style:italic; }
+/* LISTS */
+.bul-list { list-style:none; margin:8px 0 12px; padding:0; }
+.bul-list li { padding:4px 0 4px 20px; position:relative; font-size:12.5px; line-height:1.5; }
+.bul-list li::before { content:'●'; position:absolute; left:0; color:var(--aqua); font-size:8px; top:8px; }
+.step-list { list-style:none; margin:8px 0 12px; padding:0; counter-reset:steps; }
+.step-list li {
+  counter-increment:steps; padding:5px 0 5px 34px; position:relative;
+  font-size:12.5px; line-height:1.5; border-bottom:1px solid rgba(23,212,232,0.06);
+}
+.step-list li::before {
+  content:counter(steps)'.'; position:absolute; left:0; top:5px;
+  color:var(--teal); font-weight:700; font-size:12px; width:28px; text-align:right;
+}
+.step-list li.critical::before { color:var(--red); }
+/* NOTES */
+.note { padding:10px 16px; margin:12px 0; border-radius:0 6px 6px 0; font-size:12px; line-height:1.5; }
+.note-note  { border-left:4px solid var(--teal); background:rgba(23,195,212,0.08); }
+.note-warn  { border-left:4px solid var(--red); background:rgba(192,57,43,0.10); }
+.note-caut  { border-left:4px solid var(--amber); background:rgba(239,159,39,0.08); }
+.note .tag  { font-weight:700; font-size:11px; letter-spacing:1px; margin-right:6px; }
+.note-note .tag { color:var(--teal); }
+.note-warn .tag { color:#e74c3c; }
+.note-caut .tag { color:var(--amber); }
+/* SPECIAL */
+p.body { font-size:12.5px; line-height:1.6; color:var(--text); margin:8px 0 14px; }
+p.body strong { color:var(--aqua-l); }
+.trigger-box {
+  background:rgba(23,212,232,0.08); border:1px solid rgba(23,212,232,0.25);
+  border-radius:6px; padding:10px 16px; margin:12px 0;
+  font-size:12.5px; line-height:1.5;
+}
+.trigger-box strong { color:var(--gold); }
+section { scroll-margin-top:72px; }
+/* SIGNATURES */
+.sig-table td { height:50px; vertical-align:bottom; padding-bottom:6px; }
+/* FOOTER */
+footer {
+  position:fixed; bottom:0; width:100%;
+  background:rgba(3,10,20,0.94);
+  border-top:1px solid rgba(212,175,55,0.28);
+  color:rgba(212,175,55,0.65);
+  padding:8px 24px; font-size:11px;
+  display:flex; align-items:center; justify-content:space-between;
+  z-index:999;
+}
+.btn-up {
+  width:30px; height:30px; border-radius:50%;
+  background:rgba(212,175,55,0.10); border:1px solid rgba(212,175,55,0.38);
+  color:var(--gold); display:flex; align-items:center; justify-content:center;
+  text-decoration:none; transition:all 0.3s; font-size:12px;
+}
+.btn-up:hover { background:rgba(212,175,55,0.24); border-color:var(--gold); }
+@media print {
+  .bg-wrap, header, .sidebar, footer, .btn-nav, .btn-download { display:none !important; }
+  main { margin-left:0 !important; padding:16px !important; max-width:100% !important; }
+  body { background:#fff; color:#000; }
+  .cover { background:#f5f5f5; border:1px solid #ccc; border-radius:0; }
+  .cover-title { color:#1A5276; }
+  .sec-h1 { background:#1A5276; color:#fff; }
+  .sec-h2 { color:#1A5276; border-bottom-color:#C9A93A; }
+  td, p.body, .bul-list li, .step-list li { color:#000; }
+}
+@media (max-width:900px) {
+  .sidebar { display:none; }
+  main { margin-left:0; max-width:100%; padding:16px; }
+  .cover-meta { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body id="top">
+<div class="bg-wrap"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="hdr-left">
+    <a href="Method Statements Dashboard.html" class="btn-nav"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+    <div class="hdr-title">
+      <h1><i class="fa-solid fa-filter" style="margin-right:8px;"></i>SPA &amp; Pool Facility Method Statements</h1>
+      <span class="sub">CEO Villa — Al Murjan, Jeddah — IHCC</span>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <span class="doc-badge">MS-FILTER-SPA-02 | Rev.00</span>
+    <button class="btn-download" onclick="downloadPDF()"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+    <a href="../../EVA-CORE.html" class="btn-nav"><i class="fa-solid fa-house"></i> Home</a>
+  </div>
+</header>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-title">Document Sections</div>
+    <a class="nav-item" href="#cover"><span class="nav-num">◆</span>Cover</a>
+    <a class="nav-item" href="#projinfo"><span class="nav-num">◆</span>Project Information</a>
+    <div class="nav-section">Main Sections</div>
+    <a class="nav-item" href="#sec1"><span class="nav-num">1.</span>Purpose &amp; Scope</a>
+    <a class="nav-item" href="#sec2"><span class="nav-num">2.</span>Codes &amp; Standards</a>
+    <a class="nav-item" href="#sec3"><span class="nav-num">3.</span>Responsibilities</a>
+    <a class="nav-item" href="#sec4"><span class="nav-num">4.</span>Materials &amp; Equipment</a>
+    <a class="nav-item" href="#sec5"><span class="nav-num">5.</span>Health, Safety &amp; Environment</a>
+    <a class="nav-item" href="#sec6"><span class="nav-num">6.</span>Installation Procedure</a>
+    <a class="nav-item" href="#sec7"><span class="nav-num">7.</span>QC Inspection Checklist</a>
+    <a class="nav-item" href="#sec8"><span class="nav-num">8.</span>Testing &amp; Commissioning</a>
+    <a class="nav-item" href="#sec9"><span class="nav-num">9.</span>Documentation &amp; Handover</a>
+    <a class="nav-item" href="#signatures"><span class="nav-num">✎</span>Signatures</a>
+    <div style="margin-top:20px; padding:12px 16px; border-top:1px solid rgba(23,212,232,0.12);">
+      <div style="font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(23,212,232,0.40); margin-bottom:8px;">Filters Covered</div>
+      <div style="font-size:10px; color:rgba(223,244,255,0.55); line-height:2.2;">
+        SF-ODP-01<br><span style="color:rgba(223,244,255,0.35);font-size:9px;">Outdoor Pool · Triton II TR140</span><br>
+        SF-INP-02<br><span style="color:rgba(223,244,255,0.35);font-size:9px;">Indoor Pool · Tagelus TA-40</span><br>
+        SF-CPC-03<br><span style="color:rgba(223,244,255,0.35);font-size:9px;">Cold Plunge · Tagelus TA-40</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- COVER -->
+    <section id="cover">
+      <div class="cover">
+        <div class="cover-project">CEO VILLA &nbsp;|&nbsp; SPA &amp; POOL FACILITY</div>
+        <div class="cover-location">IHCC &nbsp;·&nbsp; Al Murjan, Jeddah, Kingdom of Saudi Arabia &nbsp;·&nbsp; Project Code: 10144</div>
+        <div class="cover-ms-label">Method Statement</div>
+        <div class="cover-title">Installation of Pool<br>Sand Filters,<br>6-Way Multiport Valves<br>&amp; Filter Media</div>
+        <div class="cover-divider"></div>
+        <div class="cover-meta">
+          <div class="cover-meta-item"><span class="cover-meta-label">Document Reference</span><span class="cover-meta-value" style="color:var(--aqua);">MS-FILTER-SPA-02</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Revision</span><span class="cover-meta-value">Rev. 00</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Prepared By</span><span class="cover-meta-value">Adil Magdy – Mechanical Engineer, Aseeb Contracting Co.</span></div>
+          <div class="cover-meta-item"><span class="cover-meta-label">Submitted To</span><span class="cover-meta-value">Saqib Manzoor – Senior Mechanical Engineer, IHCC</span></div>
+        </div>
+        <div class="note note-warn" style="margin-top:24px;">
+          <span class="tag">CRITICAL WARNING:</span>STOP PUMP before changing valve position at any time. Rotating the 6-way multiport valve handle while the pump is running will destroy the internal spider gasket and void the valve warranty.
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECT INFO -->
+    <section id="projinfo">
+      <div class="sec-h1">PROJECT &amp; DOCUMENT INFORMATION</div>
+      <div class="tbl-wrap">
+        <table><tbody>
+          <tr><td class="key">Project Name</td><td>CEO Villa (Private Residence)</td></tr>
+          <tr><td class="key">Location</td><td>Al Murjan, Jeddah, Kingdom of Saudi Arabia</td></tr>
+          <tr><td class="key">Client</td><td>Engr. Sultan Batterjee</td></tr>
+          <tr><td class="key">Consultant</td><td>3C Engineering &amp; Architectural Consultant</td></tr>
+          <tr><td class="key">Main Contractor</td><td>IHCC – Integrated Home Construction Company</td></tr>
+          <tr><td class="key">Sub-Contractor</td><td>Aseeb Contracting Company</td></tr>
+          <tr><td class="key">Work Order No.</td><td>WO # 34982</td></tr>
+          <tr><td class="key">Document No.</td><td style="color:var(--aqua);font-weight:700;">MS-FILTER-SPA-02</td></tr>
+          <tr><td class="key">Revision</td><td>00 – Initial Issue</td></tr>
+                    <tr><td class="key">Approved Shop Drawing</td><td>SB-ASB-SD-ME-008-R1</td></tr>
+          <tr><td class="key">Status</td><td><span style="color:var(--green);font-weight:700;">Submitted for Review &amp; Approval</span></td></tr>
+        </tbody></table>
+      </div>
+    </section>
+
+    <!-- SECTION 1 -->
+    <section id="sec1">
+      <div class="sec-h1">1. &nbsp;PURPOSE &amp; SCOPE</div>
+      <div class="sec-h2">1.1 &nbsp;Purpose</div>
+      <p class="body">This Method Statement defines the approved procedure for the supply, inspection, installation, filter media loading, piping connection, and commissioning of all sand filters and their associated 6-way multiport valves within the SPA &amp; Pool Facility of the CEO Villa Project.</p>
+      <p class="body">The document ensures that all works are executed in full compliance with the manufacturer's installation manuals, approved shop drawing SB-ASB-SD-ME-008-R1, relevant international standards, and project quality requirements.</p>
+
+      <div class="sec-h2">1.2 &nbsp;Scope of Work</div>
+      <p class="body">This method statement covers the following three (3) filter units and their associated multiport valves:</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Filter Tag</th><th>Description</th><th>Model</th><th>Max Flow</th><th>Max Pressure</th><th>Valve Model</th></tr></thead>
+          <tbody>
+            <tr><td class="tag">SF-ODP-01</td><td>Outdoor Pool Sand Filter</td><td>Pentair Triton II TR140</td><td>141 GPM</td><td>50 PSI (3.4 bar)</td><td>Praher V6 2" 6-Way</td></tr>
+            <tr><td class="tag">SF-INP-02</td><td>Indoor Pool Sand Filter</td><td>Pentair Tagelus TA-40</td><td>40 GPM</td><td>50 PSI (3.4 bar)</td><td>Pentair Hi-Flow 1.5" 6-Way</td></tr>
+            <tr><td class="tag">SF-CPC-03</td><td>Cold Plunge Sand Filter</td><td>Pentair Tagelus TA-40</td><td>40 GPM</td><td>50 PSI (3.4 bar)</td><td>Pentair Hi-Flow 1.5" 6-Way</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="body">The scope includes: unpacking and inspection of filter tanks, gravel and sand loading per manufacturer specification, installation of 6-way multiport valves, piping connections including isolation valves and pressure gauges, initial backwash and rinse cycle, functional testing, and handover documentation.</p>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section id="sec2">
+      <div class="sec-h1">2. &nbsp;APPLICABLE CODES, STANDARDS &amp; REFERENCES</div>
+      <div class="tbl-wrap">
+        <table><thead><tr><th>Reference / Standard</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td class="key">Pentair TR140 Install. Manual</td><td>Pentair Triton II TR140 Sand Filter – Installation &amp; User Guide</td></tr>
+          <tr><td class="key">Pentair TA-40 Install. Manual</td><td>Pentair Tagelus TA-40 Sand Filter – Installation &amp; User Guide</td></tr>
+          <tr><td class="key">Praher V6 Install. Manual</td><td>Praher V6 6-Way Multiport Valve – Installation &amp; Operating Instructions</td></tr>
+          <tr><td class="key">Pentair Hi-Flow 272526</td><td>Pentair Hi-Flow Six-Way 1-1/2" Multiport Valve – Installation Manual</td></tr>
+          <tr><td class="key">NSF/ANSI 50</td><td>Equipment for Swimming Pools, Spas, Hot Tubs and Other Recreational Water Facilities</td></tr>
+          <tr><td class="key">ANSI/APSP-11</td><td>Water Quality Standard for Ponds</td></tr>
+          <tr><td class="key">ASTM C778</td><td>Standard Specification for Standard Sand</td></tr>
+          <tr><td class="key">SB-ASB-SD-ME-008-R1</td><td>Approved Mechanical Shop Drawing – SPA &amp; Pool Piping Layout</td></tr>
+          <tr><td class="key">Project Specifications</td><td>CEO Villa Project Mechanical Specifications – Pool &amp; SPA Systems</td></tr>
+          <tr><td class="key">NFPA 70</td><td>National Electrical Code (for pump motor connections)</td></tr>
+        </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section id="sec3">
+      <div class="sec-h1">3. &nbsp;RESPONSIBILITIES</div>
+      <div class="tbl-wrap">
+        <table><thead><tr><th>Role</th><th>Responsibility</th></tr></thead>
+        <tbody>
+          <tr><td class="key">Sr. Mechanical Engineer – IHCC<br><span style="font-size:11px;color:var(--aqua);">(Saqib Manzoor)</span></td><td>Review and approve this method statement. Witness critical installation activities including filter media loading and pressure testing. Raise NCR for any non-conformance. Issue WIR for consultant inspection.</td></tr>
+          <tr><td class="key">Mechanical Engineer – Aseeb<br><span style="font-size:11px;color:var(--aqua);">(Adil Magdy)</span></td><td>Prepare and submit this method statement for review. Supervise all installation activities. Ensure all works comply with approved drawings and manufacturer manuals. Maintain QC records.</td></tr>
+          <tr><td class="key">QA / QC Engineer</td><td>Conduct pre-installation material inspection. Verify compliance with specifications. Complete and sign quality control checklists. Prepare pressure test reports.</td></tr>
+          <tr><td class="key">HSE Officer</td><td>Conduct daily toolbox talks. Enforce PPE usage. Maintain safe work environment. Ensure safe manual handling of heavy filter tanks.</td></tr>
+          <tr><td class="key">Site Foreman</td><td>Supervise installation crew. Ensure proper sequence of sand loading. Control access to filter room during media loading and testing.</td></tr>
+          <tr><td class="key">Storekeeper</td><td>Issue approved materials against MIRs. Maintain records of filter media consumed (bags, weights). Ensure proper storage of filter media.</td></tr>
+        </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section id="sec4">
+      <div class="sec-h1">4. &nbsp;MATERIALS &amp; EQUIPMENT</div>
+
+      <div class="sec-h2">4.1 &nbsp;Sand Filter Units</div>
+
+      <div class="sec-h3">SF-ODP-01 – Outdoor Pool Sand Filter (Pentair Triton II TR140)</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Filter Tag</td><td style="color:var(--aqua);font-weight:700;">SF-ODP-01</td></tr>
+        <tr><td class="key">Service</td><td>Outdoor Swimming Pool Filtration</td></tr>
+        <tr><td class="key">Manufacturer</td><td>Pentair Water Pool and Spa, Inc.</td></tr>
+        <tr><td class="key">Model</td><td>Triton II TR140 – High-Rate Sand Filter</td></tr>
+        <tr><td class="key">Part Number</td><td>140222</td></tr>
+        <tr><td class="key">Serial Number</td><td>0102186180026P</td></tr>
+        <tr><td class="key">Design Flow Rate</td><td>106 GPM / 24 m³/h</td></tr>
+        <tr><td class="key">Maximum Flow Rate</td><td>141 GPM / 32 m³/h</td></tr>
+        <tr><td class="key">Maximum Operating Pressure</td><td>50 PSI (3.4 bar)</td></tr>
+        <tr><td class="key">Filter Tank Connections</td><td>2" NPT / 2" Slip (Inlet &amp; Outlet via Multiport Valve)</td></tr>
+        <tr><td class="key">Drain Connection</td><td>1-1/2"</td></tr>
+        <tr><td class="key">Filter Sand Required</td><td>419 kg / 925 lbs of #20 Silica Sand (0.45–0.55 mm) per ASTM C778</td></tr>
+        <tr><td class="key">Gravel Required</td><td>4 kg / 9 lbs of Pea Gravel (3 mm – 6 mm / 1/8" – 1/4") – support bed</td></tr>
+        <tr><td class="key">Installation</td><td>Floor-mounted (Vertical), Basement Pump Room</td></tr>
+      </tbody></table></div>
+
+      <div class="sec-h3">SF-INP-02 – Indoor Pool Sand Filter (Pentair Tagelus TA-40)</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Filter Tag</td><td style="color:var(--aqua);font-weight:700;">SF-INP-02</td></tr>
+        <tr><td class="key">Service</td><td>Indoor Swimming Pool Filtration</td></tr>
+        <tr><td class="key">Manufacturer</td><td>Pentair Water Pool and Spa, Inc.</td></tr>
+        <tr><td class="key">Model</td><td>Tagelus TA-40 – Top-Load Sand Filter</td></tr>
+        <tr><td class="key">Part Number</td><td>140219</td></tr>
+        <tr><td class="key">Serial Number</td><td>0106152220024X</td></tr>
+        <tr><td class="key">Design / Max Flow Rate</td><td>40 GPM / 9.1 m³/h</td></tr>
+        <tr><td class="key">Maximum Operating Pressure</td><td>50 PSI (3.4 bar)</td></tr>
+        <tr><td class="key">Filter Tank Connections</td><td>1-1/2" (Inlet &amp; Outlet via Multiport Valve)</td></tr>
+        <tr><td class="key">Filter Sand Required</td><td>79 kg / 175 lbs of #20 Silica Sand (0.45–0.55 mm)</td></tr>
+        <tr><td class="key">Gravel Required</td><td style="color:var(--amber);">NO – TA-40 internal screen design does not require a gravel support bed</td></tr>
+        <tr><td class="key">Installation</td><td>Floor-mounted (Vertical), Basement Pump Room</td></tr>
+      </tbody></table></div>
+
+      <div class="sec-h3">SF-CPC-03 – Cold Plunge Sand Filter (Pentair Tagelus TA-40)</div>
+      <div class="tbl-wrap"><table><tbody>
+        <tr><td class="key">Filter Tag</td><td style="color:var(--aqua);font-weight:700;">SF-CPC-03</td></tr>
+        <tr><td class="key">Service</td><td>Cold Plunge Pool Filtration</td></tr>
+        <tr><td class="key">Manufacturer</td><td>Pentair Water Pool and Spa, Inc.</td></tr>
+        <tr><td class="key">Model</td><td>Tagelus TA-40 – Top-Load Sand Filter</td></tr>
+        <tr><td class="key">Part Number</td><td>140219</td></tr>
+        <tr><td class="key">Serial Number</td><td>1061522200293</td></tr>
+        <tr><td class="key">Design / Max Flow Rate</td><td>40 GPM / 9.1 m³/h</td></tr>
+        <tr><td class="key">Maximum Operating Pressure</td><td>50 PSI (3.4 bar)</td></tr>
+        <tr><td class="key">Filter Tank Connections</td><td>1-1/2" (Inlet &amp; Outlet via Multiport Valve)</td></tr>
+        <tr><td class="key">Filter Sand Required</td><td>79 kg / 175 lbs of #20 Silica Sand (0.45–0.55 mm)</td></tr>
+        <tr><td class="key">Gravel Required</td><td style="color:var(--amber);">NO – TA-40 internal screen design does not require a gravel support bed</td></tr>
+        <tr><td class="key">Installation</td><td>Floor-mounted (Vertical), Basement Pump Room</td></tr>
+      </tbody></table></div>
+
+      <div class="sec-h2">4.2 &nbsp;Six-Way Multiport Valves</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Valve Tag</th><th>Installed On</th><th>Brand / Model</th><th>Size</th><th>Max Pressure</th><th>Positions Available</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="tag">SFV-ODP-01</td><td>SF-ODP-01</td>
+              <td>Praher Plastics V6 6-Way Multiport Valve</td>
+              <td>2" Top-Mount</td><td>3.5 bar</td>
+              <td>Filter / Backwash / Rinse / Waste / Recirculate / Closed</td>
+            </tr>
+            <tr>
+              <td class="tag">SFV-INP-02</td><td>SF-INP-02</td>
+              <td>Pentair Hi-Flow Six-Way (Model 272526)<br>S/N: 0518 17220176T</td>
+              <td>1.5" Top-Mount</td><td>50 PSI</td>
+              <td>Filter / Backwash / Rinse / Waste / Recirculate / Winterize</td>
+            </tr>
+            <tr>
+              <td class="tag">SFV-CPC-03</td><td>SF-CPC-03</td>
+              <td>Pentair Hi-Flow Six-Way (Model 272526)<br>S/N: 0518 17220225P</td>
+              <td>1.5" Top-Mount</td><td>50 PSI</td>
+              <td>Filter / Backwash / Rinse / Waste / Recirculate / Winterize</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-h2">4.3 &nbsp;Filter Media</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Filter</th><th>Media Type</th><th>Grade / Specification</th><th>Qty Required</th><th>Bags Supplied</th><th>Supplier</th></tr></thead>
+          <tbody>
+            <tr><td class="tag">SF-ODP-01 (TR140)</td><td>#20 Silica Sand</td><td>0.45–0.55 mm (0.018–0.022 in) – ASTM C778</td><td>419 kg / 925 lbs</td><td>4 bags × 40 kg</td><td>Bin Talib Super</td></tr>
+            <tr><td class="tag">SF-ODP-01 (TR140)</td><td>Pea Gravel (support bed)</td><td>3–6 mm (1/8"–1/4") – rounded</td><td>4 kg / 9 lbs</td><td>3 bags × 40 kg</td><td>Bin Talib Super</td></tr>
+            <tr><td class="tag">SF-INP-02 (TA-40)</td><td>#20 Silica Sand</td><td>0.45–0.55 mm (0.018–0.022 in) – ASTM C778</td><td>79 kg / 175 lbs</td><td>5 bags × 40 kg (shared with SF-CPC-03)</td><td>Bin Talib Super</td></tr>
+            <tr><td class="tag">SF-CPC-03 (TA-40)</td><td>#20 Silica Sand</td><td>0.45–0.55 mm (0.018–0.022 in) – ASTM C778</td><td>79 kg / 175 lbs</td><td>(from above shared supply)</td><td>Bin Talib Super</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note note-caut"><span class="tag">CAUTION:</span>Actual quantity of filter media must be verified against the filter nameplate and the fill-level mark inside the tank before loading. Never overfill beyond the shoulder mark inside the filter tank.</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>Use only #20 Silica Sand conforming to ASTM C778. Do NOT substitute with builder's sand, sea sand, or any non-rated media. Using the wrong sand grade will damage the laterals and permanently degrade water quality.</div>
+
+      <div class="sec-h2">4.4 &nbsp;Piping, Valves &amp; Accessories (per Filter Unit)</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Item</th><th>Standard / Material</th><th>Size</th><th>Remarks</th></tr></thead>
+          <tbody>
+            <tr><td>Isolation Ball Valve – Pump to Filter (Inlet)</td><td>CPVC / PVC PN10</td><td>2" / 1.5"</td><td>True-union type, install before filter inlet</td></tr>
+            <tr><td>Isolation Ball Valve – Filter to Pool Return (Outlet)</td><td>CPVC / PVC PN10</td><td>2" / 1.5"</td><td>True-union type, install after filter outlet</td></tr>
+            <tr><td>Isolation Ball Valve – Waste Line</td><td>CPVC / PVC PN10</td><td>2" / 1.5"</td><td>Install on waste port of multiport valve</td></tr>
+            <tr><td>Glycerine-Filled Pressure Gauge</td><td>Stainless Steel, 0–100 PSI</td><td>1/4" NPT</td><td>Install on filter inlet (after isolation valve)</td></tr>
+            <tr><td>PVC Pipe – Inlet &amp; Return Lines</td><td>ASTM D1785 SCH 40 PVC</td><td>2" / 1.5"</td><td>Per filter size, uPVC with solvent cement joints</td></tr>
+            <tr><td>Waste / Drain Line</td><td>ASTM D1785 SCH 40 PVC</td><td>1.5"</td><td>From waste port to floor drain – continuous slope</td></tr>
+            <tr><td>Flexible Union Connectors</td><td>PVC True-Union</td><td>2" / 1.5"</td><td>At all equipment connections for serviceability</td></tr>
+            <tr><td>O-Ring Kit – Multiport Valve</td><td>NBR / EPDM</td><td>Valve-specific</td><td>Inspect and replace if found damaged during install</td></tr>
+            <tr><td>Teflon Tape &amp; PVC Solvent Cement</td><td>As per application</td><td>–</td><td>Approved brands only; no petroleum-based sealants on PVC</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-h2">4.5 &nbsp;Tools &amp; Equipment Required</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Tool / Equipment</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Spirit Level (1.0 m)</td><td>Verify filter is plumb and level after positioning</td></tr>
+            <tr><td>Torque Wrench</td><td>Tighten anchor bolts and flange connections to specified torques</td></tr>
+            <tr><td>PVC Pipe Cutter</td><td>Clean cuts on PVC piping without cracking</td></tr>
+            <tr><td>PVC Solvent Cement Applicator / Brush</td><td>Apply solvent cement to pipe and fittings for joints</td></tr>
+            <tr><td>Pipe Wrench &amp; Adjustable Spanner</td><td>Tighten threaded NPT connections on gauges and fittings</td></tr>
+            <tr><td>Measuring Tape</td><td>Verify clearances and pipe routing dimensions</td></tr>
+            <tr><td>Hand Sanding Bags / Clean Funnel</td><td>Load filter sand without spillage into tank</td></tr>
+            <tr><td>Garden Hose or Water Supply Connection</td><td>Fill filter tank 1/3 with water before sand loading</td></tr>
+            <tr><td>Pressure Gauge (calibrated, 0–100 PSI)</td><td>Independent check of filter inlet pressure during testing</td></tr>
+            <tr><td>Clean Plastic Sheet / Tarpaulin</td><td>Protect filter media bags from contamination during storage</td></tr>
+            <tr><td>Rag / Clean Cloth / Tape</td><td>Seal center standpipe before sand loading to protect laterals</td></tr>
+            <tr><td>Marker Pen / Label Gun</td><td>Label all valves, pipes, and components after installation</td></tr>
+            <tr><td>Camera / Mobile Phone</td><td>Photograph each stage for QC documentation</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section id="sec5">
+      <div class="sec-h1">5. &nbsp;HEALTH, SAFETY &amp; ENVIRONMENT</div>
+
+      <div class="sec-h2">5.1 &nbsp;Personal Protective Equipment (PPE)</div>
+      <p class="body">All personnel on site must wear at minimum: Safety helmet, safety shoes (steel toe), hi-visibility vest, safety gloves, and safety glasses. When handling dry sand or gravel, use a dust mask (minimum FFP2) and safety goggles. When applying PVC solvent cement or primer, use chemical-resistant gloves and ensure adequate ventilation.</p>
+
+      <div class="sec-h2">5.2 &nbsp;Manual Handling</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>The Pentair TR140 filter tank (SF-ODP-01) weighs approximately 52 kg (115 lbs) when empty. Always use minimum two (2) persons for lifting. Do not attempt to lift without team coordination. Use a sack trolley for moving filter tanks across the pump room.</div>
+      <p class="body">Each bag of filter sand weighs 40 kg. Use mechanical handling (sack trolley) to transport from storage to pump room. Two persons required to lift and pour sand bags. Bend knees when lifting – never bend the back. Use proper grip on bags.</p>
+
+      <div class="sec-h2">5.3 &nbsp;Work Area Safety</div>
+      <ul class="bul-list">
+        <li>Barricade the pump room during filter media loading – fine sand dust is a respiratory hazard.</li>
+        <li>Keep the work area clean and dry at all times. Sand spilled on floor is a slip hazard.</li>
+        <li>Isolate electrical supply to pump motors before making any piping connections.</li>
+        <li>Do not apply pressure test without ensuring all personnel are clear of the filter area.</li>
+        <li>Keep a fire extinguisher accessible when using PVC solvent cement (flammable).</li>
+      </ul>
+
+      <div class="sec-h2">5.4 &nbsp;Chemical Safety (PVC Solvent Cement)</div>
+      <p class="body">PVC solvent cement and primer are flammable and emit harmful vapors. Ensure ventilation is adequate. Do not smoke or use open flame in the area during application. Store cement away from heat sources. Dispose of empty containers as chemical waste per project environmental plan.</p>
+
+      <div class="sec-h2">5.5 &nbsp;Housekeeping</div>
+      <p class="body">Remove all packaging material, empty sand bags, and waste after each work stage. Sand on the pump room floor must be swept up immediately to prevent slip hazards and contamination of drainage. Filter room to be left clean and tidy at the end of each working day.</p>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section id="sec6">
+      <div class="sec-h1">6. &nbsp;INSTALLATION PROCEDURE</div>
+      <div class="note note-warn"><span class="tag">CRITICAL WARNING:</span>STOP PUMP BEFORE CHANGING VALVE POSITION AT ANY TIME. Rotating the 6-way multiport valve handle while the pump is running will destroy the internal spider gasket and void the valve warranty. This is the most common and most expensive mistake in sand filter installation.</div>
+
+      <div class="sec-h2">6.1 &nbsp;Pre-Installation Activities</div>
+      <div class="sec-h3">6.1.1 &nbsp;Material Inspection</div>
+      <ol class="step-list">
+        <li>Receive and inspect all filter tanks, multiport valves, and filter media bags against the approved MIR (Material Inspection Request) and the Delivery Order from Bin Talib Super.</li>
+        <li>Check each filter tank nameplate against the Asset Register: Model (TR140 / TA-40), Part Number (140222 / 140219), and Serial Number. Record findings on the MIR.</li>
+        <li>Inspect filter tanks for cracks, dents, or damage to the tank body, clamp ring, or top opening. Reject any damaged units.</li>
+        <li>Open each filter and inspect the internal laterals assembly. All laterals must be fully seated in the hub at the base of the standpipe. Count all laterals – TR140 has 8 laterals; TA-40 has 6. Report any broken laterals before proceeding.</li>
+        <li>Inspect multiport valves (SFV-ODP-01, SFV-INP-02, SFV-CPC-03). Check the valve body for cracks. Rotate the handle through all 6 positions to verify smooth operation and positive detent click at each position.</li>
+        <li>Check the date on filter sand bags. Sand must be dry and free of lumps. If bags have been wet or stored without cover, reject and request replacement.</li>
+        <li>Count and record all bags received: 4 bags × 40 kg silica sand (SF-ODP-01); 3 bags × 40 kg gravel (SF-ODP-01); 5 bags × 40 kg silica sand (for SF-INP-02 and SF-CPC-03 combined).</li>
+      </ol>
+
+      <div class="sec-h3">6.1.2 &nbsp;Site Preparation</div>
+      <ol class="step-list">
+        <li>Confirm that concrete housekeeping pads for all three filters are complete, cured, and level (tolerance: ± 3 mm across pad surface).</li>
+        <li>Confirm all pipe stubs (inlet, return, and waste/drain) are in place per approved drawing SB-ASB-SD-ME-008-R1 and are at correct elevations.</li>
+        <li>Confirm drain connections are available and functional in the pump room.</li>
+        <li>Ensure adequate lighting and ventilation in the basement pump room before commencing work.</li>
+        <li>Obtain all required work permits. Conduct toolbox talk with the installation crew covering the manual handling risks, dust hazards, and the correct sand loading sequence.</li>
+      </ol>
+
+      <div class="sec-h2">6.2 &nbsp;Filter Tank Positioning &amp; Anchoring</div>
+      <ol class="step-list">
+        <li>Using a sack trolley and minimum 2 persons, transport each filter tank to its designated position as shown on drawing SB-ASB-SD-ME-008-R1.</li>
+        <li>Position filter tank on the housekeeping pad. Check level using spirit level across the top flange of the filter in two perpendicular directions. Maximum allowable deviation: 3 mm/metre.</li>
+        <li>Anchor filter base to the concrete pad using the provided or specified hold-down brackets. For TR140, ensure the base ring is fully in contact with the pad. For TA-40, secure the integral base feet.</li>
+        <li>Verify final clearances: minimum 600 mm clear on all sides of TR140; minimum 450 mm on all sides of TA-40, for maintenance access. Verify the top of the filter has unobstructed vertical access for media loading and future valve removal.</li>
+        <li>Photograph each filter in final position with the tag number visible. Record on the installation checklist.</li>
+      </ol>
+      <div class="note note-caut"><span class="tag">CAUTION:</span>All three filters (SF-ODP-01, SF-INP-02, SF-CPC-03) must be permanently fixed before sand loading begins. Do not load sand into a filter that has not been levelled and anchored.</div>
+
+      <div class="sec-h2">6.3 &nbsp;Filter Media Loading</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>This is the most critical step of the installation. Follow the sequence exactly. Wrong media type, wrong sequence, or overfilling will damage the laterals and require complete disassembly to correct.</div>
+
+      <div class="sec-h3">6.3.1 &nbsp;TR140 (SF-ODP-01) – Gravel Support Bed Then Sand</div>
+      <p class="body">SF-ODP-01 requires a <strong>gravel support bed underneath the sand</strong>. This is because the TR140's lateral screen openings are larger. The TA-40 (SF-INP-02, SF-CPC-03) does NOT require gravel – proceed to Section 6.3.2 for TA-40 units.</p>
+      <ol class="step-list">
+        <li>Remove the multiport valve from the TR140 tank. The tank is open at the top with the center standpipe exposed.</li>
+        <li>Inspect all 8 laterals at the base of the standpipe. Confirm they are fully extended and seated. Gently flex each lateral to confirm it is not brittle or cracked.</li>
+        <li class="critical">[CRITICAL] Stuff a clean rag or seal the top opening of the center standpipe with tape. This prevents sand from falling into the standpipe and clogging the return line to the pool. If sand enters the standpipe, the entire tank must be disassembled and cleaned.</li>
+        <li class="critical">[CRITICAL] Add clean water to fill the tank approximately one-third (1/3) full. This water cushions the impact of sand on the laterals when sand is poured. Pouring sand into a dry tank can crack or break the laterals.</li>
+        <li>Add the pea gravel first (3–6 mm, approx. 4 kg / 9 lbs). Pour slowly around the standpipe, distributing evenly. This forms a 25–50 mm support bed over the laterals. Do not disturb the laterals during this step.</li>
+        <li>Now add the #20 silica sand (0.45–0.55 mm, 419 kg / 925 lbs) in small batches using a clean funnel. Pour sand slowly and evenly around the standpipe – never directly onto the standpipe or laterals. After every 2 bags, check that the sand is distributing evenly.</li>
+        <li>Stop loading sand when the sand level reaches the fill line marked inside the tank (approximately 2/3 to the shoulder). Do NOT fill above this line. Overfilling reduces backwash effectiveness and can cause sand to enter the multiport valve.</li>
+        <li>Carefully remove the rag/tape from the standpipe. Check the standpipe opening – it must be free of sand. If sand has entered, carefully vacuum or rinse it out before proceeding.</li>
+        <li>Fill the remainder of the tank with clean water to just below the top flange.</li>
+      </ol>
+
+      <div class="sec-h3">6.3.2 &nbsp;TA-40 (SF-INP-02 and SF-CPC-03) – Sand Only, No Gravel</div>
+      <ol class="step-list">
+        <li>Remove the multiport valve. The TA-40 has a top-mounted valve seat at the center. The center tube/standpipe with integrated screen assembly should be visible.</li>
+        <li>Inspect the internal screen/underdrain assembly. Confirm it is fully seated and undamaged.</li>
+        <li class="critical">[CRITICAL] Plug or tape the top of the center standpipe to prevent sand entry.</li>
+        <li class="critical">[CRITICAL] Fill the tank approximately 1/3 full with clean water to cushion sand impact on the internal screen.</li>
+        <li>Add #20 silica sand (0.45–0.55 mm) for this unit (79 kg / 175 lbs) slowly and evenly around the standpipe using a clean funnel. No gravel is required for the TA-40.</li>
+        <li>Fill to the fill line marked inside the tank. For the TA-40, this is typically at or just below the shoulder of the tank. Do NOT overfill.</li>
+        <li>Remove the standpipe plug. Verify standpipe opening is clear of sand.</li>
+        <li>Repeat this procedure identically for the second TA-40 unit (SF-CPC-03).</li>
+      </ol>
+
+      <div class="sec-h2">6.4 &nbsp;Multiport Valve Installation</div>
+      <div class="sec-h3">6.4.1 &nbsp;SFV-ODP-01 – Praher V6 2" (on TR140)</div>
+      <ol class="step-list">
+        <li>Before installing the valve, inspect the O-ring on the valve's base/hub. It must be clean, seated correctly in its groove, and free of cuts or flat spots. Apply a thin coat of O-ring lubricant (water-based silicone; never petroleum-based).</li>
+        <li>Set the Praher V6 handle to the FILTER position.</li>
+        <li>Lower the Praher V6 valve onto the TR140 filter neck, aligning the valve ports with the inlet and outlet pipe stubs.</li>
+        <li>Secure the valve to the filter neck using the provided split-ring or collar clamp. Tighten evenly using alternating fasteners (cross-pattern) to ensure even compression of the O-ring seal. Do not overtighten.</li>
+        <li>Verify the waste port, return port, and inlet port are oriented correctly per drawing SB-ASB-SD-ME-008-R1.</li>
+      </ol>
+
+      <div class="sec-h3">6.4.2 &nbsp;SFV-INP-02 &amp; SFV-CPC-03 – Pentair Hi-Flow 1.5" (on TA-40 units)</div>
+      <ol class="step-list">
+        <li>Inspect the O-ring on the Pentair Hi-Flow valve base. Apply water-based silicone lubricant.</li>
+        <li>Set the valve handle to the FILTER position.</li>
+        <li>Lower the Hi-Flow valve onto the TA-40 filter neck, engaging the valve hub with the filter tank collar.</li>
+        <li>Rotate the retaining ring clockwise to lock the valve to the filter tank. Tighten until hand-tight plus 1/4 turn. Do not use excessive force on plastic retaining rings.</li>
+        <li>Repeat for the second TA-40 unit (SF-CPC-03).</li>
+      </ol>
+
+      <div class="sec-h2">6.5 &nbsp;Piping &amp; Connections</div>
+      <div class="note note-caut"><span class="tag">CAUTION:</span>All piping must be installed per approved drawing SB-ASB-SD-ME-008-R1. Do not deviate from approved routing without written authorization from IHCC Senior Mechanical Engineer.</div>
+      <ol class="step-list">
+        <li>Install isolation ball valve (true-union type) on the pump discharge line before connecting to the filter inlet port on the multiport valve. Ensure flow direction arrow on valve body faces toward the filter.</li>
+        <li>Connect pump discharge to the IN port of the multiport valve using ASTM D1785 SCH 40 PVC pipe with solvent-cement joints. Allow 15 minutes curing time at room temperature before handling, 24 hours before pressure test.</li>
+        <li>Install isolation ball valve on the RETURN port of the multiport valve (outlet to pool). Ensure flow direction is toward the pool.</li>
+        <li>Connect filter RETURN port to the pool water return line per drawing.</li>
+        <li>Connect the WASTE port of the multiport valve to the pump room floor drain using 1.5" PVC pipe. This line must slope to drain continuously with no low points that can trap water.</li>
+        <li>Install glycerine-filled pressure gauge (0–100 PSI / 0–7 bar) at the filter inlet line, downstream of the isolation valve. The gauge must be readable from the valve operating position.</li>
+        <li>Install flexible union connections at all filter-to-pipe connection points to allow future removal of the multiport valve without dismantling the pipework.</li>
+        <li>Install a drain/bleed valve at the lowest point of each filter (base drain port) connected to the pump room drain.</li>
+        <li>Label all pipework with flow direction arrows and service labels (e.g., "SF-ODP-01 INLET", "SF-ODP-01 RETURN"). Label all valves with valve tag number and OPEN/CLOSE direction.</li>
+        <li>Check all solvent-cement joints and threaded connections visually. Allow full 24-hour curing before pressure testing.</li>
+      </ol>
+
+      <div class="sec-h2">6.6 &nbsp;Initial Backwash, Rinse &amp; System Start-Up</div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>Before starting the pump for the first time after sand loading, the filter MUST go through a backwash and rinse cycle. This removes fine sand particles, manufacturing dust, and debris that will otherwise discharge into the pool and permanently cloud the water.</div>
+
+      <div class="sec-h3">Step A – First Backwash</div>
+      <ol class="step-list">
+        <li>Confirm all isolation valves are in the correct open/closed positions per the filter piping diagram.</li>
+        <li>Confirm waste line valve is OPEN and connected to drain.</li>
+        <li>Set multiport valve to BACKWASH position. Confirm handle is firmly detented in BACKWASH – not between positions.</li>
+        <li>Start the associated circulation pump. Water will flow in reverse through the filter (bottom up), lifting and fluidising the sand bed. Gray/brown cloudy water will discharge from the waste line. This is normal.</li>
+        <li>Run BACKWASH for a minimum of 5 minutes, or until the water discharging from the waste line runs clear and the sight glass (if installed) shows clear water.</li>
+        <li>STOP THE PUMP. Wait 5 seconds for water flow to fully stop.</li>
+      </ol>
+
+      <div class="sec-h3">Step B – Rinse</div>
+      <ol class="step-list">
+        <li>Set multiport valve to RINSE position. Confirm detent click.</li>
+        <li>Start the pump. Water flows in the normal FILTER direction but discharges to waste instead of to the pool. This compacts the sand bed and clears any remaining backwash turbulence.</li>
+        <li>Run RINSE for 1 to 2 minutes until the sight glass or waste discharge runs completely clear.</li>
+        <li>STOP THE PUMP.</li>
+      </ol>
+
+      <div class="sec-h3">Step C – Normal Filter Operation</div>
+      <ol class="step-list">
+        <li>Set multiport valve to FILTER position. Confirm detent click.</li>
+        <li>Check that the waste line valve is OPEN (it remains open; the multiport valve itself routes water correctly).</li>
+        <li>Start the pump. Check pressure gauge reading. Record this as the "clean filter operating pressure" (baseline pressure). This is the reference value for scheduling future backwash cycles.</li>
+        <li>Inspect all connections and joints under pressure for any leaks. Mark any leaks with tape and stop the pump before repairing. Re-test after repair.</li>
+        <li>Check flow rate at pool return outlets to confirm correct filtration flow.</li>
+      </ol>
+      <div class="trigger-box"><strong>Backwash Trigger:</strong> When the filter inlet pressure rises 7–10 PSI (0.5–0.7 bar) above the recorded clean filter baseline pressure, initiate a backwash → rinse → filter cycle. Record baseline pressure for each filter separately.</div>
+    </section>
+
+    <!-- SECTION 7 -->
+    <section id="sec7">
+      <div class="sec-h1">7. &nbsp;QUALITY CONTROL INSPECTION CHECKLIST</div>
+      <p class="body">Complete this checklist for each filter unit. Submit signed copy to IHCC Senior Mechanical Engineer before commissioning.</p>
+
+      <div class="sec-h2">7.1 &nbsp;Pre-Installation Checks</div>
+      <div class="tbl-wrap">
+        <table class="qc-table">
+          <thead><tr><th>#</th><th>Check Item</th><th>✓</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Filter tank nameplate verified against Asset Register (Model, P/N, S/N) for SF-ODP-01, SF-INP-02, SF-CPC-03</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>2</td><td>Multiport valve model and serial numbers verified (SFV-ODP-01, SFV-INP-02, SFV-CPC-03)</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>3</td><td>Filter tank interior inspected – all laterals in place, undamaged, and fully seated</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>4</td><td>Multiport valve handle rotates smoothly through all 6 positions with positive detent click at each</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>5</td><td>Filter media grade confirmed: #20 Silica Sand (0.45–0.55 mm) and Pea Gravel (3–6 mm for TR140 only)</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>6</td><td>Filter media bags inspected – dry, free of lumps, no signs of moisture contamination</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>7</td><td>Concrete housekeeping pads level (tolerance ± 3 mm across pad surface)</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>8</td><td>Pipe stubs at correct location and elevation per drawing SB-ASB-SD-ME-008-R1</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>9</td><td>MIR approval received from Consultant for all filter equipment and media</td><td>☐</td><td>MIR ref:</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-h2">7.2 &nbsp;Installation Checks</div>
+      <div class="tbl-wrap">
+        <table class="qc-table">
+          <thead><tr><th>#</th><th>Check Item</th><th>✓</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Filter tanks anchored and level (max 3 mm/m deviation confirmed by spirit level)</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>2</td><td>Standpipe sealed before sand loading on all three filter units</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>3</td><td>Tank filled 1/3 with water before sand loading commenced (all three units)</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>4</td><td>Gravel support bed (pea gravel, 25–50 mm depth) installed in TR140 (SF-ODP-01) before sand</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>5</td><td>No gravel used in TA-40 units (SF-INP-02, SF-CPC-03) – confirmed correct</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>6</td><td>Sand fill level at or below shoulder/fill-line mark inside each filter tank – no overfilling</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>7</td><td>Standpipe sealed successfully – no sand found in standpipe after loading (all three units)</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>8</td><td>Multiport valve O-rings inspected, lubricated (water-based silicone), and properly seated before installation</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>9</td><td>Multiport valves secured to filter tanks with correct collar/clamp – no play or wobble</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>10</td><td>All isolation ball valves installed with correct flow direction</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>11</td><td>Pressure gauge installed at each filter inlet (glycerine-filled, 0–100 PSI)</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>12</td><td>Waste lines from all multiport valves connected to drain with continuous downward slope – no low points</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>13</td><td>Flexible union connections installed at all filter-to-pipe connections</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>14</td><td>All PVC solvent-cement joints inspected – no dry joints, voids, or signs of improper application</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>15</td><td>24-hour curing time completed before pressure testing</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>16</td><td>All valves labeled with tag number and OPEN/CLOSE direction</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>17</td><td>All pipework labeled with service name and flow direction arrows</td><td>☐</td><td>Pass / Fail</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-h2">7.3 &nbsp;Commissioning Checks</div>
+      <div class="tbl-wrap">
+        <table class="qc-table">
+          <thead><tr><th>#</th><th>Check Item</th><th>✓</th><th>Result</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Initial backwash completed – minimum 5 minutes until waste water runs clear</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>2</td><td>Rinse cycle completed – minimum 1–2 minutes after backwash</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>3</td><td>Filter set to FILTER position before normal operation</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>4</td><td>Clean filter baseline operating pressure recorded for each filter unit</td><td>☐</td><td>Record values</td></tr>
+            <tr><td>5</td><td>No leaks observed at any connection under operating pressure</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>6</td><td>Pool return flow confirmed at correct outlets</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>7</td><td>Pump stop before each multiport valve position change witnessed and confirmed</td><td>☐</td><td>Pass / Fail</td></tr>
+            <tr><td>8</td><td>Photographs taken at each stage for QC records</td><td>☐</td><td>Pass / Fail</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 8 -->
+    <section id="sec8">
+      <div class="sec-h1">8. &nbsp;TESTING &amp; COMMISSIONING</div>
+
+      <div class="sec-h2">8.1 &nbsp;Hydrostatic Pressure Test</div>
+      <p class="body">Prior to commissioning, conduct a hydrostatic pressure test on all filter piping connections with the multiport valve in the FILTER position.</p>
+      <div class="tbl-wrap">
+        <table class="ctest-table">
+          <thead><tr><th>#</th><th>Test Description</th><th>Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="num">1</td>
+              <td>Isolate filters from pool and fill piping system with clean water. Pressurize to 1.5× design pressure: 75 PSI (5.2 bar) for TR140 circuit; 75 PSI (5.2 bar) for TA-40 circuits.</td>
+              <td>Pressure maintained stable (&lt; 0.2 PSI drop) for minimum 30 minutes. No visible leaks at any joint or connection.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="num">2</td>
+              <td>Inspect all solvent-cement joints, threaded connections, valve bodies, and gauge connections under test pressure.</td>
+              <td>Zero visible leaks. Any seepage from any joint is cause for test failure and repair.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="num">3</td>
+              <td>Release test pressure, repair any defects found, and re-test from the beginning.</td>
+              <td>Test must be passed in full before commissioning. Submit signed pressure test report to Consultant.</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-h2">8.2 &nbsp;Functional / Commissioning Tests</div>
+      <div class="tbl-wrap">
+        <table class="ctest-table">
+          <thead><tr><th>#</th><th>Test Description</th><th>Acceptance Criteria</th><th>Result / Remarks</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="num">1</td>
+              <td>Operate each multiport valve through all 6 positions (with pump OFF each time) and verify correct water routing at each position.</td>
+              <td>Valve handle seats firmly in each position (audible click). Water routes correctly. No bypass leakage between positions.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="num">2</td>
+              <td>Run each filter in BACKWASH for 5 minutes. Observe waste line discharge for all three units.</td>
+              <td>Water at waste line runs clear within 5 minutes. Pressure during backwash within normal range.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="num">3</td>
+              <td>Run RINSE for 2 minutes after backwash for all three filter units.</td>
+              <td>Waste water completely clear by end of rinse cycle.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="num">4</td>
+              <td>Set to FILTER and run at design flow for 30 minutes. Record inlet pressure for all three units.</td>
+              <td>Inlet pressure stable, within manufacturer specification. No abnormal noise or vibration.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="num">5</td>
+              <td>Record baseline clean filter pressure for each unit separately.</td>
+              <td>Baseline pressures documented and signed: SF-ODP-01: ___ PSI &nbsp;|&nbsp; SF-INP-02: ___ PSI &nbsp;|&nbsp; SF-CPC-03: ___ PSI</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="num">6</td>
+              <td>Check pool water clarity after 24 hours of filter operation.</td>
+              <td>Water visibly clear. No sand particles visible at pool return jets.</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note note-warn"><span class="tag">WARNING:</span>If sand is observed at the pool return jets during commissioning, STOP the pump immediately. Sand in the return line indicates either: (1) overfilled filter tank, (2) damaged lateral, or (3) multiport valve internal damage. Do not operate until the cause is identified and corrected.</div>
+    </section>
+
+    <!-- SECTION 9 -->
+    <section id="sec9">
+      <div class="sec-h1">9. &nbsp;DOCUMENTATION &amp; HANDOVER</div>
+      <p class="body">The following documents shall be compiled and submitted to IHCC and the Consultant upon completion of all filter installation and commissioning works:</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Document</th><th>Status / Remarks</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>Approved Method Statement MS-FILTER-SPA-02 (this document)</td><td>–</td></tr>
+            <tr><td class="num">2</td><td>Material Inspection Reports (MIR) for all filters, valves, and filter media</td><td>Signed by IHCC &amp; Consultant</td></tr>
+            <tr><td class="num">3</td><td>Quality Control Checklists (Section 7) – one per filter unit (3 total)</td><td>Signed by Site Engineer &amp; QA/QC</td></tr>
+            <tr><td class="num">4</td><td>Hydrostatic Pressure Test Reports (SF-ODP-01, SF-INP-02, SF-CPC-03)</td><td>Signed by IHCC Sr. Mech. Engineer</td></tr>
+            <tr><td class="num">5</td><td>Work Inspection Request (WIR) – Consultant Approval</td><td>WIR to be submitted before concealment</td></tr>
+            <tr><td class="num">6</td><td>Filter Media Loading Record (quantity per filter, bag count, date)</td><td>Storekeeper signature</td></tr>
+            <tr><td class="num">7</td><td>Commissioning Test Records (baseline pressures, backwash results)</td><td>Signed by IHCC Sr. Mech. Engineer</td></tr>
+            <tr><td class="num">8</td><td>As-Built Drawings (if any deviation from SB-ASB-SD-ME-008-R1 occurred)</td><td>Approved by IHCC</td></tr>
+            <tr><td class="num">9</td><td>Manufacturer O&amp;M Manuals (TR140, TA-40, Praher V6, Pentair Hi-Flow)</td><td>To be submitted with handover package</td></tr>
+            <tr><td class="num">10</td><td>Manufacturer Warranty Documents for all filter units and valves</td><td>To be submitted with handover package</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SIGNATURES -->
+    <section id="signatures">
+      <div class="sec-h1">DOCUMENT APPROVAL &amp; SIGNATURES</div>
+      <p class="body">By signing below, each party confirms they have reviewed and approved this Method Statement for execution on the CEO Villa SPA &amp; Pool Facility Project.</p>
+      <div class="tbl-wrap">
+        <table class="sig-table">
+          <thead><tr><th>Role</th><th>Name</th><th>Signature</th><th>Date</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:700;">Prepared By (Aseeb Contracting Co.)</td><td>Adil Magdy – Mechanical Engineer</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td style="font-weight:700;">Reviewed By (IHCC)</td><td>Saqib Manzoor – Sr. Mechanical Engineer</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td style="font-weight:700;">Approved By (IHCC – Management)</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td style="font-weight:700;">Consultant Approval (3C Engineering)</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note note-note" style="margin-top:20px;"><span class="tag">NOTE:</span>This document is prepared by Aseeb Contracting Company and submitted to IHCC for review and approval prior to commencement of any sand filter installation works. No work is to commence on site until written approval is received from IHCC Senior Mechanical Engineer.</div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>CEO Villa — SPA &amp; Pool Facility &nbsp;|&nbsp; MS-FILTER-SPA-02 &nbsp;|&nbsp; Rev. 00 &nbsp;|&nbsp; IHCC / Aseeb Contracting Co.</span>
+  <a href="#top" class="btn-up"><i class="fa-solid fa-arrow-up"></i></a>
+</footer>
+
+<script>
+const sections = document.querySelectorAll('section[id]');
+const navItems = document.querySelectorAll('.nav-item');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navItems.forEach(n => n.classList.remove('active'));
+      const active = document.querySelector('.nav-item[href="#' + e.target.id + '"]');
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-60px 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+
+function downloadPDF() {
+  const fn = (location.pathname.split('/').pop() || 'method-statement.html').replace('.html', '.pdf');
+  const css = [
+    'main{background:#fff!important;margin:0!important;margin-top:0!important;padding:20px 24px!important;max-width:100%!important;width:100%!important}',
+    'main *{background-color:transparent!important;color:#1a1a1a!important;box-shadow:none!important;text-shadow:none!important;border-color:#ccc!important}',
+    'main .cover{background:#eef2f7!important;border:2px solid #1a3a5c!important;border-radius:8px!important}',
+    'main .cover::before,main .cover::after{display:none!important}',
+    'main .cover-title{color:#1a3a5c!important;font-size:22px!important}',
+    'main .cover-project{color:#2471a3!important}',
+    'main .cover-ms-label{color:#2471a3!important}',
+    'main .cover-divider{background:#1a3a5c!important;height:2px!important}',
+    'main .cover-meta-label{color:#555!important}',
+    'main .cover-meta-value{color:#111!important}',
+    'main .sec-h1{background:#1a3a5c!important;color:#fff!important;border-radius:4px!important}',
+    'main .sec-h1 *{color:#fff!important}',
+    'main .sec-h2{color:#1a3a5c!important;background:transparent!important;border-left:4px solid #1a3a5c!important}',
+    'main .sec-h3{color:#2471a3!important;background:transparent!important}',
+    'main table{border-collapse:collapse!important}',
+    'main th{background:#1a3a5c!important;color:#fff!important;border:1px solid #999!important}',
+    'main th *{color:#fff!important}',
+    'main td{background:#fff!important;border:1px solid #bbb!important;color:#111!important}',
+    'main tr:nth-child(even) td{background:#f5f7fa!important}',
+    'main .note-warn{border-left:4px solid #c0392b!important;background:#fff8f8!important}',
+    'main .note-warn *{color:#7b241c!important}',
+    'main .note-warn .tag{color:#c0392b!important}',
+    'main .note-note{border-left:4px solid #2471a3!important;background:#f0f8ff!important}',
+    'main .note-note *{color:#1a3a5c!important}',
+    'main .note-caut{border-left:4px solid #d4870a!important;background:#fffaf0!important}',
+    'main .note-caut *{color:#7d5000!important}',
+    'main .bul-list li{background:#f5f7fa!important;border:1px solid #ddd!important}',
+    'main .bul-list li::before{background:#1a3a5c!important}',
+    'main .step-list li{background:#f5f7fa!important;border:1px solid #ddd!important}',
+    'main .step-list li::before{background:#1a3a5c!important;color:#fff!important}',
+    'main p.body,main .body{color:#111!important}',
+  ].join('');
+  const mainEl  = document.querySelector('main');
+  const sidebar = document.querySelector('.sidebar');
+  const hdr     = document.querySelector('header');
+  const ftr     = document.querySelector('footer');
+  const origMainStyle = mainEl.getAttribute('style') || '';
+  const origSidebar   = sidebar ? sidebar.style.display : '';
+  const origHdr       = hdr     ? hdr.style.display     : '';
+  const origFtr       = ftr     ? ftr.style.display     : '';
+  if (sidebar) sidebar.style.display = 'none';
+  if (hdr)     hdr.style.display     = 'none';
+  if (ftr)     ftr.style.display     = 'none';
+  mainEl.setAttribute('style','position:fixed;left:0;top:0;margin:0;padding:20px 24px;width:794px;max-width:794px;background:#fff;display:block;box-sizing:border-box;z-index:99999;');
+  void mainEl.getBoundingClientRect();
+  const style = document.createElement('style');
+  style.id = '__pdf_override__';
+  style.textContent = css;
+  document.head.appendChild(style);
+  setTimeout(() => {
+    html2pdf().set({
+      margin: [10, 10, 10, 10],
+      filename: fn,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, scrollY: 0, scrollX: 0, backgroundColor: '#ffffff', windowWidth: 794, logging: false },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(mainEl).save().then(() => {
+      mainEl.removeAttribute('style');
+      if (sidebar) sidebar.style.display = origSidebar;
+      if (hdr)     hdr.style.display     = origHdr;
+      if (ftr)     ftr.style.display     = origFtr;
+      const s = document.getElementById('__pdf_override__');
+      if (s) s.remove();
+    });
+  }, 200);
+}
+</script>
+</body>
+</html>

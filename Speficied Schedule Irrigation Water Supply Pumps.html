@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Irrigation Water Supply Pump</title>
+<style>
+:root {
+  --bg:#001208;
+  --panel:#041b0e;
+  --panel-2:#062415;
+  --line:#0b3b27;
+  --line-soft:#0a2b1e;
+  --accent:#2ee0a5;
+  --accent-dim:#147b5a;
+  --heading:#ffffff;
+  --text:#bdd1c8;
+  --muted:#72a992;
+  --bar:#0c3a40;
+  --gold:#d6b34a;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#00150b 0%,#000b05 100%);
+  color:var(--text);
+  font-family:"Aptos", "Segoe UI", Arial, sans-serif;
+  letter-spacing:.01em;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at 20% 0%, rgba(46,224,165,.08), transparent 32%),
+             radial-gradient(circle at 85% 10%, rgba(46,224,165,.05), transparent 34%);
+  pointer-events:none;
+}
+.topbar{
+  position:sticky;top:0;z-index:5;
+  height:58px;
+  display:flex;align-items:center;gap:14px;
+  padding:0 16px;
+  background:rgba(0,16,8,.92);
+  border-bottom:1px solid var(--line-soft);
+  backdrop-filter:blur(8px);
+}
+.navbtn{
+  width:42px;height:42px;border:1px solid rgba(214,179,74,.75);
+  color:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;
+  text-decoration:none;font-size:22px;font-weight:400;
+  background:rgba(214,179,74,.04);
+}
+.home{margin-left:auto;font-size:18px}
+.brand{
+  border:1px solid var(--line);border-radius:4px;padding:7px 13px;
+  color:var(--accent);font-size:11px;font-weight:400;letter-spacing:.42em;
+}
+.crumbs{
+  color:var(--accent-dim);font-size:12px;font-weight:400;letter-spacing:.35em;text-transform:uppercase;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.wrap{padding:22px 16px 40px;max-width:1920px;margin:0 auto}
+.kicker{
+  display:inline-block;padding:6px 13px;border:1px solid var(--line);border-radius:4px;
+  color:var(--accent);background:rgba(46,224,165,.05);
+  font-size:12px;letter-spacing:.38em;font-weight:400;text-transform:uppercase;
+}
+h1{
+  margin:8px 0 4px;color:var(--heading);font-size:32px;line-height:1.05;
+  letter-spacing:.16em;text-transform:uppercase;font-weight:400;
+  text-shadow:0 0 10px rgba(46,224,165,.10);
+}
+.meta{
+  color:var(--accent-dim);font-size:12px;letter-spacing:.34em;text-transform:uppercase;font-weight:400;
+  margin-bottom:34px;
+}
+.card{
+  border:1px solid var(--line-soft);border-radius:12px;overflow:hidden;background:rgba(2,18,10,.78);
+  box-shadow:0 16px 38px rgba(0,0,0,.28);
+}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th{
+  background:rgba(5,29,16,.86);color:#fff;text-align:left;padding:13px 14px;
+  font-size:15px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--line);
+}
+th:nth-child(1){width:45%}
+th:nth-child(2){text-align:center}
+td{
+  padding:13px 14px;border-top:1px solid rgba(10,65,42,.34);border-right:1px solid rgba(10,65,42,.35);
+  vertical-align:middle;font-size:16px;line-height:1.35;
+}
+td:last-child{border-right:none}
+.section td{
+  background:var(--bar);color:var(--accent);font-size:13px;letter-spacing:.22em;font-weight:400;text-transform:uppercase;
+  padding:11px 16px;border-top:1px solid rgba(46,224,165,.18);
+}
+.spec{color:#b7c9c0;font-weight:400}
+.val{color:#c9ddd4;font-weight:400;background:rgba(0,13,7,.38)}
+.note{
+  margin-top:14px;color:var(--muted);font-size:12px;letter-spacing:.08em;
+}
+@media(max-width:800px){
+  .brand{display:none}
+  .crumbs{font-size:10px;letter-spacing:.2em}
+  h1{font-size:22px;letter-spacing:.08em}
+  .meta{font-size:10px;letter-spacing:.18em}
+  td,th{font-size:14px;padding:10px}
+}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="navbtn" href="javascript:history.back()" title="Back">‹</a>
+    <div class="brand">EVA-APP</div>
+    <div class="crumbs">Plumbing › Equip. Schedule › IWBP - Specified</div>
+    <a class="navbtn home" href="index.html" title="Home">⌂</a>
+  </div>
+  <main class="wrap">
+    <div class="kicker">Mechanical Plumbing - Specified Equipment Schedule</div>
+    <h1>Irrigation Water Supply Pump</h1>
+    <div class="meta">SL# 1 <span>·</span> IWBP <span>·</span> Engr. Sultan Batterjee Villa - Obhur <span>·</span> CEO Villa Project <span>·</span> IHCC Jeddah</div>
+    <section class="card">
+      <table aria-label="Irrigation Water Supply Pump">
+        <thead><tr><th>Specification</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr class="section"><td colspan="2">General Information</td></tr>
+<tr><td class="spec">Equipment Tag</td><td class="val">IWBP</td></tr>
+<tr><td class="spec">Schedule Reference (SL#)</td><td class="val">SL# 1</td></tr>
+<tr><td class="spec">Full Name</td><td class="val">Irrigation Water Supply Pump</td></tr>
+<tr><td class="spec">Equipment Type</td><td class="val">Vertical Multi-Stage Centrifugal Booster Pump (For Irrigation)</td></tr>
+<tr><td class="spec">Service</td><td class="val">Irrigation</td></tr>
+<tr><td class="spec">Quantity</td><td class="val">Two Nos Pumps (1 Pump Set)</td></tr>
+<tr class="section"><td colspan="2">Performance Data</td></tr>
+<tr><td class="spec">Flow Rate — Each Pump (GPM)</td><td class="val">—</td></tr>
+<tr><td class="spec">Head — Each Pump (BAR)</td><td class="val">—</td></tr>
+<tr><td class="spec">Motor Power — Each Pump (kW)</td><td class="val">3.1 kW</td></tr>
+<tr><td class="spec">Motor Power — Each Pump (HP)</td><td class="val">4.57 HP</td></tr>
+<tr class="section"><td colspan="2">Electrical Data</td></tr>
+<tr><td class="spec">Power Supply (V / Ph / Hz)</td><td class="val">400 / 3 / 60</td></tr>
+<tr class="section"><td colspan="2">Installation &amp; Location</td></tr>
+<tr><td class="spec">Location of Pumps</td><td class="val">Basement Service Corridor</td></tr>
+<tr class="section"><td colspan="2">Remarks</td></tr>
+<tr><td class="spec">Notes</td><td class="val">To be given later stage</td></tr>
+
+        </tbody>
+      </table>
+    </section>
+    <div class="note">Prepared from specified equipment schedule. Verify approved submittal / PO before final handover upload.</div>
+  </main>
+</body>
+</html>

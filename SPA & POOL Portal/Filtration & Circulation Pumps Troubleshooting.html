@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filtration &amp; Circulation Pumps Troubleshooting | SSB Villa O&amp;M Portal</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--gold:#D4AF37;--gold-light:#f0d060}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#0d1829;display:flex;flex-direction:column;min-height:100vh;font-family:'Aptos Display','Segoe UI',sans-serif}
+header{background:rgba(5,10,20,0.95);border-bottom:2px solid rgba(212,175,55,0.45);padding:0 24px;height:72px;display:flex;align-items:center;position:fixed;top:0;width:100%;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.hl{flex:1;display:flex;align-items:center}
+.hc{flex:2;text-align:center;line-height:1.4}
+.hc .l1{font-size:10px;font-weight:600;color:rgba(212,175,55,0.6);text-transform:uppercase;letter-spacing:2.5px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hc .l2{font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;display:block;font-family:'Aptos Display','Segoe UI',sans-serif}
+.hrr{flex:1;display:flex;justify-content:flex-end;align-items:center}
+.btn-back,.btn-home{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);padding:8px 16px;border-radius:4px;cursor:pointer;font-size:14px;text-decoration:none;display:flex;align-items:center;gap:8px;transition:background 0.3s}
+.btn-back:hover,.btn-home:hover{background:rgba(212,175,55,0.28)}
+main{margin-top:72px;margin-bottom:60px;padding:26px 28px;max-width:1500px;width:100%;margin-left:auto;margin-right:auto;flex:1}
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{font-family:'Aptos Display','Segoe UI',sans-serif;background:rgba(255,255,255,0.06);border:1px solid rgba(212,175,55,0.3);color:rgba(212,175,55,0.7);padding:8px 22px;border-radius:4px;cursor:pointer;font-size:13px;transition:all 0.2s}
+.tab-btn.active,.tab-btn:hover{background:rgba(212,175,55,0.18);border-color:rgba(212,175,55,0.7);color:var(--gold)}
+.tbl-wrap{overflow-x:auto}
+.ts{width:100%;border-collapse:collapse;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;min-width:600px}
+.ts thead tr th{background:rgba(212,175,55,0.22);color:#f5edd5;padding:11px 13px;text-align:left;border:1px solid rgba(212,175,55,0.38);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
+.ts tbody tr:nth-child(odd) td{background:rgba(255,255,255,0.04)}
+.ts tbody tr:nth-child(even) td{background:rgba(255,255,255,0.07)}
+.ts tbody tr:hover td{background:rgba(212,175,55,0.09)}
+.ts tbody td{padding:10px 13px;vertical-align:top;border:1px solid rgba(255,255,255,0.07);color:#e0d8c8;line-height:1.6;font-size:13px}
+.ts tbody td.fc{color:#f5e9c4;font-weight:700;border-right:2px solid rgba(212,175,55,0.35);background:rgba(212,175,55,0.07)!important;min-width:140px}
+footer{background:rgba(5,10,20,0.95);border-top:2px solid rgba(212,175,55,0.45);padding:14px 30px;display:flex;align-items:center;justify-content:space-between;position:fixed;bottom:0;width:100%;font-size:13px;color:rgba(212,175,55,0.75);z-index:1000;font-family:'Aptos Display','Segoe UI',sans-serif}
+.btn-up{background:rgba(212,175,55,0.12);color:var(--gold);border:1px solid rgba(212,175,55,0.45);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background 0.3s}
+.btn-up:hover{background:rgba(212,175,55,0.35)}
+</style>
+</head>
+<body id="top">
+<header>
+  <div class="hl"><a href="Error Codes &amp; Troubleshooting Register.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back</a></div>
+  <div class="hc"><span class="l1">SPA &amp; POOL FACILITY</span><span class="l2">Filtration &amp; Circulation Pumps Troubleshooting</span></div>
+  <div class="hrr"><a href="../EVA-CORE.html" class="btn-home"><i class="fas fa-home"></i></a></div>
+</header>
+<main>
+<div style="background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.38);border-radius:6px;padding:9px 18px;margin-bottom:16px;color:#f0dfa0;font-family:'Aptos Display','Segoe UI',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.8px;text-align:center;">FILTRATION &amp; CIRCULATION PUMPS - TROUBLESHOOTING GUIDE</div>
+<div class="tbl-wrap"><table class="ts">
+<thead><tr><th>S.No.</th><th>Symptom</th><th>Cause</th><th>Remedy</th></tr></thead><tbody>
+<tr><td class="fc">1</td><td>Low water pressure, low flow from pump.</td><td>Suction leaks / lost prime.</td><td>Pump must be primed; make sure that the pump casing and strainer are full of water. Refer priming instructions.</td></tr>
+<tr><td class="fc">2</td><td>Low water pressure, low flow from pump.</td><td>Suction leaks / lost prime.</td><td>Make sure there are no leaks in suction piping.</td></tr>
+<tr><td class="fc">3</td><td>Low water pressure, low flow from pump.</td><td>Suction leaks / lost prime.</td><td>Make sure suctions pipe inlet is well below the water level to prevent pump from sucking air.</td></tr>
+<tr><td class="fc">4</td><td>Low water pressure, low flow from pump.</td><td>Suction leaks / lost prime.</td><td>Suction lift of 3 to 6 metres will reduce performance. Suction lift of more than 6 metres will prevent pumping and cause pump to lose prime. In either instance, move the pump closer (vertically) to water source. Ensure that the suction pipe diameter is large enough.</td></tr>
+<tr><td class="fc">5</td><td>Low water pressure, low flow from pump.</td><td>Low voltage.</td><td>Check voltage at motor terminals and at meter while pump is running - this check should be performed by a qualified electrician only. If voltage is low check for loose connections or consult your power company.</td></tr>
+<tr><td class="fc">6</td><td>Low water pressure, low flow from pump.</td><td>Clogged pipe / strainer / impeller / filter system.</td><td>Ensure trap is not clogged with debris; clean basket and/or filter.</td></tr>
+<tr><td class="fc">7</td><td>Low water pressure, low flow from pump.</td><td>Clogged pipe / strainer / impeller / filter system.</td><td>Make sure that the impeller is not clogged. This should be checked by qualified personnel only.</td></tr>
+<tr><td class="fc">8</td><td>Low water pressure, low flow from pump.</td><td>Clogged pipe / strainer / impeller / filter system.</td><td>Pump may be trying to push too high a column of water. If so, a higher pressure pump is required.</td></tr>
+<tr><td class="fc">9</td><td>No water coming from pump (Pump is working).</td><td>Air ingress to system.</td><td>Prime the pump. Check that there are no air leaks in the suction piping or fittings. Ensure the strainer lid is airtight and fitted securely.</td></tr>
+<tr><td class="fc">10</td><td>Pump does not work.</td><td>Motor thermal overload tripped.</td><td>Check for required ventilation and cooling. If temperature is above the pump’s maximum ambient, turn off pump until it cools down.</td></tr>
+<tr><td class="fc">11</td><td>Pump does not work.</td><td>No power at outlet.</td><td>Use another electrical appliance that is known to work to check power outlet.</td></tr>
+<tr><td class="fc">12</td><td>Pump does not work.</td><td>Blown fuse / Circuit breaker.</td><td>Check and call electrician if necessary.</td></tr>
+<tr><td class="fc">13</td><td>Pump does not work.</td><td>Motor burnt out due to voltage spike or flooded by water.</td><td>The motor may need replacing.</td></tr>
+<tr><td class="fc">14</td><td>Pump running too slow.</td><td>Motor capacitor may be damaged.</td><td>Check line voltage; if less than 90% or more than 106% of rated voltage consult a licensed electrician.</td></tr>
+<tr><td class="fc">15</td><td>Water leaking from between the casing and motor.</td><td>Casing bolts are not tightened sufficiently; worn mechanical seal requires replacing.</td><td>Switch off the power to the pump. Tighten the casing bolts or replace the mechanical seal as required.</td></tr>
+<tr><td colspan="4" class="fc">QUICK SITE CHECKLIST - FILTRATION &amp; CIRCULATION PUMPS</td></tr>
+<tr><td class="fc">S.No.</td><td>Frequency / Condition</td><td colspan="2">Check / Action</td></tr>
+<tr><td class="fc">1</td><td>Periodic</td><td colspan="2">Clean strainer basket</td></tr>
+<tr><td class="fc">2</td><td>Before operation</td><td colspan="2">Ensure pump casing and strainer are full of water before running</td></tr>
+<tr><td class="fc">3</td><td>During troubleshooting</td><td colspan="2">Check suction pipe for air leakage</td></tr>
+<tr><td class="fc">4</td><td>During troubleshooting</td><td colspan="2">Check strainer basket, filter, pipework and impeller for clogging</td></tr>
+<tr><td class="fc">5</td><td>Electrical check</td><td colspan="2">Voltage at motor terminals must be checked by a qualified electrician only</td></tr>
+<tr><td class="fc">6</td><td>If not in use / frost risk</td><td colspan="2">Empty pump completely through drain plug</td></tr>
+<tr><td class="fc">7</td><td>If shaft seal is worn/damaged</td><td colspan="2">Consult Pentair Water authorised service agent</td></tr>
+</tbody>
+</table></div>
+</main>
+<footer>
+  <div>SSB Villa O &amp; M Portal &nbsp;&nbsp;|&nbsp;&nbsp; Project Code 10144 &nbsp;&nbsp;|&nbsp;&nbsp; Handing over Documents</div>
+  <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+</footer>
+
+</body>
+</html>

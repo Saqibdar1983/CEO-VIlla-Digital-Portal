@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>6-Way Sand Filter Valve PM | CEO Villa SPA &amp; Pool</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050507;--deep:#0a0b10;--surface:#0f1117;--panel:#141720;
+  --border:#1e2330;--gold:#c9a84c;--text:#e8eaf0;--muted:#7a8099;--dim:#3a4055;
+  --green:#2abf8f;--cyan:#22d3ee;--blue:#4a9eff;--orange:#e87a4a;
+}
+html,body{width:100%;background:var(--bg);font-family:'Exo 2',sans-serif;color:var(--text);-webkit-text-size-adjust:100%}
+
+/* ── TOP BAR ── */
+.topbar{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.55rem 1rem;
+  background:rgba(10,11,16,.96);
+  border-bottom:1px solid rgba(201,168,76,.2);
+  backdrop-filter:blur(8px);
+  gap:.75rem;
+}
+.topbar-left{display:flex;align-items:center;gap:.75rem}
+.tb-icon-btn{
+  width:30px;height:30px;border-radius:5px;
+  background:transparent;border:1px solid rgba(255,255,255,.15);
+  color:#adb4cc;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .2s,color .2s;flex-shrink:0;text-decoration:none;
+}
+.tb-icon-btn:hover{border-color:var(--gold);color:var(--gold)}
+.tb-icon-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.app-name{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--cyan);letter-spacing:.05em}
+.breadcrumb{font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.07em;color:var(--muted)}
+.breadcrumb span{color:var(--cyan)}
+
+/* ── TITLE SECTION ── */
+.title-section{
+  padding:.75rem 1.2rem .6rem;
+  background:linear-gradient(135deg,rgba(34,211,238,.07),transparent);
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+.equip-title{font-family:'Rajdhani',sans-serif;font-size:clamp(1.3rem,4vw,1.7rem);font-weight:700;color:#fff;letter-spacing:.04em;line-height:1.1}
+.equip-title span{color:var(--cyan)}
+.equip-sub{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.07em;color:var(--muted);margin-top:.3rem}
+
+/* ── UNIT SELECTOR ── */
+.unit-bar{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.5rem 1.2rem;
+  background:#090b12;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  flex-wrap:wrap;
+}
+.unit-label{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.1em;color:var(--muted);white-space:nowrap}
+.unit-btn{
+  font-family:'Share Tech Mono',monospace;font-size:.72rem;font-weight:700;
+  letter-spacing:.07em;padding:.28rem .7rem;border-radius:5px;
+  border:1px solid rgba(255,255,255,.15);background:transparent;
+  color:var(--muted);cursor:pointer;transition:all .2s;
+}
+.unit-btn.active{border-color:var(--cyan);color:var(--cyan);background:rgba(34,211,238,.1)}
+.unit-btn:hover:not(.active){border-color:rgba(34,211,238,.4);color:#dce0f2}
+
+/* ── TABS ── */
+.tabs{
+  display:flex;background:#090b12;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  position:sticky;top:49px;z-index:99;
+  overflow-x:auto;scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{
+  flex:1;min-width:120px;padding:.6rem .5rem;
+  background:transparent;border:none;border-bottom:3px solid transparent;
+  cursor:pointer;transition:all .2s;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:.15rem;
+}
+.tab-btn .tab-label{font-family:'Share Tech Mono',monospace;font-size:.82rem;font-weight:700;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.tab-btn .tab-count{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--muted)}
+.tab-btn .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+.tab-btn.monthly3 .dot{background:var(--gold);box-shadow:0 0 5px var(--gold)}
+.tab-btn.annual .dot{background:var(--orange);box-shadow:0 0 5px var(--orange)}
+
+.tab-btn.monthly3.active{background:rgba(201,168,76,.12);border-bottom-color:var(--gold)}
+.tab-btn.monthly3.active .tab-label{color:var(--gold)}
+.tab-btn.monthly3.active .tab-count{color:var(--gold)}
+
+.tab-btn.annual.active{background:rgba(232,122,74,.12);border-bottom-color:var(--orange)}
+.tab-btn.annual.active .tab-label{color:var(--orange)}
+.tab-btn.annual.active .tab-count{color:var(--orange)}
+
+/* ── PANEL ── */
+.panel{display:none;padding:1rem 1.2rem 4rem}
+.panel.active{display:block}
+
+/* Panel header */
+.panel-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:.9rem;padding:.6rem .9rem;
+  background:rgba(201,168,76,.08);
+  border-radius:8px;border-left:3px solid var(--cyan);
+  flex-wrap:wrap;gap:.5rem;
+}
+.panel-title{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--cyan);letter-spacing:.04em}
+.panel-badge{
+  font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--gold);
+  background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);
+  padding:.2rem .6rem;border-radius:4px;white-space:nowrap;
+}
+
+/* Download button */
+.dl-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  margin-bottom:.9rem;padding:.5rem 1.1rem;
+  background:var(--gold);border-radius:7px;
+  text-decoration:none;cursor:pointer;
+  font-family:'Share Tech Mono',monospace;font-size:.72rem;
+  font-weight:700;letter-spacing:.08em;color:#000;
+  transition:background .2s,transform .15s;
+}
+.dl-btn:hover{background:#e0b85c;transform:translateY(-1px)}
+.dl-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── CHECKLIST TABLE ── */
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+table{width:100%;border-collapse:collapse;min-width:520px}
+thead tr{background:#0f1220}
+th{
+  font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--cyan);
+  padding:.55rem .6rem;letter-spacing:.06em;border-bottom:1px solid rgba(34,211,238,.15);
+  white-space:nowrap;
+}
+th:nth-child(1){text-align:center;width:42px}
+th:nth-child(3),th:nth-child(4){text-align:center}
+th:nth-child(3){color:var(--green)}
+th:nth-child(4){color:#ff6b6b}
+
+.sec-row td{
+  background:rgba(201,168,76,.15);color:#fff;
+  font-family:'Share Tech Mono',monospace;font-size:.76rem;
+  font-weight:700;letter-spacing:.08em;padding:.5rem .8rem;
+  border-bottom:1px solid rgba(201,168,76,.2);
+}
+tbody tr.data-row{border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s}
+tbody tr.data-row:hover{background:rgba(201,168,76,.04)}
+.num-cell{
+  font-family:'Share Tech Mono',monospace;font-size:.75rem;
+  color:var(--muted);text-align:center;padding:.5rem .4rem;
+  white-space:nowrap;vertical-align:top;padding-top:.75rem;
+}
+.chk-cell{
+  font-family:'Exo 2',sans-serif;font-size:.83rem;
+  color:#dce0f2;padding:.5rem .7rem;line-height:1.55;vertical-align:top;
+}
+.box-cell{text-align:center;padding:.45rem .4rem;vertical-align:top;padding-top:.65rem}
+.ck{
+  width:20px;height:20px;border-radius:4px;margin:0 auto;cursor:pointer;
+  appearance:none;-webkit-appearance:none;
+  border:2px solid;background:transparent;transition:background .15s;
+  display:block;flex-shrink:0;
+}
+.ck.ok{border-color:var(--green)}
+.ck.ok:checked{background:var(--green)}
+.ck.nok{border-color:#ff6b6b}
+.ck.nok:checked{background:#ff6b6b}
+.rem-cell{
+  font-family:'Exo 2',sans-serif;font-size:.72rem;color:var(--muted);
+  padding:.4rem .5rem;vertical-align:top;min-width:90px;
+}
+
+.signoff{
+  margin-top:1.4rem;padding:1rem 1.2rem;
+  background:var(--panel);border:1px solid var(--border);border-radius:10px;
+  display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+}
+.signoff-item{flex:1;min-width:160px}
+.signoff-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--muted);margin-bottom:.3rem}
+.signoff-line{border-bottom:1px solid var(--dim);height:24px}
+
+@media(max-width:600px){
+  .tabs{top:48px}
+  .panel{padding:.8rem .8rem 3rem}
+  .panel-header{padding:.5rem .7rem}
+  .tab-btn{min-width:110px;padding:.5rem .3rem}
+  .tab-btn .tab-label{font-size:.75rem}
+  .chk-cell{font-size:.8rem}
+}
+@media print{.topbar,.tabs,.unit-bar{position:static}.dl-btn{display:none}}
+</style>
+</head>
+<body>
+
+<!-- ── TOP BAR ── -->
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="tb-icon-btn" onclick="history.back()" title="Back">
+      <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+    </button>
+    <span class="app-name">EVA-APP</span>
+    <span class="breadcrumb">PPM &rsaquo; <span>SAND FILTER VALVE</span></span>
+  </div>
+  <a href="../EVA-CORE.html" class="tb-icon-btn" title="Home">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+  </a>
+</div>
+
+<!-- ── TITLE ── -->
+<div class="title-section">
+  <div class="equip-title">6-WAY SAND FILTER <span>VALVE</span></div>
+  <div class="equip-sub" id="equip-sub">Praher Plastics V6 · Manual 6-Way Backwash Valve · Tag: SFV-01 · CEO Villa SPA &amp; Pool Pump Room</div>
+</div>
+
+<!-- ── UNIT SELECTOR ── -->
+<div class="unit-bar">
+  <span class="unit-label">SELECT UNIT:</span>
+  <button class="unit-btn active" onclick="selectUnit(1)">SFV-01</button>
+  <button class="unit-btn" onclick="selectUnit(2)">SFV-02</button>
+  <button class="unit-btn" onclick="selectUnit(3)">SFV-03</button>
+</div>
+
+<!-- ── TABS ── -->
+<div class="tabs">
+  <button class="tab-btn monthly3 active" onclick="switchTab('monthly3')">
+    <div class="tab-label"><span class="dot"></span>3-MONTHLY</div>
+    <div class="tab-count">25 ITEMS</div>
+  </button>
+  <button class="tab-btn annual" onclick="switchTab('annual')">
+    <div class="tab-label"><span class="dot"></span>ANNUAL</div>
+    <div class="tab-count">39 ITEMS</div>
+  </button>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     3-MONTHLY PANEL
+════════════════════════════════════════ -->
+<div class="panel active" id="panel-monthly3">
+
+  <div class="panel-header">
+    <div class="panel-title">3-MONTHLY PREVENTIVE MAINTENANCE CHECKLIST</div>
+    <span class="panel-badge">25 ITEMS</span>
+  </div>
+
+  <a class="dl-btn" id="dl-monthly3" href="../PM Checklists/6-Way Sand Filter Valve/6-Way Sand Filter Valve SFV-01 - 3-Monthly PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    DOWNLOAD SCHEDULE
+  </a>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr>
+      <th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th>
+    </tr></thead>
+    <tbody>
+
+      <tr class="sec-row"><td colspan="5">A.&nbsp; SAFETY — BEFORE STARTING INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">CRITICAL SAFETY RULE: Pump must be OFF before changing valve handle position — rotating handle with pump running will cause severe injury and major property damage; confirm pump is off before touching handle</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">To change handle position: depress handle downward to release pressure, then rotate clockwise to desired position; confirm pointer is accurately seated in position marking before restarting pump</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Never operate pump with valve handle in CLOSED position — this blocks all flow and will damage the pump</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">B.&nbsp; HANDLE &amp; POSITION OPERATION CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">With pump OFF, test handle movement through all valve positions — depress handle and rotate clockwise through: FILTER → BACKWASH → RINSE → WASTE → RECIRCULATE → CLOSED → WINTERIZE; handle must move freely without sticking, jumping, or requiring excessive force at any position</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Confirm handle returns firmly to each position — pointer must align accurately and fully with each position marking on the valve label; a misaligned pointer means the diverter is not fully seated and flow will cross-contaminate between ports</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Inspect handle and handle pin — confirm handle pin is secure and handle does not rock or move on the shaft; a loose handle pin requires immediate repair</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Return handle to FILTER position before restarting pump</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">C.&nbsp; OPERATIONAL LEAK CHECK (Pump Running — FILTER Position)</td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Start pump with valve in FILTER position; allow system to reach operating pressure</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Record filter pressure gauge reading: _______ PSI — this is the baseline operating pressure; note: maximum operating pressure must not exceed 50 PSI; backwash is required when pressure reads 10 PSI above the clean-filter baseline</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Inspect all valve port pipe connections (Pump port, Return to pool port, Waste/Backwash port) for water leaks at fittings, unions, and pipe joints — any leakage at connections must be investigated and repaired</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">CRITICAL CHECK — Observe waste/backwash port discharge while pump is running in FILTER position: any water flowing from the waste port in FILTER position indicates spider gasket leakage; record: Waste port leakage in FILTER position — None / Minor / Significant</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">D.&nbsp; SPIDER GASKET TROUBLESHOOTING (only if leakage to waste port was observed above)</td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Troubleshooting Step 1 (Praher manual procedure): Stop pump; depress valve handle fully in FILTER position and release quickly; repeat 4 to 5 times; restart pump in FILTER position and re-check waste port — this dislodges debris that may be holding gasket open; if leakage stops, record as resolved</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Troubleshooting Step 2 (if leakage continues after Step 1): Stop pump; place handle in WINTERIZE position; have assistant hold handle in WINTERIZE position; start pump for approximately 30 seconds to flush debris from valve body; stop pump; repeat Step 1; restart in FILTER and re-check waste port</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">If leakage persists after Steps 1 and 2, spider gasket replacement is required — do not defer; schedule gasket replacement and record in maintenance log; continue to operate filter but monitor waste port at each shift until gasket is replaced</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">E.&nbsp; VALVE BODY EXTERNAL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Inspect valve body cover (top section) for cracks, crazing, UV degradation, chemical damage, or discoloration — the Praher manual states all components should be inspected frequently and replaced at least every ten years or if damaged</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Inspect valve body (bottom section) for cracks, leaks at body-to-piping connections, or physical damage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Inspect all cover bolts and nuts around perimeter — confirm all bolts are present and secure; tighten any loose bolts; do not over-tighten as excessive force can crack the plastic cover</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Inspect sight glass (if fitted on valve body) for condition, clarity, and integrity of sight glass gasket</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">Inspect external air bleeder (fitted on Pentair Hi Flow units — SFV-02 and SFV-03) — confirm bleeder valve is present and functional; bleeder should release air before opening valve at system start-up</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Confirm valve is correctly labelled and position markings are legible — label must be readable for safe operation by maintenance personnel</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">F.&nbsp; DOCUMENTATION</td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Record: Filter operating pressure (baseline): _______ PSI; Date of next required backwash (when pressure reaches baseline + 10 PSI): monitor ongoing</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Record: Waste port leakage observed: Yes / No; Troubleshooting steps performed: N/A / Step 1 only / Steps 1 and 2; Result: Resolved / Gasket replacement required</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Record: Handle operation: Free / Stiff / Requires repair; Body condition: No damage / Defects noted (describe in Remarks)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Record: Next 3-monthly service due date: _______</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">25</td><td class="chk-cell">Submit completed checklist to Supervisor for countersignature</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+    </tbody>
+  </table>
+  </div>
+
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+
+</div><!-- /panel-monthly3 -->
+
+
+<!-- ═══════════════════════════════════════
+     ANNUAL PANEL
+════════════════════════════════════════ -->
+<div class="panel" id="panel-annual">
+
+  <div class="panel-header">
+    <div class="panel-title">ANNUAL PREVENTIVE MAINTENANCE CHECKLIST</div>
+    <span class="panel-badge">39 ITEMS</span>
+  </div>
+
+  <a class="dl-btn" id="dl-annual" href="../PM Checklists/6-Way Sand Filter Valve/6-Way Sand Filter Valve SFV-01 - Annual PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    DOWNLOAD SCHEDULE
+  </a>
+
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr>
+      <th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th>
+    </tr></thead>
+    <tbody>
+
+      <tr class="sec-row"><td colspan="5">A.&nbsp; PRE-SERVICE SAFETY &amp; PREPARATION</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Stop pump and confirm power is isolated at distribution board before starting any disassembly</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Release all pressure from the system — open filter air relief valve to confirm system is depressurised before opening valve body</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Drain system or close isolation valves upstream and downstream of valve to prevent flooding when valve is opened — confirm system is drained or isolated before removing cover bolts</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Prepare tools: screwdriver, wrench for cover bolts, hammer and punch (for handle pin), silicone lubricant (silicone-based only — never petroleum-based grease), clean cloth, replacement parts if available (spider gasket, O-ring set)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">B.&nbsp; DISASSEMBLY</td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Place handle in FILTER position before disassembly</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Remove all bolts and nuts around perimeter of valve cover — note: the internal spring is under compression; maintain control of the cover during removal to prevent it from being pushed off suddenly</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Remove cover by lifting straight up — note orientation of cover tab alignment with body tab for correct reassembly (see valve cover alignment marking)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Remove handle pin using hammer and punch: pull top of valve cover down 1/2 to 5/8 inch; tap pin out of shaft; remove handle and set aside with pin</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Remove washer — set aside for inspection</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">C.&nbsp; INTERNAL COMPONENT INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Inspect spring — confirm spring is not corroded, kinked, bent, or weakened; a weakened spring prevents the diverter from seating properly against the spider gasket; replace if corrosion or deformation is found</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Inspect internal plastic washer — replace if cracked, warped, or deformed</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Remove diverter from valve body — inspect the diverter bottom surface (the surface that presses against the spider gasket) for wear, scoring, grooves, chemical attack, or deformation; any damage on the diverter contact face allows cross-flow leakage and requires diverter replacement</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Inspect diverter shaft O-rings — O-rings must be supple, round in cross-section, and free of cracks or flat spots; if O-rings are hardened, flattened, cracked, or show chemical swelling, remove and replace</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Clean diverter shaft O-ring grooves — remove any chemical deposits or debris from grooves before reinstalling or replacing O-rings</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Apply silicone lubricant to diverter shaft O-rings — use silicone-based lubricant only; do not use petroleum-based grease or WD-40 as these degrade rubber O-rings; per Praher manual troubleshooting section, silicone lubricant on diverter shaft O-rings is required at service</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Inspect cover O-ring (around perimeter of valve cover, if present) — replace if flattened, cracked, or deformed</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">D.&nbsp; SPIDER GASKET INSPECTION &amp; REPLACEMENT (if required)</td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Inspect spider gasket in valve body — gasket must be seated in groove with rounded bead facing upward; inspect for cracks, tears, missing sections, chemical attack, permanent compression, or deformation in any segment of the gasket; note: even one damaged segment of the spider gasket causes cross-flow leakage to the waste port</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">If spider gasket is in good condition: leave in place; do not remove unless replacement is needed — the Praher manual states once the replacement step is started it must be completed without interruption</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">If spider gasket replacement is required — NOTE: Once started, proceed through all replacement steps without interruption</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Clean gasket groove in valve body thoroughly — groove must be completely free of water, grease, oil, debris, and remnants of old gasket before installing new gasket</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Insert new spider gasket into groove with rounded bead facing upward — press gasket firmly into all groove areas to seat new gasket evenly around the full circumference</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Allow gasket cure time before reassembly — minimum cure time is 2 hours; full cure time of 24 hours is recommended for full strength per Praher manual; do not return valve to service before minimum cure time has elapsed</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">E.&nbsp; REASSEMBLY</td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Reinstall diverter into valve body — ensure diverter shaft O-rings are lubricated with silicone lubricant before inserting</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Reinstall spring over diverter shaft; reinstall internal plastic washer</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">25</td><td class="chk-cell">Reinstall handle on cover — align handle pointer to FILTER position before pinning; tap handle pin into place lightly with hammer and punch; confirm pin is fully seated</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">26</td><td class="chk-cell">Before reinstalling cover, confirm diverter and handle are both in FILTER position — cover must be reinstalled with both in the same position as when it was removed</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">27</td><td class="chk-cell">Align cover tab with body tab (use alignment marking on valve body); press cover down onto body — press down on cover or set handle to WINTERIZE position to allow bolts to engage nuts; tighten all bolts securely and evenly around perimeter (do not over-tighten — plastic cover will crack)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">28</td><td class="chk-cell">After reassembly, confirm handle depresses and rotates freely through all positions: FILTER, BACKWASH, RINSE, WASTE, RECIRCULATE, CLOSED — pointer must align accurately at each position</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">F.&nbsp; RECOMMISSIONING &amp; POST-SERVICE CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">29</td><td class="chk-cell">Open isolation valves and restore system; confirm pump power is reconnected</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">30</td><td class="chk-cell">Start pump with valve in FILTER position; observe all port connections and valve body for leaks during initial pressurisation</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">31</td><td class="chk-cell">Record operating pressure immediately after annual service: _______ PSI — record as new baseline for 3-monthly comparisons</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">32</td><td class="chk-cell">CRITICAL CHECK: Observe waste/backwash port with pump running in FILTER position — confirm no water flow from waste port; leakage after service indicates spider gasket is not correctly seated; stop pump and re-inspect gasket if leakage is present</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">33</td><td class="chk-cell">Cycle handle through BACKWASH and RINSE positions briefly to confirm valve operates correctly after reassembly; return to FILTER position for normal operation</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">34</td><td class="chk-cell">Confirm air bleeder (SFV-02 and SFV-03) is functioning correctly — bleed air before starting pump after any valve disassembly</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+      <tr class="sec-row"><td colspan="5">G.&nbsp; DOCUMENTATION</td></tr>
+      <tr class="data-row"><td class="num-cell">35</td><td class="chk-cell">Record: Date of annual service; spider gasket condition: OK / Replaced; diverter shaft O-rings: OK / Replaced and lubricated with silicone; cover O-ring: OK / Replaced; spring: OK / Replaced; diverter: OK / Replaced</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">36</td><td class="chk-cell">Record: Post-service baseline filter pressure: _______ PSI; waste port leakage after service: None (pass) / Leakage (investigate)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">37</td><td class="chk-cell">Record: Next annual service due date: _______; next 3-monthly inspection due date: _______</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">38</td><td class="chk-cell">Update equipment maintenance history log with all parts inspected, replaced, and findings</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">39</td><td class="chk-cell">Submit completed annual service checklist to Supervisor for countersignature</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+
+    </tbody>
+  </table>
+  </div>
+
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+
+</div><!-- /panel-annual -->
+
+<script>
+var units = {
+  1: {
+    sub: 'Praher Plastics V6 · Manual 6-Way Backwash Valve · Tag: SFV-01 · CEO Villa SPA &amp; Pool Pump Room',
+    m3:  '../PM Checklists/6-Way Sand Filter Valve/6-Way Sand Filter Valve SFV-01 - 3-Monthly PM Checklist.docx',
+    ann: '../PM Checklists/6-Way Sand Filter Valve/6-Way Sand Filter Valve SFV-01 - Annual PM Checklist.docx'
+  },
+  2: {
+    sub: 'Pentair Hi Flow™ 1½" Top Mount · P/N 272526 · Tag: SFV-02 · CEO Villa SPA &amp; Pool Pump Room',
+    m3:  '../PM Checklists/6-Way Sand Filter Valve/6-Way Sand Filter Valve SFV-02 - 3-Monthly PM Checklist.docx',
+    ann: '../PM Checklists/6-Way Sand Filter Valve/6-Way Sand Filter Valve SFV-02 - Annual PM Checklist.docx'
+  },
+  3: {
+    sub: 'Pentair Hi Flow™ 1½" Top Mount · P/N 272526 · Tag: SFV-03 · CEO Villa SPA &amp; Pool Pump Room',
+    m3:  '../PM Checklists/6-Way Sand Filter Valve/6-Way Sand Filter Valve SFV-03 - 3-Monthly PM Checklist.docx',
+    ann: '../PM Checklists/6-Way Sand Filter Valve/6-Way Sand Filter Valve SFV-03 - Annual PM Checklist.docx'
+  }
+};
+
+function selectUnit(n) {
+  document.getElementById('equip-sub').innerHTML = units[n].sub;
+  document.getElementById('dl-monthly3').href = units[n].m3;
+  document.getElementById('dl-annual').href = units[n].ann;
+  document.querySelectorAll('.unit-btn').forEach(function(b,i){ b.classList.toggle('active', i+1===n) });
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active') });
+  document.getElementById('panel-' + tab).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active') });
+  document.querySelector('.tab-btn.' + tab).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+</script>
+
+</body>
+</html>

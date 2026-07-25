@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indoor Pool & Cold Plunge – O&M Manual | CEO Villa SPA & Pool Facility</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#062A35;color:#FFFFFF;min-height:100vh;line-height:1.6}
+  .top-bar{background:#041E26;padding:.5rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(200,169,58,.35);position:sticky;top:0;z-index:9999;gap:1rem}
+  .top-bar-left{font-size:12px;color:#5A9BAA;letter-spacing:.04em}
+  .top-bar-right{font-size:11px;color:#5A9BAA}
+  .top-bar-right span{color:#C9A93A}
+  .btn-nav{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border:1px solid rgba(201,169,58,.55);border-radius:10px;background:rgba(201,169,58,.07);color:#C9A93A;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:.2s ease;flex-shrink:0}
+  .btn-nav:hover{background:rgba(201,169,58,.18);border-color:#e5c85a;box-shadow:0 0 10px rgba(201,169,58,.3)}
+  .hero{padding:2.5rem 2rem 2rem;border-bottom:3px solid #C9A93A;position:relative;overflow:hidden;min-height:220px}
+  .hero-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(1.2)}
+  .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(4,18,24,.70);z-index:1}
+  .hero-content{position:relative;z-index:2}
+  .chapter-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(23,195,212,.12);border:1px solid rgba(23,195,212,.3);border-radius:20px;padding:4px 12px;font-size:11px;color:#17C3D4;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem}
+  .hero-title{font-size:36px;font-weight:700;color:#FFFFFF;line-height:1.15;margin-bottom:.3rem;letter-spacing:-.01em}
+  .hero-sub{font-size:14px;color:#8EC9D4;margin-bottom:1.25rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem}
+  .hero-meta-item{font-size:12px;color:#5A9BAA}
+  .hero-meta-item strong{color:#C9A93A;font-weight:500}
+  .container{max-width:1100px;margin:0 auto;padding:2rem}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .grid-6{display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem}
+  .stat-card{background:#0D3D4A;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem 1.1rem;border-left:3px solid #17C3D4}
+  .stat-card.gold{border-left-color:#C9A93A}
+  .stat-card.ice{border-left-color:#64B5F6}
+  .stat-label{font-size:10px;color:#5A9BAA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+  .stat-value{font-size:24px;font-weight:700;color:#FFFFFF;line-height:1;margin-bottom:.2rem}
+  .stat-unit{font-size:11px;color:#8EC9D4}
+  .section{margin-bottom:1.75rem}
+  .sec-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(255,255,255,.08)}
+  .sec-num{width:28px;height:28px;border-radius:50%;background:#17C3D4;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#041E26;flex-shrink:0}
+  .sec-num.ice{background:#64B5F6}
+  .sec-title{font-size:16px;font-weight:600;color:#FFFFFF;letter-spacing:.01em}
+  .card{background:#0D3D4A;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.1rem 1.25rem}
+  .card.ice-card{border-color:rgba(100,181,246,.2);border-left:3px solid #64B5F6}
+  .card-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#17C3D4;margin-bottom:.75rem;font-weight:600}
+  .card-title.ice{color:#64B5F6}
+  .info-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px}
+  .info-row:last-child{border-bottom:none}
+  .info-row .k{color:#8EC9D4}
+  .info-row .v{color:#FFFFFF;font-weight:500;text-align:right;max-width:55%}
+  .body-text{font-size:13px;color:#8EC9D4;line-height:1.7;margin-bottom:.9rem}
+  .table-wrap{overflow-x:auto;border-radius:10px;border:1px solid rgba(255,255,255,.08)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead tr{background:#041E26}
+  th{padding:.75rem 1rem;text-align:left;font-size:11px;font-weight:600;color:#17C3D4;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap}
+  td{padding:.7rem 1rem;border-top:1px solid rgba(255,255,255,.05);color:#FFFFFF;vertical-align:top}
+  tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  tr:hover td{background:rgba(23,195,212,.04)}
+  .tag{font-family:'Courier New',monospace;font-size:12px;color:#17C3D4;font-weight:700;white-space:nowrap}
+  .tag.ice{color:#64B5F6}
+  .brand{color:#8EC9D4}
+  .cap{color:#C9A93A;font-size:12px}
+  .bullet-list{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+  .bullet-list li{font-size:13px;color:#8EC9D4;padding-left:1.2rem;position:relative;line-height:1.55}
+  .bullet-list li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:#17C3D4}
+  .bullet-list li strong{color:#FFFFFF;font-weight:500}
+  .note{background:rgba(201,169,58,.08);border-left:3px solid #C9A93A;border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:12px;color:#D4B560;margin-top:.75rem;line-height:1.55}
+  .alert{background:rgba(100,181,246,.07);border-left:3px solid #64B5F6;border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:12px;color:#90CAF9;margin-top:.75rem;line-height:1.55}
+  .divider{height:1px;background:rgba(255,255,255,.06);margin:1.5rem 0}
+  .two-zone{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+  .zone-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;padding:.3rem .75rem;border-radius:4px;display:inline-block}
+  .zone-warm{background:rgba(23,195,212,.12);color:#17C3D4}
+  .zone-cold{background:rgba(100,181,246,.12);color:#64B5F6}
+  .footer{background:#041E26;border-top:1px solid rgba(201,169,58,.2);padding:1.25rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+  .footer-left{font-size:12px;color:#5A9BAA}
+  .footer-right{font-size:11px;color:#5A9BAA;text-align:right}
+  .footer-right span{color:#C9A93A}
+  .badge{display:inline-block;background:rgba(23,195,212,.15);border:1px solid rgba(23,195,212,.3);border-radius:4px;padding:1px 7px;font-size:10px;color:#17C3D4;margin-left:4px;vertical-align:middle}
+  .badge.ice{background:rgba(100,181,246,.15);border-color:rgba(100,181,246,.3);color:#64B5F6}
+  @media(max-width:720px){.grid-2,.grid-3,.grid-6,.two-zone{grid-template-columns:1fr 1fr}.hero-title{font-size:26px}.container{padding:1.25rem}}
+  @media(max-width:480px){.grid-6{grid-template-columns:repeat(3,1fr)}.grid-2,.grid-3,.two-zone{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <a class="btn-nav" href="javascript:history.back()">← Back</a>
+    <div class="top-bar-left">CEO VILLA &nbsp;·&nbsp; SPA &amp; POOL FACILITY &nbsp;·&nbsp; O&amp;M MANUAL</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <div class="top-bar-right">Project Code: <span>10144</span> &nbsp;|&nbsp; IHCC – Jeddah, Saudi Arabia</div>
+    <a class="btn-nav" href="../../EVA-CORE.html">⌂ Home</a>
+  </div>
+</div>
+<div class="hero">
+  <video class="hero-video" id="heroVid" autoplay muted loop playsinline>
+    <source src="Jacuzzi Video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="chapter-pill">◆ Chapter 2 · Facility Introduction</div>
+    <div class="hero-title">Indoor Pool (Jacuzzi) &amp; Cold Plunge</div>
+    <div class="hero-sub">Ground Floor · Indoor SPA Area · CEO Villa SPA &amp; Pool Facility</div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">Document ref: <strong>IHCC-CEO-SPA-OM-INT-002</strong></div>
+      <div class="hero-meta-item">Revision: <strong>R0 – For Review</strong></div>
+      <div class="hero-meta-item">Contractor: <strong>IHCC</strong></div>
+    </div>
+  </div>
+</div>
+<script>
+  var v = document.getElementById('heroVid');
+  v.addEventListener('loadedmetadata', function(){ v.playbackRate = 0.9; });
+  v.playbackRate = 0.9;
+</script>
+</div>
+<div class="container">
+
+  <!-- STAT CARDS -->
+  <div class="grid-6" style="margin-bottom:1.75rem">
+    <div class="stat-card gold">
+      <div class="stat-label">Pool volume</div>
+      <div class="stat-value">11</div>
+      <div class="stat-unit">m³ (Jacuzzi)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Water depth</div>
+      <div class="stat-value">900</div>
+      <div class="stat-unit">mm uniform</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Hydro jets</div>
+      <div class="stat-value">15</div>
+      <div class="stat-unit">floor + wall jets</div>
+    </div>
+    <div class="stat-card ice">
+      <div class="stat-label">Cold plunge</div>
+      <div class="stat-value">1.4×1.4</div>
+      <div class="stat-unit">m · 1.2 m³</div>
+    </div>
+    <div class="stat-card ice">
+      <div class="stat-label">Chiller capacity</div>
+      <div class="stat-value">58</div>
+      <div class="stat-unit">kW (Coatzone)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Air blower</div>
+      <div class="stat-value">105</div>
+      <div class="stat-unit">CFM (AB-01)</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: OVERVIEW -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">1</div><div class="sec-title">Facility Overview</div></div>
+    <div class="body-text">The Indoor Pool — commonly referred to as the Jacuzzi — is a heated spa pool located in the basement level of the CEO Villa SPA &amp; Pool Facility. With a total water volume of 11 m³ and a uniform depth of 900 mm, the pool is designed as a full hydrotherapy and relaxation experience, equipped with floor and wall hydro jets, a dedicated air blower, and a warm 3000K LED perimeter lighting atmosphere.</div>
+    <div class="body-text">The pool also incorporates a Cold Plunge unit located on the west wall — a pool-within-pool concept — providing cold water therapy directly accessible from within the jacuzzi environment. All mechanical plant for both the jacuzzi and the cold plunge is housed in the basement SPA &amp; Pool Pump Room, with the cold plunge chiller/heat pump unit installed at the outdoor/roof level.</div>
+  </div>
+
+  <!-- SECTION 2: PHYSICAL DESCRIPTION -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">2</div><div class="sec-title">Physical Description</div></div>
+    <div class="body-text"><strong style="color:#FFFFFF">2.1 Pool Geometry &amp; Dimensions</strong><br>The indoor pool is of irregular shape designed to maximise seating and hydrotherapy use within the available basement footprint. The pool transitions from a narrow stair-access zone at the north end to a wider main pool area.</div>
+    <div class="table-wrap" style="margin-bottom:1rem">
+      <table>
+        <thead><tr><th>Pool Dimension / Feature</th><th>Measurement</th></tr></thead>
+        <tbody>
+          <tr><td>Total Water Volume</td><td class="cap">11 m³</td></tr>
+          <tr><td>Uniform Pool Depth</td><td class="cap">900 mm</td></tr>
+          <tr><td>Stair Access Width (North Side)</td><td class="cap">2,100 mm</td></tr>
+          <tr><td>Stair Projection into Pool</td><td class="cap">1,500 mm</td></tr>
+          <tr><td>Number of Stair Steps</td><td class="cap">4 Steps</td></tr>
+          <tr><td>Intermediate Pool Width (post-stair zone)</td><td class="cap">2,100 mm</td></tr>
+          <tr><td>Intermediate Pool Length</td><td class="cap">1,280 mm</td></tr>
+          <tr><td>Total Pool Width (main zone)</td><td class="cap">4,100 mm</td></tr>
+          <tr><td>Main Pool Zone Length</td><td class="cap">3,200 mm</td></tr>
+          <tr><td>Concrete Bench (perimeter)</td><td class="cap">350 × 450 mm</td></tr>
+          <tr><td>Cold Plunge (external footprint)</td><td class="cap">1,400 × 1,400 mm</td></tr>
+          <tr><td>Cold Plunge Volume</td><td class="cap">1.2 m³</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="body-text"><strong style="color:#FFFFFF">2.2 Stair Access (North Side)</strong><br>Pool entry is via four concrete steps on the north side, each with an approximate riser height of 225 mm, descending from the pool deck level to the full pool depth of 900 mm. The stair zone is 2.1 metres wide and extends 1.5 metres into the pool. The pool operation start button is located on the left-hand side of the pool at the stair entrance.</div>
+    <div class="table-wrap" style="margin-bottom:1rem">
+      <table>
+        <thead><tr><th>Step</th><th>Approx. Depth at Step (mm)</th><th>Riser Height (mm)</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>~225</td><td>225</td><td>Entry step – shallowest</td></tr>
+          <tr><td>2</td><td>~450</td><td>225</td><td>Mid-shallow</td></tr>
+          <tr><td>3</td><td>~675</td><td>225</td><td>Mid-deep</td></tr>
+          <tr><td>4</td><td>900</td><td>225</td><td>Full pool depth</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="body-text"><strong style="color:#FFFFFF">2.3 Concrete Seating Bench</strong><br>Continuous concrete seating benches are built into the pool structure along all perimeter walls, including the south wall. Each bench measures 350 mm in depth (seat) × 450 mm in height, providing comfortable seating at the 450 mm submerged level for all occupants using the jacuzzi and hydrotherapy jets.</div>
+    <div class="body-text"><strong style="color:#FFFFFF">2.4 Cold Plunge — Pool Within Pool (West Wall)</strong><br>A Cold Plunge unit is integrated into the west wall of the jacuzzi, forming a self-contained pool-within-pool installation. The cold plunge has external wall dimensions of 1,400 mm × 1,400 mm with a water volume of 1.2 m³. It is independently served by its own filtration, chiller, and chemical treatment system entirely separate from the jacuzzi water circuit. One wall inlet nozzle and one suction nozzle serve the cold plunge circulation.</div>
+  </div>
+
+  <!-- SECTION 3: HYDRAULIC FITTINGS -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">3</div><div class="sec-title">Pool Hydraulic Fittings</div></div>
+    <ul class="bullet-list">
+      <li><strong>Perimeter overflow gutter drainage system</strong> (AKUA4CE, 2" × 4") — continuous perimeter overflow collection returning water to the filtration circuit</li>
+      <li><strong>Stainless steel AISI 316 wall inlet nozzles</strong> (ATECPOOL Model 0592858-4) — distribute filtered and treated water back into the pool</li>
+      <li><strong>Stainless steel AISI 316 suction inlets</strong> (ATECPOOL Model 0592860-1) — draw pool water to the filtration and treatment system</li>
+      <li><strong>300 × 300 mm stainless steel main drain grating</strong> at the pool floor for controlled complete pool drainage</li>
+      <li><strong>Adjustable wall hydro jets</strong> (ATECPOOL Model 00590059) — 4 m³/h per jet; provide targeted water massage therapy on pool walls</li>
+      <li><strong>15 No. floor-mounted hydrotherapy jets</strong> — air and water mixing nozzles creating a full-floor effervescent hydrotherapy effect underfoot</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 4: HYDROTHERAPY SYSTEM -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">4</div><div class="sec-title">Hydrotherapy System</div></div>
+    <div class="body-text"><strong style="color:#FFFFFF">4.1 Floor Jets &amp; Air Blower</strong><br>The jacuzzi hydrotherapy system consists of 15 floor-mounted jet nozzles that inject a pressurised mixture of air and water from the pool floor, creating an immersive full-body hydrotherapy experience for all occupants. The jets are fed by the dedicated WhisperFlo P-WFL-901 jet pump, combined with air injection from the Air Supply Silencer blower (model 1-6320220F) rated at 105 CFM open flow. Wall-mounted adjustable hydro jets supplement the floor jets with targeted directional water massage.</div>
+    <div class="body-text"><strong style="color:#FFFFFF">4.2 Operation Control</strong><br>The hydrotherapy system — comprising the jet pump and air blower — is activated by a dedicated push-button control panel located on the left-hand side wall at the stair entrance (north side). The filtration pumps and heater run on their own automatic control circuit and are not affected by the hydrotherapy start button.</div>
+    <div class="grid-2" style="margin-top:.75rem">
+      <div class="card">
+        <div class="card-title">Air Blower – AB-01</div>
+        <div class="info-row"><span class="k">Manufacturer</span><span class="v">Air Supply of the Future Inc.</span></div>
+        <div class="info-row"><span class="k">Model</span><span class="v">Silencer 1-6320220F</span></div>
+        <div class="info-row"><span class="k">Open flow</span><span class="v">105 CFM</span></div>
+        <div class="info-row"><span class="k">Sealed pressure</span><span class="v">130 in. H₂O</span></div>
+        <div class="info-row"><span class="k">Start control</span><span class="v">Push button at stair entrance</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Jet Nozzle Pump – NP-IDP-01</div>
+        <div class="info-row"><span class="k">Manufacturer</span><span class="v">Pentair Intl.</span></div>
+        <div class="info-row"><span class="k">Model</span><span class="v">WhisperFlo P-WFL-901</span></div>
+        <div class="info-row"><span class="k">Max head</span><span class="v">27 m</span></div>
+        <div class="info-row"><span class="k">FLA</span><span class="v">10.7 A</span></div>
+        <div class="info-row"><span class="k">Function</span><span class="v">Hydrotherapy floor &amp; wall jets</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: LIGHTING -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">5</div><div class="sec-title">Lighting System</div></div>
+    <div class="body-text">The indoor pool is fitted with continuous LED strip lighting installed at low level along all four perimeter walls inside the pool, positioned close to the pool floor and concealed within the wall profile. The lighting creates a warm, atmospheric glow at 3000K colour temperature (warm white), providing comfortable underwater ambience suitable for relaxation and hydrotherapy use. The 3000K warm white spectrum was selected to complement the spa environment, creating a calm and inviting atmosphere without the cooler clinical tone of higher colour temperature lighting.</div>
+  </div>
+
+  <!-- SECTION 6: JACUZZI WATER TREATMENT -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">6</div><div class="sec-title">Jacuzzi Water Treatment &amp; Mechanical System</div></div>
+    <div class="body-text"><strong style="color:#FFFFFF">6.1 System Philosophy</strong><br>The jacuzzi operates a fully automated water treatment system consisting of sand filtration, chemical dosing (pH and chlorine), and electric inline heating. Dual filtration pumps in duty/standby configuration ensure uninterrupted operation. Chemical dosing is handled by two CHEM-TECH dosing pumps providing precision chemical injection for pH and disinfectant balance.</div>
+    <div class="grid-2" style="margin-top:.75rem">
+      <div class="card">
+        <div class="card-title">6.2 Sand Filter – SF-02-INP</div>
+        <div class="info-row"><span class="k">Brand / Model</span><span class="v">Pentair Tagelus TA-40</span></div>
+        <div class="info-row"><span class="k">Design flow rate</span><span class="v">9.1 m³/h (40 GPM)</span></div>
+        <div class="info-row"><span class="k">Multiport valve</span><span class="v">Pentair Hi-Flow 1-1/2" Top Mount</span></div>
+        <div class="info-row"><span class="k">Valve modes</span><span class="v">Filter / Backwash / Rinse / Waste / Recirc / Closed</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">6.3 Heater – EWH-02-IDP</div>
+        <div class="info-row"><span class="k">Brand / Model</span><span class="v">Elecro Engineering Evolution 2 / E2-3-18-380</span></div>
+        <div class="info-row"><span class="k">Rated capacity</span><span class="v">18 kW</span></div>
+        <div class="info-row"><span class="k">Supply voltage</span><span class="v">380V, 3-Phase</span></div>
+        <div class="info-row"><span class="k">FLA</span><span class="v">28 A</span></div>
+        <div class="info-row"><span class="k">Design water temp</span><span class="v">36°C – 40°C (Spa / Hydrotherapy)</span></div>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-top:1rem">
+      <div class="card">
+        <div class="card-title">Filtration Pumps – FP-IDP-01 / FP-IDP-02</div>
+        <div class="info-row"><span class="k">Manufacturer</span><span class="v">Pentair</span></div>
+        <div class="info-row"><span class="k">Model</span><span class="v">SuperFlo SF-N1-1 1FET</span></div>
+        <div class="info-row"><span class="k">Configuration</span><span class="v">Duty / Standby</span></div>
+        <div class="info-row"><span class="k">Max pressure</span><span class="v">36 PSI at 104°F</span></div>
+        <div class="info-row"><span class="k">Insulation class</span><span class="v">Class F</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">6.4 Chemical Treatment</div>
+        <div class="info-row"><span class="k">Dosing pumps (CDP-01 / CDP-02)</span><span class="v">CHEM-TECH Pulsafeeder X030-XC-AAAAASASO</span></div>
+        <div class="info-row"><span class="k">Max output</span><span class="v">30 GPD (4.7 LPH) each</span></div>
+        <div class="info-row"><span class="k">Max pressure</span><span class="v">100 PSI (7 bar)</span></div>
+        <div class="info-row"><span class="k">Chlorine feeder (CF-01-IDP)</span><span class="v">Hayward CL200</span></div>
+        <div class="info-row"><span class="k">CL200 max output</span><span class="v">2.3 LBS/day (Pool) / 4.6 LBS/day (SPA)</span></div>
+        <div class="info-row"><span class="k">Free chlorine residual</span><span class="v">1.0 – 3.0 ppm</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: COLD PLUNGE SYSTEM -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num ice">7</div><div class="sec-title">Cold Plunge System</div></div>
+    <div class="body-text"><strong style="color:#FFFFFF">7.1 Overview</strong><br>The Cold Plunge is a compact independent pool installed within the west wall of the jacuzzi, providing cold water immersion therapy at 10°C – 15°C immediately adjacent to the hot spa environment. The pool-within-pool arrangement allows users to alternate between hot hydrotherapy (jacuzzi, 36–40°C) and cold plunge immersion (10–15°C) without leaving the immediate pool area — a contrast therapy method recognised for its benefits in muscle recovery, circulation, and wellbeing.</div>
+    <div class="body-text"><strong style="color:#FFFFFF">7.2 Dimensions &amp; Capacity</strong><br>The cold plunge has external wall dimensions of 1,400 mm × 1,400 mm and contains 1.2 m³ of water. One stainless steel wall inlet nozzle and one suction nozzle serve the cold plunge water circulation independently of the jacuzzi system.</div>
+    <div class="grid-2" style="margin-top:.75rem">
+      <div class="card ice-card">
+        <div class="card-title ice">7.3 Chiller – CPC-01</div>
+        <div class="info-row"><span class="k">Manufacturer</span><span class="v">Coatzone Technology</span></div>
+        <div class="info-row"><span class="k">Model</span><span class="v">CZCHCPI103T</span></div>
+        <div class="info-row"><span class="k">Cooling capacity</span><span class="v">14.1 – 58 kW</span></div>
+        <div class="info-row"><span class="k">COP</span><span class="v">6.96 – 16.09</span></div>
+        <div class="info-row"><span class="k">Heating mode capacity</span><span class="v">24.8 – 103 kW</span></div>
+        <div class="info-row"><span class="k">Location</span><span class="v">Outdoor / Roof level</span></div>
+        <div class="info-row"><span class="k">Design water temp</span><span class="v">10°C – 15°C</span></div>
+      </div>
+      <div class="card ice-card">
+        <div class="card-title ice">7.4 Filtration &amp; Sanitation</div>
+        <div class="info-row"><span class="k">Sand filter (SF-03-CPC)</span><span class="v">Pentair Tagelus TA-40</span></div>
+        <div class="info-row"><span class="k">Design flow</span><span class="v">40 GPM / 9.1 m³/h</span></div>
+        <div class="info-row"><span class="k">Multiport valve</span><span class="v">Pentair Hi-Flow 1-1/2" Top Mount</span></div>
+        <div class="info-row"><span class="k">Pumps (FP-CPC-01/02)</span><span class="v">Pentair WhisperFlo P-WFL-801 – D/S</span></div>
+        <div class="info-row"><span class="k">Max head</span><span class="v">27 m | FLA: 9.7 A</span></div>
+        <div class="info-row"><span class="k">Chlorine feeder (CF-02-CPC)</span><span class="v">Hayward CL200 – Max 2.3 LBS/day</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8: DESIGN OPERATING PARAMETERS -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">8</div><div class="sec-title">Design Operating Parameters</div></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Parameter</th><th>Design Value / Setting</th></tr></thead>
+        <tbody>
+          <tr><td>Jacuzzi Water Temperature</td><td class="cap">36 – 40 °C (Spa / Hydrotherapy Standard)</td></tr>
+          <tr><td>Cold Plunge Water Temperature</td><td class="cap">10 – 15 °C (Cold Water Therapy Standard)</td></tr>
+          <tr><td>pH Set Point</td><td class="cap">7.2 – 7.6</td></tr>
+          <tr><td>Free Chlorine Residual</td><td class="cap">1.0 – 3.0 ppm</td></tr>
+          <tr><td>ORP Set Point</td><td class="cap">≥ 650 mV</td></tr>
+          <tr><td>Total Alkalinity</td><td class="cap">80 – 120 ppm</td></tr>
+          <tr><td>Filtration Flow Rate (Jacuzzi)</td><td class="cap">9.1 m³/h (Pentair Tagelus TA-40)</td></tr>
+          <tr><td>Filtration Flow Rate (Cold Plunge)</td><td class="cap">9.1 m³/h (Pentair Tagelus TA-40)</td></tr>
+          <tr><td>Jacuzzi Heater Capacity</td><td class="cap">18 kW (Elecro Evolution 2 / E2-3-18-380)</td></tr>
+          <tr><td>Cold Plunge Chiller Capacity</td><td class="cap">Cooling 14.1 – 58 kW (Coatzone CZCHCPI103T)</td></tr>
+          <tr><td>Hydrotherapy Jets (Floor)</td><td class="cap">15 No. — Air / Water Mix</td></tr>
+          <tr><td>Air Blower Output</td><td class="cap">105 CFM (Air Supply Silencer 1-6320220F)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 9: EQUIPMENT SCHEDULES -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">9</div><div class="sec-title">Mechanical Equipment Schedule</div></div>
+    <div class="body-text"><strong style="color:#C9A93A">9.1 Indoor Pool (Jacuzzi) Equipment</strong> — All equipment in Basement SPA &amp; Pool Pump Room unless noted.</div>
+    <div class="table-wrap" style="margin-bottom:1rem">
+      <table>
+        <thead><tr><th>Tag No.</th><th>Equipment Name</th><th>Manufacturer</th><th>Model</th><th>Capacity / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag">SF-02-INP</span></td><td>Indoor Pool Sand Filter</td><td class="brand">Pentair</td><td>Tagelus TA-40</td><td class="cap">Design Flow: 40 GPM / 9.1 m³/h</td></tr>
+          <tr><td><span class="tag">SFV-INP-02</span></td><td>Sand Filter 6-Way Multiport Valve</td><td class="brand">Pentair</td><td>Hi-Flow 1-1/2" Top Mount</td><td class="cap">Filter / Backwash / Rinse / Waste / Recirc / Closed</td></tr>
+          <tr><td><span class="tag">FP-IDP-01</span></td><td>Filtration Pump-01 (Duty)</td><td class="brand">Pentair</td><td>SuperFlo SF-N1-1 1FET</td><td class="cap">Max 36 PSI at 104°F | Class F insulation</td></tr>
+          <tr><td><span class="tag">FP-IDP-02</span></td><td>Filtration Pump-02 (Standby)</td><td class="brand">Pentair</td><td>SuperFlo SF-N1-1 1FET</td><td class="cap">Max 36 PSI at 104°F | Class F insulation</td></tr>
+          <tr><td><span class="tag">NP-IDP-01</span></td><td>Jet Nozzle Pump</td><td class="brand">Pentair Intl.</td><td>WhisperFlo P-WFL-901</td><td class="cap">Max Head: 27 m | FLA: 10.7 A</td></tr>
+          <tr><td><span class="tag">EWH-02-IDP</span></td><td>Jacuzzi Water Heater</td><td class="brand">Elecro Engineering</td><td>Evolution 2 / E2-3-18-380</td><td class="cap">18 kW | Inline flow-through | FLA: 28 A</td></tr>
+          <tr><td><span class="tag">AB-01</span></td><td>Air Blower (Hydrotherapy)</td><td class="brand">Air Supply of the Future Inc.</td><td>Silencer 1-6320220F</td><td class="cap">Open Flow: 105 CFM | Sealed Pressure: 130 in. H₂O</td></tr>
+          <tr><td><span class="tag">CDP-01</span></td><td>Chemical Dosing Pump-01</td><td class="brand">CHEM-TECH / Pulsafeeder</td><td>X030-XC-AAAAASASO</td><td class="cap">Output: 30 GPD / 4.7 LPH max | Max 100 PSI</td></tr>
+          <tr><td><span class="tag">CDP-02</span></td><td>Chemical Dosing Pump-02</td><td class="brand">CHEM-TECH / Pulsafeeder</td><td>X030-XC-AAAAASASO</td><td class="cap">Output: 30 GPD / 4.7 LPH max | Max 100 PSI</td></tr>
+          <tr><td><span class="tag">CF-01-IDP</span></td><td>Chlorine Feeder</td><td class="brand">Hayward Industries</td><td>CL200</td><td class="cap">Max Output: 2.3 LBS/day (Pool) / 4.6 LBS/day (SPA)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="body-text"><strong style="color:#64B5F6">9.2 Cold Plunge Equipment</strong> — Chiller at outdoor/roof level. All other equipment in Basement SPA &amp; Pool Pump Room.</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tag No.</th><th>Equipment Name</th><th>Manufacturer</th><th>Model</th><th>Capacity / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag ice">CPC-01</span></td><td>Cold Plunge Chiller / Heat Pump</td><td class="brand">Coatzone Technology</td><td>CZCHCPI103T</td><td class="cap">Cooling: 14.1–58 kW | COP: 6.96–16.09 | Outdoor/Roof</td></tr>
+          <tr><td><span class="tag ice">FP-CPC-01</span></td><td>Cold Plunge Filtration Pump-01</td><td class="brand">Pentair Intl.</td><td>WhisperFlo P-WFL-801</td><td class="cap">Max Head: 27 m | FLA: 9.7 A</td></tr>
+          <tr><td><span class="tag ice">FP-CPC-02</span></td><td>Cold Plunge Filtration Pump-02</td><td class="brand">Pentair Intl.</td><td>WhisperFlo P-WFL-801</td><td class="cap">Max Head: 27 m | FLA: 9.7 A</td></tr>
+          <tr><td><span class="tag ice">SF-03-CPC</span></td><td>Cold Plunge Sand Filter</td><td class="brand">Pentair</td><td>Tagelus TA-40</td><td class="cap">Design Flow: 40 GPM / 9.1 m³/h</td></tr>
+          <tr><td><span class="tag ice">SFV-CPC-03</span></td><td>Cold Plunge 6-Way Multiport Valve</td><td class="brand">Pentair</td><td>Hi-Flow 1-1/2" Top Mount</td><td class="cap">Filter / Backwash / Rinse / Waste / Recirc / Closed</td></tr>
+          <tr><td><span class="tag ice">CF-02-CPC</span></td><td>Cold Plunge Chlorine Feeder</td><td class="brand">Hayward Industries</td><td>CL200</td><td class="cap">Max Output: 2.3 LBS/day</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<div class="footer">
+  <div class="footer-left">CEO Villa – SPA &amp; Pool Facility &nbsp;|&nbsp; Chapter 2: Indoor Pool &amp; Cold Plunge &nbsp;|&nbsp; O&amp;M Manual</div>
+  <div class="footer-right">Document ref: <span>IHCC-CEO-SPA-OM-INT-002</span> &nbsp;|&nbsp; Rev: <span>R0 – For Review</span> &nbsp;|&nbsp; IHCC – Jeddah, KSA</div>
+</div>
+
+
+
+<style>
+  .btn-top{position:fixed;bottom:22px;right:22px;z-index:9999;width:38px;height:38px;border-radius:50%;border:1px solid rgba(201,169,58,.65);background:rgba(4,30,38,.90);color:#C9A93A;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;text-decoration:none;backdrop-filter:blur(6px);box-shadow:0 0 8px rgba(201,169,58,.22);transition:.22s ease;}
+  .btn-top:hover{background:rgba(201,169,58,.15);border-color:#e5c85a;box-shadow:0 0 16px rgba(201,169,58,.55);transform:translateY(-3px);}
+</style>
+<a class="btn-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</a>
+</body>
+</html>

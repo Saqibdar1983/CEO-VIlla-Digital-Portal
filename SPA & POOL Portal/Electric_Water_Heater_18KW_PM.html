@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Electric Water Heater 18KW PM | CEO Villa SPA &amp; Pool</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050507;--deep:#0a0b10;--surface:#0f1117;--panel:#141720;
+  --border:#1e2330;--gold:#c9a84c;--text:#e8eaf0;--muted:#7a8099;--dim:#3a4055;
+  --green:#2abf8f;--cyan:#22d3ee;--blue:#4a9eff;--orange:#e87a4a;--purple:#b06fd4;
+}
+html,body{width:100%;background:var(--bg);font-family:'Exo 2',sans-serif;color:var(--text);-webkit-text-size-adjust:100%}
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.55rem 1rem;background:rgba(10,11,16,.96);border-bottom:1px solid rgba(201,168,76,.2);backdrop-filter:blur(8px);gap:.75rem}
+.topbar-left{display:flex;align-items:center;gap:.75rem}
+.tb-icon-btn{width:30px;height:30px;border-radius:5px;background:transparent;border:1px solid rgba(255,255,255,.15);color:#adb4cc;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s;flex-shrink:0;text-decoration:none}
+.tb-icon-btn:hover{border-color:var(--gold);color:var(--gold)}
+.tb-icon-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.app-name{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--cyan);letter-spacing:.05em}
+.breadcrumb{font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.07em;color:var(--muted)}
+.breadcrumb span{color:var(--cyan)}
+.title-section{padding:.75rem 1.2rem .6rem;background:linear-gradient(135deg,rgba(34,211,238,.07),transparent);border-bottom:1px solid rgba(255,255,255,.05)}
+.equip-title{font-family:'Rajdhani',sans-serif;font-size:clamp(1.3rem,4vw,1.7rem);font-weight:700;color:#fff;letter-spacing:.04em;line-height:1.1}
+.equip-title span{color:var(--cyan)}
+.equip-sub{font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:.07em;color:var(--muted);margin-top:.3rem}
+.tabs{display:flex;background:#090b12;border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:49px;z-index:99;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{flex:1;min-width:110px;padding:.6rem .5rem;background:transparent;border:none;border-bottom:3px solid transparent;cursor:pointer;transition:all .2s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.15rem}
+.tab-btn .tab-label{font-family:'Share Tech Mono',monospace;font-size:.78rem;font-weight:700;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.tab-btn .tab-count{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--muted)}
+.tab-btn .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tab-btn.daily .dot{background:var(--green);box-shadow:0 0 5px var(--green)}
+.tab-btn.monthly3 .dot{background:var(--gold);box-shadow:0 0 5px var(--gold)}
+.tab-btn.monthly6 .dot{background:var(--purple);box-shadow:0 0 5px var(--purple)}
+.tab-btn.daily.active{background:rgba(42,191,143,.12);border-bottom-color:var(--green)}
+.tab-btn.daily.active .tab-label{color:var(--green)}.tab-btn.daily.active .tab-count{color:var(--green)}
+.tab-btn.monthly3.active{background:rgba(201,168,76,.12);border-bottom-color:var(--gold)}
+.tab-btn.monthly3.active .tab-label{color:var(--gold)}.tab-btn.monthly3.active .tab-count{color:var(--gold)}
+.tab-btn.monthly6.active{background:rgba(176,111,212,.12);border-bottom-color:var(--purple)}
+.tab-btn.monthly6.active .tab-label{color:var(--purple)}.tab-btn.monthly6.active .tab-count{color:var(--purple)}
+.panel{display:none;padding:1rem 1.2rem 4rem}.panel.active{display:block}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem;padding:.6rem .9rem;background:rgba(201,168,76,.08);border-radius:8px;border-left:3px solid var(--cyan);flex-wrap:wrap;gap:.5rem}
+.panel-title{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--cyan);letter-spacing:.04em}
+.panel-badge{font-family:'Share Tech Mono',monospace;font-size:.68rem;color:var(--gold);background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);padding:.2rem .6rem;border-radius:4px;white-space:nowrap}
+.dl-btn{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:.9rem;padding:.5rem 1.1rem;background:var(--gold);border-radius:7px;text-decoration:none;font-family:'Share Tech Mono',monospace;font-size:.72rem;font-weight:700;letter-spacing:.08em;color:#000;transition:background .2s,transform .15s}
+.dl-btn:hover{background:#e0b85c;transform:translateY(-1px)}
+.dl-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid rgba(255,255,255,.08)}
+table{width:100%;border-collapse:collapse;min-width:520px}
+thead tr{background:#0f1220}
+th{font-family:'Share Tech Mono',monospace;font-size:.7rem;color:var(--cyan);padding:.55rem .6rem;letter-spacing:.06em;border-bottom:1px solid rgba(34,211,238,.15);white-space:nowrap}
+th:nth-child(1){text-align:center;width:42px}
+th:nth-child(3),th:nth-child(4){text-align:center}
+th:nth-child(3){color:var(--green)}th:nth-child(4){color:#ff6b6b}
+.sec-row td{background:rgba(201,168,76,.15);color:#fff;font-family:'Share Tech Mono',monospace;font-size:.76rem;font-weight:700;letter-spacing:.08em;padding:.5rem .8rem;border-bottom:1px solid rgba(201,168,76,.2)}
+tbody tr.data-row{border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s}
+tbody tr.data-row:hover{background:rgba(201,168,76,.04)}
+.num-cell{font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--muted);text-align:center;padding:.5rem .4rem;white-space:nowrap;vertical-align:top;padding-top:.75rem}
+.chk-cell{font-family:'Exo 2',sans-serif;font-size:.83rem;color:#dce0f2;padding:.5rem .7rem;line-height:1.55;vertical-align:top}
+.box-cell{text-align:center;padding:.45rem .4rem;vertical-align:top;padding-top:.65rem}
+.ck{width:20px;height:20px;border-radius:4px;margin:0 auto;cursor:pointer;appearance:none;-webkit-appearance:none;border:2px solid;background:transparent;transition:background .15s;display:block}
+.ck.ok{border-color:var(--green)}.ck.ok:checked{background:var(--green)}
+.ck.nok{border-color:#ff6b6b}.ck.nok:checked{background:#ff6b6b}
+.rem-cell{font-family:'Exo 2',sans-serif;font-size:.72rem;color:var(--muted);padding:.4rem .5rem;vertical-align:top;min-width:90px}
+.signoff{margin-top:1.4rem;padding:1rem 1.2rem;background:var(--panel);border:1px solid var(--border);border-radius:10px;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between}
+.signoff-item{flex:1;min-width:160px}
+.signoff-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--muted);margin-bottom:.3rem}
+.signoff-line{border-bottom:1px solid var(--dim);height:24px}
+@media(max-width:600px){.tabs{top:48px}.panel{padding:.8rem .8rem 3rem}.tab-btn{min-width:80px;padding:.5rem .2rem}.tab-btn .tab-label{font-size:.7rem}.chk-cell{font-size:.8rem}}
+@media print{.topbar,.tabs{position:static}.dl-btn{display:none}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="tb-icon-btn" onclick="history.back()" title="Back">
+      <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+    </button>
+    <span class="app-name">EVA-APP</span>
+    <span class="breadcrumb">PPM &rsaquo; <span>ELECTRIC WATER HEATER 18KW</span></span>
+  </div>
+  <a href="../EVA-CORE.html" class="tb-icon-btn" title="Home">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+  </a>
+</div>
+
+<div class="title-section">
+  <div class="equip-title">ELECTRIC WATER HEATER <span>18KW</span></div>
+  <div class="equip-sub">Electro Evolution 18KW · Indoor Pool Heater · SPA &amp; Pool Pump Room · CEO Villa</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn daily active" onclick="switchTab('daily')">
+    <div class="tab-label"><span class="dot"></span>DAILY</div>
+    <div class="tab-count">14 ITEMS</div>
+  </button>
+  <button class="tab-btn monthly3" onclick="switchTab('monthly3')">
+    <div class="tab-label"><span class="dot"></span>3-MONTHLY</div>
+    <div class="tab-count">26 ITEMS</div>
+  </button>
+  <button class="tab-btn monthly6" onclick="switchTab('monthly6')">
+    <div class="tab-label"><span class="dot"></span>6-MONTHLY</div>
+    <div class="tab-count">34 ITEMS</div>
+  </button>
+</div>
+
+<!-- ═══ DAILY ═══ -->
+<div class="panel active" id="panel-daily">
+  <div class="panel-header"><div class="panel-title">DAILY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">14 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Electric Water Heater 18KW/Electro Evolution 18KW - Daily PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">SECTION 1:&nbsp; VISUAL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Inspect heater display — Amber light ON confirms unit is in standby/power-on state</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Confirm Red light illuminates when heater enters active heating cycle</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Check display for error messages: NO FLOW / OUT OF RANGE / SHUTDOWN HIGH AMBIENT — record and report any faults</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Inspect heater body and enclosure for visible damage, corrosion, or moisture ingress (heater must remain in dry, weatherproof environment at all times)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Inspect pipe connections at inlet and outlet for drips or weeping; verify jubilee clips and unions are secure</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">SECTION 2:&nbsp; OPERATIONAL CHECKS</td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Verify pool circulation pump is running and supplying adequate flow to heater</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Confirm NO FLOW message is absent — if displayed, check pump operation and filter back-pressure (minimum required flow: 4,000 L/hr for 18kW heater)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Record current set point temperature shown on digital controller display</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Record actual pool water temperature reading from controller</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Confirm heater is maintaining pool temperature within ±0.5°C of set point</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">SECTION 3:&nbsp; WATER QUALITY</td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Test pool water pH — acceptable range: 6.8 – 8.0 (out-of-range voids warranty and damages elements)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Test free chlorine level — maximum permitted: 2.0 mg/L</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Check chloride content — maximum permitted: 150 mg/L (stainless steel elements NOT suitable for saline/salt water)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Log all readings in daily maintenance record; report any out-of-range values immediately for corrective action</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<!-- ═══ 3-MONTHLY ═══ -->
+<div class="panel" id="panel-monthly3">
+  <div class="panel-header"><div class="panel-title">3-MONTHLY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">26 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Electric Water Heater 18KW/Electro Evolution 18KW - 3-Monthly PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">SECTION 1:&nbsp; VISUAL &amp; MECHANICAL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Inspect heater body, enclosure, wall/floor mounting screws, and brackets for security and corrosion</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Inspect inlet and outlet pipe connections — check unions, O-rings, and jubilee clips for leaks or weeping</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Inspect return pipe safety loop (kick-up) at heater outlet — confirm intact, unobstructed, and securely clipped</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Verify heater enclosure is installed in dry, weatherproof area — check for moisture ingress or condensation inside enclosure</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Confirm minimum internal bore of supply and return pipework is 32mm — inspect for any pinching or deformation</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">Check power supply cable externally for damage, heat marks, abrasion, or crush hazards along full routed length</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">SECTION 2:&nbsp; ELECTRICAL SAFETY CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">ISOLATE heater from main power supply at distribution board before proceeding with any electrical inspection</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Remove access cover (per Fig. 8 of O&amp;M manual); at heater terminal block, verify all power connections are correctly wired per label inside heater and firmly tightened</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">At distribution board, verify cable connections are secure and cable cross-section is adequate for installed cable length</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">RESTORE power; test dedicated 30mA RCD Safety Circuit — press TEST BUTTON, confirm RCD trips instantly and cuts power to heater</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Inspect PCB control board for visible damage, burn marks, or corrosion; check internal fuse condition — replace if blown</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">SECTION 3:&nbsp; OPERATIONAL CHECKS</td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Start circulation pump; verify HEATER DELAY message appears on display for approximately 2 minutes before heating commences</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">Confirm Red light illuminates and heating mode commences after 2-minute startup delay</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Hold selector dial button for 5 seconds to enter calibration mode — verify displayed temperature against independent thermometer reading; adjust within ±2°C maximum if deviation exceeds ±1°C</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Record inlet and outlet water temperature; calculate temperature differential</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Verify heater shuts to standby (Amber light) when set point temperature is reached; confirms it maintains ±0.5°C differential</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Confirm enclosure temperature is below 60°C threshold — SHUTDOWN HIGH AMBIENT protection activates automatically above 60°C</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">SECTION 4:&nbsp; FLOW RATE CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Confirm pool circulation pump is delivering minimum required flow rate: 4,000 L/hr minimum for 18kW heater</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">Verify flow rate does not exceed maximum permitted: 17,000 L/hr — install bypass valve if flow rate exceeds this limit</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Purge trapped air pockets from heater and pipework — confirm return pipe safety loop is functioning correctly to prevent air locks</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">SECTION 5:&nbsp; WATER QUALITY CHECK</td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Test pool water pH: acceptable range 6.8 – 8.0</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Test Total Alkalinity (TA): acceptable range 80 – 140 ppm</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Test Chloride content: maximum 150 mg/L (exceeding this limit will void manufacturer warranty)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Test Free Chlorine: maximum 2.0 mg/L</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">25</td><td class="chk-cell">Test Total Bromine: maximum 4.5 mg/L</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">26</td><td class="chk-cell">Test TDS/Calcium Hardness: acceptable range 200 – 1,000 ppm; log all readings and take corrective dosing action if out of range</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<!-- ═══ 6-MONTHLY ═══ -->
+<div class="panel" id="panel-monthly6">
+  <div class="panel-header"><div class="panel-title">6-MONTHLY PREVENTIVE MAINTENANCE CHECKLIST</div><span class="panel-badge">34 ITEMS</span></div>
+  <a class="dl-btn" href="../PM Checklists/Electric Water Heater 18KW/Electro Evolution 18KW - 6-Monthly PM Checklist.docx" download>
+    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>DOWNLOAD SCHEDULE</a>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>#</th><th>CHECKPOINT</th><th>OK ✓</th><th>NOT OK ✗</th><th>Remarks</th></tr></thead>
+    <tbody>
+      <tr class="sec-row"><td colspan="5">SECTION 1:&nbsp; VISUAL &amp; SAFETY INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">1</td><td class="chk-cell">Inspect heater enclosure, body, and all external fixings for corrosion, physical damage, or moisture ingress</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">2</td><td class="chk-cell">Inspect inlet/outlet pipe unions, O-rings, and all pipe connections — tighten or replace deteriorated seals as required</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">3</td><td class="chk-cell">Verify return pipe safety loop (kick-up) at heater outlet is intact, unrestricted, and securely clipped in place</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">4</td><td class="chk-cell">Confirm heater is mounted securely (wall or floor fixing screws tight, per Fig. 2 of O&amp;M manual) and installation remains in dry, weatherproof area</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">5</td><td class="chk-cell">Test dedicated 30mA RCD Safety Circuit — press TEST BUTTON, confirm RCD trips instantly; reset and verify power is restored to heater</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">SECTION 2:&nbsp; DRAIN, CLEAN &amp; ELEMENT INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">6</td><td class="chk-cell">ISOLATE heater from main power supply at distribution board before commencing any maintenance work</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">7</td><td class="chk-cell">Close inlet and outlet isolation valves; drain heater completely to allow full inspection (drain also prevents frost damage during winter shutdown)</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">8</td><td class="chk-cell">Remove flow tube access and inspect heating element(s) — check for scale build-up, sludge, corrosion, or physical damage</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">9</td><td class="chk-cell">Clean heating elements thoroughly — remove all scale and debris deposits using appropriate non-corrosive cleaning agent</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">10</td><td class="chk-cell">Clean flow tube interior — remove all scale deposits, blockages, and bio-fouling</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">11</td><td class="chk-cell">Inspect flow tube O-rings and all internal seals — replace any deteriorated or compressed seals before reassembly</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">12</td><td class="chk-cell">Reassemble flow tube and all connections ensuring watertight joints; reinstate isolation valves; refill heater and purge all trapped air before energizing</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">SECTION 3:&nbsp; ELECTRICAL INSPECTION</td></tr>
+      <tr class="data-row"><td class="num-cell">13</td><td class="chk-cell">With power isolated, inspect power supply cable from distribution board to heater terminal block — check insulation condition, routing, and termination tightness at both ends</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">14</td><td class="chk-cell">Remove access cover (per Fig. 8); at heater terminal block, check all connections are tight and correctly wired per label inside heater; verify cable is not exposed to sharp edges, hot surfaces, or crush hazards</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">15</td><td class="chk-cell">Verify cable cross-sectional area is adequate for installed length (minimum 5A/mm² up to 20 metres) — upgrade if insufficient</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">16</td><td class="chk-cell">Inspect PCB control board for burn marks, corrosion, or blown internal fuse — replace fuse if required; document all findings</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">17</td><td class="chk-cell">Restore power; verify Amber standby light illuminates on controller display</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">18</td><td class="chk-cell">Test 30mA RCD — press TEST BUTTON to confirm trip; reset and verify power restored to heater; obtain Electrician sign-off and record in inspection log</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">SECTION 4:&nbsp; OPERATIONAL RECOMMISSIONING</td></tr>
+      <tr class="data-row"><td class="num-cell">19</td><td class="chk-cell">Start circulation pump — confirm NO FLOW message clears and HEATER DELAY message appears on display for approximately 2 minutes</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">20</td><td class="chk-cell">Confirm Red light illuminates after delay — heater enters active heating mode</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">21</td><td class="chk-cell">Measure and confirm flow rate is within operational limits: minimum 4,000 L/hr, maximum 17,000 L/hr</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">22</td><td class="chk-cell">Enter calibration mode (hold dial button 5 seconds) — verify temperature display accuracy against independent thermometer; adjust within ±2°C maximum if required</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">23</td><td class="chk-cell">Record set point temperature, actual pool water temperature, and temperature differential across heater</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">24</td><td class="chk-cell">Confirm heater maintains pool temperature within ±0.5°C of set point; record all operating data in equipment history log</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">SECTION 5:&nbsp; WATER QUALITY</td></tr>
+      <tr class="data-row"><td class="num-cell">25</td><td class="chk-cell">Test pool water pH: acceptable range 6.8 – 8.0</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">26</td><td class="chk-cell">Test Total Alkalinity (TA): acceptable range 80 – 140 ppm</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">27</td><td class="chk-cell">Test Chloride content: maximum 150 mg/L</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">28</td><td class="chk-cell">Test Free Chlorine: maximum 2.0 mg/L</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">29</td><td class="chk-cell">Test Total Bromine: maximum 4.5 mg/L</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">30</td><td class="chk-cell">Test TDS/Calcium Hardness: acceptable range 200 – 1,000 ppm; log all readings</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="sec-row"><td colspan="5">SECTION 6:&nbsp; DOCUMENTATION</td></tr>
+      <tr class="data-row"><td class="num-cell">31</td><td class="chk-cell">Record all maintenance activities, findings, and corrective actions taken in equipment history log</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">32</td><td class="chk-cell">List any replacement parts installed — provide description and quantity for each item</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">33</td><td class="chk-cell">Update next 3-monthly and 6-monthly maintenance schedule dates in maintenance planner</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+      <tr class="data-row"><td class="num-cell">34</td><td class="chk-cell">Submit completed checklist to Supervisor for review and countersignature</td><td class="box-cell"><input type="checkbox" class="ck ok"></td><td class="box-cell"><input type="checkbox" class="ck nok"></td><td class="rem-cell"></td></tr>
+    </tbody>
+  </table></div>
+  <div class="signoff">
+    <div class="signoff-item"><div class="signoff-label">DATE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">TIME</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">INSPECTOR SIGNATURE</div><div class="signoff-line"></div></div>
+    <div class="signoff-item"><div class="signoff-label">SUPERVISOR REVIEW</div><div class="signoff-line"></div></div>
+  </div>
+</div>
+
+<script>
+function switchTab(tab){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active')});
+  document.getElementById('panel-'+tab).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+  document.querySelector('.tab-btn.'+tab).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

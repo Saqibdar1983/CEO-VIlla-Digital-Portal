@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Important Contacts — SPA & POOL O&M Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --blue:        #38bdf8;
+            --blue-light:  #7dd3fc;
+            --blue-mid:    #0ea5e9;
+            --gold:        #D4AF37;
+            --gold-light:  #f0d060;
+            --gold-dim:    rgba(212, 175, 55, 0.60);
+            --dark:        #04101f;
+            --card-bg:     rgba(5, 16, 38, 0.41);
+            --text:        #dff0fb;
+            --text-muted:  rgba(224, 242, 254, 0.55);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-image: url("Contacts Background Image .jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: var(--text);
+            font-family: 'Aptos Display', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Dark overlay over background image */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: rgba(3, 8, 20, 0.72);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ── HEADER — gold title, blue nav ── */
+        header {
+            background: rgba(3, 9, 20, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+            padding: 10px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.7);
+        }
+
+        .header-left { display: flex; align-items: center; gap: 20px; }
+
+        /* Gold header title — premium statement */
+        header h1 {
+            font-size: 21px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--gold-light);
+            text-shadow: 0 0 24px rgba(212,175,55,0.35);
+        }
+
+        /* Blue nav buttons — interactive */
+        .btn-nav {
+            background: rgba(56, 189, 248, 0.08);
+            color: var(--blue);
+            border: 1px solid rgba(56, 189, 248, 0.28);
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-nav:hover {
+            background: rgba(56, 189, 248, 0.17);
+            border-color: var(--blue);
+            box-shadow: 0 0 12px rgba(56,189,248,0.14);
+        }
+
+        /* ── MAIN ── */
+        main {
+            padding: 50px 30px 100px;
+            max-width: 1100px;
+            margin: 80px auto 0;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        /* Blue subtitle — info level */
+        .page-title .subtitle {
+            font-size: 11px;
+            color: rgba(56, 189, 248, 0.45);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        /* Gold main title — prestige */
+        .page-title h2 {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--gold-light);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 35px rgba(212,175,55,0.28);
+            margin-bottom: 14px;
+        }
+
+        .title-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        /* Left line: gold fade, right line: blue fade */
+        .title-divider .line-gold {
+            display: block;
+            height: 1px;
+            width: 80px;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.5));
+        }
+
+        .title-divider .line-blue {
+            display: block;
+            height: 1px;
+            width: 80px;
+            background: linear-gradient(90deg, rgba(56,189,248,0.5), transparent);
+        }
+
+        /* Gold star in middle */
+        .title-divider i { color: var(--gold-dim); font-size: 12px; }
+
+        /* ── CARDS ── */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .contact-card {
+            background: rgba(5, 16, 38, 0.41);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            /* Blue top/sides, gold bottom accent */
+            border: 1px solid rgba(56, 189, 248, 0.14);
+            border-bottom: 3px solid rgba(212, 175, 55, 0.50);
+            border-radius: 14px;
+            padding: 40px 28px 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.55);
+        }
+
+        /* Gold shimmer sweep on hover */
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), var(--blue), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(56, 189, 248, 0.30);
+            border-bottom-color: var(--gold);
+            box-shadow:
+                0 24px 60px rgba(0,0,0,0.55),
+                0 0 0 1px rgba(212,175,55,0.12),
+                0 -1px 0 rgba(56,189,248,0.15);
+            background: rgba(7, 22, 50, 0.94);
+        }
+
+        .contact-card:hover::before { left: 100%; }
+
+        /* Blue icon circle */
+        .card-icon-wrap {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            background: rgba(56, 189, 248, 0.07);
+            border: 1.5px solid rgba(56, 189, 248, 0.22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 22px;
+            transition: all 0.4s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-card:hover .card-icon-wrap {
+            background: rgba(56, 189, 248, 0.13);
+            border-color: var(--blue);
+            box-shadow: 0 0 26px rgba(56,189,248,0.22);
+        }
+
+        .card-icon-wrap i {
+            font-size: 34px;
+            color: var(--blue);
+            text-shadow: 0 0 14px rgba(56,189,248,0.45);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Blue card title */
+        .contact-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--blue-light);
+            letter-spacing: 1.2px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Gold view button — call to action with warmth */
+        .btn-view {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(212, 175, 55, 0.09);
+            color: var(--gold-light);
+            border: 1px solid rgba(212, 175, 55, 0.32);
+            padding: 9px 22px;
+            border-radius: 22px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-card:hover .btn-view {
+            background: rgba(212, 175, 55, 0.17);
+            border-color: var(--gold);
+            box-shadow: 0 0 16px rgba(212,175,55,0.18);
+            color: var(--gold-light);
+        }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(1, 5, 14, 0.90);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-box {
+            background: rgba(4, 12, 28, 0.98);
+            /* Gold top border — premium entry */
+            border: 1px solid rgba(56, 189, 248, 0.18);
+            border-top: 2px solid var(--gold);
+            border-radius: 14px;
+            max-width: 820px;
+            width: 100%;
+            max-height: 88vh;
+            overflow-y: auto;
+            box-shadow:
+                0 40px 100px rgba(0,0,0,0.88),
+                0 0 0 1px rgba(212,175,55,0.07),
+                inset 0 1px 0 rgba(212,175,55,0.05);
+            animation: modalIn 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(-24px) scale(0.96); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 28px;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.12);
+            position: sticky;
+            top: 0;
+            background: rgba(4, 12, 28, 0.99);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .modal-title { display: flex; align-items: center; gap: 12px; }
+
+        /* Gold icon box — matches gold border-top */
+        .modal-title-icon {
+            width: 38px; height: 38px;
+            border-radius: 8px;
+            background: rgba(212, 175, 55, 0.10);
+            border: 1px solid rgba(212, 175, 55, 0.30);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-title-icon i { color: var(--gold); font-size: 16px; }
+
+        /* Gold modal title — consistent premium */
+        .modal-header h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--gold-light);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* Blue subtitle */
+        .modal-header p {
+            font-size: 11px;
+            color: rgba(56, 189, 248, 0.45);
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        /* Blue close button */
+        .modal-close {
+            background: rgba(56, 189, 248, 0.07);
+            border: 1px solid rgba(56, 189, 248, 0.22);
+            color: rgba(56, 189, 248, 0.60);
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .modal-close:hover {
+            background: rgba(56, 189, 248, 0.18);
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        .modal-body { padding: 28px; }
+
+        /* ── ASEEB POPUP ── */
+        .company-hero {
+            background: linear-gradient(135deg, rgba(56,189,248,0.05) 0%, rgba(212,175,55,0.04) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.14);
+            border-left: 3px solid var(--blue-mid);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 22px;
+            display: flex;
+            gap: 22px;
+            align-items: flex-start;
+        }
+
+        .company-emblem {
+            width: 76px; height: 76px;
+            border-radius: 12px;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1.5px solid rgba(56, 189, 248, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .company-emblem i { font-size: 26px; color: var(--blue); margin-bottom: 5px; }
+        .company-emblem span { font-size: 9px; color: rgba(56,189,248,0.50); letter-spacing: 0.8px; text-transform: uppercase; }
+
+        /* Gold company name */
+        .company-info h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gold-light);
+            margin-bottom: 6px;
+        }
+
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+
+        /* Blue tags */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.22);
+            color: var(--blue);
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .company-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.75;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            background: rgba(56, 189, 248, 0.04);
+            border: 1px solid rgba(56, 189, 248, 0.10);
+            border-radius: 8px;
+            padding: 12px 15px;
+            transition: border-color 0.3s;
+        }
+
+        .info-item:hover { border-color: rgba(56, 189, 248, 0.22); }
+
+        .info-item label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            color: rgba(56, 189, 248, 0.48);
+            letter-spacing: 1.1px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .info-item span { font-size: 13px; color: var(--text); font-weight: 500; }
+        .info-item a { color: var(--blue); text-decoration: none; font-size: 13px; }
+        .info-item a:hover { text-decoration: underline; }
+
+        /* Gold contact highlight — warmth for a person */
+        .contact-highlight {
+            background: rgba(212, 175, 55, 0.06);
+            border: 1px solid rgba(212, 175, 55, 0.24);
+            border-left: 3px solid var(--gold);
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .ch-avatar {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.10);
+            border: 1.5px solid rgba(212, 175, 55, 0.28);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .ch-avatar i { color: var(--gold); font-size: 20px; }
+
+        .ch-info label {
+            display: block;
+            font-size: 10px;
+            color: rgba(212,175,55,0.52);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .ch-info strong {
+            display: block;
+            color: #ede0b0;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .ch-info .phone-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(212,175,55,0.10);
+            border: 1px solid rgba(212,175,55,0.26);
+            color: var(--gold-light);
+            padding: 4px 12px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* ── IHCC TABLE ── */
+        .personnel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .personnel-table thead th {
+            padding: 10px 13px;
+            text-align: left;
+            font-size: 10px;
+            /* Gold header labels */
+            color: rgba(212, 175, 55, 0.55);
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+            background: rgba(212, 175, 55, 0.04);
+        }
+
+        .dept-row td { padding: 0; }
+
+        .dept-header {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 9px 13px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .dept-header i { font-size: 11px; }
+
+        /* Smart mixed dept colors */
+        .dept-header.facility    { background: rgba(56,189,248,0.08);  color: var(--blue);      border-left: 3px solid var(--blue); }
+        .dept-header.site        { background: rgba(212,175,55,0.08);  color: var(--gold-light); border-left: 3px solid var(--gold); }
+        .dept-header.procurement { background: rgba(99,179,237,0.08);  color: #63b3ed;           border-left: 3px solid #63b3ed; }
+        .dept-header.design      { background: rgba(212,175,55,0.05);  color: rgba(212,175,55,0.7); border-left: 3px solid rgba(212,175,55,0.5); }
+
+        .personnel-table tbody tr.data-row td {
+            padding: 10px 13px;
+            border-bottom: 1px solid rgba(56,189,248,0.07);
+            vertical-align: middle;
+        }
+
+        .personnel-table tbody tr.data-row:hover td { background: rgba(56,189,248,0.04); }
+        .personnel-table tbody tr.data-row:last-child td { border-bottom: none; }
+
+        td.num   { color: rgba(212,175,55,0.38); font-size: 11px; font-weight: 600; width: 36px; }
+        td.name  { font-weight: 600; color: var(--text); }
+        td.desig { color: rgba(224,242,254,0.70); font-size: 12.5px; }
+        td.dept  { color: rgba(224,242,254,0.42); font-size: 12px; }
+        /* Blue email — data */
+        td.email { color: rgba(56,189,248,0.72); font-size: 12px; }
+        /* Blue phone — interactive */
+        td.phone { color: var(--blue-light); font-size: 12.5px; font-weight: 500; white-space: nowrap; }
+        td.na    { color: rgba(224,242,254,0.24); font-style: italic; font-size: 12px; }
+
+        .modal-note {
+            margin-top: 20px;
+            padding: 12px 16px;
+            background: rgba(56,189,248,0.03);
+            border: 1px solid rgba(56,189,248,0.11);
+            border-radius: 7px;
+            font-size: 12px;
+            color: rgba(224,242,254,0.44);
+            line-height: 1.65;
+        }
+
+        /* ── SOCIAL LINKS ── */
+        .social-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .social-row label {
+            font-size: 10px;
+            color: rgba(56, 189, 248, 0.48);
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .social-link.linkedin {
+            background: rgba(0, 119, 181, 0.12);
+            border-color: rgba(0, 119, 181, 0.30);
+            color: #0a91d9;
+        }
+
+        .social-link.linkedin:hover {
+            background: rgba(0, 119, 181, 0.25);
+            border-color: #0077B5;
+            box-shadow: 0 0 14px rgba(0,119,181,0.28);
+        }
+
+        .social-link.instagram {
+            background: rgba(225, 48, 108, 0.10);
+            border-color: rgba(225, 48, 108, 0.28);
+            color: #e1306c;
+        }
+
+        .social-link.instagram:hover {
+            background: rgba(225, 48, 108, 0.22);
+            border-color: #e1306c;
+            box-shadow: 0 0 14px rgba(225,48,108,0.25);
+        }
+
+        .social-link.x-twitter {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.18);
+            color: #e8e8e8;
+        }
+
+        .social-link.x-twitter:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255,255,255,0.45);
+            box-shadow: 0 0 14px rgba(255,255,255,0.10);
+        }
+
+        /* ── MANUFACTURER CARDS ── */
+        .mfr-search-wrap {
+            margin-bottom: 18px;
+            position: relative;
+        }
+        .mfr-search-wrap input {
+            width: 100%;
+            padding: 10px 16px 10px 38px;
+            background: rgba(56,189,248,0.05);
+            border: 1px solid rgba(56,189,248,0.22);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .mfr-search-wrap input::placeholder { color: rgba(56,189,248,0.32); }
+        .mfr-search-wrap input:focus { border-color: var(--blue); }
+        .mfr-search-wrap i {
+            position: absolute; left: 13px; top: 50%;
+            transform: translateY(-50%);
+            color: rgba(56,189,248,0.38); font-size: 13px;
+        }
+        .mfr-count {
+            font-size: 11px; color: rgba(56,189,248,0.40);
+            margin-bottom: 14px; letter-spacing: 0.5px;
+        }
+        .mfr-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .mfr-card {
+            background: rgba(4, 12, 30, 0.82);
+            border: 1px solid rgba(56,189,248,0.10);
+            border-left: 3px solid rgba(56,189,248,0.30);
+            border-radius: 10px;
+            padding: 15px 16px;
+            transition: all 0.3s;
+        }
+        .mfr-card:hover {
+            border-left-color: var(--blue);
+            background: rgba(7,22,52,0.92);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+        }
+        .mfr-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .mfr-name {
+            font-size: 13.5px; font-weight: 700;
+            color: var(--gold-light); letter-spacing: 0.3px;
+            line-height: 1.35;
+        }
+        .mfr-country {
+            font-size: 9.5px; color: rgba(56,189,248,0.55);
+            background: rgba(56,189,248,0.06);
+            border: 1px solid rgba(56,189,248,0.15);
+            padding: 2px 8px; border-radius: 10px;
+            white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+        }
+        .mfr-equip-label {
+            font-size: 9.5px; color: rgba(212,175,55,0.45);
+            letter-spacing: 1px; text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .mfr-equip-list {
+            display: flex; flex-wrap: wrap; gap: 5px;
+            margin-bottom: 12px;
+        }
+        .mfr-equip-badge {
+            font-size: 10px; color: var(--blue);
+            background: rgba(56,189,248,0.07);
+            border: 1px solid rgba(56,189,248,0.16);
+            padding: 3px 9px; border-radius: 10px; line-height: 1.4;
+        }
+        .mfr-contacts {
+            border-top: 1px solid rgba(56,189,248,0.08);
+            padding-top: 10px;
+            display: flex; flex-direction: column; gap: 5px;
+        }
+        .mfr-cr {
+            display: flex; align-items: flex-start; gap: 8px;
+            font-size: 11.5px;
+        }
+        .mfr-cr i {
+            color: rgba(56,189,248,0.40); font-size: 10px;
+            margin-top: 2px; flex-shrink: 0; width: 13px;
+        }
+        .mfr-cr span { color: rgba(224,242,254,0.68); line-height: 1.55; }
+        .mfr-cr a { color: var(--blue); text-decoration: none; }
+        .mfr-cr a:hover { text-decoration: underline; }
+        .mfr-na { color: rgba(224,242,254,0.20); font-style: italic; }
+        .mfr-hidden { display: none; }
+
+        /* ── PLACEHOLDER ── */
+        .placeholder-body {
+            text-align: center;
+            padding: 60px 28px;
+        }
+        .placeholder-body .ph-icon {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: rgba(56,189,248,0.05);
+            border: 1px solid rgba(56,189,248,0.15);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .placeholder-body .ph-icon i { font-size: 32px; color: rgba(56,189,248,0.28); }
+        .placeholder-body p { color: rgba(56,189,248,0.38); font-size: 13px; letter-spacing: 0.8px; }
+
+        /* ── FOOTER — gold text, blue border ── */
+        footer {
+            background: rgba(3, 9, 20, 0.95);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(56, 189, 248, 0.18);
+            color: rgba(212, 175, 55, 0.55);
+            padding: 10px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            bottom: 0; width: 100%;
+            font-size: 13px;
+        }
+
+        .btn-up {
+            background: rgba(56,189,248,0.08);
+            color: var(--blue);
+            border: 1px solid rgba(56,189,248,0.28);
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-up:hover {
+            background: rgba(56,189,248,0.18);
+            border-color: var(--blue);
+        }
+
+        /* Scrollbar */
+        .modal-box::-webkit-scrollbar { width: 5px; }
+        .modal-box::-webkit-scrollbar-track { background: rgba(56,189,248,0.03); }
+        .modal-box::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.25); border-radius: 3px; }
+
+        @media (max-width: 900px) {
+            .cards-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; }
+            .modal-box  { max-width: 100%; }
+            .info-grid  { grid-template-columns: 1fr; }
+            .company-hero { flex-direction: column; align-items: center; text-align: center; }
+            .personnel-table td.dept { display: none; }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <header>
+        <div class="header-left">
+            <a href="../EVA-CORE.html" class="btn-nav"><i class="fas fa-arrow-left"></i> Back</a>
+            <h1>Important Contacts</h1>
+        </div>
+        <a href="../EVA-CORE.html" class="btn-nav"><i class="fas fa-home"></i> Home</a>
+    </header>
+
+    <main>
+        <div class="page-title">
+            <p class="subtitle">SPA &amp; POOL Facilities — CEO Villa — Project Code 10144</p>
+            <h2>Project Contacts &amp; Partners</h2>
+            <div class="title-divider">
+                <span class="line-gold"></span>
+                <i class="fas fa-star"></i>
+                <span class="line-blue"></span>
+            </div>
+        </div>
+
+        <div class="cards-grid">
+
+            <div class="contact-card" onclick="openModal('modal-aseeb')">
+                <div class="card-icon-wrap">
+                    <i class="fas fa-hard-hat"></i>
+                </div>
+                <h3>Supplier / Contractor</h3>
+                <p>Outdoor design &amp; construction specialists for swimming pools, gardens, and fountain systems.</p>
+                <div class="btn-view"><i class="fas fa-eye"></i> View Details</div>
+            </div>
+
+            <div class="contact-card" onclick="openModal('modal-ihcc')">
+                <div class="card-icon-wrap">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>IHCC</h3>
+                <p>Project team &amp; key personnel directory for CEO Villa construction and management.</p>
+                <div class="btn-view"><i class="fas fa-eye"></i> View Details</div>
+            </div>
+
+            <div class="contact-card" onclick="window.location.href='Manufacturer Directory.html'" style="cursor:pointer;">
+                <div class="card-icon-wrap">
+                    <i class="fas fa-industry"></i>
+                </div>
+                <h3>Manufacturer</h3>
+                <p>Equipment manufacturers and technical representatives for installed SPA &amp; POOL systems. 25 manufacturers across 12 countries.</p>
+                <div class="btn-view"><i class="fas fa-external-link-alt"></i> Open Directory</div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- MODAL — ASEEB -->
+    <div class="modal-overlay" id="modal-aseeb">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <div class="modal-title-icon"><i class="fas fa-hard-hat"></i></div>
+                    <div>
+                        <h2>Supplier / Contractor</h2>
+                        <p>Outdoor Design &amp; Construction Services</p>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-aseeb')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="company-hero">
+                    <div class="company-emblem">
+                        <i class="fas fa-water"></i>
+                        <span>Contractor</span>
+                    </div>
+                    <div class="company-info">
+                        <h3>Aseeb Contracting Co.</h3>
+                        <div class="tags">
+                            <span class="tag"><i class="fas fa-hammer"></i> Construction</span>
+                            <span class="tag"><i class="fas fa-leaf"></i> Outdoor Design</span>
+                            <span class="tag"><i class="fas fa-swimming-pool"></i> Pool &amp; Fountain</span>
+                        </div>
+                        <p>Aseeb is an outdoor design and services company specializing in creating, constructing, and maintaining gardens, swimming pools, and fountains. They deliver innovative and high-quality outdoor solutions, transforming outdoor spaces into vibrant and sustainable environments. Core services: garden design, swimming pool construction, and maintenance services.</p>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label><i class="fas fa-globe-asia"></i> Country</label>
+                        <span>Saudi Arabia</span>
+                    </div>
+                    <div class="info-item">
+                        <label><i class="fas fa-map-marker-alt"></i> City</label>
+                        <span>Al-Kharj, Riyadh Province</span>
+                    </div>
+                    <div class="info-item">
+                        <label><i class="fas fa-users"></i> Company Size</label>
+                        <span>1 – 10 Employees</span>
+                    </div>
+                    <div class="info-item">
+                        <label><i class="fas fa-calendar-alt"></i> Founded</label>
+                        <span>2024</span>
+                    </div>
+                    <div class="info-item">
+                        <label><i class="fas fa-phone-alt"></i> Corporate Phone</label>
+                        <span>+966 55 502 3156</span>
+                    </div>
+                    <div class="info-item">
+                        <label><i class="fas fa-globe"></i> Official Website</label>
+                        <a href="http://www.aseeb.net" target="_blank">www.aseeb.net <i class="fas fa-external-link-alt" style="font-size:10px;"></i></a>
+                    </div>
+                    <div class="info-item" style="grid-column: span 2;">
+                        <label><i class="fas fa-map-pin"></i> Business Address</label>
+                        <span>طريق الملك فهد, Al-Kharj, Riyadh Province, Saudi Arabia — 16296</span>
+                    </div>
+                </div>
+
+                <div class="contact-highlight">
+                    <div class="ch-avatar"><i class="fas fa-user-tie"></i></div>
+                    <div class="ch-info">
+                        <label>Contact Person</label>
+                        <strong>Ahmed Magdy</strong>
+                        <span class="phone-badge"><i class="fas fa-phone-alt" style="font-size:11px;"></i> 00966 53 391 2146</span>
+                    </div>
+                </div>
+
+                <div class="social-row">
+                    <label><i class="fas fa-share-alt" style="margin-right:5px;"></i>Follow on</label>
+                    <a href="https://www.linkedin.com/company/%d8%b9%d8%b3%d9%8a%d8%a8"
+                       target="_blank" class="social-link linkedin" title="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://www.instagram.com/sa.aseeb/"
+                       target="_blank" class="social-link instagram" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://x.com/sa_aseeb?s=21&amp;t=gwqoP2TBdRCGJoeW84U8YQ"
+                       target="_blank" class="social-link x-twitter" title="X (Twitter)">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                             style="width:18px;height:18px;fill:currentColor;">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.741l7.732-8.84L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL — IHCC -->
+    <div class="modal-overlay" id="modal-ihcc">
+        <div class="modal-box" style="max-width:980px;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <div class="modal-title-icon"><i class="fas fa-building"></i></div>
+                    <div>
+                        <h2>IHCC — Project Team &amp; Key Personnel</h2>
+                        <p>CEO Villa — Site Execution, Procurement &amp; Design</p>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-ihcc')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <table class="personnel-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Designation</th>
+                            <th>Department</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr class="dept-row">
+                            <td colspan="6"><div class="dept-header facility"><i class="fas fa-shield-alt"></i> Facility Management</div></td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">1</td><td class="name">Abdul Hameed</td>
+                            <td class="desig">Facility Management Engineer</td>
+                            <td class="dept">Facility Management</td>
+                            <td class="email">a.abdulghaffar@ihcc.sa</td>
+                            <td class="phone">+966 58 348 8627</td>
+                        </tr>
+
+                        <tr class="dept-row">
+                            <td colspan="6"><div class="dept-header site"><i class="fas fa-hard-hat"></i> Site Execution</div></td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">2</td><td class="name">Farook Ahmed</td>
+                            <td class="desig">Plumbing Supervisor</td>
+                            <td class="dept">Site Execution</td>
+                            <td class="na">N/A</td>
+                            <td class="phone">+966 59 648 2076</td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">3</td><td class="name">Arshad Khan</td>
+                            <td class="desig">Duct Supervisor</td>
+                            <td class="dept">Site Execution</td>
+                            <td class="na">N/A</td>
+                            <td class="phone">+966 59 741 9901</td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">4</td><td class="name">Abuhana Maher</td>
+                            <td class="desig">Electrical Supervisor</td>
+                            <td class="dept">Site Execution</td>
+                            <td class="na">N/A</td>
+                            <td class="phone">+966 55 955 9283</td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">5</td><td class="name">Saqib Mansoor</td>
+                            <td class="desig">Mechanical Engineer</td>
+                            <td class="dept">Site Execution</td>
+                            <td class="email">S.manzoor@ihcc.sa</td>
+                            <td class="phone">+966 56 710 4479</td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">6</td><td class="name">Abdul Qader</td>
+                            <td class="desig">Electrical Engineer</td>
+                            <td class="dept">Site Execution</td>
+                            <td class="email">elec47@ihcc.sa</td>
+                            <td class="phone">+966 56 352 5599</td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">7</td><td class="name">Zohaib Sarwar</td>
+                            <td class="desig">Project Construction Manager</td>
+                            <td class="dept">Site Execution</td>
+                            <td class="email">z.sarwer@ihcc.sa</td>
+                            <td class="phone">+966 50 416 2556</td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">8</td><td class="name">Wassib Ullah</td>
+                            <td class="desig">Project Manager</td>
+                            <td class="dept">Site Execution</td>
+                            <td class="email">w.sadiq@ihcc.sa</td>
+                            <td class="phone">+966 50 702 5258</td>
+                        </tr>
+
+                        <tr class="dept-row">
+                            <td colspan="6"><div class="dept-header procurement"><i class="fas fa-boxes"></i> Procurement Department</div></td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">9</td><td class="name">Azaz-uddin</td>
+                            <td class="desig">Procurement Engineer</td>
+                            <td class="dept">Procurement Dept.</td>
+                            <td class="email">pro21@ihcc.sa</td>
+                            <td class="phone">+966 50 552 0073</td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">10</td><td class="name">Younus Khan</td>
+                            <td class="desig">Procurement Engineer</td>
+                            <td class="dept">Procurement Dept.</td>
+                            <td class="email">m.younuskhan@ihcc.sa</td>
+                            <td class="phone">+966 50 200 9657</td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">11</td><td class="name">Christian Parez</td>
+                            <td class="desig">Procurement Engineer</td>
+                            <td class="dept">Procurement Dept.</td>
+                            <td class="email">c.perez@ihcc.sa</td>
+                            <td class="phone">+966 55 946 3683</td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">12</td><td class="name">Adil Akhtar</td>
+                            <td class="desig">Procurement Engineer</td>
+                            <td class="dept">Procurement Dept.</td>
+                            <td class="email">pro11@ihcc.sa</td>
+                            <td class="phone">+966 50 465 9620</td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">13</td><td class="name">Nihad Ummath</td>
+                            <td class="desig">Local Procurement</td>
+                            <td class="dept">Procurement Dept.</td>
+                            <td class="email">n.ummath@ihcc.sa</td>
+                            <td class="phone">+966 53 038 8351</td>
+                        </tr>
+
+                        <tr class="dept-row">
+                            <td colspan="6"><div class="dept-header design"><i class="fas fa-drafting-compass"></i> Design Department</div></td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">14</td><td class="name">Qasim Shehzad</td>
+                            <td class="desig">Design Head HVAC</td>
+                            <td class="dept">Design Dept.</td>
+                            <td class="email">q.shahzad@ihcc.sa</td>
+                            <td class="phone">+966 50 277 9901</td>
+                        </tr>
+                        <tr class="data-row">
+                            <td class="num">15</td><td class="name">Rehan Ahmed</td>
+                            <td class="desig">Design Head Plumbing</td>
+                            <td class="dept">Design Dept.</td>
+                            <td class="email">r.ahmad@ihcc.sa</td>
+                            <td class="phone">+966 53 549 8836</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <div class="modal-note">
+                    <i class="fas fa-info-circle" style="color:rgba(56,189,248,0.50);margin-right:8px;"></i>
+                    The above contacts are provided in the handover documentation for coordination and support purposes.
+                    Please contact the relevant person only for matters related to their respective scope.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL — MANUFACTURER -->
+    <div class="modal-overlay" id="modal-manufacturer">
+        <div class="modal-box" style="max-width:1020px;">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <div class="modal-title-icon"><i class="fas fa-industry"></i></div>
+                    <div>
+                        <h2>Manufacturer Directory</h2>
+                        <p>SPA &amp; POOL Equipment Manufacturers — CEO Villa Project 10144</p>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeModal('modal-manufacturer')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Search -->
+                <div class="mfr-search-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="mfr-search" placeholder="Search manufacturer or equipment name…" oninput="filterMfr()">
+                </div>
+                <div class="mfr-count" id="mfr-count">Showing 25 manufacturers</div>
+
+                <div class="mfr-grid" id="mfr-grid">
+
+                    <!-- 1. Elecro -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>Elecro Engineering Ltd</div>
+                            <span class="mfr-country">🇬🇧 United Kingdom</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">HR-UVC Water Disinfection System</span>
+                            <span class="mfr-equip-badge">Outdoor Pool Water Heater 45kW (SFS Joey)</span>
+                            <span class="mfr-equip-badge">Indoor / Spa Heater 18kW (Evolution 2)</span>
+                            <span class="mfr-equip-badge">UV Lamp (HRP-110)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>Unit 11, Gunnels Wood Park, Gunnels Wood Road, Stevenage, Hertfordshire SG1 2BH, United Kingdom</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:sales@elecro.co.uk">sales@elecro.co.uk</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+44 (0) 1438 749474</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Pentair -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>Pentair</div>
+                            <span class="mfr-country">🇺🇸 United States</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Sand Filter Tagelus TA40</span>
+                            <span class="mfr-equip-badge">Sand Filter Triton II TR140</span>
+                            <span class="mfr-equip-badge">6-Position Sand Filter Valve Hi Flow</span>
+                            <span class="mfr-equip-badge">Pool Pump WhisperFlo 3HP (PWFL-901)</span>
+                            <span class="mfr-equip-badge">Pool Pump WhisperFlo 2HP (PWFL-801)</span>
+                            <span class="mfr-equip-badge">Pool Pump WhisperFlo 1.5HP (PWFL-751)</span>
+                            <span class="mfr-equip-badge">Pool Pump SuperFlo 1.0HP</span>
+                            <span class="mfr-equip-badge">Indoor Pool Jet Nozzle Pump 3HP</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>Pentair Pool, 1701 Pinnacle Center Drive, Apex, NC 27539, United States</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:supplierinquiry@pentair.com">supplierinquiry@pentair.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+1 (919) 566-8000</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Hayward -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>Hayward Industries Inc.</div>
+                            <span class="mfr-country">🇺🇸 United States</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">ORP / pH Chemical Controller HCC2000</span>
+                            <span class="mfr-equip-badge">Chlorine Tablet Feeder CL200</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>61 Whitecap Drive, North Kingstown, RI 02852, United States</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:hfcsales@hayward.com">hfcsales@hayward.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>1-908-355-7995</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Amerec -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>Amerec / Sauna360 Inc.</div>
+                            <span class="mfr-country">🇺🇸 United States</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Steam Generator AK14 14kW</span>
+                            <span class="mfr-equip-badge">Auto Drain Valve 3/4&quot; (Steam Generator)</span>
+                            <span class="mfr-equip-badge">Digital K3-CP Steamhead Chrome</span>
+                            <span class="mfr-equip-badge">Sauna Heater 14.4kW</span>
+                            <span class="mfr-equip-badge">Sauna Controller T1 Touch Screen</span>
+                            <span class="mfr-equip-badge">Steam Controller / Digital</span>
+                            <span class="mfr-equip-badge">Fragrance Dosing Pump</span>
+                            <span class="mfr-equip-badge">Sauna Accessories (Stone, Ladle, Bucket)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>575 Cokato Street East, Cokato, MN 55321, United States</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:support@amerec.com">support@amerec.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>1-800-331-0349</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Astral Pool -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>Astral Pool / Spain <span style="font-size:10px;font-weight:400;color:rgba(212,175,55,0.45);">(Fluidra Group)</span></div>
+                            <span class="mfr-country">🇪🇸 Spain</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Wall Inlet 2&quot; SS316 (Outdoor Pool)</span>
+                            <span class="mfr-equip-badge">Main Drain SS316 300×300mm</span>
+                            <span class="mfr-equip-badge">Vacuum Adaptor 2&quot; SS316</span>
+                            <span class="mfr-equip-badge">Deck Box SS316</span>
+                            <span class="mfr-equip-badge">Hydro Massage Jets (Indoor Jacuzzi)</span>
+                            <span class="mfr-equip-badge">Air Inlets (Indoor Jacuzzi)</span>
+                            <span class="mfr-equip-badge">Anti-Vortex Drain SS316</span>
+                            <span class="mfr-equip-badge">Wall Inlet 1.5&quot; SS316</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>Avda. Francesc Macià 60, Planta 20, 08208 Sabadell (Barcelona), Spain</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:info@astralpool.com">info@astralpool.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+34 93 713 63 44</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 6. ATECPOOL -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>ATECPOOL</div>
+                            <span class="mfr-country">🇪🇸 Spain</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">UWL-RGB Light SS AISI 316</span>
+                            <span class="mfr-equip-badge">Strip Lights 3000K IP68 with Accessories</span>
+                            <span class="mfr-equip-badge">GB Fountain Ring Light with Remote Control</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>World Trade Centre, 2ª Planta, Muelle de Barcelona, E-08039 Barcelona, Spain</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:info@atecpool.com">info@atecpool.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+34 93 344 3358</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 7. Praher Plastics -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>Praher Plastics Austria GmbH</div>
+                            <span class="mfr-country">🇦🇹 Austria</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">6-Position Sand Filter Valve V6</span>
+                            <span class="mfr-equip-badge">Backwash Valve Side Mount 2&quot;</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>Poneggenstraße 5, 4311 Schwertberg, Austria</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:sales@praherplastics.com">sales@praherplastics.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+43 7262 61178-0</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 8. PEDROLLO -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>PEDROLLO</div>
+                            <span class="mfr-country">🇮🇹 Italy</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Submersible Pump TOP3 0.75HP (Water Features)</span>
+                            <span class="mfr-equip-badge">Submersible Pump TOP4 1HP (Waterfall)</span>
+                            <span class="mfr-equip-badge">Wall Water Feature Submersible Pump</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>San Bonifacio (Verona), Italy</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:info@pedrollo.com">info@pedrollo.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+39 045 6136311</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 9. AQUA S.p.A. -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>AQUA S.p.A. Industrial Group</div>
+                            <span class="mfr-country">🇮🇹 Italy</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Wall Washer RGB with Remote Control</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>Via Bersella, 3 — 42018 San Martino in Rio (RE), Italy</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:aqua@aqua.it">aqua@aqua.it</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+39 0522 695805</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 10. LINEA / Italy -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>LINEA Light Group</div>
+                            <span class="mfr-country">🇮🇹 Italy</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Fountain Standing Light (Outdoor Pool)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>Via Europa 14, 31028 Vazzola (TV), Italy</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:info@linealight.com">info@linealight.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+39 0423 7868</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 11. UNONOVESTTE -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>UNONOVESTTE</div>
+                            <span class="mfr-country">🇮🇹 Italy</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">RGB Light 12W SS316 (Outdoor Pool)</span>
+                            <span class="mfr-equip-badge">Strip Light (Outdoor &amp; Indoor Pool)</span>
+                            <span class="mfr-equip-badge">Underwater Lights 6W 12VAC (Indoor Pool)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span class="mfr-na">Contact details not available — confirm with Aseeb</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 12. Aquatherm -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>Aquatherm</div>
+                            <span class="mfr-country">🇩🇪 Germany</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">PPR Ball Valve (Water Supply Line)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>Biggen 5, D-57439 Attendorn, Germany</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:info@aquatherm.de">info@aquatherm.de</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+49 (0) 2722 950-0</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 13. WATTS -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>WATTS Water Technologies</div>
+                            <span class="mfr-country">🇩🇪 Germany</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Brass Swing Type Check Valve (R5003 GT)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>Godramsteiner Hauptstr. 167, 76829 Landau, Germany</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:wide@wattswater.com">wide@wattswater.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+49 (0) 6341 9656 0</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 14. PIMTAS -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>PIMTAS</div>
+                            <span class="mfr-country">🇹🇷 Turkey</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">UPVC Double Union Ball Valve (2&quot; &amp; 1&quot;)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>Gebze Plastikçiler OSB, Cumhuriyet Cd. No:52, Turkey</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:pimtas@pimtas.com">pimtas@pimtas.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+90 262 751 24 24</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 15. Solar East / Coatzone -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>Solar East Heat Pump / Coatzone</div>
+                            <span class="mfr-country">🇨🇳 China</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Heat / Chill Pump CZHCPI103T (Cold Plunge Chiller)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>No.73 Defu Road, Xingtan Town, Shunde District, Foshan City, Guangdong Province, 528325, China</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:heatpump@solareast.com">heatpump@solareast.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+86 757 2938 0616</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 16. PULSAFEEDER -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>PULSAFEEDER <span style="font-size:10px;font-weight:400;color:rgba(212,175,55,0.45);">(Brand: CHEM-TECH)</span></div>
+                            <span class="mfr-country">🇺🇸 United States</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Chemical Dosing Pump (Dosing System)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>27101 Airport Rd, Punta Gorda, FL 33982, USA</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:ppgpulsaspo.cs@idexcorp.com">ppgpulsaspo.cs@idexcorp.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+1 (800) 333-6677</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 17. Air Supply -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>Air Supply of The Future Inc.</div>
+                            <span class="mfr-country">🇺🇸 United States</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Silencer Air Blower</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>1950 NW 15th St, Pompano Beach, FL 33069, USA</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:info@airsupplyflorida.com">info@airsupplyflorida.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+1 (800) 848-3077</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 18. ALFANAR -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>ALFANAR</div>
+                            <span class="mfr-country">🇸🇦 Saudi Arabia</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Electrical Control Panel (Outdoor Pool)</span>
+                            <span class="mfr-equip-badge">Electrical Control Panel (Cold Plunge Pool)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>Alfanar Building, New Al Kharj Road, Riyadh 11411, Saudi Arabia</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:info@alfanar.com">info@alfanar.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+966 11 864 4000</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 19. Philips -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>Philips <span style="font-size:10px;font-weight:400;color:rgba(212,175,55,0.45);">(Signify)</span></div>
+                            <span class="mfr-country">🇳🇱 Netherlands</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Sauna Room Lights</span>
+                            <span class="mfr-equip-badge">Steam Room Light</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>High Tech Campus 7, 5656 AE Eindhoven, The Netherlands</span></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+31 40 2784672</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 20. Meanwell -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>MEAN WELL Enterprises Co., Ltd.</div>
+                            <span class="mfr-country">🇹🇼 Taiwan</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Lighting Driver 100VA 220/12VAC (Indoor Pool)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>No.28, Wuquan 3rd Rd., Wugu Dist., New Taipei City 24891, Taiwan (R.O.C.)</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:info@meanwell.com">info@meanwell.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+886-2-2299-6100</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 21. TankPAC -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>TankPAC</div>
+                            <span class="mfr-country">🇹🇼 Taiwan</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">RO System Storage Tank (TP-19P)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>No.553, Zhongshan Rd., Taichung City 43643, Taiwan</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:tankpac@seed.net.tw">tankpac@seed.net.tw</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+886-4-26220078</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 22. Delta -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>Delta Electronics, Inc.</div>
+                            <span class="mfr-country">🇹🇼 Taiwan</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Temperature Controller (Cold Plunge Pool)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>No.186, Ruey Kuang Road, Neihu District, Taipei City 114501, Taiwan</span></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+886-2-8797-2088</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 23. Thermory -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>Thermory SA</div>
+                            <span class="mfr-country">🇪🇪 Estonia</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Sauna Wood Wall Panel (Alder STP)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span>Lõõtsa 1a, 11415 Tallinn, Estonia</span></div>
+                            <div class="mfr-cr"><i class="fas fa-envelope"></i><a href="mailto:info@thermory.com">info@thermory.com</a></div>
+                            <div class="mfr-cr"><i class="fas fa-phone-alt"></i><span>+372 606 2903</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 24. GATA -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>GATA</div>
+                            <span class="mfr-country">🇲🇾 Malaysia</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">UPVC Double Union Ball Valve (GT-211-050 / GT-211-040)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span class="mfr-na">Contact details not available — confirm with Aseeb</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 25. AKUA4CE -->
+                    <div class="mfr-card">
+                        <div class="mfr-card-header">
+                            <div class="mfr-name"><i class="fas fa-industry" style="color:rgba(56,189,248,0.40);font-size:11px;margin-right:6px;"></i>AKUA4CE</div>
+                            <span class="mfr-country">— Origin Unknown</span>
+                        </div>
+                        <div class="mfr-equip-label"><i class="fas fa-boxes" style="margin-right:4px;"></i>Equipment Supplied</div>
+                        <div class="mfr-equip-list">
+                            <span class="mfr-equip-badge">Gutter Drain 2&quot; ABS Plastic</span>
+                            <span class="mfr-equip-badge">Cleaning Kit (Brush, Pole, Vacuum Hose, Head, Leaf Skimmer)</span>
+                        </div>
+                        <div class="mfr-contacts">
+                            <div class="mfr-cr"><i class="fas fa-map-marker-alt"></i><span class="mfr-na">Contact details not available — confirm with Aseeb</span></div>
+                        </div>
+                    </div>
+
+                </div><!-- /mfr-grid -->
+
+                <div class="modal-note" style="margin-top:18px;">
+                    <i class="fas fa-info-circle" style="color:rgba(56,189,248,0.50);margin-right:8px;"></i>
+                    Source: Asset Register (CEO Villa SPA &amp; Pool), VALVES.xlsx, Name Plate Data files, and WO #34982.
+                    Contacts marked "not available" should be obtained from Aseeb Contracting Company.
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <span>SSB Villa O &amp; M Portal &nbsp;|&nbsp; Project Code 10144 &nbsp;|&nbsp; Handing over Documents.</span>
+        <a href="#top" class="btn-up" title="Scroll to top"><i class="fas fa-arrow-up"></i></a>
+    </footer>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function filterMfr() {
+            var q = document.getElementById('mfr-search').value.toLowerCase().trim();
+            var cards = document.querySelectorAll('#mfr-grid .mfr-card');
+            var visible = 0;
+            cards.forEach(function(card) {
+                var name  = (card.querySelector('.mfr-name')  || {innerText:''}).innerText.toLowerCase();
+                var equip = Array.from(card.querySelectorAll('.mfr-equip-badge'))
+                                 .map(function(b){ return b.innerText.toLowerCase(); }).join(' ');
+                var country = (card.querySelector('.mfr-country') || {innerText:''}).innerText.toLowerCase();
+                if (!q || name.includes(q) || equip.includes(q) || country.includes(q)) {
+                    card.classList.remove('mfr-hidden');
+                    visible++;
+                } else {
+                    card.classList.add('mfr-hidden');
+                }
+            });
+            var countEl = document.getElementById('mfr-count');
+            if (countEl) {
+                countEl.textContent = q
+                    ? 'Showing ' + visible + ' of 25 manufacturers'
+                    : 'Showing 25 manufacturers';
+            }
+        }
+        document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === this) closeModal(this.id);
+            });
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(function(m) {
+                    m.classList.remove('active');
+                });
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+
+</body>
+</html>

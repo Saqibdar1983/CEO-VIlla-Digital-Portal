@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steam Room – O&M Manual | CEO Villa SPA & Pool Facility</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#062A35;color:#FFFFFF;min-height:100vh;line-height:1.6}
+  .top-bar{background:#041E26;padding:.5rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(200,169,58,.35);position:sticky;top:0;z-index:9999;gap:1rem}
+  .top-bar-left{font-size:12px;color:#5A9BAA;letter-spacing:.04em}
+  .top-bar-right{font-size:11px;color:#5A9BAA}
+  .top-bar-right span{color:#C9A93A}
+  .btn-nav{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border:1px solid rgba(201,169,58,.55);border-radius:10px;background:rgba(201,169,58,.07);color:#C9A93A;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:.2s ease;flex-shrink:0}
+  .btn-nav:hover{background:rgba(201,169,58,.18);border-color:#e5c85a;box-shadow:0 0 10px rgba(201,169,58,.3)}
+  .hero{padding:2.5rem 2rem 2rem;border-bottom:3px solid #C9A93A;position:relative;overflow:hidden;min-height:220px}
+  .hero-video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(1.2)}
+  .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(4,18,24,.70);z-index:1}
+  .hero-content{position:relative;z-index:2}
+  .chapter-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(23,195,212,.12);border:1px solid rgba(23,195,212,.3);border-radius:20px;padding:4px 12px;font-size:11px;color:#17C3D4;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem}
+  .hero-title{font-size:36px;font-weight:700;color:#FFFFFF;line-height:1.15;margin-bottom:.3rem;letter-spacing:-.01em}
+  .hero-sub{font-size:14px;color:#8EC9D4;margin-bottom:1.25rem}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:1.5rem}
+  .hero-meta-item{font-size:12px;color:#5A9BAA}
+  .hero-meta-item strong{color:#C9A93A;font-weight:500}
+  .container{max-width:1100px;margin:0 auto;padding:2rem}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .grid-6{display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem}
+  .stat-card{background:#0D3D4A;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1rem 1.1rem;border-left:3px solid #17C3D4}
+  .stat-card.gold{border-left-color:#C9A93A}
+  .stat-card.steam{border-left-color:#E0E0E0}
+  .stat-label{font-size:10px;color:#5A9BAA;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+  .stat-value{font-size:24px;font-weight:700;color:#FFFFFF;line-height:1;margin-bottom:.2rem}
+  .stat-unit{font-size:11px;color:#8EC9D4}
+  .section{margin-bottom:1.75rem}
+  .sec-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(255,255,255,.08)}
+  .sec-num{width:28px;height:28px;border-radius:50%;background:#17C3D4;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#041E26;flex-shrink:0}
+  .sec-title{font-size:16px;font-weight:600;color:#FFFFFF;letter-spacing:.01em}
+  .card{background:#0D3D4A;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:1.1rem 1.25rem}
+  .card-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#17C3D4;margin-bottom:.75rem;font-weight:600}
+  .info-row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px}
+  .info-row:last-child{border-bottom:none}
+  .info-row .k{color:#8EC9D4}
+  .info-row .v{color:#FFFFFF;font-weight:500;text-align:right;max-width:58%}
+  .body-text{font-size:13px;color:#8EC9D4;line-height:1.7;margin-bottom:.9rem}
+  .table-wrap{overflow-x:auto;border-radius:10px;border:1px solid rgba(255,255,255,.08)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead tr{background:#041E26}
+  th{padding:.75rem 1rem;text-align:left;font-size:11px;font-weight:600;color:#17C3D4;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap}
+  td{padding:.7rem 1rem;border-top:1px solid rgba(255,255,255,.05);color:#FFFFFF;vertical-align:top}
+  tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+  tr:hover td{background:rgba(23,195,212,.04)}
+  .tag{font-family:'Courier New',monospace;font-size:12px;color:#17C3D4;font-weight:700;white-space:nowrap}
+  .brand{color:#8EC9D4}
+  .cap{color:#C9A93A;font-size:12px}
+  .note{background:rgba(201,169,58,.08);border-left:3px solid #C9A93A;border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:12px;color:#D4B560;margin-top:.75rem;line-height:1.55}
+  .alert{background:rgba(23,195,212,.07);border-left:3px solid #17C3D4;border-radius:0 8px 8px 0;padding:.75rem 1rem;font-size:12px;color:#8EC9D4;margin-top:.75rem;line-height:1.55}
+  .bullet-list{list-style:none;display:flex;flex-direction:column;gap:.4rem}
+  .bullet-list li{font-size:13px;color:#8EC9D4;padding-left:1.2rem;position:relative;line-height:1.55}
+  .bullet-list li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:#17C3D4}
+  .bullet-list li strong{color:#FFFFFF;font-weight:500}
+  .footer{background:#041E26;border-top:1px solid rgba(201,169,58,.2);padding:1.25rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+  .footer-left{font-size:12px;color:#5A9BAA}
+  .footer-right{font-size:11px;color:#5A9BAA;text-align:right}
+  .footer-right span{color:#C9A93A}
+  @media(max-width:720px){.grid-2,.grid-3,.grid-6{grid-template-columns:1fr 1fr}.hero-title{font-size:26px}.container{padding:1.25rem}}
+  @media(max-width:480px){.grid-6{grid-template-columns:repeat(3,1fr)}.grid-2,.grid-3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <a class="btn-nav" href="javascript:history.back()">← Back</a>
+    <div class="top-bar-left">CEO VILLA &nbsp;·&nbsp; SPA &amp; POOL FACILITY &nbsp;·&nbsp; O&amp;M MANUAL</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <div class="top-bar-right">Project Code: <span>10144</span> &nbsp;|&nbsp; IHCC – Jeddah, Saudi Arabia</div>
+    <a class="btn-nav" href="../../EVA-CORE.html">⌂ Home</a>
+  </div>
+</div>
+<div class="hero">
+  <video class="hero-video" id="heroVid" autoplay muted loop playsinline>
+    <source src="Steam Room Video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="chapter-pill">◆ Chapter 3 · Facility Introduction</div>
+    <div class="hero-title">Steam Room</div>
+    <div class="hero-sub">Ground Floor · Indoor SPA Area · CEO Villa SPA &amp; Pool Facility</div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">Document ref: <strong>IHCC-CEO-SPA-OM-INT-003</strong></div>
+      <div class="hero-meta-item">Revision: <strong>R0 – For Review</strong></div>
+      <div class="hero-meta-item">Contractor: <strong>IHCC</strong></div>
+    </div>
+  </div>
+</div>
+<script>
+  var v = document.getElementById('heroVid');
+  v.addEventListener('loadedmetadata', function(){ v.playbackRate = 0.9; });
+  v.playbackRate = 0.9;
+</script>
+<div class="container">
+
+  <!-- STAT CARDS -->
+  <div class="grid-6" style="margin-bottom:1.75rem">
+    <div class="stat-card gold">
+      <div class="stat-label">Room area</div>
+      <div class="stat-value">7.7</div>
+      <div class="stat-unit">m²</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Depth × Width</div>
+      <div class="stat-value">3.32×2.14</div>
+      <div class="stat-unit">metres</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Capacity</div>
+      <div class="stat-value">2</div>
+      <div class="stat-unit">persons</div>
+    </div>
+    <div class="stat-card steam">
+      <div class="stat-label">Steam generator</div>
+      <div class="stat-value">14 kW</div>
+      <div class="stat-unit">Amerec AK14</div>
+    </div>
+    <div class="stat-card steam">
+      <div class="stat-label">Power supply</div>
+      <div class="stat-value">400V</div>
+      <div class="stat-unit">3-Phase</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Finish</div>
+      <div class="stat-value">Marble</div>
+      <div class="stat-unit">throughout</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: OVERVIEW -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">1</div><div class="sec-title">Facility Overview</div></div>
+    <div class="body-text">The Steam Room is a wet-heat wellness facility located in the basement level of the CEO Villa SPA &amp; Pool Facility. Covering a floor area of 7.7 m² and designed for 2 persons, the room delivers a full steam bath experience at temperatures of 40–50°C and 100% relative humidity. Steam is generated by an Amerec AK14 steam generator (14.0 kW at 400V) installed in the adjacent SPA &amp; Pool Pump Room, with steam delivered into the room through a chrome ComfortFlo steam head.</div>
+    <div class="body-text">The room features two marble-finished seating benches — a north wall bench and a freestanding central bench — with concealed 3000K LED strip lighting beneath both seating surfaces to create a warm, atmospheric environment. An aromatherapy fragrance injection system is connected to the steam line, enabling essential oil diffusion through the steam. The steam generator is supplied with de-mineralised water from a dedicated reverse osmosis system to protect the heating elements from scale and mineral deposit.</div>
+  </div>
+
+  <!-- SECTION 2: PHYSICAL DESCRIPTION -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">2</div><div class="sec-title">Physical Description</div></div>
+    <div class="body-text"><strong style="color:#FFFFFF">2.1 Room Dimensions</strong></div>
+    <div class="table-wrap" style="margin-bottom:1rem">
+      <table>
+        <thead><tr><th>Room Feature / Dimension</th><th>Measurement / Description</th></tr></thead>
+        <tbody>
+          <tr><td>Room Length / Depth</td><td class="cap">3,320 mm</td></tr>
+          <tr><td>Room Width</td><td class="cap">2,140 mm</td></tr>
+          <tr><td>Floor Area</td><td class="cap">7.7 m²</td></tr>
+          <tr><td>Design Capacity</td><td class="cap">2 Persons</td></tr>
+          <tr><td>North Wall Bench – Seat Depth</td><td class="cap">540 mm (from wall)</td></tr>
+          <tr><td>North Wall Bench – Height</td><td class="cap">450 mm (from finished floor)</td></tr>
+          <tr><td>Central Bench – Length</td><td class="cap">2,000 mm</td></tr>
+          <tr><td>Central Bench – Width</td><td class="cap">600 mm</td></tr>
+          <tr><td>Central Bench – Height</td><td class="cap">650 mm (from finished floor)</td></tr>
+          <tr><td>Wall &amp; Bench Finish</td><td class="cap">Marble (all surfaces)</td></tr>
+          <tr><td>Floor Finish</td><td class="cap">Marble with drainage fall</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="body-text"><strong style="color:#FFFFFF">2.2 Seating Benches</strong><br>Two marble-finished concrete benches provide seating for up to 2 persons. The North Wall Bench is fixed against the north wall, extending 540 mm from the wall with a seated height of 450 mm from the finished floor. It runs along the north wall from east of the wash basin to the east wall corner, with marble cladding to all exposed surfaces. The Central Bench is a freestanding bench, 2,000 mm × 600 mm × 650 mm high, positioned in the center of the room. This elevated bench provides a second-tier seating level where higher positions experience greater steam heat. Both benches are clad in marble to all exposed surfaces.</div>
+    <div class="body-text"><strong style="color:#FFFFFF">2.3 Wash Basin &amp; Mixer</strong><br>A round ceramic wash basin (ROCA Model A3270MJ000) is installed in the north-west corner of the steam room, on the left-hand side as you enter. Cold water rinsing is available through a wall-mounted mixer tap by FANTINI (Model 5302R113B with outlet assembly 4400R010A), providing a cool-down facility directly within the steam room. The mixer is finished in polished chrome consistent with the steam head and room fittings.</div>
+  </div>
+
+  <!-- SECTION 3: LIGHTING SYSTEM -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">3</div><div class="sec-title">Lighting System</div></div>
+    <div class="body-text">The steam room is lit entirely with concealed 3000K warm white LED strip lighting, providing indirect low-level illumination consistent with the wellness ambience of the facility. No exposed fittings are used inside the steam room. LED strips are positioned as follows:</div>
+    <ul class="bullet-list">
+      <li><strong>Under the north wall bench</strong> — LED strip hidden beneath the front edge of the bench seat, directed toward the floor, creating a warm glowing perimeter light at low level along the north wall</li>
+      <li><strong>Under the central bench</strong> — LED strip along both long sides (2,000 mm) of the central bench, creating a floating light effect from the central bench and illuminating the floor area on both sides</li>
+    </ul>
+    <div class="body-text" style="margin-top:.75rem">All LED strip lighting within the steam room is rated for wet/high-humidity environments, consistent with the 100% RH saturated steam conditions inside the room.</div>
+  </div>
+
+  <!-- SECTION 4: STEAM SYSTEM -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">4</div><div class="sec-title">Steam System</div></div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">4.1 Steam Generator – SG-01 (Amerec AK14)</div>
+        <div class="info-row"><span class="k">Manufacturer</span><span class="v">Amerec / Sauna360</span></div>
+        <div class="info-row"><span class="k">Model</span><span class="v">AK14</span></div>
+        <div class="info-row"><span class="k">Rated output</span><span class="v">14.0 kW at 400–415V, 3-Phase</span></div>
+        <div class="info-row"><span class="k">ETL certification</span><span class="v">Intertek No. 3141369</span></div>
+        <div class="info-row"><span class="k">Cabinet</span><span class="v">Powder-coated steel with SS heating elements</span></div>
+        <div class="info-row"><span class="k">Pressure relief valve</span><span class="v">Built-in 10 PSI (38 kPa) – factory set</span></div>
+        <div class="info-row"><span class="k">Auto drain valve</span><span class="v">TACO ZBL NV32F (Tag: DV-SG) – auto on shutdown</span></div>
+        <div class="info-row"><span class="k">Manual isolation</span><span class="v">Smith-Cooper Series 8145 3/4" ball valve (Tag: GV-60)</span></div>
+        <div class="info-row"><span class="k">Wiring</span><span class="v">Minimum 75°C copper throughout</span></div>
+        <div class="info-row"><span class="k">Location</span><span class="v">Floor-mounted in Basement Pump Room</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">4.2 Steam Head – SH-SR (Amerec ComfortFlo)</div>
+        <div class="info-row"><span class="k">Manufacturer</span><span class="v">Amerec / Sauna360</span></div>
+        <div class="info-row"><span class="k">Model</span><span class="v">8812-31 (ComfortFlo)</span></div>
+        <div class="info-row"><span class="k">Connection</span><span class="v">1/2" NPT steam supply pipe</span></div>
+        <div class="info-row"><span class="k">Material</span><span class="v">Heavy-duty solid brass, polished chrome finish</span></div>
+        <div class="info-row"><span class="k">Steam flow</span><span class="v">1–2 gallons per 20–30 minute session</span></div>
+        <div class="info-row"><span class="k">Location</span><span class="v">Wall-mounted inside steam room</span></div>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-top:1rem">
+      <div class="card">
+        <div class="card-title">4.3 Digital Control Panel – KP-SR (Amerec K3/KT3)</div>
+        <div class="info-row"><span class="k">Manufacturer</span><span class="v">Amerec / Sauna360</span></div>
+        <div class="info-row"><span class="k">Model</span><span class="v">K3 (KT3) Chrome – 9128-131</span></div>
+        <div class="info-row"><span class="k">Type</span><span class="v">Digital touch-screen controller</span></div>
+        <div class="info-row"><span class="k">Temperature range</span><span class="v">50°C – 110°C (adjustable)</span></div>
+        <div class="info-row"><span class="k">Protection rating</span><span class="v">IP44 (damp environment)</span></div>
+        <div class="info-row"><span class="k">Connection</span><span class="v">6-core DIN data cable to generator</span></div>
+        <div class="info-row"><span class="k">Location</span><span class="v">Wall-mounted outside steam room</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">4.4 Aromatherapy System</div>
+        <div class="info-row"><span class="k">Manufacturer</span><span class="v">Amerec / Sauna360</span></div>
+        <div class="info-row"><span class="k">Model</span><span class="v">9223-228 (Fragrance Injector Pump Kit)</span></div>
+        <div class="info-row"><span class="k">Installation</span><span class="v">Inline on steam supply line (pump room)</span></div>
+        <div class="info-row"><span class="k">Power</span><span class="v">120V via included 24V power adapter</span></div>
+        <div class="info-row"><span class="k">Function</span><span class="v">Injects essential oils into steam flow before ComfortFlo head</span></div>
+        <div class="info-row"><span class="k">Maintenance</span><span class="v">Replace fragrance oil bottles periodically</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: RO FEED WATER SYSTEM -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">5</div><div class="sec-title">Water Treatment – RO Feed Water System</div></div>
+    <div class="body-text">The Amerec AK14 steam generator requires de-mineralised water to prevent scale build-up on the heating elements. A dedicated reverse osmosis (RO) water treatment system is installed in the pump room to supply the steam generator with softened, mineral-free water.</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">RO System – RO-01 (SHARKY LG-2)</div>
+        <div class="info-row"><span class="k">Brand / Model</span><span class="v">SHARKY LG-2</span></div>
+        <div class="info-row"><span class="k">Installation</span><span class="v">Wall-cabinet mounted (pump room)</span></div>
+        <div class="info-row"><span class="k">Permeate capacity</span><span class="v">75 GPD (284 LPD)</span></div>
+        <div class="info-row"><span class="k">Feed</span><span class="v">Building cold water supply</span></div>
+        <div class="info-row"><span class="k">Pre-treatment</span><span class="v">Sediment, carbon pre-filter &amp; RO membrane</span></div>
+        <div class="info-row"><span class="k">Purpose</span><span class="v">De-mineralised feed water for steam generator</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Pressure Storage Tank – ROT-01 (TankPAC TP-19P)</div>
+        <div class="info-row"><span class="k">Brand / Model</span><span class="v">TankPAC TP-19P</span></div>
+        <div class="info-row"><span class="k">Installation</span><span class="v">Floor-mounted (pump room)</span></div>
+        <div class="info-row"><span class="k">Certification</span><span class="v">CE 0035</span></div>
+        <div class="info-row"><span class="k">Pre-charge pressure</span><span class="v">7 PSI</span></div>
+        <div class="info-row"><span class="k">Max working pressure</span><span class="v">100 PSI (6.9 bar)</span></div>
+        <div class="info-row"><span class="k">Function</span><span class="v">Stored RO water buffer to steam generator on demand</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: SAFETY DEVICES -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">6</div><div class="sec-title">Safety Devices</div></div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">Pressure Relief Valve – SV-SG-01</div>
+        <div class="info-row"><span class="k">Manufacturer</span><span class="v">Apollo Valves / Aalberts IPS</span></div>
+        <div class="info-row"><span class="k">Model</span><span class="v">13-511-B10</span></div>
+        <div class="info-row"><span class="k">Set point</span><span class="v">10 PSI (38 kPa)</span></div>
+        <div class="info-row"><span class="k">Rating</span><span class="v">310 lb steam/hr | 3/4" NPT</span></div>
+        <div class="info-row"><span class="k">Standard</span><span class="v">ASME Section IV</span></div>
+        <div class="info-row"><span class="k">Function</span><span class="v">Relieves excess pressure automatically</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Auto Drain Valve – DV-SG</div>
+        <div class="info-row"><span class="k">Manufacturer</span><span class="v">TACO</span></div>
+        <div class="info-row"><span class="k">Model</span><span class="v">ZBL NV32F 1-BP</span></div>
+        <div class="info-row"><span class="k">Size</span><span class="v">3/4"</span></div>
+        <div class="info-row"><span class="k">Voltage</span><span class="v">120-277 VAC</span></div>
+        <div class="info-row"><span class="k">Function</span><span class="v">Automatically opens on SG shutdown to drain tank and prevent stagnant water</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Manual Drain Ball Valve – GV-60</div>
+        <div class="info-row"><span class="k">Manufacturer</span><span class="v">Smith-Cooper / ASC</span></div>
+        <div class="info-row"><span class="k">Model</span><span class="v">Series 8145</span></div>
+        <div class="info-row"><span class="k">Size / Type</span><span class="v">3/4" full-port forged brass</span></div>
+        <div class="info-row"><span class="k">Seats</span><span class="v">PTFE</span></div>
+        <div class="info-row"><span class="k">Pressure rating</span><span class="v">600 PSI WOG</span></div>
+        <div class="info-row"><span class="k">Function</span><span class="v">Manual isolation and draining of SG tank for maintenance</span></div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:.9rem">⚠ The safety relief valve (SV-SG-01) must NOT be adjusted or replaced by unqualified personnel. Its discharge pipe must remain directed to a safe drain location at all times.</div>
+  </div>
+
+  <!-- SECTION 7: DESIGN OPERATING PARAMETERS -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">7</div><div class="sec-title">Design Operating Parameters</div></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Parameter</th><th>Design Value / Setting</th></tr></thead>
+        <tbody>
+          <tr><td>Steam Room Operating Temperature</td><td class="cap">40 – 50 °C (Wet Steam Sauna Standard)</td></tr>
+          <tr><td>Relative Humidity</td><td class="cap">100 % RH (Saturated Steam)</td></tr>
+          <tr><td>Recommended Session Duration</td><td class="cap">10 – 20 Minutes</td></tr>
+          <tr><td>Recommended Rest Interval</td><td class="cap">10 – 15 Minutes between sessions</td></tr>
+          <tr><td>Steam Generator Output (at 400V)</td><td class="cap">14.0 kW (Amerec AK14)</td></tr>
+          <tr><td>Steam Head Flow Rate</td><td class="cap">1 – 2 Gallons per 20–30 min session</td></tr>
+          <tr><td>Pressure Relief Valve Set Point</td><td class="cap">10 PSI (38 kPa) — Apollo 13-511-B10</td></tr>
+          <tr><td>RO System Permeate Capacity</td><td class="cap">75 GPD / 284 LPD (SHARKY LG-2)</td></tr>
+          <tr><td>RO Storage Tank Pre-charge Pressure</td><td class="cap">7 PSI (TankPAC TP-19P)</td></tr>
+          <tr><td>RO Storage Tank Max Pressure</td><td class="cap">100 PSI (6.9 bar)</td></tr>
+          <tr><td>Steam Generator Feed Water</td><td class="cap">RO-treated (de-mineralised) water only</td></tr>
+          <tr><td>Control Panel Temp Range</td><td class="cap">50 – 110 °C (Adjustable, Amerec K3/KT3)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 8: EQUIPMENT SCHEDULE -->
+  <div class="section">
+    <div class="sec-head"><div class="sec-num">8</div><div class="sec-title">Mechanical Equipment Schedule</div></div>
+    <div class="body-text">All equipment below is in the Basement SPA &amp; Pool Pump Room unless noted. Digital control panel and steam head are located at / inside the steam room.</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Tag No.</th><th>Equipment Name</th><th>Manufacturer</th><th>Model</th><th>Capacity / Remarks</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag">SG-01</span></td><td>Steam Generator</td><td class="brand">Amerec / Sauna360</td><td>AK14</td><td class="cap">14.0 kW @ 400-415V | 3Ph | ETL Listed | Floor-mounted (Pump Room)</td></tr>
+          <tr><td><span class="tag">KP-SR</span></td><td>Digital Steam Controller</td><td class="brand">Amerec / Sauna360</td><td>K3 (KT3) Chrome – 9128-131</td><td class="cap">Touch screen | Temp range: 50–110°C | Wall-mounted outside steam room</td></tr>
+          <tr><td><span class="tag">SH-SR</span></td><td>Steam Head (ComfortFlo)</td><td class="brand">Amerec / Sauna360</td><td>8812-31</td><td class="cap">1/2" NPT | 1–2 gal/session | Solid brass, chrome finish | Wall-mounted inside</td></tr>
+          <tr><td><span class="tag">—</span></td><td>Aromatherapy / Fragrance Pump</td><td class="brand">Amerec / Sauna360</td><td>9223-228</td><td class="cap">Fragrance injector kit | Inline on steam line | 120V via 24V adapter</td></tr>
+          <tr><td><span class="tag">RO-01</span></td><td>Reverse Osmosis System</td><td class="brand">SHARKY</td><td>LG-2</td><td class="cap">75 GPD (284 LPD) | De-mineralised feed water for steam generator</td></tr>
+          <tr><td><span class="tag">ROT-01</span></td><td>RO Pressure / Storage Tank</td><td class="brand">TankPAC</td><td>TP-19P</td><td class="cap">Pre-charge: 7 PSI | Max: 100 PSI | CE 0035 | Floor-mounted (Pump Room)</td></tr>
+          <tr><td><span class="tag">SV-SG-01</span></td><td>Pressure Relief Valve</td><td class="brand">Apollo Valves / Aalberts IPS</td><td>13-511-B10</td><td class="cap">10 PSI set point | 310 lb steam/hr | 3/4" NPT | ASME Sect. IV design</td></tr>
+          <tr><td><span class="tag">DV-SG</span></td><td>Auto Drain Valve (Actuator)</td><td class="brand">TACO</td><td>ZBL NV32F 1-BP</td><td class="cap">3/4" | 120-277 VAC | Auto drain on SG shutdown</td></tr>
+          <tr><td><span class="tag">GV-60</span></td><td>Manual Drain Ball Valve 3/4"</td><td class="brand">Smith-Cooper / ASC</td><td>Series 8145</td><td class="cap">Full-port brass | 600 PSI WOG | PTFE seats | Quarter-turn manual isolation</td></tr>
+          <tr><td><span class="tag">—</span></td><td>Round Wash Basin</td><td class="brand">ROCA</td><td>A3270MJ000</td><td class="cap">Ceramic, round | NW corner of steam room | Wall-hung</td></tr>
+          <tr><td><span class="tag">—</span></td><td>Wall-Mounted Mixer Tap</td><td class="brand">FANTINI</td><td>5302R113B + 4400R010A</td><td class="cap">Wall-mounted mixer | Chrome | Serves round basin in steam room</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<div class="footer">
+  <div class="footer-left">CEO Villa – SPA &amp; Pool Facility &nbsp;|&nbsp; Chapter 3: Steam Room &nbsp;|&nbsp; O&amp;M Manual</div>
+  <div class="footer-right">Document ref: <span>IHCC-CEO-SPA-OM-INT-003</span> &nbsp;|&nbsp; Rev: <span>R0 – For Review</span> &nbsp;|&nbsp; IHCC – Jeddah, KSA</div>
+</div>
+
+
+
+<style>
+  .btn-top{position:fixed;bottom:22px;right:22px;z-index:9999;width:38px;height:38px;border-radius:50%;border:1px solid rgba(201,169,58,.65);background:rgba(4,30,38,.90);color:#C9A93A;font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;text-decoration:none;backdrop-filter:blur(6px);box-shadow:0 0 8px rgba(201,169,58,.22);transition:.22s ease;}
+  .btn-top:hover{background:rgba(201,169,58,.15);border-color:#e5c85a;box-shadow:0 0 16px rgba(201,169,58,.55);transform:translateY(-3px);}
+</style>
+<a class="btn-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</a>
+</body>
+</html>
